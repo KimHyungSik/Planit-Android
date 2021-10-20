@@ -1,7 +1,7 @@
-package com.ctu.cashstudy
+package com.ctu.cashstudy.feature.presentation
 
 import android.app.Application
-import com.ctu.cashstudy.core.util.CoreData.KAKAO_API_KEY
+import com.ctu.cashstudy.R
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
@@ -10,7 +10,7 @@ class CashStudyApp:Application() {
 
     override fun onCreate() {
         super.onCreate()
-        KakaoSdk.init(this, KAKAO_API_KEY)
+        KakaoSdk.init(this, getString(R.string.kakao_app_key))
     }
 
 }

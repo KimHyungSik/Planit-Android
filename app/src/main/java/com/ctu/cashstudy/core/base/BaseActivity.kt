@@ -33,8 +33,6 @@ open class BaseActivity
     }
 
     // 리턴 값을 가지고 반환된 액티비티 설정
-    open fun resultActivity(activityResult: ActivityResult) {
-
-    }
+    open fun resultActivity(activityResult: ActivityResult) {}
 
 }
