@@ -77,10 +77,10 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
 
     // Kakao login
-    implementation "com.kakao.sdk:v2-user:2.8.2"
+    implementation "com.kakao.sdk:v2-user-rx:2.8.2"
 
     // rx
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
-    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
+//    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+//    implementation 'io.reactivex.rxjava3:rxjava:3.0.6'
+//    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
 }
