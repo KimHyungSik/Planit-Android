@@ -17,21 +17,27 @@
         android:layout_height="match_parent"
         tools:context=".feature.presentation.login.LoginScreen">
 
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/login_compose_view"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/check_kakao_login"
+            android:id="@+id/user_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{()->viewmodel.logout()}"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-
+        <Button
+            android:id="@+id/user_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewmodel.getUserId()}"
+            app:layout_constraintBottom_toTopOf="@id/user_login"
+            android:paddingBottom="12dp"
+            />
 
         <ImageButton
             android:id="@+id/kako_login_btn"

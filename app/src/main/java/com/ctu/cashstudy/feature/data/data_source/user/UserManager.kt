@@ -3,7 +3,10 @@ package com.ctu.cashstudy.feature.data.data_source.user
 import android.content.Context
 import android.util.Log
 import com.ctu.cashstudy.feature.data.data_source.user.componets.KakaoOauthImp
+import com.ctu.cashstudy.feature.domain.model.User
 import com.ctu.core.util.Resource
+import io.reactivex.Completable
+import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
 class UserManager (
@@ -18,19 +21,11 @@ class UserManager (
         }
     }
 
-    fun userLogin(context : Context) : Resource<String> = userPolicy!!.login(context)
+    fun userLogin(context : Context) : Single<Resource<String>> = userPolicy!!.login(context)
 
-    fun userLogout(){
-        userPolicy!!.logout()
-    }
+    fun userLogout() : Completable = userPolicy!!.logout()
 
-    fun userGetId(): String {
-        val result = userPolicy!!.getUserId()
-        return when(result){
-            is Resource.Error -> result.message!!
-            is Resource.Success -> result.data!!
-            is Resource.Loading -> "loding"
-        }
-    }
+    fun userGetId(): Single<Resource<User>> = userPolicy!!.getUserInfo()
+
 
 }

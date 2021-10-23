@@ -3,16 +3,10 @@ package com.ctu.cashstudy.feature.presentation.login
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.compose.material.Text
 import androidx.lifecycle.Observer
 import com.ctu.cashstudy.core.base.BaseBindingActivity
 import com.ctu.cashstudy.databinding.ActivityLoginScreenBinding
-import com.ctu.cashstudy.feature.data.data_source.user.OauthType
-import com.ctu.core.util.Resource
-import com.kakao.sdk.auth.AuthApiClient
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.KakaoSdkError
-import com.kakao.sdk.common.util.Utility
-import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +22,9 @@ class LoginScreen
 
     override fun setup() {
         binding.viewmodel = viewModel
-
+        binding.loginComposeView.setContent {
+            Text("hello compose")
+        }
     }
 
 }

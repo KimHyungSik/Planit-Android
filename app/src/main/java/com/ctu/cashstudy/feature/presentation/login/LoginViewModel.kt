@@ -9,7 +9,10 @@ import com.ctu.cashstudy.feature.data.data_source.user.componets.KakaoOauthImp
 import com.ctu.cashstudy.feature.data.data_source.user.OauthType
 import com.ctu.cashstudy.feature.data.data_source.user.OauthUserPolicy
 import com.ctu.cashstudy.feature.data.data_source.user.UserManager
+import com.ctu.core.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +28,16 @@ class LoginViewModel @Inject constructor(
         MutableLiveData<LoginState>()
     }
 
-    fun getUserId() = viewModelScope.launch {  userManager.userGetId() }
+    var disposables = CompositeDisposable()
+
+    fun getUserId() {
+        userManager.userGetId()
+            .subscribe({ resource ->
+                Log.d(TAG, "getUserId: ${resource.data.toString()}")
+            }, {
+                Log.d(TAG, "getUserId: 유저 정보 조회 실패")
+            }).isDisposed
+    }
 
     fun changeUserPolicy(oauthType: OauthType){
         userManager.userPolicyChange(oauthType)
@@ -33,13 +45,34 @@ class LoginViewModel @Inject constructor(
 
     fun logout(){
         userManager.userLogout()
+            .subscribe({
+                Log.d(TAG, "logout: 로그아웃 성공")
+            }, {
+                Log.d(TAG, "logout: 로그아웃 실패")
+            }).isDisposed
     }
 
     fun login(context: Context){
         changeUserPolicy(OauthType.KakaoOauth)
-        val response = userManager.userLogin(context)
-        Log.d(TAG, "login: ${response.data ?: "data null"}")
-        Log.d(TAG, "login: ${response.message ?: "message null"}")
+        Log.d(TAG, "login: ")
+        userManager.userLogin(context).
+        subscribe(
+            { resource ->
+                Log.d(TAG, "login: subscribe")
+                when (resource) {
+                    is Resource.Success -> {
+                        loginState.postValue(LoginState(isLogin = true))
+                        Log.i(TAG, "로그인 성공 ${resource.data}")
+                    }
+                    is Resource.Error -> {
+                        loginState.postValue(LoginState(error = resource.message!!))
+                        Log.i(TAG, "로그인 실패 ${resource.message}")
+                    }
+                }
+            },
+            { error ->
+                Log.d(TAG, "login: $error")
+            }).addTo(disposables)
     }
 
 }
