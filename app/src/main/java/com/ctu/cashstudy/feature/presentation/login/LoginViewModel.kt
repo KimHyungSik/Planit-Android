@@ -66,13 +66,19 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         loginState.postValue(LoginState(error = resource.message!!))
-                        Log.i(TAG, "로그인 실패 ${resource.message}")
+                        Log.e(TAG, "로그인 실패 ${resource.message}")
                     }
                 }
             },
             { error ->
                 Log.d(TAG, "login: $error")
             }).addTo(disposables)
+    }
+
+    override fun onCleared() {
+        Log.d(TAG, "onCleared: ")
+        disposables.clear()
+        super.onCleared()
     }
 
 }
