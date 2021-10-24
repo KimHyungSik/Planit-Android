@@ -17,12 +17,6 @@
         android:layout_height="match_parent"
         tools:context=".feature.presentation.login.LoginScreen">
 
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/login_compose_view"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <Button
             android:id="@+id/user_login"
             android:layout_width="match_parent"

@@ -3,7 +3,6 @@ package com.ctu.cashstudy.feature.presentation.login
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.compose.material.Text
 import androidx.lifecycle.Observer
 import com.ctu.cashstudy.core.base.BaseBindingActivity
 import com.ctu.cashstudy.databinding.ActivityLoginScreenBinding
@@ -22,9 +21,6 @@ class LoginScreen
 
     override fun setup() {
         binding.viewmodel = viewModel
-        binding.loginComposeView.setContent {
-            Text("hello compose")
-        }
     }
 
 }
