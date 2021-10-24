@@ -82,6 +82,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
 
     // Kakao login
-    implementation "com.kakao.sdk:v2-user-rx:2.8.2"
+    implementation 'com.kakao.sdk:v2-user-rx:2.8.2'
 
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
