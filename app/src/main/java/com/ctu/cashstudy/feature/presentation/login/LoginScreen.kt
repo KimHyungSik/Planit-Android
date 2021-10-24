@@ -8,6 +8,7 @@ import com.ctu.cashstudy.core.base.BaseBindingActivity
 import com.ctu.cashstudy.databinding.ActivityLoginScreenBinding
 import com.ctu.cashstudy.feature.presentation.util.ActivityLifeCycleObserver
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.auth.model.Prompt
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,19 +27,7 @@ class LoginScreen
     override fun setup() {
         lifecycle.addObserver(lifeCycleObserver)
         binding.viewmodel = viewModel
-        binding.kakoLoginBtn.setOnClickListener {
-            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                if (error != null) {
-                    Log.e(TAG, "로그인 실패", error)
-                }
-                else if (token != null) {
-                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
-                }
-            }
-
-                UserApiClient.instance.loginWithKakaoAccount(this@LoginScreen, callback = callback)
-
-        }
+        Log.d(TAG, "setup: ${viewModel.hashCode()}")
     }
 
 }

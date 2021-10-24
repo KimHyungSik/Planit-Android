@@ -7,6 +7,7 @@ import com.ctu.cashstudy.feature.domain.model.User
 import com.ctu.core.util.Resource
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.auth.model.Prompt
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.rx
@@ -25,7 +26,7 @@ class KakaoOauthImp() : OauthUserPolicy {
                 .flatMap { available ->
                     Log.d(TAG, "login: ${available}")
                     if (available) rx.loginWithKakaoTalk(context)
-                    else rx.loginWithKakaoAccount(context)
+                    else rx.loginWithKakaoAccount(context, prompts = listOf(Prompt.LOGIN))
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { token ->
