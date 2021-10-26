@@ -147,3 +147,4 @@ fabric.properties
 
 app/src/main/java/com/ctu/cashstudy/core/util/CoreData.kt
 app/src/main/res/values/kakao_app_key.xml
+App/src/AndroidManifest.xml
