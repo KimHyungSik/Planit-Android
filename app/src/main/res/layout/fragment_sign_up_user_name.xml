@@ -29,13 +29,14 @@
         >
 
         <EditText
-            android:id="@+id/sign_up_ame_edit_text"
+            android:id="@+id/sign_up_name_edit_text"
             android:hint="이름을 입력하세요"
             android:textColorHint="@color/guide_text"
             android:layout_width="match_parent"
             android:layout_height="76dp"
             android:layout_marginHorizontal="26dp"
             android:background="@null"
+            android:textCursorDrawable="@drawable/white_cursor"
             />
 
     </androidx.cardview.widget.CardView>
@@ -58,6 +59,7 @@
             android:layout_height="76dp"
             android:layout_marginHorizontal="26dp"
             android:background="@null"
+            android:textCursorDrawable="@drawable/white_cursor"
             />
 
     </androidx.cardview.widget.CardView>

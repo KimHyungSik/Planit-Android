@@ -13,5 +13,5 @@ class SignUserCategory : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_sign_up_category, container, false)
+    ): View = inflater.inflate(R.layout.fragment_sign_up_user_category, container, false)
 }

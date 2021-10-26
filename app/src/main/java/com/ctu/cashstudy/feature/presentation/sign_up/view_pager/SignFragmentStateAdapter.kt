@@ -22,5 +22,4 @@ class SignFragmentStateAdapter(fragmentActivity : FragmentActivity)
            else -> SignUserNameFragment()
        }
     }
-
 }

@@ -13,5 +13,5 @@ class SignUserDateOfBirthFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_sign_up_dateofbirth, container, false)
+    ): View = inflater.inflate(R.layout.fragment_sign_up_user_dateofbirth, container, false)
 }
