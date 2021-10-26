@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy">
-        <activity android:name=".feature.presentation.terms_of_use.TermsOfUse"></activity>
+        <activity android:name=".feature.presentation.terms_of_use.TermsOfUseScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".feature.presentation.login.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -26,11 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
