@@ -15,32 +15,45 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.presentation.login.LoginScreen">
+        tools:context=".feature.presentation.login.LoginScreen"
+        android:background="@color/navy_blue_back_ground"
+        >
 
-        <Button
-            android:id="@+id/user_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewmodel.logout()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-        <Button
-            android:id="@+id/user_check"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewmodel.getUserId()}"
-            app:layout_constraintBottom_toTopOf="@id/user_login"
-            android:paddingBottom="12dp"
-            />
+        <TextView
+            android:id="@+id/login_screen_sub_title"
+            android:text="돈버는 공부타이머"
+            android:textColor="@color/text_color"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            android:layout_marginTop="204dp"
+            android:layout_marginLeft="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/login_screen_main_title"
+            android:text="플래닛"
+            android:textColor="@color/text_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="40dp"
+            app:layout_constraintTop_toBottomOf="@id/login_screen_sub_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <ImageButton
             android:id="@+id/kako_login_btn"
             android:src="@drawable/kakao_login_large_wide"
+            android:background="@color/navy_blue_back_ground"
             android:onClick="@{()->viewmodel.login(context)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingHorizontal="32dp"
+            android:layout_marginBottom="66dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
