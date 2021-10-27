@@ -16,7 +16,7 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     private val viewModel : SignUpViewModel by activityViewModels()
 
-    val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     override fun setUpViews() {
         super.setUpViews()
@@ -24,7 +24,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     override fun setInit() {
         super.setInit()
-        Log.d(TAG, "setInit: viewModel = $viewModel")
         disposables.add(RxTextView.textChanges(binding.signUpNameEditText)
             .subscribe({
                 val state = viewModel.liveData.value!!.copy(
@@ -32,7 +31,7 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                 )
                 viewModel.updateSignState(state)
             }, {
-                Log.e(TAG, "setInit: name text change ${it}", )
+                Log.e(TAG, "setInit: ${it}", )
             })
         )
         disposables.add(RxTextView.textChanges(binding.signUpNicknameEditText)

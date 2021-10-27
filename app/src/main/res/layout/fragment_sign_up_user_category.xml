@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="category"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    android:orientation="vertical"
+    >
+    
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+        
+        <RadioButton
+            android:text="남성"
+            android:paddingStart="26dp"
+            android:button="@null"
+            android:background="@drawable/sign_up_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"/>
+        
+    </RadioGroup>
+  
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

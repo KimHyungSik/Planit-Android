@@ -33,7 +33,7 @@ class SignUpViewModel @Inject constructor()
 
     init {
         liveData.observeForever {  signUpState ->
-            _activityState.value = !signUpState.nickname.isNullOrEmpty() && !signUpState.name.isNullOrEmpty()
+            _activityState.value = (!signUpState.nickname.isNullOrEmpty() && !signUpState.name.isNullOrEmpty()) || !signUpState.gender.isNullOrEmpty()
         }
     }
 
@@ -45,7 +45,7 @@ class SignUpViewModel @Inject constructor()
     fun checkSignUpUserData(){
         if(_activityState.value!!){
             _activityState.value = false
-            _signUpFragments.value = fragmentsList[++fragmentPage]
+            _signUpFragments.value = fragmentsList[++fragmentPage % fragmentsList.size]
         }
     }
 }
