@@ -39,6 +39,7 @@
             android:paddingHorizontal="26dp">
 
             <CheckBox
+                android:id="@+id/terms_of_use_all_check_box"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="12dp"
@@ -65,11 +66,15 @@
         app:cardCornerRadius="11dp"
         app:layout_constraintTop_toBottomOf="@id/terms_all_check_box_column">
 
-        <include layout="@layout/terms_of_use_items"/>
+        <include
+            android:id="@+id/terms_of_use_items"
+            layout="@layout/terms_of_use_items"
+            />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/terms_of_use_check_btn"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_gravity="center"
