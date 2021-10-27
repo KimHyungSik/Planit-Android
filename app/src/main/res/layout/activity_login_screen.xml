@@ -6,11 +6,11 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.ctu.cashstudy.feature.presentation.login.LoginViewModel"
+            type="com.ctu.planitstudy.feature.presentation.login.LoginViewModel"
             />
         <variable
             name="kakaoLogin"
-            type="com.ctu.cashstudy.feature.data.data_source.user.OauthType.KakaoOauth" />
+            type="com.ctu.planitstudy.feature.data.data_source.user.OauthType.KakaoOauth" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

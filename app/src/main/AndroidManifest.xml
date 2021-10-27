@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ctu.cashstudy">
+    package="com.ctu.planitstudy">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".feature.presentation.CashStudyApp"
+        android:name="com.ctu.planitstudy.feature.presentation.CashStudyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy">
         <activity
-            android:name=".feature.presentation.sign_up.SignUpScreen"
+            android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
             android:windowSoftInputMode="adjustResize"
             >
             <intent-filter>
@@ -22,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.presentation.terms_of_use.TermsOfUseScreen">
+        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreen">
 
         </activity>
-        <activity android:name=".feature.presentation.login.LoginScreen">
+        <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -37,7 +37,7 @@
                     android:scheme="kakaoe32c538e7a02107fd174eff2ab293916" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name="com.ctu.planitstudy.MainActivity"/>
     </application>
 
 </manifest>
