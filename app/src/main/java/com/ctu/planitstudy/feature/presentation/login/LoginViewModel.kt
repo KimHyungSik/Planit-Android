@@ -12,11 +12,11 @@ import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.model.User
 import com.ctu.planitstudy.feature.domain.use_case.user.UserLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,13 +49,15 @@ class LoginViewModel @Inject constructor(
     fun login(context: Context){
         changeUserPolicy(OauthType.KakaoOauth)
         Log.d(TAG, "login: ")
+
+
         userManager.userLogin(context).
         subscribe(
             { resource ->
                 Log.d(TAG, "login: subscribe")
                 when (resource) {
                     is Resource.Success -> {
-                        loginState.postValue(LoginState(isLogin = true))
+                        loginState.postValue(LoginState.Loading(true))
                         userManager.getUserInfo()
                             .subscribe({
                                 Log.d(TAG, "login: subscribe :$it")
@@ -65,6 +67,7 @@ class LoginViewModel @Inject constructor(
                                             .subscribeOn(Schedulers.computation())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe({
+                                                loginState.postValue(LoginState.Login(it.result))
                                                 Log.d(TAG, "login: userLoginUseCase :$it")
                                             }, {
                                                 Log.e(TAG, "login: userLoginUseCase :$it")
@@ -80,7 +83,7 @@ class LoginViewModel @Inject constructor(
                         Log.i(TAG, "로그인 성공 ${resource.data}")
                     }
                     is Resource.Error -> {
-                        loginState.postValue(LoginState(error = resource.message!!))
+                        loginState.postValue(LoginState.Loading(false))
                         Log.e(TAG, "로그인 실패 ${resource.message}")
                     }
                 }
