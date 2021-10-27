@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -45,9 +44,5 @@ class SignUpScreen
             binding.signUpViewpager.currentItem = it.page
         })
     }
-
-    fun Int.dpToPixels():Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),this@SignUpScreen.resources.displayMetrics
-    )
 
 }
