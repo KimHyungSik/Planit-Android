@@ -11,17 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CashStudy">
+        android:theme="@style/Theme.CashStudy"
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
-            android:windowSoftInputMode="adjustResize"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreen">
 
         </activity>
@@ -35,9 +30,13 @@
                 <data
                     android:host="oauth"
                     android:scheme="kakaoe32c538e7a02107fd174eff2ab293916" />
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ctu.planitstudy.MainActivity"/>
+        <activity android:name="com.ctu.planitstudy.MainActivity" />
     </application>
 
 </manifest>
