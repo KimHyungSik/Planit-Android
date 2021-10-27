@@ -17,9 +17,9 @@ import io.reactivex.disposables.CompositeDisposable
 class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding>() {
 
     val TAG = "GenderFragment - 로그"
-    
-    override fun getViewBinding(): FragmentSignUpUserGenderBinding =
-        FragmentSignUpUserGenderBinding.inflate(layoutInflater)
+
+    override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserGenderBinding
+        get() = FragmentSignUpUserGenderBinding::inflate
 
     private val viewModel: SignUpViewModel by activityViewModels()
 

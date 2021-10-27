@@ -1,17 +1,36 @@
 package com.ctu.cashstudy.feature.presentation.sign_up.fragment
 
-import android.os.Bundle
+
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.ctu.cashstudy.R
+import androidx.fragment.app.activityViewModels
+import com.ctu.cashstudy.core.base.BaseFragment
+import com.ctu.cashstudy.databinding.FragmentSignUpUserDateofbirthBinding
+import com.ctu.cashstudy.feature.presentation.sign_up.SignUpViewModel
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.disposables.CompositeDisposable
 
-class SignUserDateOfBirthFragment : Fragment() {
+class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_sign_up_user_dateofbirth, container, false)
+    override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserDateofbirthBinding
+        get() = FragmentSignUpUserDateofbirthBinding::inflate
+
+    private val viewModel : SignUpViewModel by activityViewModels()
+
+    private val disposables = CompositeDisposable()
+
+    override fun setInit() {
+        super.setInit()
+        disposables.add(RxTextView.textChanges(binding.signUpDateOfBirthEditText)
+            .subscribe({
+                val state = viewModel.liveData.value!!.copy(
+                    dateOfBirth = it.toString()
+                )
+                viewModel.updateSignState(state)
+            },{
+
+            }
+            )
+        )
+    }
+
 }

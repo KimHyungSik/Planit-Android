@@ -1,25 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
-    android:orientation="vertical"
-    >
-    
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <RadioButton
-            android:text="남성"
-            android:paddingStart="26dp"
-            android:button="@null"
-            android:background="@drawable/sign_up_radio_button"
-            android:layout_width="match_parent"
-            android:layout_height="76dp"/>
-        
-    </RadioGroup>
-  
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="해당되는 카테고리를\n선택해주세요"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        >
+
+        <RadioGroup
+            android:id="@+id/sign_up_category_radio_group_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_elementary_school"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="초등학교"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_high_school"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="고등학교"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_college"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="대학생"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_job_seeker"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="취업준비생"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/sign_up_category_radio_group_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_middle_school"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="중학교"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_repeater"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="N수생"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_civil_service_exam"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="고시생"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RadioButton
+                android:id="@+id/sign_up_category_radio_workers"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sign_up_radio_button"
+                android:button="@null"
+                android:text="직장인"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </RadioGroup>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

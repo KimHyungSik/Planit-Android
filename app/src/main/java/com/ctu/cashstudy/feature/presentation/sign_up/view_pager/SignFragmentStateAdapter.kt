@@ -16,7 +16,7 @@ class SignFragmentStateAdapter(fragmentActivity : FragmentActivity)
         SignUserCategory(),
     )
 
-    override fun getItemCount(): Int  = fragmentList.size + 1
+    override fun getItemCount(): Int  = fragmentList.size
 
     override fun createFragment(position: Int): Fragment  = fragmentList[position]
 }

@@ -24,7 +24,7 @@ class SignUpViewModel @Inject constructor()
 
     var fragmentPage = 0
 
-    val fragmentsList = listOf<SignUpFragments>(
+    val fragmentsList = listOf(
         SignUpFragments.Name,
         SignUpFragments.Gender,
         SignUpFragments.DateOfBirth,
@@ -33,7 +33,12 @@ class SignUpViewModel @Inject constructor()
 
     init {
         liveData.observeForever {  signUpState ->
-            _activityState.value = (!signUpState.nickname.isNullOrEmpty() && !signUpState.name.isNullOrEmpty()) || !signUpState.gender.isNullOrEmpty()
+            var pageCount = 0
+            pageCount += if(!signUpState.nickname.isNullOrBlank() && !signUpState.name.isNullOrEmpty()) 1 else 0
+            pageCount += if(!signUpState.gender.isNullOrBlank()) 1 else 0
+            pageCount += if(!signUpState.dateOfBirth.isNullOrBlank()) 1 else 0
+            pageCount += if(!signUpState.category.isNullOrBlank()) 1 else 0
+            if(fragmentPage < pageCount) _activityState.value = true
         }
     }
 
@@ -43,9 +48,11 @@ class SignUpViewModel @Inject constructor()
     }
 
     fun checkSignUpUserData(){
+        Log.d(TAG, "checkSignUpUserData: ${fragmentsList.size}")
         if(_activityState.value!!){
             _activityState.value = false
-            _signUpFragments.value = fragmentsList[++fragmentPage % fragmentsList.size]
+            _signUpFragments.value = fragmentsList[++fragmentPage]
         }
+        Log.d(TAG, "checkSignUpUserData: $fragmentPage")
     }
 }

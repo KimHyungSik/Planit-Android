@@ -1,6 +1,7 @@
 package com.ctu.cashstudy.feature.presentation.sign_up.fragment
 
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import com.ctu.cashstudy.core.base.BaseFragment
 import com.ctu.cashstudy.databinding.FragmentSignUpUserNameBinding
@@ -12,7 +13,8 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     val TAG = "NameFragment - 로그"
 
-    override fun getViewBinding(): FragmentSignUpUserNameBinding = FragmentSignUpUserNameBinding.inflate(layoutInflater)
+    override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserNameBinding
+        get() = FragmentSignUpUserNameBinding::inflate
 
     private val viewModel : SignUpViewModel by activityViewModels()
 
@@ -24,6 +26,7 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     override fun setInit() {
         super.setInit()
+        Log.d(TAG, "setInit: viewModel = $viewModel")
         disposables.add(RxTextView.textChanges(binding.signUpNameEditText)
             .subscribe({
                 val state = viewModel.liveData.value!!.copy(
