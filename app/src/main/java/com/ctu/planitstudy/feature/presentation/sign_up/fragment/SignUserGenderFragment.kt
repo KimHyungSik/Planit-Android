@@ -31,9 +31,9 @@ class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding>() {
                    var state = viewModel.liveData.value!!.copy()
                     when(it){
                         R.id.sign_up_gender_male ->
-                            state = viewModel.liveData.value!!.copy(gender = "male")
+                            state = viewModel.liveData.value!!.copy(gender = "MALE")
                         R.id.sign_up_gender_female ->
-                            state = viewModel.liveData.value!!.copy(gender = "female")
+                            state = viewModel.liveData.value!!.copy(gender = "FEMALE")
                     }
                     viewModel.updateSignState(state)
                 }, {

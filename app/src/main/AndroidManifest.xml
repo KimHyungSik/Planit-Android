@@ -17,7 +17,7 @@
         <activity
             android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreenAgrees">
+        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

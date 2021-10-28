@@ -5,12 +5,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ctu.planitstudy.feature.data.data_source.user.UserManager
+import com.ctu.planitstudy.feature.domain.model.SignUpUser
+import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
+import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor()
+class SignUpViewModel @Inject constructor(
+    private val userManager: UserManager,
+    private val userAuthUseCase: UserAuthUseCase
+)
     : ViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
@@ -27,6 +34,10 @@ class SignUpViewModel @Inject constructor()
     val signUpFragments : LiveData<SignUpFragments> = _signUpFragments
 
     var fragmentPage = 0
+    var termsOfUseAgrees = TermsOfUseAgrees(
+        personalInformationAgree = false,
+        marketingInformationAgree = false
+    )
 
     val fragmentsList = listOf(
         SignUpFragments.Name,
@@ -52,10 +63,26 @@ class SignUpViewModel @Inject constructor()
     }
 
     fun checkSignUpUserData(){
-        if(_activityState.value!!){
-            _activityState.value = false
-            _signUpFragments.value = fragmentsList[++fragmentPage]
-        }
+        if(fragmentPage == fragmentsList.size - 1){
+            userManager.getUserInfo()
+                .subscribe ({ it ->
+                    val signUpUser = SignUpUser(
+                        birth = liveData.value?.dateOfBirth!!,
+                        category = liveData.value?.category!!,
+                        email = it.data?.userEmail!!,
+                        marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                        personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                        name = liveData.value?.name!!,
+                        nickname = liveData.value?.nickname!!,
+                        receiverNickname = "",
+                        sex = liveData.value?.gender!!
+                        )
+                },{}).isDisposed
 
+        }else
+            if(_activityState.value!!){
+                _activityState.value = false
+                _signUpFragments.value = fragmentsList[++fragmentPage]
+            }
     }
 }

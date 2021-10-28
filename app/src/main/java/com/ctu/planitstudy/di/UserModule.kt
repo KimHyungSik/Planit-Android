@@ -6,7 +6,7 @@ import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
 import com.ctu.planitstudy.feature.data.remote.UserAuthApi
 import com.ctu.planitstudy.feature.data.repository.UserRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
-import com.ctu.planitstudy.feature.domain.use_case.user.UserLoginUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,6 +53,7 @@ object UserModule {
 
     @Provides
     @Singleton
-    fun providerUserLoginUseCase(userRepository: UserRepository) : UserLoginUseCase =
-        UserLoginUseCase(userRepository)
+    fun providerUserAuthUseCase(userRepository: UserRepository) : UserAuthUseCase =
+        UserAuthUseCase(userRepository)
+
 }

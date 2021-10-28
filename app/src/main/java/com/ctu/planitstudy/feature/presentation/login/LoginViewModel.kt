@@ -4,15 +4,12 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.model.LoginUser
-import com.ctu.planitstudy.feature.domain.model.User
-import com.ctu.planitstudy.feature.domain.use_case.user.UserLoginUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -22,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userManager: UserManager,
-    private val userLoginUseCase: UserLoginUseCase
+    private val userAuthUseCase: UserAuthUseCase
 ) : ViewModel()
 {
     val TAG = "LoginViewModel - 로그"
@@ -61,12 +58,11 @@ class LoginViewModel @Inject constructor(
                                 Log.d(TAG, "login: subscribe :$it")
                                 when (it) {
                                     is Resource.Success -> {
-                                        userLoginUseCase(LoginUser(it.data!!.userEmail))
+                                        userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                             .subscribeOn(Schedulers.computation())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe({
                                                 loginState.postValue(LoginState.Login(it.result))
-                                                Log.d(TAG, "login: userLoginUseCase :$it")
                                             }, {
                                                 Log.e(TAG, "login: userLoginUseCase :$it")
                                             })

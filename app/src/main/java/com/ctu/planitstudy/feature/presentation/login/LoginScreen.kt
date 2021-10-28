@@ -1,19 +1,12 @@
 package com.ctu.planitstudy.feature.presentation.login
 
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.MainActivity
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
-import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreenAgrees
-import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
-import com.kakao.sdk.user.UserApiClient
-import com.kakao.sdk.user.rx
+import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 
 @AndroidEntryPoint
 class LoginScreen
@@ -36,7 +29,7 @@ class LoginScreen
                     if(it.state)
                         moveIntent(MainActivity::class.java)
                     else
-                        moveIntent(TermsOfUseScreenAgrees::class.java)
+                        moveIntent(TermsOfUseAgreesScreen::class.java)
                 }
             }
         })

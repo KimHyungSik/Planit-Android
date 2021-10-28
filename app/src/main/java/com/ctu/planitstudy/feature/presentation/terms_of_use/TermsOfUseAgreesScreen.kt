@@ -15,7 +15,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
-class TermsOfUseScreenAgrees
+class TermsOfUseAgreesScreen
     : BaseBindingActivity<ActivityTermsOfUseBinding>() {
 
     val TAG = "TermsOfUseScreen - 로그"

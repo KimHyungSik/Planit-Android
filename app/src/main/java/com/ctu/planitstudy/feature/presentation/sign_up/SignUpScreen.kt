@@ -49,6 +49,8 @@ class SignUpScreen
         })
 
         val termsOfUseAgrees = intent.getParcelableExtra<TermsOfUseAgrees>("termsOfUseAgrees")
+        if(termsOfUseAgrees != null)
+            viewModel.termsOfUseAgrees = termsOfUseAgrees
     }
 
 }
