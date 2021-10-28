@@ -6,4 +6,5 @@ data class SignUpState (
         val gender : String? = null,
         val dateOfBirth : String? = null,
         val category: String? = null,
+        val receiverName: String = ""
 )

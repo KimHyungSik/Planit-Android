@@ -64,6 +64,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/sign_up_btn_text"
                     android:layout_width="363dp"
                     android:layout_height="match_parent"
                     android:gravity="center"

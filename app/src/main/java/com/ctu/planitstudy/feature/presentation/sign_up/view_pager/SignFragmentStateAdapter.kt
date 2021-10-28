@@ -14,6 +14,7 @@ class SignFragmentStateAdapter(fragmentActivity : FragmentActivity)
         SignUserGenderFragment(),
         SignUserDateOfBirthFragment(),
         SignUserCategory(),
+        SignUpUserReceiverName()
     )
 
     override fun getItemCount(): Int  = fragmentList.size

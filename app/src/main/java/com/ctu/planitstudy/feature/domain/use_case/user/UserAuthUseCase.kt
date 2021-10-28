@@ -6,11 +6,11 @@ import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class UserAuthUseCase constructor(
+class UserAuthUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-
     fun userLogin(loginUser: LoginUser): Flowable<LoginDto> =
         userRepository.userLogin(loginUser)
 

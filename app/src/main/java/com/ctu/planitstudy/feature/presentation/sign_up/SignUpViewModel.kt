@@ -11,6 +11,8 @@ import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +36,8 @@ class SignUpViewModel @Inject constructor(
     val signUpFragments : LiveData<SignUpFragments> = _signUpFragments
 
     var fragmentPage = 0
-    var termsOfUseAgrees = TermsOfUseAgrees(
+
+    var termsOfUseAgrees : TermsOfUseAgrees = TermsOfUseAgrees(
         personalInformationAgree = false,
         marketingInformationAgree = false
     )
@@ -65,7 +68,7 @@ class SignUpViewModel @Inject constructor(
     fun checkSignUpUserData(){
         if(fragmentPage == fragmentsList.size - 1){
             userManager.getUserInfo()
-                .subscribe ({ it ->
+                .subscribe({ it ->
                     val signUpUser = SignUpUser(
                         birth = liveData.value?.dateOfBirth!!,
                         category = liveData.value?.category!!,
@@ -76,8 +79,14 @@ class SignUpViewModel @Inject constructor(
                         nickname = liveData.value?.nickname!!,
                         receiverNickname = "",
                         sex = liveData.value?.gender!!
-                        )
-                },{}).isDisposed
+                    )
+                    userAuthUseCase.userSignUp(signUpUser)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            Log.d(TAG, "checkSignUpUserData: $it")
+                        }
+                }, {}).isDisposed
 
         }else
             if(_activityState.value!!){
