@@ -17,26 +17,25 @@
         <activity
             android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreen">
-
+        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseScreenAgrees">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="oauth"
                     android:scheme="kakaoe32c538e7a02107fd174eff2ab293916" />
-
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ctu.planitstudy.MainActivity" />
-    </application>
+        <activity android:name="com.ctu.planitstudy.MainActivity">
 
+        </activity>
+    </application>
 </manifest>

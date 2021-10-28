@@ -48,8 +48,6 @@ class LoginViewModel @Inject constructor(
 
     fun login(context: Context){
         changeUserPolicy(OauthType.KakaoOauth)
-        Log.d(TAG, "login: ")
-
 
         userManager.userLogin(context).
         subscribe(
@@ -89,7 +87,7 @@ class LoginViewModel @Inject constructor(
                 }
             },
             { error ->
-                Log.d(TAG, "login: $error")
+                Log.d(TAG, "login error: ${error.localizedMessage}")
             }).addTo(disposables)
     }
 

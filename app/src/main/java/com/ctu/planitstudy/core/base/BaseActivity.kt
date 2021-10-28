@@ -24,6 +24,10 @@ open class BaseActivity
         startActivity(intent)
     }
 
+    open fun moveIntent(intent: Intent) {
+        startActivity(intent)
+    }
+
     // 리턴 값을 가지는 화면 이동
     open fun moveIntentResult(activity: Class<*>){
         val intent = Intent(this, activity)
@@ -32,6 +36,13 @@ open class BaseActivity
 
     open fun moveIntentAllClear(activity: Class<*>) {
         val intent = Intent(this, activity)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
+
+    open fun moveIntentAllClear(intent: Intent) {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or
                 Intent.FLAG_ACTIVITY_NEW_TASK

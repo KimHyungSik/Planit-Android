@@ -24,7 +24,7 @@ class KakaoOauthImp() : OauthUserPolicy {
                 .flatMap { available ->
                     Log.d(TAG, "login: ${available}")
                     if (available) rx.loginWithKakaoTalk(context)
-                    else rx.loginWithKakaoAccount(context, prompts = listOf(Prompt.LOGIN))
+                    else rx.loginWithKakaoAccount(context)
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { token ->
