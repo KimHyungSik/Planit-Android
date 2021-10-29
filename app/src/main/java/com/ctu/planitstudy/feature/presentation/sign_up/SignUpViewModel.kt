@@ -49,6 +49,7 @@ class SignUpViewModel @Inject constructor(
         SignUpFragments.Gender,
         SignUpFragments.DateOfBirth,
         SignUpFragments.Category,
+        SignUpFragments.ReceiverName
     )
 
     init {
@@ -78,7 +79,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun sendSignUpUserData() {
+    fun sendSignUpUserData(receiverNameSkip: Boolean) {
         userManager.getUserInfo()
             .subscribe({ it ->
                 val signUpUser = SignUpUser(
@@ -89,7 +90,7 @@ class SignUpViewModel @Inject constructor(
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
                     nickname = liveData.value?.nickname!!,
-                    receiverNickname = "",
+                    receiverNickname = if(receiverNameSkip) "" else liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!
                 )
                 userAuthUseCase.userSignUp(signUpUser)

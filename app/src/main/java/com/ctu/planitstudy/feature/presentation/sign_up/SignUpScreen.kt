@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ctu.planitstudy.R
@@ -92,25 +93,36 @@ class SignUpScreen
     }
 
     fun setReceiverUi(state: Boolean){
-        if(!state){
-            binding.signUpBtn.run {
-                setCardBackgroundColor(resources.getColor(R.color.button_disabled))
-                isClickable = true
-            }
-            binding.signUpBtnText.run{
-                text = "건너뛰기"
-                setTextColor(resources.getColor(R.color.white))
-            }
+        if(state){
+            binding.signUpBtn.visibility = View.VISIBLE
+            binding.signUpConfirm.visibility = View.GONE
         }else{
-            binding.signUpBtn.run {
-                setCardBackgroundColor(resources.getColor(R.color.white))
-                isClickable = true
-            }
-            binding.signUpBtnText.run{
-                binding.signUpBtnText.text = "확인"
-                setTextColor(resources.getColor(R.color.black))
-            }
+            binding.signUpBtn.visibility = View.GONE
+            binding.signUpConfirm.visibility = View.VISIBLE
         }
     }
+
+    // 추천인 입력 단일 버튼 활성화
+//    fun setReceiverUi(state: Boolean){
+//        if(!state){
+//            binding.signUpBtn.run {
+//                setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+//                isClickable = true
+//            }
+//            binding.signUpBtnText.run{
+//                text = "건너뛰기"
+//                setTextColor(resources.getColor(R.color.white))
+//            }
+//        }else{
+//            binding.signUpBtn.run {
+//                setCardBackgroundColor(resources.getColor(R.color.white))
+//                isClickable = true
+//            }
+//            binding.signUpBtnText.run{
+//                binding.signUpBtnText.text = "확인"
+//                setTextColor(resources.getColor(R.color.black))
+//            }
+//        }
+//    }
 
 }
