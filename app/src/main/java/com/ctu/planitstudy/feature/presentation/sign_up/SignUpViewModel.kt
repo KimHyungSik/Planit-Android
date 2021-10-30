@@ -60,9 +60,9 @@ class SignUpViewModel @Inject constructor(
             var pageCount = 0
             pageCount += if (!signUpState.nickname.isNullOrBlank() && !signUpState.name.isNullOrEmpty()) 1 else 0
             pageCount += if (!signUpState.gender.isNullOrBlank()) 1 else 0
-            pageCount += if (!signUpState.dateOfBirth.isNullOrBlank()) 1 else 0
+            pageCount += if (!signUpState.dateOfBirth.isNullOrBlank() && signUpState.dateFormat) 1 else 0
             pageCount += if (!signUpState.category.isNullOrBlank()) 1 else 0
-            if (fragmentPage < pageCount) _activityState.value = true
+            _activityState.value = fragmentPage < pageCount
         }
     }
 

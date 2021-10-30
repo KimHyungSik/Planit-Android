@@ -29,6 +29,7 @@ class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBindin
                     viewModel.updateSignState(state)
                 }, {})
         )
+
     }
 
     override fun onDestroy() {
