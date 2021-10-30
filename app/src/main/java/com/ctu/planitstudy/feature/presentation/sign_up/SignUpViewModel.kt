@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
+import com.ctu.planitstudy.feature.data.remote.dto.toSignUpUserResponse
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
+import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
@@ -33,9 +36,8 @@ class SignUpViewModel @Inject constructor(
     private val _signUpFragments = MutableLiveData<SignUpFragments>(SignUpFragments.Name)
     val signUpFragments: LiveData<SignUpFragments> = _signUpFragments
 
-    private val _datePickerActivity = MutableLiveData<Boolean>()
-    val datePickerActivity: LiveData<Boolean> = _datePickerActivity
-
+    private val _signUpUserResponse = MutableLiveData<Resource<SignUpUserResponse>>()
+    val signUpUserResponse : LiveData<Resource<SignUpUserResponse>> = _signUpUserResponse
 
     var fragmentPage = 0
 
@@ -62,10 +64,6 @@ class SignUpViewModel @Inject constructor(
             pageCount += if (!signUpState.category.isNullOrBlank()) 1 else 0
             if (fragmentPage < pageCount) _activityState.value = true
         }
-    }
-
-    fun datePickerActivityState(state: Boolean) {
-        _datePickerActivity.value = state
     }
 
     fun updateSignState(state: SignUpState) {
@@ -98,8 +96,11 @@ class SignUpViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         Log.d(TAG, "checkSignUpUserData: $it")
+                        _signUpUserResponse.value = Resource.Success(it.toSignUpUserResponse())
                     }
-            }, {}).isDisposed
+            }, {
+                _signUpUserResponse.value = Resource.Error(it.localizedMessage)
+            }).isDisposed
 
     }
 }

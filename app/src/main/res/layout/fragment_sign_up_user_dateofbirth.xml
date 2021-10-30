@@ -28,7 +28,7 @@
         android:clickable="true"
         android:focusable="true">
 
-        <TextView
+        <EditText
             android:id="@+id/sign_up_date_of_birth_edit_text"
             android:hint="YY/MM/DD"
             android:textColorHint="@color/guide_text"
@@ -39,6 +39,7 @@
             android:background="@null"
             android:maxLines="1"
             android:textCursorDrawable="@drawable/white_cursor"
+            android:inputType="number"
             />
 
     </androidx.cardview.widget.CardView>

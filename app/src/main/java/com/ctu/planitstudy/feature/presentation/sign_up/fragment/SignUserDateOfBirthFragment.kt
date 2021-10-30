@@ -28,12 +28,7 @@ class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBi
 
     override fun setInit() {
         super.setInit()
-        binding.signUpDateOfBirthCardView.setOnClickListener {
-            viewModel.datePickerActivityState(true)
-        }
-        viewModel.liveData.observeForever {
-            binding.signUpDateOfBirthEditText.text = it.dateOfBirth
-        }
+
     }
 
 }

@@ -26,13 +26,6 @@ class SignUpScreen
     override val bindingInflater: (LayoutInflater) -> ActivitySignUpScreenBinding
             = ActivitySignUpScreenBinding::inflate
 
-    private val datePicker =
-        MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
-            .build()
-
     override fun setup() {
         binding.signUpViewpager.apply {
             adapter = SignFragmentStateAdapter(this@SignUpScreen)
@@ -50,14 +43,6 @@ class SignUpScreen
         if(termsOfUseAgrees != null)
             viewModel.termsOfUseAgrees = termsOfUseAgrees
 
-        datePicker.addOnPositiveButtonClickListener {
-            val timeZoneUTC: TimeZone = TimeZone.getDefault()
-            val offsetFromUTC: Int = timeZoneUTC.getOffset(Date().getTime()) * -1
-            val simpleFormat = SimpleDateFormat("yyyy/MM/dd", Locale.KOREA)
-            val date = Date(it + offsetFromUTC)
-
-            viewModel.updateSignState(viewModel.liveData.value!!.copy(dateOfBirth = simpleFormat.format(date)))
-        }
     }
 
     private fun viewModelObserveSetUp(){
@@ -84,12 +69,6 @@ class SignUpScreen
             binding.signUpViewpager.currentItem = it.page
         })
 
-        viewModel.datePickerActivity.observe(this, {
-            if (it) {
-                datePicker.show(this.supportFragmentManager, "datePicker")
-                viewModel.datePickerActivityState(false)
-            }
-        })
     }
 
     fun setReceiverUi(state: Boolean){
