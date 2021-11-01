@@ -15,28 +15,29 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen"></activity>
+        <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen"></activity>
-        <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
+        <activity android:name="com.ctu.planitstudy.MainActivity">
+
+        </activity>
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
+                <!-- Redirect URI: "kakao32c538e7a02107fd174eff2ab293916://oauth" -->
                 <data
                     android:host="oauth"
                     android:scheme="kakaoe32c538e7a02107fd174eff2ab293916" />
-
             </intent-filter>
-        </activity>
-        <activity android:name="com.ctu.planitstudy.MainActivity">
-
         </activity>
     </application>
 </manifest>

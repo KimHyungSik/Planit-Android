@@ -81,7 +81,7 @@
         android:textSize="14sp"
         android:textColor="#1b7bff"
         android:lineSpacingExtra="10sp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="26dp"
         />
 
 

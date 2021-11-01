@@ -88,7 +88,6 @@ class LoginViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        Log.d(TAG, "onCleared: ")
         disposables.clear()
         super.onCleared()
     }

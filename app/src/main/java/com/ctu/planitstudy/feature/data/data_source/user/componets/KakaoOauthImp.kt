@@ -21,12 +21,13 @@ class KakaoOauthImp() : OauthUserPolicy {
     override fun login(context: Context): Single<Resource<String>> =
         UserApiClient.run {
             Single.just(instance.isKakaoTalkLoginAvailable(context))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { available ->
                     Log.d(TAG, "login: ${available}")
                     if (available) rx.loginWithKakaoTalk(context)
                     else rx.loginWithKakaoAccount(context)
                 }
-                .observeOn(AndroidSchedulers.mainThread())
                 .map { token ->
                     Log.d(TAG, "login: ${token.accessToken}")
                     if (token != null) Resource.Success<String>("success")
