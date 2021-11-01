@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".feature.presentation.sign_up.SignUpScreen">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/navy_blue_back_ground"
+            android:orientation="vertical">
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/sign_up_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="100dp"
+                app:dotsClickable="false"
+                app:dotsColor="@color/button_disabled"
+                app:dotsSize="9dp"
+                app:dotsWidthFactor="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selectedDotColor="@color/blue_item_enabled_box" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/sign_up_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="60dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@id/sign_up_btn"
+                app:layout_constraintTop_toBottomOf="@id/sign_up_indicator" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginBottom="40dp"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/sign_up_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:onClick="@{()->viewmodel.checkSignUpUserData()}"
+                    app:cardBackgroundColor="@color/button_disabled"
+                    app:cardCornerRadius="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+
+                    <TextView
+                        android:id="@+id/sign_up_btn_text"
+                        android:layout_width="363dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="다음"
+                        android:textColor="@color/navy_blue_back_ground"
+                        android:textSize="16sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/sign_up_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    >
+
+                    <TextView
+                        android:id="@+id/sign_up_skip_receiver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="건너뛰기"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:background="@drawable/white_board_line"
+                        android:onClick="@{()->viewmodel.sendSignUpUserData(false)}"
+                        android:layout_marginEnd="8dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sign_up_confirm_btn"
+                        android:layout_weight="4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="40dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:onClick="@{()->viewmodel.sendSignUpUserData(true)}"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="확인"
+                            android:textColor="@color/navy_blue_back_ground"
+                            android:textSize="16sp" />
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
