@@ -6,6 +6,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
+import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
+import com.ctu.planitstudy.core.util.CoreData.REFRESHTOKEN
+import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.databinding.ActivitySignUpScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.SignFragmentStateAdapter
@@ -67,6 +70,11 @@ class SignUpScreen
             if (viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
                 setReceiverUi(false)
             binding.signUpViewpager.currentItem = it.page
+        })
+
+        viewModel.signUpUserResponse.observe(this, {
+            PreferencesManager.setString(this, ACCESSTOKEN, it.accessToken)
+            PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
         })
 
     }

@@ -44,8 +44,8 @@ class SignUpViewModel @Inject constructor(
     private val _signUpFragments = MutableLiveData<SignUpFragments>(SignUpFragments.Name)
     val signUpFragments: LiveData<SignUpFragments> = _signUpFragments
 
-    private val _signUpUserResponse = MutableLiveData<Resource<SignUpUserResponse>>()
-    val signUpUserResponse: LiveData<Resource<SignUpUserResponse>> = _signUpUserResponse
+    private val _signUpUserResponse = MutableLiveData<SignUpUserResponse>()
+    val signUpUserResponse: LiveData<SignUpUserResponse> = _signUpUserResponse
 
     private val _validateNickName = MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
     val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
@@ -128,18 +128,25 @@ class SignUpViewModel @Inject constructor(
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
                     nickname = liveData.value?.nickname!!,
-                    receiverNickname = if (receiverNameSkip) "" else liveData.value?.receiverName!!,
+                    receiverNickname = if (!receiverNameSkip) "" else liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!
                 )
+                Log.d(TAG, "sendSignUpUserData: $signUpUser")
                 userAuthUseCase.userSignUp(signUpUser)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
+                    .subscribe({
                         Log.d(TAG, "checkSignUpUserData: $it")
-                        _signUpUserResponse.value = Resource.Success(SignUpUserResponse(accessToken = it.getAccessToken(), refreshToken =  it.getRefreshToken()))
-                    }
+                        _signUpUserResponse.value = SignUpUserResponse(
+                            accessToken = it.getAccessToken(),
+                            refreshToken = it.getRefreshToken()
+                        )
+                    }, {
+                        it.printStackTrace()
+                        Log.e(TAG, "sendSignUpUserData: ${it.localizedMessage}",)
+                    })
             }, {
-                _signUpUserResponse.value = Resource.Error(it.localizedMessage)
+                _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
             }).isDisposed
 
     }

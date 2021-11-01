@@ -42,7 +42,7 @@ class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBi
                     // 문자열 증가 중
                     if(textCount < it.text.length){
                         if(it.text.length == 4 || it.text.length == 7){
-                            it.text += '/'
+                            it.text += '-'
                             binding.signUpDateOfBirthEditText.setText(it.text)
                             binding.signUpDateOfBirthEditText.setSelection(it.text.length)
                         }

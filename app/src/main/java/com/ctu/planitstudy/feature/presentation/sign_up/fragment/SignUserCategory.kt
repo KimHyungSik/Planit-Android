@@ -52,7 +52,7 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
                     when(it){
                         R.id.sign_up_category_radio_middle_school -> state = state!!.copy(category = "MIDDLE_SCHOOL")
                         R.id.sign_up_category_radio_repeater -> state = state!!.copy(category = "NTH_EXAM")
-                        R.id.sign_up_category_radio_civil_service_exam -> state = state!!.copy(category = "serviceExam")
+                        R.id.sign_up_category_radio_civil_service_exam -> state = state!!.copy(category = "EXAM_PREP")
                         R.id.sign_up_category_radio_workers -> state = state!!.copy(category = "WORKER")
                     }
                     viewModel.updateSignState(state!!)
