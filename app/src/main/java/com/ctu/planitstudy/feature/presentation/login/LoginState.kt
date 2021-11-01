@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.login
 
-data class LoginState(
-    val isLoading: Boolean = false,
-    val isLogin: Boolean = false,
-    val error: String = ""
-)
+sealed class LoginState(val state: Boolean){
+    class Login(_state : Boolean) : LoginState(_state)
+    class Loading(_state : Boolean) : LoginState(_state)
+}

@@ -1,7 +1,9 @@
 package com.ctu.planitstudy.feature.presentation.sign_up.fragment
 
+import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -32,10 +34,10 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
                     binding.signUpCategoryRadioGroupRight.clearCheck()
                     var state = viewModel.liveData.value
                     when(it){
-                        R.id.sign_up_category_radio_elementary_school -> state = state!!.copy(category = "elementarySchool")
-                        R.id.sign_up_category_radio_high_school -> state = state!!.copy(category = "highSchool")
-                        R.id.sign_up_category_radio_college -> state = state!!.copy(category = "college")
-                        R.id.sign_up_category_radio_job_seeker -> state = state!!.copy(category = "jobSeeker")
+                        R.id.sign_up_category_radio_elementary_school -> state = state!!.copy(category = "ELEMENTARY_SCHOOL")
+                        R.id.sign_up_category_radio_high_school -> state = state!!.copy(category = "HIGH_SCHOOL")
+                        R.id.sign_up_category_radio_college -> state = state!!.copy(category = "UNIVERSITY")
+                        R.id.sign_up_category_radio_job_seeker -> state = state!!.copy(category = "JOB_PREP")
                     }
                     viewModel.updateSignState(state!!)
                 }, {})
@@ -48,13 +50,18 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
                     var state = viewModel.liveData.value
                     binding.signUpCategoryRadioGroupLeft.clearCheck()
                     when(it){
-                        R.id.sign_up_category_radio_middle_school -> state = state!!.copy(category = "middleSchool")
-                        R.id.sign_up_category_radio_repeater -> state = state!!.copy(category = "repeater")
-                        R.id.sign_up_category_radio_civil_service_exam -> state = state!!.copy(category = "serviceExam")
-                        R.id.sign_up_category_radio_workers -> state = state!!.copy(category = "workers")
+                        R.id.sign_up_category_radio_middle_school -> state = state!!.copy(category = "MIDDLE_SCHOOL")
+                        R.id.sign_up_category_radio_repeater -> state = state!!.copy(category = "NTH_EXAM")
+                        R.id.sign_up_category_radio_civil_service_exam -> state = state!!.copy(category = "EXAM_PREP")
+                        R.id.sign_up_category_radio_workers -> state = state!!.copy(category = "WORKER")
                     }
                     viewModel.updateSignState(state!!)
                 }, {})
         )
+    }
+
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
     }
 }

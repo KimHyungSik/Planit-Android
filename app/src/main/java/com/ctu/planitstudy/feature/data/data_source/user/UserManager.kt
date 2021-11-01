@@ -23,7 +23,6 @@ class UserManager (
 
     fun userLogout() : Completable = userPolicy!!.logout()
 
-    fun userGetId(): Single<Resource<User>> = userPolicy!!.getUserInfo()
-
+    fun getUserInfo() : Single<Resource<User>> = userPolicy!!.getUserInfo()
 
 }

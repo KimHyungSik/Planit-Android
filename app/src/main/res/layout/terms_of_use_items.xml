@@ -15,6 +15,7 @@
         android:paddingHorizontal="26dp">
 
         <CheckBox
+            android:id="@+id/terms_of_use_accept_use_required"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="12dp"
@@ -47,6 +48,7 @@
         android:paddingHorizontal="26dp">
 
         <CheckBox
+            android:id="@+id/terms_of_use_personal_information_required"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="12dp"
@@ -79,6 +81,7 @@
         android:paddingHorizontal="26dp">
 
         <CheckBox
+            android:id="@+id/terms_of_use_personal_information_optional"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="12dp"
@@ -112,6 +115,7 @@
         android:paddingHorizontal="26dp">
 
         <CheckBox
+            android:id="@+id/terms_of_use_marketing_optional"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginRight="12dp"
@@ -122,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="마켓팅 정보 수신 동의(선택)"
+            android:text="마케팅 정보 수신 동의(선택)"
             android:textSize="14sp"
             android:textColor="@color/text_color" />
 
