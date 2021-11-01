@@ -9,4 +9,5 @@ import io.reactivex.Flowable
 interface UserRepository {
     fun userLogin(loginUser: LoginUser): Flowable<LoginDto>
     fun userSignUp(signUpUser: SignUpUser): Flowable<SignUpUserDto>
+    suspend fun userValidateNickName(nickname : String)
 }

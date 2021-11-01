@@ -26,7 +26,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     override fun setInit() {
         super.setInit()
-        Log.d(TAG, "setInit: viewModel = $viewModel")
         disposables.add(RxTextView.textChanges(binding.signUpNameEditText)
             .subscribe({
                 val state = viewModel.liveData.value!!.copy(
@@ -34,18 +33,19 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                 )
                 viewModel.updateSignState(state)
             }, {
-                Log.e(TAG, "setInit: ${it}", )
             })
         )
-        disposables.add(RxTextView.textChanges(binding.signUpNicknameEditText)
-            .subscribe({
-                val state = viewModel.liveData.value!!.copy(
-                    nickname = it.toString()
-                )
-                viewModel.updateSignState(state)
-            }, {
-                Log.e(TAG, "setInit: nickname text change ${it.localizedMessage}", )
-            })
+        disposables.add(
+            RxTextView.textChanges(binding.signUpNicknameEditText)
+                .subscribe({
+                    Log.d(TAG, "setInit: ")
+                    val state = viewModel.liveData.value!!.copy(
+                        nickname = it.toString()
+                    )
+                    viewModel.updateSignState(state)
+                    viewModel.validateNickNameStateChange(false)
+                }, {
+                })
         )
     }
 

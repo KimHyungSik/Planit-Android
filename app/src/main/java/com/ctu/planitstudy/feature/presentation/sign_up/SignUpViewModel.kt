@@ -4,23 +4,29 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.toSignUpUserResponse
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val userManager: UserManager,
-    private val userAuthUseCase: UserAuthUseCase
+    private val userAuthUseCase: UserAuthUseCase,
+    private val userValidateNickNameUseCase: UserValidateNickNameUseCase
 ) : ViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
@@ -37,7 +43,10 @@ class SignUpViewModel @Inject constructor(
     val signUpFragments: LiveData<SignUpFragments> = _signUpFragments
 
     private val _signUpUserResponse = MutableLiveData<Resource<SignUpUserResponse>>()
-    val signUpUserResponse : LiveData<Resource<SignUpUserResponse>> = _signUpUserResponse
+    val signUpUserResponse: LiveData<Resource<SignUpUserResponse>> = _signUpUserResponse
+
+    private val _validateNickName = MutableLiveData<Resource<Boolean>>()
+    val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
 
     var fragmentPage = 0
 
@@ -66,15 +75,44 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    private fun validateNickNameCheck() {
+        userValidateNickNameUseCase(liveData.value?.nickname!!).onEach { result ->
+            _validateNickName.value = result
+            when (result) {
+                is Resource.Success -> {
+                    Log.d(TAG, "validateNickNameCheck: success ${result.data}")
+                    validateNickNameStateChange(true)
+                    _activityState.value = true
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "validateNickNameCheck: error ${result.message}")
+                    validateNickNameStateChange(false)
+                }
+                is Resource.Loading -> {
+                    Log.d(TAG, "validateNickNameCheck: loading")
+                    _activityState.value = false
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
     fun updateSignState(state: SignUpState) {
         _livedata.value = state
     }
 
+    fun validateNickNameStateChange(state : Boolean){
+        _validateNickName.value = Resource.Success<Boolean>(data = state)
+    }
+
     fun checkSignUpUserData() {
+        if (signUpFragments.value == SignUpFragments.Name && !validateNickName.value?.data!!) {
+            validateNickNameCheck()
+        }
         if (_activityState.value!!) {
             _activityState.value = false
             _signUpFragments.value = fragmentsList[++fragmentPage]
         }
+
     }
 
     fun sendSignUpUserData(receiverNameSkip: Boolean) {
@@ -88,7 +126,7 @@ class SignUpViewModel @Inject constructor(
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
                     nickname = liveData.value?.nickname!!,
-                    receiverNickname = if(receiverNameSkip) "" else liveData.value?.receiverName!!,
+                    receiverNickname = if (receiverNameSkip) "" else liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!
                 )
                 userAuthUseCase.userSignUp(signUpUser)

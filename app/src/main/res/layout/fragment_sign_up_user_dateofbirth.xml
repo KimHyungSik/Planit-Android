@@ -30,7 +30,7 @@
 
         <EditText
             android:id="@+id/sign_up_date_of_birth_edit_text"
-            android:hint="YY/MM/DD"
+            android:hint="YYYY/MM/DD"
             android:textColorHint="@color/guide_text"
             android:layout_width="match_parent"
             android:layout_height="76dp"

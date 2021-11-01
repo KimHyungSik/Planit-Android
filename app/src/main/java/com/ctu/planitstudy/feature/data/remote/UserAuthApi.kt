@@ -5,8 +5,7 @@ import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import io.reactivex.Flowable
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserAuthApi {
 
@@ -19,4 +18,7 @@ interface UserAuthApi {
     fun userSignUp(
         @Body signUpUser: SignUpUser
     ): Flowable<SignUpUserDto>
+
+    @GET("/v1/user/validate-nickname")
+    suspend fun userValidateNickName(@Query("nickname") nickname : String )
 }

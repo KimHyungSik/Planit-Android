@@ -7,6 +7,7 @@ import com.ctu.planitstudy.feature.data.remote.UserAuthApi
 import com.ctu.planitstudy.feature.data.repository.UserRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +46,6 @@ object UserModule {
             .build()
             .create(UserAuthApi::class.java)
 
-
     @Provides
     @Singleton
     fun providerUserRepository(authApi: UserAuthApi): UserRepository =
@@ -55,5 +55,10 @@ object UserModule {
     @Singleton
     fun providerUserAuthUseCase(userRepository: UserRepository) : UserAuthUseCase =
         UserAuthUseCase(userRepository)
+
+    @Provides
+    @Singleton
+    fun providerUserValidateNickName(userRepository: UserRepository) : UserValidateNickNameUseCase =
+        UserValidateNickNameUseCase(userRepository)
 
 }
