@@ -16,7 +16,7 @@ class UserValidateNickNameUseCase @Inject constructor(
 
     operator fun invoke(nickname : String) : Flow<Resource<Boolean>> = flow{
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading(data = false))
             userRepository.userValidateNickName(nickname)
             emit(Resource.Success(true))
         }catch (e: HttpException){

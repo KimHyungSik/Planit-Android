@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
+import com.ctu.planitstudy.feature.data.remote.dto.getAccessToken
+import com.ctu.planitstudy.feature.data.remote.dto.getRefreshToken
 import com.ctu.planitstudy.feature.data.remote.dto.toSignUpUserResponse
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
@@ -45,7 +47,7 @@ class SignUpViewModel @Inject constructor(
     private val _signUpUserResponse = MutableLiveData<Resource<SignUpUserResponse>>()
     val signUpUserResponse: LiveData<Resource<SignUpUserResponse>> = _signUpUserResponse
 
-    private val _validateNickName = MutableLiveData<Resource<Boolean>>()
+    private val _validateNickName = MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
     val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
 
     var fragmentPage = 0
@@ -101,7 +103,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun validateNickNameStateChange(state : Boolean){
-        _validateNickName.value = Resource.Success<Boolean>(data = state)
+        _validateNickName.value = Resource.Error<Boolean>(data = state, message = "")
     }
 
     fun checkSignUpUserData() {
@@ -134,7 +136,7 @@ class SignUpViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         Log.d(TAG, "checkSignUpUserData: $it")
-                        _signUpUserResponse.value = Resource.Success(it.toSignUpUserResponse())
+                        _signUpUserResponse.value = Resource.Success(SignUpUserResponse(accessToken = it.getAccessToken(), refreshToken =  it.getRefreshToken()))
                     }
             }, {
                 _signUpUserResponse.value = Resource.Error(it.localizedMessage)
