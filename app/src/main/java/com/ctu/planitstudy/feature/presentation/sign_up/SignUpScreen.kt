@@ -13,9 +13,7 @@ import com.ctu.planitstudy.databinding.ActivitySignUpScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.SignFragmentStateAdapter
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
-import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -67,8 +65,7 @@ class SignUpScreen
         })
 
         viewModel.signUpFragments.observe(this, {
-            if (viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
-                setReceiverUi(false)
+            setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
             binding.signUpViewpager.currentItem = it.page
         })
 
@@ -80,12 +77,20 @@ class SignUpScreen
     }
 
     fun setReceiverUi(state: Boolean){
-        if(state){
+        if(!state){
             binding.signUpBtn.visibility = View.VISIBLE
             binding.signUpConfirm.visibility = View.GONE
         }else{
             binding.signUpBtn.visibility = View.GONE
             binding.signUpConfirm.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onBackPressed() {
+        if(viewModel.currentFragmentPage > 0){
+            viewModel.fragmentPageChange(-1)
+        }else{
+            super.onBackPressed()
         }
     }
 

@@ -22,15 +22,27 @@
             android:background="@color/navy_blue_back_ground"
             android:orientation="vertical">
 
+          <ImageView
+                android:src="@drawable/ic_baseline_arrow_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="32dp"
+                android:onClick="@{()->viewmodel.fragmentPageChange(-1)}"
+                android:scaleType="fitXY"
+                />
+
             <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                 android:id="@+id/sign_up_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="34dp"
                 app:dotsClickable="false"
                 app:dotsColor="@color/button_disabled"
                 app:dotsSize="9dp"
+                android:splitMotionEvents="true"
+                app:dotsSpacing="4dp"
                 app:dotsWidthFactor="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

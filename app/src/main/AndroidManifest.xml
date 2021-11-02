@@ -15,7 +15,9 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
         <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen" />
         <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
             <intent-filter>

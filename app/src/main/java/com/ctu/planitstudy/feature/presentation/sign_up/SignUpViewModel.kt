@@ -9,7 +9,6 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.getAccessToken
 import com.ctu.planitstudy.feature.data.remote.dto.getRefreshToken
-import com.ctu.planitstudy.feature.data.remote.dto.toSignUpUserResponse
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
@@ -21,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,7 +48,8 @@ class SignUpViewModel @Inject constructor(
     private val _validateNickName = MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
     val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
 
-    var fragmentPage = 0
+    var currentFragmentPage = 0
+    var maxFragmentPage = 0
 
     var termsOfUseAgrees: TermsOfUseAgrees = TermsOfUseAgrees(
         personalInformationAgree = false,
@@ -73,7 +72,7 @@ class SignUpViewModel @Inject constructor(
             pageCount += if (!signUpState.gender.isNullOrBlank()) 1 else 0
             pageCount += if (!signUpState.dateOfBirth.isNullOrBlank() && signUpState.dateFormat) 1 else 0
             pageCount += if (!signUpState.category.isNullOrBlank()) 1 else 0
-            _activityState.value = fragmentPage < pageCount
+            _activityState.value = currentFragmentPage < pageCount
         }
     }
 
@@ -106,13 +105,25 @@ class SignUpViewModel @Inject constructor(
         _validateNickName.value = Resource.Error<Boolean>(data = state, message = "")
     }
 
+    fun fragmentPageChange(i : Int){
+        if(currentFragmentPage > 0 && currentFragmentPage < fragmentsList.size){
+            currentFragmentPage += i
+            _signUpFragments.value = (fragmentsList[currentFragmentPage])
+            _activityState.value = true
+        }
+    }
+
     fun checkSignUpUserData() {
         if (signUpFragments.value == SignUpFragments.Name && !validateNickName.value?.data!!) {
             validateNickNameCheck()
         }
         if (_activityState.value!!) {
             _activityState.value = false
-            _signUpFragments.value = fragmentsList[++fragmentPage]
+            _signUpFragments.value = fragmentsList[++currentFragmentPage]
+            maxFragmentPage = currentFragmentPage.coerceAtLeast(maxFragmentPage)
+
+            if(maxFragmentPage > currentFragmentPage)
+                _activityState.value = true
         }
 
     }
