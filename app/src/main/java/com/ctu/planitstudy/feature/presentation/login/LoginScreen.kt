@@ -27,7 +27,7 @@ class LoginScreen
                 is LoginState.Loading->{}
                 is LoginState.Login->{
                     if(it.state)
-                        moveIntent(MainScreenSh().activity)
+                        moveIntent(TermsOfUseAgreesScreenSh().activity)
                     else
                         moveIntent(TermsOfUseAgreesScreenSh().activity)
                 }

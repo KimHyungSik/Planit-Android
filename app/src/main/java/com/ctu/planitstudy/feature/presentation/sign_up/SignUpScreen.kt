@@ -74,6 +74,10 @@ class SignUpScreen
             PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
         })
 
+        viewModel.screens.observe(this, {
+            if(it != null)
+                moveIntent(it.activity)
+        })
     }
 
     fun setReceiverUi(state: Boolean){

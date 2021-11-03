@@ -11,6 +11,5 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             = ActivityMainBinding::inflate
 
     override fun setup() {
-        TODO("Not yet implemented")
     }
 }

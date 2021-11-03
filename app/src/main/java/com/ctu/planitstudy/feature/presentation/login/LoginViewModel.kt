@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -58,10 +59,13 @@ class LoginViewModel @Inject constructor(
                                 Log.d(TAG, "login: subscribe :$it")
                                 when (it) {
                                     is Resource.Success -> {
+                                        Log.d(TAG, "login: user email ${it.data!!.userEmail}")
                                         userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                             .subscribeOn(Schedulers.computation())
                                             .observeOn(AndroidSchedulers.mainThread())
+                                            .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }
                                             .subscribe({
+                                                Log.d(TAG, "login: $it")
                                                 loginState.postValue(LoginState.Login(it.result))
                                             }, {
                                                 Log.e(TAG, "login: userLoginUseCase :$it")
