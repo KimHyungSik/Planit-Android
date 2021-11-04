@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.ctu.planitstudy.feature.presentation.CashStudyApp"
+        android:name=".feature.presentation.CashStudyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,21 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name="com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity android:name="com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen" />
-        <activity android:name="com.ctu.planitstudy.feature.presentation.login.LoginScreen">
+        <activity android:name=".feature.presentation.home.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ctu.planitstudy.MainActivity">
+        <activity
+            android:name=".feature.presentation.sign_up.SignUpScreen"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".feature.presentation.terms_of_use.TermsOfUseAgreesScreen" />
+        <activity android:name=".feature.presentation.login.LoginScreen">
 
         </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -42,4 +42,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

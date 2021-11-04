@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
+import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,9 +28,9 @@ class LoginScreen
                 is LoginState.Loading->{}
                 is LoginState.Login->{
                     if(it.state)
-                        moveIntent(TermsOfUseAgreesScreenSh().activity)
+                        moveIntentAllClear(HomeScreenSh().activity)
                     else
-                        moveIntent(TermsOfUseAgreesScreenSh().activity)
+                        moveIntentAllClear(TermsOfUseAgreesScreenSh().activity)
                 }
             }
         })

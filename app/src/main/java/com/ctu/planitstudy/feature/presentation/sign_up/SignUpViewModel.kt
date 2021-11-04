@@ -178,7 +178,7 @@ class SignUpViewModel @Inject constructor(
                             accessToken = it.accessToken,
                             refreshToken = it.refreshToken
                         )
-                        _screens.value = Screens.MainScreenSh()
+                        _screens.value = Screens.HomeScreenSh()
                     }, {
                         if (it is NetworkErrorException)
                             Log.i(TAG, "sendSignUpUserData: ${it.message}")
