@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import org.json.JSONObject
 
 data class LoginDto(
     @SerializedName("result")

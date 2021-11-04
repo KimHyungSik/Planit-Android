@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -76,7 +77,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'             // Retrofit Gson
     compile 'com.squareup.retrofit:converter-jackson:1.9.0'      // Retrofit converter
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'// Retrofit rx adapter
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'           // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
 
     // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"

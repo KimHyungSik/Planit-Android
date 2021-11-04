@@ -1,28 +1,33 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
+import android.accounts.NetworkErrorException
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
-import com.ctu.planitstudy.feature.data.remote.dto.getAccessToken
-import com.ctu.planitstudy.feature.data.remote.dto.getRefreshToken
-import com.ctu.planitstudy.feature.data.remote.dto.toSignUpUserResponse
+import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
+import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.HttpException
+import retrofit2.adapter.rxjava2.Result.response
 import javax.inject.Inject
+
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
@@ -47,10 +52,16 @@ class SignUpViewModel @Inject constructor(
     private val _signUpUserResponse = MutableLiveData<SignUpUserResponse>()
     val signUpUserResponse: LiveData<SignUpUserResponse> = _signUpUserResponse
 
-    private val _validateNickName = MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
+    private val _validateNickName =
+        MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
     val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
 
-    var fragmentPage = 0
+    private val _screens= MutableLiveData<Screens>(null)
+    val screens : LiveData<Screens> = _screens
+
+
+    var currentFragmentPage = 0
+    var maxFragmentPage = 0
 
     var termsOfUseAgrees: TermsOfUseAgrees = TermsOfUseAgrees(
         personalInformationAgree = false,
@@ -69,11 +80,11 @@ class SignUpViewModel @Inject constructor(
         // 현재 회원가입 상태 별로 화면 전환 검사
         liveData.observeForever { signUpState ->
             var pageCount = 0
-            pageCount += if (!signUpState.nickname.isNullOrBlank() && !signUpState.name.isNullOrEmpty()) 1 else 0
-            pageCount += if (!signUpState.gender.isNullOrBlank()) 1 else 0
-            pageCount += if (!signUpState.dateOfBirth.isNullOrBlank() && signUpState.dateFormat) 1 else 0
-            pageCount += if (!signUpState.category.isNullOrBlank()) 1 else 0
-            _activityState.value = fragmentPage < pageCount
+            pageCount += if (signUpState.nickname.isNotBlank() && signUpState.name.isNotBlank()) 1 else 0
+            pageCount += if (signUpState.gender.isNotBlank()) 1 else 0
+            pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat) 1 else 0
+            pageCount += if (signUpState.category.isNotBlank()) 1 else 0
+            _activityState.value = currentFragmentPage < pageCount
         }
     }
 
@@ -83,12 +94,10 @@ class SignUpViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     Log.d(TAG, "validateNickNameCheck: success ${result.data}")
-                    validateNickNameStateChange(true)
-                    _activityState.value = true
+                    _activityState.value = result.data!!
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "validateNickNameCheck: error ${result.message}")
-                    validateNickNameStateChange(false)
                 }
                 is Resource.Loading -> {
                     Log.d(TAG, "validateNickNameCheck: loading")
@@ -102,8 +111,16 @@ class SignUpViewModel @Inject constructor(
         _livedata.value = state
     }
 
-    fun validateNickNameStateChange(state : Boolean){
+    fun validateNickNameStateChange(state: Boolean) {
         _validateNickName.value = Resource.Error<Boolean>(data = state, message = "")
+    }
+
+    fun fragmentPageChange(i: Int) {
+        if (currentFragmentPage > 0 && currentFragmentPage < fragmentsList.size) {
+            currentFragmentPage += i
+            _signUpFragments.value = (fragmentsList[currentFragmentPage])
+            _activityState.value = true
+        }
     }
 
     fun checkSignUpUserData() {
@@ -112,7 +129,11 @@ class SignUpViewModel @Inject constructor(
         }
         if (_activityState.value!!) {
             _activityState.value = false
-            _signUpFragments.value = fragmentsList[++fragmentPage]
+            _signUpFragments.value = fragmentsList[++currentFragmentPage]
+            maxFragmentPage = currentFragmentPage.coerceAtLeast(maxFragmentPage)
+
+            if (maxFragmentPage > currentFragmentPage)
+                _activityState.value = true
         }
 
     }
@@ -123,27 +144,50 @@ class SignUpViewModel @Inject constructor(
                 val signUpUser = SignUpUser(
                     birth = liveData.value?.dateOfBirth!!,
                     category = liveData.value?.category!!,
+                    email = "v6" + it.data?.userEmail!!,
+                    marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                    personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                    name = liveData.value?.name!!,
+                    nickname = liveData.value?.nickname!!,
+                    sex = liveData.value?.gender!!
+                )
+
+                val signUpUserReceiver = SignUpUserReceiver(
+                    birth = liveData.value?.dateOfBirth!!,
+                    category = liveData.value?.category!!,
                     email = it.data?.userEmail!!,
                     marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
                     nickname = liveData.value?.nickname!!,
-                    receiverNickname = if (!receiverNameSkip) "" else liveData.value?.receiverName!!,
-                    sex = liveData.value?.gender!!
+                    receiverNickname = liveData.value?.receiverName!!,
+                    sex = liveData.value?.gender!!,
                 )
-                Log.d(TAG, "sendSignUpUserData: $signUpUser")
-                userAuthUseCase.userSignUp(signUpUser)
+                Log.d(TAG, "sendSignUpUserData: ${signUpUser.toString()}")
+                (
+                        if (receiverNameSkip)
+                            userAuthUseCase.userSignUp(signUpUserReceiver)
+                        else
+                            userAuthUseCase.userSignUp(signUpUser)
+                        )
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
                     .subscribe({
-                        Log.d(TAG, "checkSignUpUserData: $it")
                         _signUpUserResponse.value = SignUpUserResponse(
-                            accessToken = it.getAccessToken(),
-                            refreshToken = it.getRefreshToken()
+                            accessToken = it.accessToken,
+                            refreshToken = it.refreshToken
                         )
+                        _screens.value = Screens.MainScreenSh()
                     }, {
-                        it.printStackTrace()
-                        Log.e(TAG, "sendSignUpUserData: ${it.localizedMessage}",)
+                        if (it is NetworkErrorException)
+                            Log.i(TAG, "sendSignUpUserData: ${it.message}")
+                        if (it is HttpException) {
+                            val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
+                            Log.i(TAG, "sendSignUpUserData: ${jObjError}")
+                            Log.i(TAG, "response: ${it.response()!!.code()}")
+                            Log.i(TAG, "response: ${it.response()!!.errorBody()}")
+                        }
                     })
             }, {
                 _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")

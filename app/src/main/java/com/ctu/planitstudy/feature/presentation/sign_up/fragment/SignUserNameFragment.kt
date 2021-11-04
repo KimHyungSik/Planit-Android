@@ -58,6 +58,7 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                 binding.signUpNicknameErrorText.text = "사용 가능한 닉네임 입니다."
             } else {
                 binding.signUpNicknameErrorIcon.visibility = View.VISIBLE
+                binding.signUpNicknameErrorText.visibility = View.VISIBLE
                 when (it) {
                     is Resource.Success -> {
                         binding.signUpNicknameErrorText.text = "이미 사용중인 닉네임입니다"
