@@ -5,35 +5,35 @@
         android:id="@+id/homeFragment"
         android:title="홈"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bottom_nav_home_icon_foreground"
         />
 
     <item
         android:id="@+id/plannerFragment"
         android:title="플래너"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bottom_nav_planner_icon_foreground"
         />
 
     <item
         android:id="@+id/rewardsFragment"
         android:title="리워드"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bottom_nav_reward_icon_foreground"
         />
 
     <item
         android:id="@+id/analysisFragment"
         android:title="분석"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bottom_nav_analysis_icon_foreground"
         />
 
     <item
         android:id="@+id/myFragment"
         android:title="마이"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/bottom_nav_my_icon_foreground"
         />
 
 </menu>
