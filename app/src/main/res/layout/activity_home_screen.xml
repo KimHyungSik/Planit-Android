@@ -11,7 +11,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/home_fragment_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/home_bottom_nav"
         app:navGraph="@navigation/main_bottom_nav"
@@ -19,13 +19,20 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         />
 
+    <View
+        app:layout_constraintBottom_toTopOf="@id/home_bottom_nav"
+        android:background="@color/module_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/home_bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="76dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_bottom_nav_menu"
-        android:background="@android:color/transparent"
+        android:background="@color/navy_blue_back_ground"
         app:itemIconTint="@color/bottom_nav_item_foreground"
         app:itemTextColor="@color/bottom_nav_item_foreground"
         app:labelVisibilityMode="labeled"
