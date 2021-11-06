@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="100dp"
-        android:text="이용약관을\n확인해주세"
+        android:text="이용약관을\n확인해주세요"
         android:textColor="@color/text_color"
         android:textSize="24sp"
         android:textStyle="bold"

@@ -51,20 +51,22 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                 }, {
                 })
         )
+
         viewModel.validateNickName.observe(this, {
             if (it.data!!) {
                 binding.signUpNicknameErrorIcon.visibility = View.INVISIBLE
                 binding.signUpNicknameErrorText.visibility = View.VISIBLE
                 binding.signUpNicknameErrorText.text = "사용 가능한 닉네임 입니다."
             } else {
-                binding.signUpNicknameErrorIcon.visibility = View.VISIBLE
+
                 binding.signUpNicknameErrorText.visibility = View.VISIBLE
                 when (it) {
                     is Resource.Success -> {
+                        binding.signUpNicknameErrorIcon.visibility = View.VISIBLE
                         binding.signUpNicknameErrorText.text = "이미 사용중인 닉네임입니다"
                     }
                     is Resource.Error -> {
-                        binding.signUpNicknameErrorText.text = "닉네임은 8글자 이내로 입력해주세요."
+                        binding.signUpNicknameErrorText.text = ""
                     }
                     is Resource.Loading -> {
                         binding.signUpNicknameErrorText.visibility = View.INVISIBLE

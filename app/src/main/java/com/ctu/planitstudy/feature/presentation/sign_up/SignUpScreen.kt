@@ -61,8 +61,6 @@ class SignUpScreen
                     isClickable = false
                 }
             }
-            if (viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
-                setReceiverUi(it)
         })
 
         viewModel.signUpFragments.observe(this, {
