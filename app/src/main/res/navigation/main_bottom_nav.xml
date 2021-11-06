@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_bottom_nav"
+    app:startDestination="@id/homeFragment"
+    >
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeFragment"
+        android:label="HomeFragment"
+        />
+
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisFragment"
+        android:label="AnalysisFragment"/>
+
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.MyFragment"
+        android:label="MyFragment"/>
+
+    <fragment
+        android:id="@+id/plannerFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.planner.PlannerFragment"
+        android:label="PlannerFragment"/>
+
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.rewards.RewardsFragment"
+        android:label="RewardsFragment"/>
+
+</navigation>

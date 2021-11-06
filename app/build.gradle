@@ -94,4 +94,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0' // Material
     implementation 'androidx.viewpager2:viewpager2:1.0.0'       // ViewPager
     implementation 'com.tbuonomo:dotsindicator:4.2'             // Indicator
+
+    // Navigation
+    def nav_version = "2.3.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

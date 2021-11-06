@@ -70,7 +70,7 @@
 
         <include
             android:id="@+id/terms_of_use_items"
-            layout="@layout/terms_of_use_items"
+            layout="@layout/components_terms_of_use_items"
             />
 
     </androidx.cardview.widget.CardView>
