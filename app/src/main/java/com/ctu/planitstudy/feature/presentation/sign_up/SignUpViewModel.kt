@@ -145,7 +145,7 @@ class SignUpViewModel @Inject constructor(
                 val signUpUser = SignUpUser(
                     birth = liveData.value?.dateOfBirth!!,
                     category = liveData.value?.category!!,
-                    email = "v6" + it.data?.userEmail!!,
+                    email = it.data?.userEmail!!,
                     marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
@@ -164,7 +164,7 @@ class SignUpViewModel @Inject constructor(
                     receiverNickname = liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!,
                 )
-                Log.d(TAG, "sendSignUpUserData: ${signUpUser.toString()}")
+                Log.d(TAG, "sendSignUpUserData: $signUpUserReceiver")
                 (
                         if (receiverNameSkip)
                             userAuthUseCase.userSignUp(signUpUserReceiver)
@@ -183,6 +183,8 @@ class SignUpViewModel @Inject constructor(
                         _screens.value = Screens.HomeScreenSh()
                     }, {
                         if (it is HttpException) {
+                            val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
+                            Log.i(TAG, "sendSignUpUserData: ${jObjError}")
                             _signUpUserResponse.value = SignUpUserResponse(
                                 it.response()!!.code(),
                                 accessToken = "",
