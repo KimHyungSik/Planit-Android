@@ -50,7 +50,7 @@ class SignUpViewModel @Inject constructor(
     val signUpFragments: LiveData<SignUpFragments> = _signUpFragments
 
     private val _signUpUserResponse = MutableLiveData<SignUpUserResponse>()
-    val signUpUserResponse: LiveData<SignUpUserResponse> = _signUpUserResponse
+    val `signUpUserResponse`: LiveData<SignUpUserResponse> = _signUpUserResponse
 
     private val _validateNickName =
         MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
@@ -84,6 +84,7 @@ class SignUpViewModel @Inject constructor(
             pageCount += if (signUpState.gender.isNotBlank()) 1 else 0
             pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat) 1 else 0
             pageCount += if (signUpState.category.isNotBlank()) 1 else 0
+            pageCount += if (signUpState.receiverName.isNotBlank()) 1 else 0
             _activityState.value = currentFragmentPage < pageCount
         }
     }
@@ -175,18 +176,18 @@ class SignUpViewModel @Inject constructor(
                     .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
                     .subscribe({
                         _signUpUserResponse.value = SignUpUserResponse(
+                            200,
                             accessToken = it.accessToken,
                             refreshToken = it.refreshToken
                         )
                         _screens.value = Screens.HomeScreenSh()
                     }, {
-                        if (it is NetworkErrorException)
-                            Log.i(TAG, "sendSignUpUserData: ${it.message}")
                         if (it is HttpException) {
-                            val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
-                            Log.i(TAG, "sendSignUpUserData: ${jObjError}")
-                            Log.i(TAG, "response: ${it.response()!!.code()}")
-                            Log.i(TAG, "response: ${it.response()!!.errorBody()}")
+                            _signUpUserResponse.value = SignUpUserResponse(
+                                it.response()!!.code(),
+                                accessToken = "",
+                                refreshToken = ""
+                            )
                         }
                     })
             }, {

@@ -55,8 +55,16 @@ class SignUpScreen
                     setCardBackgroundColor(resources.getColor(R.color.white))
                     isClickable = true
                 }
+                binding.signUpConfirmBtn.run{
+                    setCardBackgroundColor(resources.getColor(R.color.white))
+                    isClickable = true
+                }
             } else {
                 binding.signUpBtn.run {
+                    setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+                    isClickable = false
+                }
+                binding.signUpConfirmBtn.run{
                     setCardBackgroundColor(resources.getColor(R.color.button_disabled))
                     isClickable = false
                 }
@@ -69,8 +77,10 @@ class SignUpScreen
         })
 
         viewModel.signUpUserResponse.observe(this, {
-            PreferencesManager.setString(this, ACCESSTOKEN, it.accessToken)
-            PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
+            if(it.responseCode == 200){
+                PreferencesManager.setString(this, ACCESSTOKEN, it.accessToken)
+                PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
+            }
         })
 
         viewModel.screens.observe(this, {

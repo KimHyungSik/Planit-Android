@@ -24,19 +24,23 @@ class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBindin
         disposables.add(
             RxTextView.textChanges(binding.signUpReceiverNameEditText)
                 .subscribe({
-                    if(it.isNotBlank()){
-                        binding.signUpReceiverNameErrorIcon.visibility = View.INVISIBLE
-                        binding.signUpReceiverNameErrorText.visibility = View.INVISIBLE
-                    }else{
-                        binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
-                        binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
-                    }
                     val state = viewModel.liveData.value!!.copy(
                         receiverName = it.toString()
                     )
                     viewModel.updateSignState(state)
                 }, {})
         )
+
+        viewModel.signUpUserResponse.observe(this, {
+            when(it.responseCode){
+                400 ->{
+                    binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
+                    binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
+                    binding.signUpReceiverNameErrorText.text = "추천인이 존재 하지 않습니다."
+                }
+                404 ->{}
+            }
+        })
 
     }
 
