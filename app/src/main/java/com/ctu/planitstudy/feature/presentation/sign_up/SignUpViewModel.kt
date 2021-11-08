@@ -18,6 +18,7 @@ import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -36,8 +37,7 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val userManager: UserManager,
     private val userAuthUseCase: UserAuthUseCase,
-    private val userValidateNickNameUseCase: UserValidateNickNameUseCase,
-    private val preferencesManager: PreferencesManager
+    private val userValidateNickNameUseCase: UserValidateNickNameUseCase
 ) : ViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
@@ -54,7 +54,7 @@ class SignUpViewModel @Inject constructor(
     val signUpFragments: LiveData<SignUpFragments> = _signUpFragments
 
     private val _signUpUserResponse = MutableLiveData<SignUpUserResponse>()
-    val `signUpUserResponse`: LiveData<SignUpUserResponse> = _signUpUserResponse
+    val signUpUserResponse: LiveData<SignUpUserResponse> = _signUpUserResponse
 
     private val _validateNickName =
         MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
@@ -184,18 +184,14 @@ class SignUpViewModel @Inject constructor(
                             accessToken = it.accessToken,
                             refreshToken = it.refreshToken
                         )
-                        preferencesManager.setString(ACCESSTOKEN, it.accessToken)
-                        preferencesManager.setString(REFRESHTOKEN, it.refreshToken)
+                        CashStudyApp.prefs.accessToken = it.accessToken
+                        CashStudyApp.prefs.refreshToken = it.refreshToken
                         _screens.value = Screens.HomeScreenSh()
                     }, {
                         if (it is HttpException) {
                             val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
-                            Log.i(TAG, "sendSignUpUserData: ${jObjError}")
-                            _signUpUserResponse.value = SignUpUserResponse(
-                                it.response()!!.code(),
-                                accessToken = "",
-                                refreshToken = ""
-                            )
+                            CashStudyApp.prefs.accessToken = ""
+                            CashStudyApp.prefs.refreshToken = ""
                         }
                     })
             }, {

@@ -12,6 +12,7 @@ import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,8 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userManager: UserManager,
-    private val userAuthUseCase: UserAuthUseCase,
-    private val preferencesManager: PreferencesManager
+    private val userAuthUseCase: UserAuthUseCase
 ) : ViewModel()
 {
     val TAG = "LoginViewModel - 로그"
@@ -70,8 +70,8 @@ class LoginViewModel @Inject constructor(
                                             .subscribe({
                                                 Log.d(TAG, "login: $it")
                                                 loginState.postValue(LoginState.Login(it.result))
-                                                preferencesManager.setString(CoreData.ACCESSTOKEN, it.accessToken)
-                                                preferencesManager.setString(CoreData.REFRESHTOKEN, it.refreshToken)
+                                                CashStudyApp.prefs.accessToken = it.accessToken
+                                                CashStudyApp.prefs.refreshToken = it.refreshToken
                                             }, {
                                                 Log.e(TAG, "login: userLoginUseCase :$it")
                                             })
