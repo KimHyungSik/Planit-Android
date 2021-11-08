@@ -8,6 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
+import com.ctu.planitstudy.core.util.CoreData.REFRESHTOKEN
+import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
@@ -33,7 +36,8 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val userManager: UserManager,
     private val userAuthUseCase: UserAuthUseCase,
-    private val userValidateNickNameUseCase: UserValidateNickNameUseCase
+    private val userValidateNickNameUseCase: UserValidateNickNameUseCase,
+    private val preferencesManager: PreferencesManager
 ) : ViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
@@ -180,6 +184,8 @@ class SignUpViewModel @Inject constructor(
                             accessToken = it.accessToken,
                             refreshToken = it.refreshToken
                         )
+                        preferencesManager.setString(ACCESSTOKEN, it.accessToken)
+                        preferencesManager.setString(REFRESHTOKEN, it.refreshToken)
                         _screens.value = Screens.HomeScreenSh()
                     }, {
                         if (it is HttpException) {

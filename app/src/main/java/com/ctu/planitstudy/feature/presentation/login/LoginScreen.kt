@@ -3,6 +3,8 @@ package com.ctu.planitstudy.feature.presentation.login
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
+import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
+import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens.*
@@ -27,8 +29,9 @@ class LoginScreen
             when(it){
                 is LoginState.Loading->{}
                 is LoginState.Login->{
-                    if(it.state)
+                    if(it.state) {
                         moveIntentAllClear(HomeScreenSh().activity)
+                    }
                     else
                         moveIntentAllClear(TermsOfUseAgreesScreenSh().activity)
                 }
