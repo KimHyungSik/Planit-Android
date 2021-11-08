@@ -145,7 +145,7 @@ class SignUpViewModel @Inject constructor(
                 val signUpUser = SignUpUser(
                     birth = liveData.value?.dateOfBirth!!,
                     category = liveData.value?.category!!,
-                    email = it.data?.userEmail!!,
+                    email =  it.data?.userEmail!!,
                     marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
