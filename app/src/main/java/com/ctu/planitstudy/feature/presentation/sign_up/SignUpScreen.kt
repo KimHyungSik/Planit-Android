@@ -55,24 +55,25 @@ class SignUpScreen
                     setCardBackgroundColor(resources.getColor(R.color.white))
                     isClickable = true
                 }
+                binding.signUpConfirmBtn.run{
+                    setCardBackgroundColor(resources.getColor(R.color.white))
+                    isClickable = true
+                }
             } else {
                 binding.signUpBtn.run {
                     setCardBackgroundColor(resources.getColor(R.color.button_disabled))
                     isClickable = false
                 }
+                binding.signUpConfirmBtn.run{
+                    setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+                    isClickable = false
+                }
             }
-            if (viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
-                setReceiverUi(it)
         })
 
         viewModel.signUpFragments.observe(this, {
             setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
             binding.signUpViewpager.currentItem = it.page
-        })
-
-        viewModel.signUpUserResponse.observe(this, {
-            PreferencesManager.setString(this, ACCESSTOKEN, it.accessToken)
-            PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
         })
 
         viewModel.screens.observe(this, {

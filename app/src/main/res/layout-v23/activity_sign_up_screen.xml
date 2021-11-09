@@ -79,7 +79,7 @@
 
                     <TextView
                         android:id="@+id/sign_up_btn_text"
-                        android:layout_width="363dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="다음"
@@ -110,6 +110,7 @@
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
                         />
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/sign_up_confirm_btn"
                         android:layout_weight="4"

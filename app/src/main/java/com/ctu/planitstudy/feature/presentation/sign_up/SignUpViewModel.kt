@@ -8,6 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
+import com.ctu.planitstudy.core.util.CoreData.REFRESHTOKEN
+import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
@@ -15,6 +18,7 @@ import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -84,6 +88,7 @@ class SignUpViewModel @Inject constructor(
             pageCount += if (signUpState.gender.isNotBlank()) 1 else 0
             pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat) 1 else 0
             pageCount += if (signUpState.category.isNotBlank()) 1 else 0
+            pageCount += if (signUpState.receiverName.isNotBlank()) 1 else 0
             _activityState.value = currentFragmentPage < pageCount
         }
     }
@@ -144,7 +149,7 @@ class SignUpViewModel @Inject constructor(
                 val signUpUser = SignUpUser(
                     birth = liveData.value?.dateOfBirth!!,
                     category = liveData.value?.category!!,
-                    email = "v6" + it.data?.userEmail!!,
+                    email =  it.data?.userEmail!!,
                     marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
@@ -163,7 +168,7 @@ class SignUpViewModel @Inject constructor(
                     receiverNickname = liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!,
                 )
-                Log.d(TAG, "sendSignUpUserData: ${signUpUser.toString()}")
+                Log.d(TAG, "sendSignUpUserData: $signUpUserReceiver")
                 (
                         if (receiverNameSkip)
                             userAuthUseCase.userSignUp(signUpUserReceiver)
@@ -175,18 +180,18 @@ class SignUpViewModel @Inject constructor(
                     .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
                     .subscribe({
                         _signUpUserResponse.value = SignUpUserResponse(
+                            200,
                             accessToken = it.accessToken,
                             refreshToken = it.refreshToken
                         )
+                        CashStudyApp.prefs.accessToken = it.accessToken
+                        CashStudyApp.prefs.refreshToken = it.refreshToken
                         _screens.value = Screens.HomeScreenSh()
                     }, {
-                        if (it is NetworkErrorException)
-                            Log.i(TAG, "sendSignUpUserData: ${it.message}")
                         if (it is HttpException) {
                             val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
-                            Log.i(TAG, "sendSignUpUserData: ${jObjError}")
-                            Log.i(TAG, "response: ${it.response()!!.code()}")
-                            Log.i(TAG, "response: ${it.response()!!.errorBody()}")
+                            CashStudyApp.prefs.accessToken = ""
+                            CashStudyApp.prefs.refreshToken = ""
                         }
                     })
             }, {

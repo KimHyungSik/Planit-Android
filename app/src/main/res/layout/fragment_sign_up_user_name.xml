@@ -8,6 +8,7 @@
     >
 
     <TextView
+        android:id="@+id/sign_up_name_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="이름과 사용하실\n닉네임을 입력해주세요"
@@ -18,6 +19,12 @@
         android:layout_marginStart="8dp"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_name_title"
+        app:layout_constraintBottom_toTopOf="@id/sign_up_name_card_view"
+/>
 
 
     <androidx.cardview.widget.CardView
@@ -76,7 +83,7 @@
         <ImageView
             android:id="@+id/sign_up_nickname_error_icon"
             android:src="@drawable/blue_error_icon"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="24dp"
@@ -91,7 +98,7 @@
         android:id="@+id/sign_up_nickname_error_text"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="닉네임은 8글자 이내로 입력해주세요."
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:textStyle="normal"
