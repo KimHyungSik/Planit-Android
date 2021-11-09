@@ -23,7 +23,7 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
 
         // 토큰 만료 검사
-        if(!accessTokenExpiration()) runBlocking{
+        if(accessTokenExpiration()) runBlocking{
             Log.d(TAG, "intercept: 액세스 토큰 검사")
             Log.d(TAG, "intercept: 액세스 토큰 검사 : ${CashStudyApp.prefs.accessToken}")
             jwtTokenRefreshUseCase().onEach {
@@ -37,7 +37,8 @@ class AuthInterceptor @Inject constructor(
         }
 
         var req =
-            chain.request().newBuilder().addHeader("Authorization", CashStudyApp.prefs.accessToken ?: "").build()
+            chain.request().newBuilder().addHeader("Authorization", "Bearer " + CashStudyApp.prefs.accessToken ?: "").build()
+        Log.d(TAG, "intercept: ${req.headers}")
         return chain.proceed(req)
     }
 }

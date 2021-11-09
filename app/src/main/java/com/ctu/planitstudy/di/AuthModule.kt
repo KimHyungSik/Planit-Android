@@ -4,6 +4,7 @@ import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.feature.data.remote.TokenAuthApi
 import com.ctu.planitstudy.feature.data.repository.AuthRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
+import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +30,9 @@ object AuthModule {
     @Singleton
     fun provideAuthRepositoryImp(tokenAuthApi: TokenAuthApi) : AuthRepository =
         AuthRepositoryImp(tokenAuthApi)
+
+    @Provides
+    @Singleton
+    fun providerJwtTokenRefreshUseCase(authRepository: AuthRepository) : JwtTokenRefreshUseCase =
+        JwtTokenRefreshUseCase(authRepository)
 }
