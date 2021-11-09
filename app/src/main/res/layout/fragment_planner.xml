@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.presentation.home.fragment.analysis.AnalysisFragment">
-
-    <TextView
-        android:gravity="center"
-        android:text="플래너"
+    tools:context=".feature.presentation.home.fragment.analysis.AnalysisFragment"
+    android:orientation="vertical"
+    >
+    
+    <RadioGroup
+        android:id="@+id/planner_radio_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="58dp"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RadioButton
+            android:id="@+id/planner_radio_planner_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/text_color"
+            android:button="@null"
+            android:text="플래너"
+            />
+        <RadioButton
+            android:id="@+id/planner_radio_d_day_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:button="@null"
+            android:textColor="@color/enabled_text_color"
+            android:text="디데이"
+            />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/planner_fragment_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

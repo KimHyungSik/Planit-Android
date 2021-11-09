@@ -38,42 +38,28 @@ class LoginViewModel @Inject constructor(
         userManager.userPolicyChange(oauthType)
     }
 
-    fun logout(){
-        userManager.userLogout()
-            .subscribe({
-                Log.d(TAG, "logout: 로그아웃 성공")
-            }, {
-                Log.d(TAG, "logout: 로그아웃 실패")
-            }).isDisposed
-    }
-
     fun login(context: Context){
         changeUserPolicy(OauthType.KakaoOauth)
 
         userManager.userLogin(context).
         subscribe(
             { resource ->
-                Log.d(TAG, "login: subscribe")
                 when (resource) {
                     is Resource.Success -> {
                         loginState.postValue(LoginState.Loading(true))
                         userManager.getUserInfo()
                             .subscribe({ it ->
-                                Log.d(TAG, "login: subscribe :$it")
                                 when (it) {
                                     is Resource.Success -> {
-                                        Log.d(TAG, "login: user email ${it.data!!.userEmail}")
                                         userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                             .subscribeOn(Schedulers.computation())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }
                                             .subscribe({
-                                                Log.d(TAG, "login: $it")
                                                 loginState.postValue(LoginState.Login(it.result))
                                                 CashStudyApp.prefs.accessToken = it.accessToken
                                                 CashStudyApp.prefs.refreshToken = it.refreshToken
                                             }, {
-                                                Log.e(TAG, "login: userLoginUseCase :$it")
                                             })
 
                                     }
@@ -83,7 +69,6 @@ class LoginViewModel @Inject constructor(
                                 }
                             }, {
                             })
-                        Log.i(TAG, "로그인 성공 ${resource.data}")
                     }
                     is Resource.Error -> {
                         loginState.postValue(LoginState.Loading(false))
