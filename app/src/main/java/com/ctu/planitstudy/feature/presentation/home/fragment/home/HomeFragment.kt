@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,12 +31,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
 
     private lateinit var todoListRecyclerAdapter: TodoListRecyclerAdapter
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<HomeViewModel>()
 
     private val dateCalculation = DateCalculation()
 
     override fun setUpViews() {
         super.setUpViews()
+
+        Log.d(TAG, "setUpViews: $viewModel")
 
         todoListRecyclerAdapter = TodoListRecyclerAdapter(this)
 

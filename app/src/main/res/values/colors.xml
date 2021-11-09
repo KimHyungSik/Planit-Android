@@ -15,6 +15,7 @@
     <color name="enabled_button">#FFFFFFFF</color>
     <color name="guide_text">#6b6c85</color>
     <color name="text_color">#d9d9d9</color>
+    <color name="enabled_text_color">#3a3b53</color>
     <color name="point_color">#DCB92D</color>
     <color name="module_color">#11123d</color>
     <color name="item_guide_stroke">#171853</color>
