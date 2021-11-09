@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
 import android.util.Log
+import com.ctu.planitstudy.core.util.DateCalculation
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.google.gson.JsonObject
@@ -39,7 +40,11 @@ object JsonConverter {
                     isRepresentative = json["isRepresentative"].asBoolean,
                     endAt = json["endAt"].asString,
                     createdAt = json["createdAt"].asString,
-                    color = json["color"].asString
+                    color = json["color"].asString,
+                    dDay = DateCalculation().calDateBetween(
+                        DateCalculation().getCurrentDate(),
+                        json["endAt"].asString
+                    )
                 )
             )
         }

@@ -64,10 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                     .subscribe {
                         Log.d(TAG, "setUpViews: $it")
                         binding.apply {
-                            homeFragmentDDayCount.text = "D -" + dateCalculation.calDateBetween(
-                                dateCalculation.getCurrentDate(),
-                                it.endAt
-                            ).toString()
+                            homeFragmentDDayCount.text = "D -" + it.dDay
                             homeFragmentDDayTitle.text = it.title
                             homeFragmentDDayColumn.visibility = View.VISIBLE
                         }

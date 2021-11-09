@@ -11,5 +11,6 @@ data class DdayDto(
     @SerializedName("isRepresentative") val isRepresentative: Boolean,
     @SerializedName("endAt") val endAt: String,
     @SerializedName("createdAt") val createdAt: String,
-    @SerializedName("color") val color: String
+    @SerializedName("color") val color: String,
+    val dDay: Int
 )

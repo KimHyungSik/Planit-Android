@@ -14,10 +14,11 @@ import com.ctu.planitstudy.databinding.FragmentPlannerPlannerBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerDdayFragment
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerPlannerFragment
+import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.InDdayListRecycler
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.disposables.CompositeDisposable
 
-class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
+class PlannerFragment : BaseFragment<FragmentPlannerBinding>(){
 
     val TAG = "PlannerFragment - 로그"
 
@@ -70,4 +71,5 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
         disposables.clear()
         super.onDestroy()
     }
+
 }
