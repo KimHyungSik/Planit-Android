@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModle"
+            name="viewmodel"
             type="com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel" />
     </data>
 

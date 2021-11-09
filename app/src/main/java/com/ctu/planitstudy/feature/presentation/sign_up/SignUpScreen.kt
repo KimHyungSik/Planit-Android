@@ -76,13 +76,6 @@ class SignUpScreen
             binding.signUpViewpager.currentItem = it.page
         })
 
-        viewModel.signUpUserResponse.observe(this, {
-            if(it.responseCode == 200){
-                PreferencesManager.setString(this, ACCESSTOKEN, it.accessToken)
-                PreferencesManager.setString(this, REFRESHTOKEN, it.refreshToken)
-            }
-        })
-
         viewModel.screens.observe(this, {
             if(it != null)
                 moveIntentAllClear(it.activity)

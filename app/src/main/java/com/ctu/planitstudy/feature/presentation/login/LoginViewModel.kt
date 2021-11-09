@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.CoreData
+import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -55,7 +58,7 @@ class LoginViewModel @Inject constructor(
                     is Resource.Success -> {
                         loginState.postValue(LoginState.Loading(true))
                         userManager.getUserInfo()
-                            .subscribe({
+                            .subscribe({ it ->
                                 Log.d(TAG, "login: subscribe :$it")
                                 when (it) {
                                     is Resource.Success -> {
@@ -67,6 +70,8 @@ class LoginViewModel @Inject constructor(
                                             .subscribe({
                                                 Log.d(TAG, "login: $it")
                                                 loginState.postValue(LoginState.Login(it.result))
+                                                CashStudyApp.prefs.accessToken = it.accessToken
+                                                CashStudyApp.prefs.refreshToken = it.refreshToken
                                             }, {
                                                 Log.e(TAG, "login: userLoginUseCase :$it")
                                             })
