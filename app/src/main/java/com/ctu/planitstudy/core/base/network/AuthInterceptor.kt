@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
+import java.util.logging.Level
 import javax.inject.Inject
+
 
 class AuthInterceptor @Inject constructor(
     private val jwtTokenRefreshUseCase: JwtTokenRefreshUseCase
@@ -28,16 +31,28 @@ class AuthInterceptor @Inject constructor(
             Log.d(TAG, "intercept: 액세스 토큰 검사 : ${CashStudyApp.prefs.accessToken}")
             jwtTokenRefreshUseCase().onEach {
                 when(it){
-                    is Resource.Success ->{  Log.d(TAG, "intercept: 액세스 토큰 검사 Success")}
-                    is Resource.Loading ->{  Log.d(TAG, "intercept: 액세스 토큰 검사 Loading")}
-                    is Resource.Error ->{  Log.d(TAG, "intercept: 액세스 토큰 검사, Error")}
+                    is Resource.Success -> {
+                        Log.d(TAG, "intercept: 액세스 토큰 검사 Success")
+                    }
+                    is Resource.Loading -> {
+                        Log.d(TAG, "intercept: 액세스 토큰 검사 Loading")
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "intercept: 액세스 토큰 검사, Error")
+                    }
                 }
 {}            }
             Log.d(TAG, "intercept: 액세스 토큰 검사 : ${CashStudyApp.prefs.accessToken}")
         }
-
         var req =
-            chain.request().newBuilder().addHeader("Authorization", "Bearer " + CashStudyApp.prefs.accessToken ?: "").build()
+            chain
+                .request()
+                .newBuilder()
+                .addHeader(
+                "Authorization",
+                "Bearer " + CashStudyApp.prefs.accessToken ?: "")
+                .build()
+
         Log.d(TAG, "intercept: ${req.headers}")
         return chain.proceed(req)
     }

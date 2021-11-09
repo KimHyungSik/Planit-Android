@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import kotlin.math.log
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val ddayListUseCase: GetDdayListUseCase
+    private val ddayListUseCase: GetDdayListUseCase,
+    private val ddayRepository: DdayRepository
 ) : ViewModel() {
 
     val TAG = "HomeViewModel - 로그"
