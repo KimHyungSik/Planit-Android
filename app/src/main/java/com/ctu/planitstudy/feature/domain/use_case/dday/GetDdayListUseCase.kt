@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.domain.use_case.dday
 import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
+import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -21,8 +22,11 @@ class GetDdayListUseCase @Inject constructor(
     operator fun invoke() : Flow<Resource<DdayListDto>> = flow{
         try {
             emit(Resource.Loading<DdayListDto>(null))
-            val ddayList = ddayRepository.getDdayList()
-            Log.d(TAG, "invoke: ${ddayRepository.getDdayList()}")
+            val jsonElement = ddayRepository.getDdayList()
+            Log.d(TAG, "invoke: ${jsonElement.asJsonObject}")
+            Log.d(TAG, "invoke: ${jsonElement}")
+            val ddayList = JsonConverter.jsonToDdayListDto(jsonElement.asJsonObject)
+            Log.d(TAG, "invoke: $ddayList")
             emit(Resource.Success(ddayList))
         }catch (e : Throwable){
             if(e is HttpException) {

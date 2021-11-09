@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navy_blue_back_ground">#050626</color>
     <color name="navy_blue_item_box">#090a35</color>
-    <color name="blue_item_enabled_box">#1b7bff</color>
+    <color name="sub_color">#1b7bff</color>
+    <color name="sub_color2">#1c6ee7</color>
     <color name="button_disabled">#252641</color>
     <color name="enabled_button">#FFFFFFFF</color>
     <color name="guide_text">#6b6c85</color>

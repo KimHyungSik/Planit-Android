@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface DdayApi {
 
     @GET("/v1/dday")
-    suspend fun getDdayList(): DdayListDto
+    suspend fun getDdayList(): JsonElement
 }

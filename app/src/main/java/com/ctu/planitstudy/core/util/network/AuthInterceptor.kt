@@ -1,4 +1,4 @@
-package com.ctu.planitstudy.core.base.network
+package com.ctu.planitstudy.core.util.network
 
 import android.util.Log
 import com.ctu.core.util.Resource
@@ -9,8 +9,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.logging.HttpLoggingInterceptor
-import java.util.logging.Level
 import javax.inject.Inject
 
 
@@ -53,7 +51,6 @@ class AuthInterceptor @Inject constructor(
                 "Bearer " + CashStudyApp.prefs.accessToken ?: "")
                 .build()
 
-        Log.d(TAG, "intercept: ${req.headers}")
         return chain.proceed(req)
     }
 }

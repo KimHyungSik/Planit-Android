@@ -9,5 +9,5 @@ import javax.inject.Inject
 class DdayRepositoryImp @Inject constructor(
     private val ddayApi: DdayApi
 ): DdayRepository {
-    override suspend fun getDdayList(): DdayListDto = ddayApi.getDdayList()
+    override suspend fun getDdayList(): JsonElement = ddayApi.getDdayList()
 }

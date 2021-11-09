@@ -38,7 +38,7 @@
             app:layout_constraintRight_toLeftOf="@id/home_todo_list_item_arrow"
             android:textStyle="normal"
             android:textSize="12sp"
-            android:textColor="@color/blue_item_enabled_box"
+            android:textColor="@color/sub_color"
             android:gravity="start"
             android:lineSpacingExtra="6sp"
             android:layout_marginStart="24dp"

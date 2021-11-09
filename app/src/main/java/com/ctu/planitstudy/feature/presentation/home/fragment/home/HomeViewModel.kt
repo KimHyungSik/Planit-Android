@@ -1,6 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
@@ -19,19 +21,26 @@ import kotlin.math.log
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val ddayListUseCase: GetDdayListUseCase,
-    private val ddayRepository: DdayRepository
 ) : ViewModel() {
 
     val TAG = "HomeViewModel - 로그"
 
+    private val _homeState = MutableLiveData<HomeState>()
+    val homeState : LiveData<HomeState> = _homeState
+
     init {
-        Log.d(TAG, "Init: ${CashStudyApp.prefs.accessToken}")
-        Log.d(TAG, "Init: ${CashStudyApp.prefs.refreshToken}")
-        val jwt = JWT(CashStudyApp.prefs.accessToken!!)
+        _homeState.value = HomeState()
+        initSet()
+    }
+
+    fun initSet(){
         ddayListUseCase().onEach {
             when(it){
                 is Resource.Success -> {
                     Log.i(TAG, "Init useCase: ${it.data}")
+                    _homeState.value = homeState.value!!.copy(
+                        dDayList = it.data
+                    )
                 }
                 is Resource.Loading ->{
                     Log.d(TAG, "Init useCase: loading")

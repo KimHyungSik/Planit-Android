@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy">
         <activity android:name=".feature.presentation.home.HomeScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".feature.presentation.sign_up.SignUpScreen"
@@ -22,11 +26,7 @@
 
         </activity>
         <activity android:name=".feature.presentation.login.LoginScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
