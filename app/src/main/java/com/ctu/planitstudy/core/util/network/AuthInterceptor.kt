@@ -17,7 +17,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class AuthInterceptor @Inject constructor(
     private val jwtTokenRefreshUseCase: JwtTokenRefreshUseCase,
-    private val authRepository: AuthRepository
 ) : Interceptor {
 
     val accessTokenExpiration = JWTAccessTokenExpiration()

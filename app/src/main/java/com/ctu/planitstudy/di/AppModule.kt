@@ -1,6 +1,7 @@
 package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.network.AuthInterceptor
+import com.ctu.planitstudy.core.util.network.TokenAuthenticator
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.Module
@@ -16,8 +17,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, authRepository: AuthRepository) : OkHttpClient =
+    fun providerTokenAuthenticator(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase) : TokenAuthenticator =
+        TokenAuthenticator(jwtTokenRefreshUseCase)
+
+    @Provides
+    @Singleton
+    fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator) : OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase, authRepository))
+            .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
+            .authenticator(tokenAuthenticator)
             .build()
 }
