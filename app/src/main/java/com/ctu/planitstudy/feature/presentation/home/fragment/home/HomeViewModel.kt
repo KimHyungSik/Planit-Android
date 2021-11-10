@@ -37,7 +37,6 @@ class HomeViewModel @Inject constructor(
         ddayListUseCase().onEach {
             when(it){
                 is Resource.Success -> {
-                    Log.i(TAG, "Init useCase: ${it.data}")
                     _homeState.value = homeState.value!!.copy(
                         dDayList = it.data
                     )

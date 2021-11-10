@@ -23,10 +23,7 @@ class GetDdayListUseCase @Inject constructor(
         try {
             emit(Resource.Loading<DdayListDto>(null))
             val jsonElement = ddayRepository.getDdayList()
-            Log.d(TAG, "invoke: ${jsonElement.asJsonObject}")
-            Log.d(TAG, "invoke: ${jsonElement}")
             val ddayList = JsonConverter.jsonToDdayListDto(jsonElement.asJsonObject)
-            Log.d(TAG, "invoke: $ddayList")
             emit(Resource.Success(ddayList))
         }catch (e : Throwable){
             if(e is HttpException) {
