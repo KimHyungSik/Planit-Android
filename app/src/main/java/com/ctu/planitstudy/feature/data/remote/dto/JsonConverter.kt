@@ -11,13 +11,13 @@ object JsonConverter {
 
     val TAG = "JsonConverter - 로그"
 
-    fun jsonToLoginDto(jsonObject: JsonObject) : LoginDto = LoginDto(
+    fun jsonToLoginDto(jsonObject: JsonObject): LoginDto = LoginDto(
         result = jsonObject["result"].asBoolean,
         accessToken = jsonObject["accessToken"].asString,
         refreshToken = jsonObject["refreshToken"].asString
     )
 
-    fun jsonToSignUpUserDto(jsonObject: JsonObject) : SignUpUserDto = SignUpUserDto(
+    fun jsonToSignUpUserDto(jsonObject: JsonObject): SignUpUserDto = SignUpUserDto(
         id = jsonObject["id"].asInt,
         email = jsonObject["email"].asString,
         name = jsonObject["name"].asString,
@@ -29,25 +29,27 @@ object JsonConverter {
         refreshToken = jsonObject["refreshToken"].asString
     )
 
-    fun jsonToDdayListDto (jsonObject: JsonObject) : DdayListDto{
+    fun jsonToDdayListDto(jsonObject: JsonObject): DdayListDto {
         val ddayList = ArrayList<DdayDto>()
-        for(n in jsonObject["ddays"].asJsonArray){
+        for (n in jsonObject["ddays"].asJsonArray) {
             val json = n.asJsonObject
             ddayList.add(
-                DdayDto(
-                    id = json["id"].asInt,
-                    title = json["title"].asString,
-                    isRepresentative = json["isRepresentative"].asBoolean,
-                    endAt = json["endAt"].asString,
-                    createdAt = json["createdAt"].asString,
-                    color = json["color"].asString,
-                    dDay = DateCalculation().calDateBetween(
-                        DateCalculation().getCurrentDate(),
-                        json["endAt"].asString
-                    )
-                )
+                jsonToDdayDto(json)
             )
         }
         return DdayListDto(ddayList)
     }
+
+    fun jsonToDdayDto(jsonObject: JsonObject): DdayDto = DdayDto(
+        id = jsonObject["id"].asInt,
+        title = jsonObject["title"].asString,
+        isRepresentative = jsonObject["isRepresentative"].asBoolean,
+        endAt = jsonObject["endAt"].asString,
+        createdAt = jsonObject["createdAt"].asString,
+        color = jsonObject["color"].asString,
+        dDay = DateCalculation().calDateBetween(
+            DateCalculation().getCurrentDate(),
+            jsonObject["endAt"].asString
+        )
+    )
 }

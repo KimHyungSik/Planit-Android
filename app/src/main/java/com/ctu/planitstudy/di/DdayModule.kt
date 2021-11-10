@@ -4,7 +4,10 @@ import com.ctu.planitstudy.core.util.CoreData.BASE_SERVER_URL
 import com.ctu.planitstudy.feature.data.remote.DdayApi
 import com.ctu.planitstudy.feature.data.repository.DdayRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
+import com.ctu.planitstudy.feature.domain.use_case.dday.AddDdayUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.DeleteDdayUseCase
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.ModifiedDdayUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +41,21 @@ object DdayModule {
     @Singleton
     fun providerGetDdayListUseCase(ddayRepository: DdayRepository) : GetDdayListUseCase =
         GetDdayListUseCase(ddayRepository)
+
+    @Provides
+    @Singleton
+    fun providerAddDdayUseCase(ddayRepository: DdayRepository) : AddDdayUseCase =
+        AddDdayUseCase(ddayRepository)
+
+    @Provides
+    @Singleton
+    fun providerModifiedDdayUseCase(ddayRepository: DdayRepository) : ModifiedDdayUseCase =
+        ModifiedDdayUseCase(ddayRepository)
+
+    @Provides
+    @Singleton
+    fun providerDeleteDdayUseCase(ddayRepository: DdayRepository) : DeleteDdayUseCase =
+        DeleteDdayUseCase(ddayRepository)
+
+
 }
