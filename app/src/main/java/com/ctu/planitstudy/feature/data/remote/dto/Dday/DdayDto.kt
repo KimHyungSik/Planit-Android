@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 data class DdayDto(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
@@ -13,4 +14,4 @@ data class DdayDto(
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("color") val color: String,
     val dDay: Int
-)
+): Parcelable{}

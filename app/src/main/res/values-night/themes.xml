@@ -12,5 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/navy_blue_back_ground</item>
         <!-- Customize your theme here. -->
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+    </style>
+
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/sub_color2</item>
+        <item name="colorSecondary">@color/text_color</item>
     </style>
 </resources>

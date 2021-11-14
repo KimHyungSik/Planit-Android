@@ -14,4 +14,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/navy_blue_back_ground</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SettingContextSwitch" parent="Theme.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:thumb">@color/text_color</item>
+        <item name="android:track">@drawable/dday_switch_track</item>
+        <item name="android:switchMinWidth">10dp</item> <!-- v19 setOnSwitchSize -->
+    </style>
+
 </resources>

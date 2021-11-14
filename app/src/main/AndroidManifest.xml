@@ -29,7 +29,9 @@
 
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".feature.presentation.dday.DdayScreen" />
+        <activity android:name=".feature.presentation.dday.DdayScreen">
+
+        </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
