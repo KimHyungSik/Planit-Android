@@ -13,6 +13,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/navy_blue_back_ground</item>
         <!-- Customize your theme here. -->
+        <item name="android:backgroundDimAmount">0.7</item>
     </style>
 
     <style name="SettingContextSwitch" parent="Theme.AppCompat">

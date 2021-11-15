@@ -38,8 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
     override fun setUpViews() {
         super.setUpViews()
 
-        Log.d(TAG, "setUpViews: $viewModel")
-
         todoListRecyclerAdapter = TodoListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {

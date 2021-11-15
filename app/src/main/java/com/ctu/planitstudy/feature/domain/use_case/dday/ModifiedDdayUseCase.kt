@@ -14,6 +14,7 @@ import javax.inject.Inject
 class ModifiedDdayUseCase@Inject constructor(
     private val ddayRepository: DdayRepository
 )  {
+
     operator fun invoke(dday : Dday, ddayId: Int) : Flow<Resource<DdayDto>> = flow{
         try {
             emit(Resource.Loading<DdayDto>(null))

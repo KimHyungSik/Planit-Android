@@ -60,7 +60,7 @@
                         android:layout_marginEnd="26dp"
                         android:layout_marginBottom="17dp"
                         android:clickable="true"
-                        android:onClick="@{()->viewmodel.dDayDelete()}"
+                        android:onClick="@{()->viewmodel.dDayDeleteDialog()}"
                         app:cardBackgroundColor="@android:color/transparent"
                         >
                         <ImageView
@@ -277,6 +277,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="22dp"
                             android:checked="@={viewmodel.DDayState.representative}"
+                            android:onCheckedChanged="@{viewmodel::onSwitchChanged}"
                             android:switchMinWidth="50dp"
                             android:thumbTint="@color/text_color"
                             android:track="@drawable/dday_switch_track"

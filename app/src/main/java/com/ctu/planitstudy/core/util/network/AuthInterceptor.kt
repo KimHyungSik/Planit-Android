@@ -29,7 +29,6 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
 
         if(jwtRefreshTokenExpiration()){
-            Log.d(TAG, "intercept: refreshToken : ${CashStudyApp.prefs.refreshToken}")
             Intent(CashStudyApp.instance, LoginScreen::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
                         Intent.FLAG_ACTIVITY_CLEAR_TASK or
@@ -42,8 +41,6 @@ class AuthInterceptor @Inject constructor(
             getAccessToken()
             delay(800)
         }
-
-        Log.d(TAG, "intercept: 액세스 토큰 검사 : ${CashStudyApp.prefs.accessToken}")
 
         var req =
             chain
@@ -60,14 +57,11 @@ class AuthInterceptor @Inject constructor(
 
     private suspend inline fun getAccessToken(): String? =
         GlobalScope.async(Dispatchers.Default) {
-            Log.d(TAG, "getAccessToken: ")
             callNewAccessToken()
         }.await()
 
     private suspend inline fun callNewAccessToken(): String? = suspendCoroutine { continuation ->
-        Log.d(TAG, "callNewAccessToken: ")
         jwtTokenRefreshUseCase().onEach {
-            Log.d(TAG, "callNewAccessToken: jwtTokenRefreshUseCase")
             when (it) {
                 is Resource.Success -> {
                     continuation.resume(it.data)
