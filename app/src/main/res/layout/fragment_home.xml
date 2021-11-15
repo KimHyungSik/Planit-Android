@@ -93,7 +93,73 @@
                         app:strokeColor="@color/item_guide_stroke"
                         app:strokeWidth="1dp">
 
-                        <include layout="@layout/components_home_setting_d_day" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:visibility="gone"
+                            android:id="@+id/home_fragment_d_day_column"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardBackgroundColor="@color/sub_color">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                >
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/home_fragment_d_day_count_box"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toLeftOf="@id/home_fragment_d_day_text"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_width="76dp"
+                                    android:layout_height="68dp"
+                                    app:cardBackgroundColor="@color/sub_color2"
+                                    >
+                                    <TextView
+                                        android:id="@+id/home_fragment_d_day_count"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:textStyle="normal"
+                                        android:textSize="18sp"
+                                        android:textColor="@color/text_color"
+                                        android:gravity="center"
+                                        />
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <TextView
+                                    android:id="@+id/home_fragment_d_day_text"
+                                    android:text="대표 디데이"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:textColor="@color/text_color"
+                                    android:textStyle="normal"
+                                    android:textSize="12sp"
+                                    android:lineSpacingExtra="6sp"
+                                    app:layout_constraintTop_toTopOf="@id/home_fragment_d_day_count_box"
+                                    app:layout_constraintBottom_toTopOf="@id/home_fragment_d_day_title"
+                                    app:layout_constraintLeft_toRightOf="@id/home_fragment_d_day_count_box"
+                                    />
+                                <TextView
+                                    android:id="@+id/home_fragment_d_day_title"
+                                    android:text="대표 디데이"
+                                    android:layout_marginStart="24dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="normal"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_color"
+                                    app:layout_constraintBottom_toBottomOf="@id/home_fragment_d_day_count_box"
+                                    app:layout_constraintTop_toBottomOf="@id/home_fragment_d_day_text"
+                                    app:layout_constraintLeft_toRightOf="@id/home_fragment_d_day_count_box"
+                                    />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <include
+                            layout="@layout/components_home_setting_d_day"
+                            />
                     </com.google.android.material.card.MaterialCardView>
 
                     <include layout="@layout/components_home_todo_title" />

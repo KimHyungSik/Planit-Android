@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.domain.use_case.auth
 
 import android.util.Log
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.feature.domain.model.RefreshToken
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver.Companion.TAG
@@ -23,20 +24,19 @@ class JwtTokenRefreshUseCase @Inject constructor(
 ) {
 
     @DelicateCoroutinesApi
-    operator fun invoke() : Flow<Resource<Boolean>> = flow {
+    operator fun invoke() : Flow<Resource<String>> = flow {
         try {
-            emit(Resource.Loading(false))
-
-            authRepository.refreshAccessToken(CashStudyApp.prefs.refreshToken!!)
-
-            emit(Resource.Success(true))
+            emit(Resource.Loading<String>(null))
+            val json = authRepository.refreshAccessToken(RefreshToken(CashStudyApp.prefs.refreshToken!!))
+            CashStudyApp.prefs.accessToken = json.asJsonObject["accessToken"].asString!!
+            emit(Resource.Success(json.asJsonObject["accessToken"].asString!!))
         }catch (e : Exception){
             if(e is HttpException) {
                 Log.d(TAG, "invoke: ${e.code()}")
                 if(e.code() == 401)
-                emit(Resource.Error(data = false, message = "토큰 만료"))
+                emit(Resource.Error<String>(data = null, message = "토큰 만료"))
             }
-            emit(Resource.Error(data = false, message = "통신 실패"))
+            emit(Resource.Error<String>(data = null, message = "통신 실패"))
         }
     }
 }

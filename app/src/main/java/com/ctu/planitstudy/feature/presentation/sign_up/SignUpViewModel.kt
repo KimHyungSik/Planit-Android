@@ -168,7 +168,6 @@ class SignUpViewModel @Inject constructor(
                     receiverNickname = liveData.value?.receiverName!!,
                     sex = liveData.value?.gender!!,
                 )
-                Log.d(TAG, "sendSignUpUserData: $signUpUserReceiver")
                 (
                         if (receiverNameSkip)
                             userAuthUseCase.userSignUp(signUpUserReceiver)
@@ -189,7 +188,6 @@ class SignUpViewModel @Inject constructor(
                         _screens.value = Screens.HomeScreenSh()
                     }, {
                         if (it is HttpException) {
-                            val jObjError = JSONObject(it.response()!!.errorBody()!!.string())
                             CashStudyApp.prefs.accessToken = ""
                             CashStudyApp.prefs.refreshToken = ""
                         }

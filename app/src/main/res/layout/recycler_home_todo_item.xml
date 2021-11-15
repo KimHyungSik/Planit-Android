@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@color/module_color"
@@ -38,7 +39,7 @@
             app:layout_constraintRight_toLeftOf="@id/home_todo_list_item_arrow"
             android:textStyle="normal"
             android:textSize="12sp"
-            android:textColor="@color/blue_item_enabled_box"
+            android:textColor="@color/sub_color"
             android:gravity="start"
             android:lineSpacingExtra="6sp"
             android:layout_marginStart="24dp"
