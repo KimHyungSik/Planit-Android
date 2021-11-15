@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout >
+<layout>
+
     <data>
+
         <variable
             name="viewmodel"
-            type="com.ctu.planitstudy.feature.presentation.dday.DdayViewModel"
-            />
+            type="com.ctu.planitstudy.feature.presentation.dday.DdayViewModel" />
     </data>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/navy_blue_back_ground"
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,10 +74,10 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="디데이 제목을 입력해주세"
-                    android:maxLength="10"
-                    android:text='@{viewmodel.DDayDto.title ?? ""}'
                     android:inputType="text"
-                   />
+                    android:maxLength="10"
+                    android:text='@={viewmodel.DDayState.title}'
+                    />
 
                 <TextView
                     android:id="@+id/d_day_title_length_count"
@@ -87,7 +86,7 @@
                     android:layout_marginEnd="22dp"
                     android:gravity="center"
                     android:lineSpacingExtra="10sp"
-                    android:text="0/10"
+                    android:text='@{viewmodel.DDayState.title.length() + `/10` ?? "0/10"}'
                     android:textColor="@color/sub_color2"
                     android:textSize="14sp"
                     android:textStyle="normal" />
@@ -107,38 +106,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/d_day_date_calendar_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="22dp"
-                    android:src="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="@id/d_day_radio_group_division"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/d_day_date_item_view"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:lineSpacingExtra="8sp"
-                    android:text="날짜"
-                    android:textColor="@color/text_color"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
-                    app:layout_constraintBottom_toBottomOf="@id/d_day_radio_group_division"
-                    app:layout_constraintLeft_toRightOf="@id/d_day_date_calendar_icon"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/d_day_radio_group_division"
+                    >
 
-                <TextView
-                    android:id="@+id/d_day_date_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="22dp"
-                    android:text="0000년00월00일(월)"
-                    app:layout_constraintBottom_toBottomOf="@id/d_day_radio_group_division"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/d_day_date_calendar_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="22dp"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="@id/d_day_radio_group_division" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:lineSpacingExtra="8sp"
+                        android:text="날짜"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:textStyle="normal"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/d_day_date_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="22dp"
+                        android:text='@{viewmodel.DDayState.date ?? "0000년00월00일(월)"}'
+                        app:layout_constraintBottom_toBottomOf="@id/d_day_radio_group_division"
+                        />
+                </LinearLayout>
 
                 <View
                     android:id="@+id/d_day_radio_group_division"
@@ -154,7 +162,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="32dp"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
 
                     <TextView
                         android:layout_width="match_parent"
@@ -172,7 +181,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        >
 
                         <RadioButton
                             android:id="@+id/d_day_radio_button_1"
@@ -254,6 +264,7 @@
                     android:thumbTint="@color/text_color"
                     android:track="@drawable/dday_switch_track"
                     tools:ignore="UseSwitchCompatOrMaterialXml"
+                    android:checked="@={viewmodel.DDayState.representative}"
                     />
             </LinearLayout>
 
