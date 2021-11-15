@@ -14,8 +14,8 @@ interface DdayApi {
     @POST("/v1/dday")
     suspend fun addDday(@Body dday : Dday) : JsonElement
 
-    @PUT("/v1/dday")
-    suspend fun modifiedDday(@Body dday : Dday) : JsonElement
+    @PUT("/v1/dday/{dDayId}")
+    suspend fun modifiedDday(@Body dday : Dday, @Path("dDayId") dDayId : Int) : JsonElement
 
     @DELETE("/v1/dday/{dDayId}")
     suspend fun deleteDday(@Path("dDayId") dDayId : Int) : Response<Unit>

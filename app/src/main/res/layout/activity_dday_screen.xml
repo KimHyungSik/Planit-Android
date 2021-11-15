@@ -59,6 +59,7 @@
                         app:cardCornerRadius="8dp"
                         android:layout_marginEnd="26dp"
                         android:layout_marginBottom="17dp"
+                        android:clickable="true"
                         android:onClick="@{()->viewmodel.dDayDelete()}"
                         app:cardBackgroundColor="@android:color/transparent"
                         >
@@ -297,9 +298,12 @@
                     android:layout_marginBottom="40dp"
                     android:clickable="true"
                     app:cardBackgroundColor="@color/sub_color2"
-                    app:cardCornerRadius="40dp">
+                    app:cardCornerRadius="40dp"
+                    android:onClick="@{()->viewmodel.dDayConfirmed()}"
+                    >
 
                     <TextView
+                        android:id="@+id/d_day_confirmed_btn_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"

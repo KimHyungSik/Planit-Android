@@ -8,10 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
+import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.use_case.dday.DdayUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -20,12 +23,15 @@ class DdayViewModel @Inject constructor(
     private val ddayUseCase: DdayUseCase
 ) : ViewModel() {
     val TAG = "DdayViewmodel - 로그"
-    
+
     private val _dDayState = MutableLiveData<DdayState>()
-    val dDayState : LiveData<DdayState> = _dDayState
+    val dDayState: LiveData<DdayState> = _dDayState
 
     private val _dDayNetworkState = MutableLiveData<DdayNetworkState>()
-    val dDayNetworkState : LiveData<DdayNetworkState> = _dDayNetworkState
+    val dDayNetworkState: LiveData<DdayNetworkState> = _dDayNetworkState
+
+    private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+    private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
 
 
     var ddayDto: DdayDto? = null
@@ -34,28 +40,59 @@ class DdayViewModel @Inject constructor(
         _dDayState.value = DdayState()
     }
 
-    fun dDayDtoSet(ddayDto: DdayDto){
+    fun dDayDtoSet(ddayDto: DdayDto) {
         this.ddayDto = ddayDto
     }
 
-    fun dDayUpdate(ddayDto: DdayDto, date: String){
+    fun dDayUpdate(ddayDto: DdayDto, date: String) {
         _dDayState.value = DdayState(ddayDto.title, date, ddayDto.color, ddayDto.isRepresentative)
     }
 
-    fun dDayUpdate(ddayState: DdayState){
+    fun dDayUpdate(ddayState: DdayState) {
         _dDayState.value = ddayState
     }
 
-    fun dDayDelete(){
-        Log.d(TAG, "dDayDelete: ${ddayDto!!.id}")
+    fun dDayDelete() {
         ddayUseCase.deleteDdayUseCase(ddayDto!!.id).onEach {
-            when(it){
-                is Resource.Success ->{_dDayNetworkState.value = DdayNetworkState(deleteDay = true)}
-                is Resource.Error -> {
-                    Log.d(TAG, "dDayDelete: ${it.message}")
+            when (it) {
+                is Resource.Success -> {
+                    _dDayNetworkState.value = DdayNetworkState(deleteDay = true)
                 }
-                is Resource.Loading ->{_dDayNetworkState.value = DdayNetworkState(loading = true)}
+                is Resource.Error -> {
+                }
+                is Resource.Loading -> {
+                    _dDayNetworkState.value = DdayNetworkState(loading = true)
+                }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun dDayConfirmed() {
+        if (ddayDto != null) {
+            dDayState.value.let {
+                val dDay =
+                    Dday(
+                        it!!.title,
+                        dateFormatDdayDto.format(dateFormatText.parse(it.date.slice(IntRange(0, 11)))),
+                        it.color,
+                        it.representative
+                    )
+                Log.d(TAG, "dDayConfirmed: $dDay")
+                Log.d(TAG, "dDayConfirmed: $ddayDto")
+                ddayUseCase.modifiedDdayUseCase(dDay, ddayDto!!.id).onEach {
+                    when (it) {
+                        is Resource.Success -> {
+                            _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
+                        }
+                        is Resource.Error -> {
+                            Log.d(TAG, "dDayConfirmed: ${it.message}")
+                        }
+                        is Resource.Loading -> {
+                            _dDayNetworkState.value = DdayNetworkState(loading = true)
+                        }
+                    }
+                }.launchIn(viewModelScope)
+            }
+        }
     }
 }

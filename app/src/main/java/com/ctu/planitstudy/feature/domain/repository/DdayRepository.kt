@@ -10,6 +10,6 @@ import retrofit2.Response
 interface DdayRepository {
     suspend fun getDdayList() : JsonElement
     suspend fun addDday(dday : Dday) : JsonElement
-    suspend fun modifiedDday(dday: Dday) : JsonElement
+    suspend fun modifiedDday(dday: Dday, dDayId : Int) : JsonElement
     suspend fun deleteDday(dDayId : Int) : Response<Unit>
 }

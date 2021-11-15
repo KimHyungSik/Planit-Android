@@ -47,7 +47,6 @@ class DdayScreen
             setUpView()
         } else {
             setUpViewWithDday(dDay)
-            viewModel.dDayDtoSet(dDay)
         }
 
         viewModel.apply {
@@ -59,6 +58,7 @@ class DdayScreen
 
         binding.apply {
             viewmodel = viewModel
+            // 데이터 피커 날짜 변경 시
             dDayDatePicker.apply {
                 setOnDateChangeListener { view, year, month, dayOfMonth ->
                     viewmodel!!.dDayUpdate(
@@ -68,6 +68,8 @@ class DdayScreen
                     )
                 }
             }
+
+            // 데이터 피커 확인 버튼
             dDayConfirmedDateBtn.setOnClickListener {
                 dDayCustomDatePicker.visibility = View.INVISIBLE
                 dDayBlur.visibility = View.INVISIBLE
@@ -103,6 +105,7 @@ class DdayScreen
         viewModelSet()
     }
 
+    // yyyy-MM-dd 에서 yyyy년MM월dd일(요일) 로 변경
     fun getDdayDateText(dDay: String?): String {
         return if (dDay != null) {
             calendar.time = dateFormatDdayDto.parse(dDay)
@@ -118,6 +121,7 @@ class DdayScreen
         }
     }
 
+    // 기존에 데이터가 있을 경우
     @SuppressLint("SetTextI18n")
     fun setUpViewWithDday(dDay: DdayDto) {
         binding.apply {
@@ -127,9 +131,12 @@ class DdayScreen
                     dDay.color
                 )].radio
             )
+            dDayConfirmedBtnText.text = "저장하기"
         }
+        viewModel.dDayDtoSet(dDay)
     }
 
+    // 기존데이터가 없는 경우
     fun setUpView() {
         binding.apply {
             dDayCustomIcon.check(DdayIconSet.DdayIcon.PINK.radio)
@@ -139,7 +146,7 @@ class DdayScreen
     fun viewModelSet(){
         viewModel.dDayNetworkState.observe(this, {
             Log.d(TAG, "viewModelSet: $it")
-            if (it.deleteDay) moveIntentAllClear(Screens.HomeScreenSh().activity)
+            if (it.deleteDay || it.modifiedDay) moveIntentAllClear(Screens.HomeScreenSh().activity)
         })
     }
 

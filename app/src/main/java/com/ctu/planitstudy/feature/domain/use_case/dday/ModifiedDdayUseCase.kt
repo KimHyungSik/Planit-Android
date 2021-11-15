@@ -14,10 +14,10 @@ import javax.inject.Inject
 class ModifiedDdayUseCase@Inject constructor(
     private val ddayRepository: DdayRepository
 )  {
-    operator fun invoke(dday : Dday) : Flow<Resource<DdayDto>> = flow{
+    operator fun invoke(dday : Dday, ddayId: Int) : Flow<Resource<DdayDto>> = flow{
         try {
             emit(Resource.Loading<DdayDto>(null))
-            val jsonElement = ddayRepository.modifiedDday(dday)
+            val jsonElement = ddayRepository.modifiedDday(dday, ddayId)
             val dday= JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
             emit(Resource.Success(dday))
         }catch (e : Throwable){
