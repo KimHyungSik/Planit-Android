@@ -1,10 +1,12 @@
 package com.ctu.planitstudy.core.util.network
 
+import android.content.Intent
 import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.login.LoginScreen
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,6 +22,7 @@ class AuthInterceptor @Inject constructor(
 ) : Interceptor {
 
     val accessTokenExpiration = JWTAccessTokenExpiration()
+    val jwtRefreshTokenExpiration = JWTRefreshTokenExpiration()
 
     val TAG = "AuthInterceptor - 로그"
 
@@ -27,13 +30,17 @@ class AuthInterceptor @Inject constructor(
         Log.d(TAG, "intercept: access token : ${CashStudyApp.prefs.accessToken}")
         Log.d(TAG, "intercept: refreshToken : ${CashStudyApp.prefs.refreshToken}")
 
-        val getAccessTokenScope = GlobalScope.async(Dispatchers.Default) {
-            getAccessToken()
+        if(jwtRefreshTokenExpiration()){
+            Intent(CashStudyApp.instance, LoginScreen::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_NEW_TASK
+            }.also { CashStudyApp.instance.startActivity(it) }
         }
 
         // 토큰 만료 검사
-        if (accessTokenExpiration()) runBlocking {
-            getAccessTokenScope.await()
+        if (accessTokenExpiration() && !jwtRefreshTokenExpiration()) runBlocking {
+            getAccessToken()
             delay(800)
         }
 

@@ -36,14 +36,21 @@ class DdayScreen
     override fun setup() {
 
         val dDay = intent.getParcelableExtra<DdayDto>("dDay")
+
         if (dDay == null) {
             binding.dDayDeletBtn.visibility = View.INVISIBLE
             setUpView()
         } else {
-
             setUpViewWithDday(dDay)
         }
-        binding.viewmodel = viewModel
+
+        binding.apply {
+            viewmodel = viewModel
+        }
+
+//        viewModel.apply {
+//            dDayUpdate(dDay ?: DdayDto(-1,"",false,"","","",-1))
+//        }
 
         disposables.add(RxTextView.textChanges(binding.dDayEditTitle)
             .subscribe {
