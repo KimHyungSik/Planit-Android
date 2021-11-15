@@ -103,4 +103,6 @@ dependencies {
 
     implementation 'com.auth0.android:jwtdecode:2.0.0'          // Jwt decode
 
+    implementation 'com.maxkeppeler.sheets:core:2.2.6'
+
 }

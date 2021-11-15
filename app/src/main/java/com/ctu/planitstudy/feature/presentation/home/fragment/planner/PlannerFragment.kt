@@ -11,6 +11,7 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentAnalysisBinding
 import com.ctu.planitstudy.databinding.FragmentPlannerBinding
 import com.ctu.planitstudy.databinding.FragmentPlannerPlannerBinding
+import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerDdayFragment
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerPlannerFragment
@@ -57,6 +58,10 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>(){
                     }
                 }, {}, {})
         )
+
+        binding.dDayAddedBtn.setOnClickListener {
+            moveIntent(DdayScreen::class.java)
+        }
     }
 
     override fun setInit() {

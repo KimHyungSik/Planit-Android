@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentPlannerDDayBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
+import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.DdayListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.InDdayListRecycler
@@ -50,5 +52,9 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
     }
 
     override fun onClickedItem(position: Int) {
+        val intent = Intent(activity, DdayScreen::class.java)
+        Log.d(TAG, "onClickedItem: ${dDayListRecyclerAdapter.dDayList[position]}")
+        intent.putExtra("dDay", dDayListRecyclerAdapter.dDayList[position])
+        moveIntent(intent)
     }
 }
