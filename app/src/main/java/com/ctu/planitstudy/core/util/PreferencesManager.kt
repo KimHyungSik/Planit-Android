@@ -23,6 +23,6 @@ class PreferencesManager(
     var refreshToken:String?
         get() = prefs.getString(REFRESHTOKEN,null)
         set(value){
-            prefs.edit().putString("token",value).apply()
+            prefs.edit().putString(REFRESHTOKEN,value).apply()
         }
 }

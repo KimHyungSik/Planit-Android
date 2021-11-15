@@ -56,9 +56,10 @@ class LoginViewModel @Inject constructor(
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }
                                             .subscribe({
-                                                loginState.postValue(LoginState.Login(it.result))
+                                                Log.d(TAG, "login: ${it.refreshToken}")
                                                 CashStudyApp.prefs.accessToken = it.accessToken
                                                 CashStudyApp.prefs.refreshToken = it.refreshToken
+                                                loginState.postValue(LoginState.Login(it.result))
                                             }, {
                                             })
 

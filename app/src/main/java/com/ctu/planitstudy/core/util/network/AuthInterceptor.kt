@@ -27,10 +27,9 @@ class AuthInterceptor @Inject constructor(
     val TAG = "AuthInterceptor - 로그"
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.d(TAG, "intercept: access token : ${CashStudyApp.prefs.accessToken}")
-        Log.d(TAG, "intercept: refreshToken : ${CashStudyApp.prefs.refreshToken}")
 
         if(jwtRefreshTokenExpiration()){
+            Log.d(TAG, "intercept: refreshToken : ${CashStudyApp.prefs.refreshToken}")
             Intent(CashStudyApp.instance, LoginScreen::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
                         Intent.FLAG_ACTIVITY_CLEAR_TASK or
