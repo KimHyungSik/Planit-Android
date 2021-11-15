@@ -15,12 +15,12 @@ class DateCalculation {
         return Math.abs(calDay).toInt()
     }
 
-    fun getCurrentDate() : String{
+    fun getCurrentDateString() : String{
         // 현재시간을 가져오기
-        val long_now = System.currentTimeMillis()
+        val now = System.currentTimeMillis()
 
         // 현재 시간을 Date 타입으로 변환
-        val t_date = Date(long_now)
+        val t_date = Date(now)
 
         // 날짜, 시간을 가져오고 싶은 형태 선언
         val t_dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR"))

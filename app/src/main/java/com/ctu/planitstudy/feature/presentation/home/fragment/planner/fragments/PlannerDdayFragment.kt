@@ -34,15 +34,24 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = dDayListRecyclerAdapter
         }
+        // 대표 디데이
         homeViewModel.homeState.value!!.dDayList!!.ddays.toObservable()
             .filter { it.isRepresentative }
             .subscribe {
+                dDay ->
                 binding.apply {
-                    plannerDDayRepresentativeDDay.text = "D-" + it.dDay
-                    plannerDDayRepresentativeTitle.text = it.title
-                    plannerDDayRepresentativeDate.text = it.endAt
+                    plannerDDayRepresentativeDDay.text = "D-" + dDay.dDay
+                    plannerDDayRepresentativeTitle.text = dDay.title
+                    plannerDDayRepresentativeDate.text = dDay.endAt
+                    plannerDDayRepresentativeItemView.setOnClickListener {
+                        val intent = Intent(activity, DdayScreen::class.java)
+                        intent.putExtra("dDay", dDay)
+                        moveIntent(intent)
+                    }
                 }
             }.isDisposed
+
+        // 대표 디데이를 제외한 디데이 리스
         homeViewModel.homeState.value!!.dDayList!!.ddays.toObservable()
             .filter { !it.isRepresentative }
             .subscribe {
@@ -53,7 +62,6 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
 
     override fun onClickedItem(position: Int) {
         val intent = Intent(activity, DdayScreen::class.java)
-        Log.d(TAG, "onClickedItem: ${dDayListRecyclerAdapter.dDayList[position]}")
         intent.putExtra("dDay", dDayListRecyclerAdapter.dDayList[position])
         moveIntent(intent)
     }
