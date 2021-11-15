@@ -5,6 +5,8 @@ import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.gson.JsonElement
+import okhttp3.ResponseBody
+import retrofit2.Response
 import javax.inject.Inject
 
 class DdayRepositoryImp @Inject constructor(
@@ -13,5 +15,5 @@ class DdayRepositoryImp @Inject constructor(
     override suspend fun getDdayList(): JsonElement = ddayApi.getDdayList()
     override suspend fun addDday(dday: Dday): JsonElement = ddayApi.addDday(dday)
     override suspend fun modifiedDday(dday: Dday): JsonElement = ddayApi.modifiedDday(dday)
-    override suspend fun deleteDday(dDayId: Int) = ddayApi.deleteDday(dDayId)
+    override suspend fun deleteDday(dDayId: Int) : Response<Unit> = ddayApi.deleteDday(dDayId)
 }

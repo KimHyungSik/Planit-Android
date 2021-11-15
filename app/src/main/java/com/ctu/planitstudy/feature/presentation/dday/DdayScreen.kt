@@ -10,6 +10,7 @@ import com.ctu.planitstudy.core.util.enum.DdayIconSet
 import com.ctu.planitstudy.core.util.enum.Week
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,11 +41,13 @@ class DdayScreen
 
         val dDay = intent.getParcelableExtra<DdayDto>("dDay")
 
+        // 기존 데이터 여부 확인
         if (dDay == null) {
             binding.dDayDeletBtn.visibility = View.INVISIBLE
             setUpView()
         } else {
             setUpViewWithDday(dDay)
+            viewModel.dDayDtoSet(dDay)
         }
 
         viewModel.apply {
@@ -96,6 +99,8 @@ class DdayScreen
                 }
             )
         }
+
+        viewModelSet()
     }
 
     fun getDdayDateText(dDay: String?): String {
@@ -129,6 +134,13 @@ class DdayScreen
         binding.apply {
             dDayCustomIcon.check(DdayIconSet.DdayIcon.PINK.radio)
         }
+    }
+
+    fun viewModelSet(){
+        viewModel.dDayNetworkState.observe(this, {
+            Log.d(TAG, "viewModelSet: $it")
+            if (it.deleteDay) moveIntentAllClear(Screens.HomeScreenSh().activity)
+        })
     }
 
     override fun onDestroy() {

@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.di
 
 import com.ctu.planitstudy.core.util.CoreData.BASE_SERVER_URL
+import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.remote.DdayApi
 import com.ctu.planitstudy.feature.data.repository.DdayRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
@@ -25,6 +26,7 @@ object DdayModule {
             .baseUrl(BASE_SERVER_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
             .build()
             .create(DdayApi::class.java)
 
