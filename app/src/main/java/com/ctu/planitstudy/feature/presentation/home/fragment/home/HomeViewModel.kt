@@ -42,10 +42,8 @@ class HomeViewModel @Inject constructor(
                     )
                 }
                 is Resource.Loading ->{
-                    Log.d(TAG, "Init useCase: loading")
                 }
                 is Resource.Error -> {
-                    Log.e(TAG, "Init useCase: ${it.message}")
                 }
             }
         }.launchIn(viewModelScope)

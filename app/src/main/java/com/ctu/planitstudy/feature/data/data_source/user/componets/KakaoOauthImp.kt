@@ -24,12 +24,10 @@ class KakaoOauthImp() : OauthUserPolicy {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { available ->
-                    Log.d(TAG, "login: ${available}")
                     if (available) rx.loginWithKakaoTalk(context)
                     else rx.loginWithKakaoAccount(context)
                 }
                 .map { token ->
-                    Log.d(TAG, "login: ${token.accessToken}")
                     if (token != null) Resource.Success<String>("success")
                     else Resource.Error<String>(message = "error", null)
                 }

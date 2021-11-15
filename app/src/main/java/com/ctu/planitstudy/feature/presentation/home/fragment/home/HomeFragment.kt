@@ -38,8 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
     override fun setUpViews() {
         super.setUpViews()
 
-        Log.d(TAG, "setUpViews: $viewModel")
-
         todoListRecyclerAdapter = TodoListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {
@@ -55,14 +53,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
     override fun setInit() {
         super.setInit()
         binding.viewmodel = viewModel
-        Log.d(TAG, "setInit: $viewModel")
         viewModel.homeState.observe(this, Observer {
-            Log.d(TAG, "setUpViews: $it")
             if (it.dDayList != null) {
                 it.dDayList.ddays.toObservable()
                     .filter { it.isRepresentative }
                     .subscribe {
-                        Log.d(TAG, "setUpViews: $it")
                         binding.apply {
                             homeFragmentDDayCount.text = "D -" + it.dDay
                             homeFragmentDDayTitle.text = it.title

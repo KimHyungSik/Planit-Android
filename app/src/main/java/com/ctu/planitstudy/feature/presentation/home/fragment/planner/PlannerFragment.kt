@@ -66,8 +66,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>(){
 
     override fun setInit() {
         super.setInit()
-        Log.d(TAG, "setInit: $homeViewModel")
-        Log.d(TAG, "setInit: ${homeViewModel.homeState.value!!.dDayList}")
 
     }
 

@@ -48,7 +48,7 @@ object JsonConverter {
         createdAt = jsonObject["createdAt"].asString,
         color = jsonObject["color"].asString,
         dDay = DateCalculation().calDateBetween(
-            DateCalculation().getCurrentDate(),
+            DateCalculation().getCurrentDateString(),
             jsonObject["endAt"].asString
         )
     )

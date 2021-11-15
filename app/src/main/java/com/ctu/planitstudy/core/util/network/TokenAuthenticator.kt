@@ -22,7 +22,7 @@ class TokenAuthenticator @Inject constructor(
 
     @DelicateCoroutinesApi
     override fun authenticate(route: Route?, response: Response): Request? {
-        if (response.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
+        if (response.code == 401) {
             if (CashStudyApp.prefs.refreshToken!!.isNotEmpty() && !jwtRefreshTokenExpiration()) {
                 runBlocking {
                     jwtTokenRefreshUseCase()
@@ -31,7 +31,6 @@ class TokenAuthenticator @Inject constructor(
                 }
                 return makeRequest(response)
             } else {
-
                 Intent(CashStudyApp.instance, LoginScreen::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or

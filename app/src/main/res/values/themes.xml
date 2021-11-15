@@ -13,6 +13,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/navy_blue_back_ground</item>
         <!-- Customize your theme here. -->
+        <item name="android:backgroundDimAmount">0.7</item>
     </style>
 
     <style name="SettingContextSwitch" parent="Theme.AppCompat">
@@ -21,6 +22,16 @@
         <item name="android:thumb">@color/text_color</item>
         <item name="android:track">@drawable/dday_switch_track</item>
         <item name="android:switchMinWidth">10dp</item> <!-- v19 setOnSwitchSize -->
+    </style>
+
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:weekNumberColor">@color/sub_color</item>
+    </style>
+
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/point_color</item>
+        <item name="colorPrimary">@color/point_color</item>
     </style>
 
 </resources>
