@@ -68,21 +68,32 @@ class DdayViewModel @Inject constructor(
     }
 
     fun dDayConfirmed() {
+        // 디 데이 수정
         if (ddayDto != null) {
-            dDayState.value.let {
-                val dDay =
-                    Dday(
-                        it!!.title,
-                        dateFormatDdayDto.format(dateFormatText.parse(it.date.slice(IntRange(0, 11)))),
-                        it.color,
-                        it.representative
-                    )
-                Log.d(TAG, "dDayConfirmed: $dDay")
-                Log.d(TAG, "dDayConfirmed: $ddayDto")
-                ddayUseCase.modifiedDdayUseCase(dDay, ddayDto!!.id).onEach {
+            ddayUseCase.modifiedDdayUseCase(getDday(), ddayDto!!.id).onEach {
+                when (it) {
+                    is Resource.Success -> {
+                        _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "dDayConfirmed: ${it.message}")
+                    }
+                    is Resource.Loading -> {
+                        _dDayNetworkState.value = DdayNetworkState(loading = true)
+                    }
+                }
+            }.launchIn(viewModelScope)
+
+        }
+        // 디 데이 추가
+        else {
+            if (dDayState!!.value!!.title.isBlank()) {
+
+            } else {
+                ddayUseCase.addDayUseCase(getDday()).onEach {
                     when (it) {
                         is Resource.Success -> {
-                            _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
+                            _dDayNetworkState.value = DdayNetworkState(addDday = true)
                         }
                         is Resource.Error -> {
                             Log.d(TAG, "dDayConfirmed: ${it.message}")
@@ -95,4 +106,23 @@ class DdayViewModel @Inject constructor(
             }
         }
     }
+
+    fun getDday(): Dday =
+        Dday(
+            dDayState.value!!.title,
+            dateFormatDdayDto.format(
+                dateFormatText.parse(
+                    dDayState!!.value!!.date.slice(
+                        IntRange(
+                            0,
+                            11
+                        )
+                    )
+                )
+            ),
+            dDayState!!.value!!.color,
+            dDayState!!.value!!.representative
+        )
+
+
 }

@@ -146,7 +146,7 @@ class DdayScreen
     fun viewModelSet(){
         viewModel.dDayNetworkState.observe(this, {
             Log.d(TAG, "viewModelSet: $it")
-            if (it.deleteDay || it.modifiedDay) moveIntentAllClear(Screens.HomeScreenSh().activity)
+            if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh().activity)
         })
     }
 
