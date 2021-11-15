@@ -50,12 +50,26 @@ class DdayScreen
         viewModel.apply {
             dDayUpdate(
                 dDay ?: DdayDto(-1, "", false, "", "", "", -1),
-                getDdayDateText(dDay)
+                getDdayDateText(dDay?.endAt)
             )
         }
 
         binding.apply {
             viewmodel = viewModel
+            dDayDatePicker.apply {
+                setOnDateChangeListener { view, year, month, dayOfMonth ->
+                    viewmodel!!.dDayUpdate(
+                        viewmodel!!.dDayState.value!!.copy(
+                            date = getDdayDateText("$year-${month + 1}-$dayOfMonth")
+                        )
+                    )
+                }
+            }
+            dDayConfirmedDateBtn.setOnClickListener {
+                dDayCustomDatePicker.visibility = View.INVISIBLE
+                dDayBlur.visibility = View.INVISIBLE
+                binding.invalidateAll()
+            }
         }
 
         binding.invalidateAll()
@@ -67,12 +81,16 @@ class DdayScreen
 
         binding.apply {
             dDayDateItemView.setOnClickListener {
+                dDayCustomDatePicker.visibility = View.VISIBLE
+                dDayBlur.visibility = View.VISIBLE
             }
             disposables.add(RxRadioGroup.checkedChanges(binding.dDayCustomIcon)
                 .subscribe {
                     viewmodel!!.dDayUpdate(
                         viewmodel!!.dDayState.value!!.copy(
-                            color = ddayIconSet.dDayIconList[ddayIconSet.dDayIconListId.indexOf(it)]
+                            color = ddayIconSet.dDayIconList[ddayIconSet.dDayIconListId.indexOf(
+                                it
+                            )]
                         )
                     )
                 }
@@ -80,10 +98,10 @@ class DdayScreen
         }
     }
 
-    fun getDdayDateText(dDay: DdayDto?): String {
+    fun getDdayDateText(dDay: String?): String {
         return if (dDay != null) {
-            calendar.time = dateFormatDdayDto.parse(dDay.endAt)
-            dateFormatText.format(dateFormatDdayDto.parse(dDay.endAt)) + "(${
+            calendar.time = dateFormatDdayDto.parse(dDay)
+            dateFormatText.format(dateFormatDdayDto.parse(dDay)) + "(${
                 Week.values()[calendar.get(Calendar.DAY_OF_WEEK)].week
             })"
         } else {

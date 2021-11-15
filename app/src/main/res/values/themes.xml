@@ -23,4 +23,14 @@
         <item name="android:switchMinWidth">10dp</item> <!-- v19 setOnSwitchSize -->
     </style>
 
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:weekNumberColor">@color/sub_color</item>
+    </style>
+
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/point_color</item>
+        <item name="colorPrimary">@color/point_color</item>
+    </style>
+
 </resources>

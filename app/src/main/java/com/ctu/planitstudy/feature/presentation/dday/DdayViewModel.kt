@@ -19,9 +19,14 @@ class DdayViewModel @Inject constructor(
     
     private val _dDayState = MutableLiveData<DdayState>()
     val dDayState : LiveData<DdayState> = _dDayState
+    lateinit var ddayDto: DdayDto
 
     init {
         _dDayState.value = DdayState()
+    }
+
+    fun dDayDtoSet(ddayDto: DdayDto){
+        this.ddayDto =ddayDto
     }
 
     fun dDayUpdate(ddayDto: DdayDto, date: String){
