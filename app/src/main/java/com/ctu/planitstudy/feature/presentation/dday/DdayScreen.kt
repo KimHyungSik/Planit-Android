@@ -87,6 +87,9 @@ class DdayScreen
                     )
                 }
             )
+            dDayBackScreenBtn.setOnClickListener {
+                finish()
+            }
         }
 
         disposables.add(RxTextView.textChanges(binding.dDayEditTitle)
