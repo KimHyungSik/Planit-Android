@@ -67,7 +67,6 @@ class LoginViewModel @Inject constructor(
                                     }
                                     is Resource.Error -> {
                                         Log.e(TAG, "login: getUserInfo:${it.data}")
-                                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }, {
