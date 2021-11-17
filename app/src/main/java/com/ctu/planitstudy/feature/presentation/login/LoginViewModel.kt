@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.login
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
@@ -66,6 +67,7 @@ class LoginViewModel @Inject constructor(
                                     }
                                     is Resource.Error -> {
                                         Log.e(TAG, "login: getUserInfo:${it.data}")
+                                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }, {
@@ -73,12 +75,11 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         loginState.postValue(LoginState.Loading(false))
-                        Log.e(TAG, "로그인 실패 ${resource.message}")
+                        Toast.makeText(context, resource.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             },
             { error ->
-                Log.d(TAG, "login error: ${error.localizedMessage}")
             }).addTo(disposables)
     }
 
