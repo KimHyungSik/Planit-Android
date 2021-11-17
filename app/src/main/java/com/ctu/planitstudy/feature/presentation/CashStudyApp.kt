@@ -26,7 +26,7 @@ class CashStudyApp : Application() {
         KakaoSdk.init(this, getString(R.string.kakao_app_key))
 
         AppCenter.start(
-            this, "22a02af7-2690-4035-8d51-3bb28e1f4e64",
+            this, "c5544aad-6922-44df-9ce2-27f6911cebbb",
             Analytics::class.java, Crashes::class.java
         )
     }

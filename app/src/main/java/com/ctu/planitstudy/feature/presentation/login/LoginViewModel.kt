@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.login
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
@@ -73,12 +74,10 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         loginState.postValue(LoginState.Loading(false))
-                        Log.e(TAG, "로그인 실패 ${resource.message}")
                     }
                 }
             },
             { error ->
-                Log.d(TAG, "login error: ${error.localizedMessage}")
             }).addTo(disposables)
     }
 

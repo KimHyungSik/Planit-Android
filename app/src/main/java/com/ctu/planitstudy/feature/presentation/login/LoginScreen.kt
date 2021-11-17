@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.login
 
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
@@ -27,13 +28,15 @@ class LoginScreen
 
         binding.viewmodel = viewModel
 
-        if(CashStudyApp.prefs.refreshToken != null)
-            if(!JWTRefreshTokenExpiration().invoke())
-                moveIntentAllClear(HomeScreenSh.activity)
+//        if(CashStudyApp.prefs.refreshToken != null)
+//            if(!JWTRefreshTokenExpiration().invoke())
+//                moveIntentAllClear(HomeScreenSh.activity)
 
         viewModel.loginState.observe(this, {
             when(it){
-                is LoginState.Loading->{}
+                is LoginState.Loading->{
+                    Toast.makeText(this, "로그인 중", Toast.LENGTH_SHORT).show()
+                }
                 is LoginState.Login->{
                     if(it.state) {
                         moveIntentAllClear(HomeScreenSh.activity)
