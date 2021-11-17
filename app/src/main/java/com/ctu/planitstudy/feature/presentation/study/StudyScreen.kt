@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.study
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
@@ -32,16 +33,14 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         binding.apply {
             viewmodel = viewModel
 
+            checkBoxList.add(studyAllDay)
+            checkBoxList.add(studySunDay)
             checkBoxList.add(studyMonDay)
             checkBoxList.add(studyTuesDay)
             checkBoxList.add(studyWednesDay)
             checkBoxList.add(studyThursDay)
             checkBoxList.add(studyFriDay)
             checkBoxList.add(studySaturDay)
-            checkBoxList.add(studySunDay)
-
-            // 매일 활성화가 기본
-            studyAllDay.isChecked = true
 
             activationWeekCheckBox(
                 viewModel.studyState.value!!.activationWeek
@@ -115,9 +114,6 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                     )
                     binding.studyAllDay.isChecked = false
                     viewModel.clearCheckWeek()
-                    checkBoxList.forEach {
-                        it.isChecked = false
-                    }
                 }
             }
 
@@ -130,7 +126,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 if (!isChecked) {
                     studyDateItemView.visibility = View.VISIBLE
                     studyRepeatDateItemView.visibility = View.GONE
-                }else{
+                } else {
                     studyDateItemView.visibility = View.GONE
                     studyRepeatDateItemView.visibility = View.VISIBLE
                 }
@@ -146,11 +142,10 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                     )
                 ) {
                     viewModel.clearCheckWeek()
-                    viewModel.changeCheckWeek(0, true)
-                    for (checkBox in checkBoxList) {
-                        checkBox.isChecked = false
-                    }
-                    binding.studyAllDay.isChecked = true
+                    viewModel.changeCheckWeek(Weekday.All.ordinal, true)
+                }
+                checkBoxList.forEachIndexed { index, checkbox ->
+                    checkbox.isChecked = it.week.contains(Weekday.values()[index])
                 }
             }
             )
@@ -166,12 +161,14 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
     @SuppressLint("ResourceType")
     fun activationWeekCheckBox(activationWeek: ArrayList<Weekday>) {
         for (checkBox in checkBoxList) {
+            if(checkBox == binding.studyAllDay) continue
             checkBox.apply {
                 isEnabled = false
                 background =
                     ContextCompat.getDrawable(this@StudyScreen, R.drawable.enabled_check_box)
             }
         }
+
         for (week in activationWeek) {
             binding.apply {
                 when (week) {

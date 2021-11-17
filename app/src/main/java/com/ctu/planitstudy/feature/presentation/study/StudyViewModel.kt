@@ -33,18 +33,29 @@ class StudyViewModel : ViewModel() {
     }
 
     fun changeCheckWeek(weekCount: Int, isCheck: Boolean) {
-        val newStudyStateWeek = studyState.value!!.week
+        var newStudyStateWeek = studyState.value!!.week
         val week = Weekday.values()[weekCount]
+
+        // 매일 에서 다른 요일 선택
+        if (newStudyStateWeek.contains(Weekday.All) && weekCount != Weekday.All.ordinal)
+            newStudyStateWeek.remove(Weekday.All)
+
         if (isCheck && !newStudyStateWeek.contains(week))
             newStudyStateWeek.add(week)
         else
             newStudyStateWeek.remove(week)
 
+
         newStudyStateWeek.sortBy { it.ordinal }
 
-        _studyState.value = studyState.value!!.copy(
-            week = newStudyStateWeek
-        )
+        if (newStudyStateWeek.contains(Weekday.All))
+            _studyState.value = studyState.value!!.copy(
+                week = arrayListOf(Weekday.All)
+            )
+        else
+            _studyState.value = studyState.value!!.copy(
+                week = newStudyStateWeek
+            )
     }
 
     fun clearCheckWeek() {
