@@ -8,5 +8,8 @@ data class StudyState (
     val singleAt : String = "",
     val startAt : String = "",
     val endAt : String = "",
-    val week: ArrayList<Weekday> = ArrayList()
+    val kindDate : KindStudyDate = KindStudyDate.SingleDate,
+    val week: ArrayList<Weekday> = ArrayList(),
+    val activationWeek: ArrayList<Weekday> = ArrayList(),
+    val repeat : Boolean = false
     )

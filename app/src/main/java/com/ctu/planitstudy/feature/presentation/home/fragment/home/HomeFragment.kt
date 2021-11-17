@@ -10,6 +10,7 @@ import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.TodoListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.toObservable
 
@@ -35,6 +36,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = todoListRecyclerAdapter
+        }
+        binding.homeFragmentAddStudy.setOnClickListener {
+            moveIntent(Screens.StudyScreenSh.activity)
         }
 
         todoListRecyclerAdapter.submitList(arrayListOf("test","test","test","test"),arrayListOf("test","test","test","test"))

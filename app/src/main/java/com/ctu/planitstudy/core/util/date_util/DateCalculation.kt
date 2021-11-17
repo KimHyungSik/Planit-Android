@@ -17,7 +17,7 @@ class DateCalculation {
         val start = dateFormat.parse(startDate)
         val end = dateFormat.parse(endDate)
         val calDate : Long = end.time - start.time
-        val calDay : Long = calDate / (25*60*60*1000)
+        val calDay : Long = calDate / (24*60*60*1000)
         return Math.abs(calDay).toInt()
     }
 
@@ -39,8 +39,6 @@ class DateCalculation {
     }
 
     fun calDateBetweenWeek(startDate : String, endDate : String) : ArrayList<Weekday>{
-        Log.d(TAG, "calDateBetweenWeek: date $startDate")
-        Log.d(TAG, "calDateBetweenWeek: date $endDate")
         // 활성화 될 요일 리스트
         val activationWeek = ArrayList<Weekday>()
 
@@ -52,19 +50,16 @@ class DateCalculation {
 
         cal.time = current
         activationWeek.add(Weekday.values()[cal.get(Calendar.DAY_OF_WEEK)])
-        Log.d(TAG, "calDateBetweenWeek: week:  ${cal.get(Calendar.DAY_OF_WEEK)}")
         val dateDifferene = calDateBetween(startDate, endDate)
 
-        // 같은 날이라면 종료
-        if(dateDifferene == 0)return activationWeek
-
         // 최대 일주일 동안 활성화될 요일 검사
-        for(i in 0..min(dateDifferene, 5)){
+        for(i in 0 until min(dateDifferene, 6)){
             cal.add(Calendar.DATE, 1)
             activationWeek.add(Weekday.values()[cal.get(Calendar.DAY_OF_WEEK)])
-            Log.d(TAG, "calDateBetweenWeek: week:  ${cal.get(Calendar.DAY_OF_WEEK)}")
         }
-        Log.d(TAG, "calDateBetweenWeek: $dateDifferene")
+
+        activationWeek.sortBy { it.ordinal }
+
         return activationWeek
     }
 

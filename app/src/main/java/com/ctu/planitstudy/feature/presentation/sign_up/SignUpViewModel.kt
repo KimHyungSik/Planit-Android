@@ -185,7 +185,7 @@ class SignUpViewModel @Inject constructor(
                         )
                         CashStudyApp.prefs.accessToken = it.accessToken
                         CashStudyApp.prefs.refreshToken = it.refreshToken
-                        _screens.value = Screens.HomeScreenSh()
+                        _screens.value = Screens.HomeScreenSh
                     }, {
                         if (it is HttpException) {
                             CashStudyApp.prefs.accessToken = ""

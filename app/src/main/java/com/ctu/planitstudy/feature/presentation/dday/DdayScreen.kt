@@ -122,7 +122,7 @@ class DdayScreen
 
     fun viewModelSet() {
         viewModel.dDayNetworkState.observe(this, {
-            if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh().activity)
+            if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 
         // 디데이 데이터 관리

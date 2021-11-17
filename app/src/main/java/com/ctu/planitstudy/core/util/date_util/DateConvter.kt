@@ -41,7 +41,6 @@ object DateConvter {
     fun textDateToDtoDate(date: String?): String {
         return if (date != null) {
             val sliceDate = date.slice(IntRange(0,10))
-            Log.d(TAG, "textDateToDtoDate: $sliceDate")
             calendar.time = dateFormatText.parse(sliceDate)
             dateFormatDdayDto.format(dateFormatText.parse(sliceDate))
         } else {
