@@ -1,6 +1,5 @@
-package com.ctu.planitstudy.core.util.enum
+package com.ctu.planitstudy.core.util.enums
 
-import android.widget.RadioButton
 import com.ctu.planitstudy.R
 
 

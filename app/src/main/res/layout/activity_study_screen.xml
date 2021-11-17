@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.ctu.planitstudy.feature.presentation.study.StudyViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/navy_blue_back_ground"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="98dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/study_back_screen_btn"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginBottom="24dp"
+                        android:src="@drawable/ic_baseline_arrow_back" />
+
+                    <TextView
+                        android:id="@+id/study_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:lineSpacingExtra="12sp"
+                        android:text="공부추가하기"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/study_delet_btn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="26dp"
+                        android:layout_marginBottom="17dp"
+                        android:clickable="true"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="8dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_delete" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/navy_blue_item_box"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/study_edit_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="22dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="공부 제목을 입력해주세요"
+                            android:inputType="text"
+                            android:maxLength="16" />
+
+                        <TextView
+                            android:id="@+id/study_title_length_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="22dp"
+                            android:gravity="center"
+                            android:lineSpacingExtra="10sp"
+                            android:text="0/16"
+                            android:textColor="@color/sub_color2"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/top_radius_background"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="22dp"
+                        android:text="공부 반복하기" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Switch
+                        android:id="@+id/study_repeat_switch"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="22dp"
+                        android:switchMinWidth="50dp"
+                        android:thumbTint="@color/text_color"
+                        android:track="@drawable/dday_switch_track"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@color/module_color" />
+
+                <LinearLayout
+                    android:id="@+id/study_date_item_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@drawable/bottom_radius_background"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/study_date_calendar_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="22dp"
+                        android:src="@drawable/ic_calendar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:lineSpacingExtra="8sp"
+                        android:text="날짜"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/study_date_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="22dp"
+                        android:text='@{viewmodel.studyState.singleAt ?? "0000년00월00일(월)"}' />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/study_repeat_date_item_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@drawable/bottom_radius_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/study_repeat_start_date_item_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/study_repeat_start_date_calendar_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="22dp"
+                            android:src="@drawable/ic_calendar" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:lineSpacingExtra="8sp"
+                            android:text="시작일"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/study_repeat_start_date_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:text='@{viewmodel.studyState.startAt ?? "0000년00월00일(월)"}'/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/module_color" />
+
+                    <LinearLayout
+                        android:id="@+id/study_repeat_end_date_item_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/study_repeat_end_date_calendar_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="22dp"
+                            android:src="@drawable/ic_calendar" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:lineSpacingExtra="8sp"
+                            android:text="종료일"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/study_repeat_end_date_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:text='@{viewmodel.studyState.endAt ?? "0000년00월00일(월)"}' />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/module_color" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="75dp"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="6sp"
+                        android:text="반복할 요일을 선택해주세요"
+                        android:textColor="#6b6c85"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/study_top_checkbox_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/study_all_day"
+                                android:layout_width="160dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="매일"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(0, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_satur_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="토"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(1, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_sun_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="일"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(2, checked)}"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/study_bottom_checkbox_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/study_mon_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="월"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(3, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_tues_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="화"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(4, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_wednes_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="수"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(5, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_thurs_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="목"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(6, checked)}"
+                                />
+
+                            <CheckBox
+                                android:id="@+id/study_fri_day"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_margin="4dp"
+                                android:background="@drawable/dday_color_radio_button"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="금"
+                                android:textColor="@drawable/radio_text_color"
+                                onUserCheckedChange="@{(_, checked) -> viewmodel.changeCheckWeek(6, checked)}"
+                                />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/study_confirmed_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginBottom="40dp"
+                    android:clickable="true"
+                    app:cardBackgroundColor="@color/sub_color2"
+                    app:cardCornerRadius="40dp">
+
+                    <TextView
+                        android:id="@+id/study_confirmed_btn_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="추가하기" />
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/study_custom_date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="509dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="@color/navy_blue_back_ground"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CalendarView
+                        android:id="@+id/study_date_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_weight="1"
+                        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                        android:focusedMonthDateColor="@color/sub_color"
+                        android:theme="@style/CalenderViewCustom" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/study_confirmed_date_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginHorizontal="32dp"
+                        android:layout_marginBottom="40dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/sub_color"
+                        app:cardCornerRadius="40dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="완료"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/study_blur"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#94000000"
+            android:layout_marginBottom="509dp"
+            />
+    </RelativeLayout>
+</layout>
