@@ -75,6 +75,7 @@ class DdayViewModel @Inject constructor(
                     _dDayNetworkState.value = DdayNetworkState(deleteDay = true)
                 }
                 is Resource.Error -> {
+
                 }
                 is Resource.Loading -> {
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
@@ -86,7 +87,6 @@ class DdayViewModel @Inject constructor(
     fun dDayConfirmed() {
         if (dDayState!!.value!!.title.isBlank()) {
             _dDayDialogState.value = dDayDialogState.value!!.copy(emptyTitleDialog = true)
-        } else {
             return
         }
         // 디 데이 수정
@@ -113,6 +113,7 @@ class DdayViewModel @Inject constructor(
                         _dDayNetworkState.value = DdayNetworkState(addDday = true)
                     }
                     is Resource.Error -> {
+                        Log.d(TAG, "dDayDelete: ${it.message}")
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
