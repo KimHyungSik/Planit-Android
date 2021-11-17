@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.dday
 
+import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
@@ -15,6 +16,8 @@ import javax.inject.Inject
 class AddDdayUseCase @Inject constructor(
     private val ddayRepository: DdayRepository
 )  {
+
+    val TAG = "AddDdayUseCase - 로그"
     operator fun invoke(dday : Dday) : Flow<Resource<DdayDto>> = flow{
         try {
             emit(Resource.Loading<DdayDto>(null))
@@ -22,6 +25,10 @@ class AddDdayUseCase @Inject constructor(
             val dday= JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
             emit(Resource.Success(dday))
         }catch (e : Throwable){
+            Log.d(TAG, "invoke: ${e.message}}")
+            emit(Resource.Error<DdayDto>(
+                message = e.localizedMessage
+            ))
             if(e is HttpException) {
                 emit(
                     Resource.Error<DdayDto>(

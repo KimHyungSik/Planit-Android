@@ -1,6 +1,6 @@
-package com.ctu.planitstudy.core.util.enum
+package com.ctu.planitstudy.core.util.enums
 
-enum class Week(val week : String) {
+enum class Weekday(val weekKor : String) {
     All("매일"),
     Sunday("일"),
     Monday("월"),

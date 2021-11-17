@@ -30,8 +30,8 @@
     </style>
 
     <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/point_color</item>
-        <item name="colorPrimary">@color/point_color</item>
+        <item name="colorAccent">@color/sub_color</item>
+        <item name="colorPrimary">@color/sub_color</item>
     </style>
 
 </resources>

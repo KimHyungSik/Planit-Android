@@ -1,25 +1,18 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
-import com.ctu.planitstudy.core.util.DateCalculation
-import com.ctu.planitstudy.databinding.FragmentAnalysisBinding
+import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.TodoListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.toObservable
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
@@ -43,6 +36,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = todoListRecyclerAdapter
+        }
+        binding.homeFragmentAddStudy.setOnClickListener {
+            moveIntent(Screens.StudyScreenSh.activity)
         }
 
         todoListRecyclerAdapter.submitList(arrayListOf("test","test","test","test"),arrayListOf("test","test","test","test"))

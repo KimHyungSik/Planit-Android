@@ -29,17 +29,17 @@ class LoginScreen
 
         if(CashStudyApp.prefs.refreshToken != null)
             if(!JWTRefreshTokenExpiration().invoke())
-                moveIntentAllClear(HomeScreenSh().activity)
+                moveIntentAllClear(HomeScreenSh.activity)
 
         viewModel.loginState.observe(this, {
             when(it){
                 is LoginState.Loading->{}
                 is LoginState.Login->{
                     if(it.state) {
-                        moveIntentAllClear(HomeScreenSh().activity)
+                        moveIntentAllClear(HomeScreenSh.activity)
                     }
                     else
-                        moveIntentAllClear(TermsOfUseAgreesScreenSh().activity)
+                        moveIntentAllClear(TermsOfUseAgreesScreenSh.activity)
                 }
             }
         })

@@ -57,7 +57,42 @@
             android:layout_marginEnd="24dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/item_guide_stroke"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/text_color"
+            app:strokeWidth="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:src="@drawable/ic_plus"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginEnd="8dp"
+                    />
+                <TextView
+                    android:text="디데이추가"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/study_added_btn"
+            android:layout_width="115dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/text_color"
             app:strokeWidth="1dp">
@@ -68,17 +103,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
-                <ImageView
-                    android:src="@drawable/ic__plus"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginEnd="8dp"
-                    />
-                <TextView
-                    android:text="디데이추가"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+                <include layout="@layout/components_home_add_study" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

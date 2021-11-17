@@ -18,6 +18,8 @@ class HomeScreen
 
         val navHostFragment =  supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment
         val navController = navHostFragment.navController
+
         NavigationUI.setupWithNavController(binding.homeBottomNav, navController)
+
     }
 }
