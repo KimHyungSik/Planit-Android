@@ -74,7 +74,6 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         loginState.postValue(LoginState.Loading(false))
-                        Toast.makeText(context, resource.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             },
