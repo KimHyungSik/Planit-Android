@@ -34,6 +34,7 @@ class DdayScreen
     private val disposables = CompositeDisposable()
 
     private val ddayIconSet = DdayIconSet()
+    private var representativeSwitchOnesCheck = false
 
     override fun setup() {
         val dDay = intent.getParcelableExtra<DdayDto>("dDay")
@@ -132,10 +133,12 @@ class DdayScreen
 
         // 디데이 데이터 관리
         viewModel.dDayState.observe(this, {
-            if (it.representative)
+            if (it.representative && !representativeSwitchOnesCheck) {
                 RepresentativeCheckDialog().show(
                     supportFragmentManager, "RepresentativeCheckDialog"
                 )
+                representativeSwitchOnesCheck = true
+            }
             binding.dDayRepresentativeSwitch.isChecked = it.representative
         })
 

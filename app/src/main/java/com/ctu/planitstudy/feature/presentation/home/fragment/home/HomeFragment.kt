@@ -58,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                             homeFragmentDDayCount.text = "D -" + it.dDay
                             homeFragmentDDayTitle.text = it.title
                             homeFragmentDDayColumn.visibility = View.VISIBLE
+
                         }
                     }
             }
