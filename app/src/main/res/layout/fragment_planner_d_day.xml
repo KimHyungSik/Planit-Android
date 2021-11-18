@@ -1,111 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
+    android:orientation="vertical"
     >
 
-    <LinearLayout
+       <LinearLayout
+           android:id="@+id/planner_d_day_empty"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:gravity="center"
+           >
+           <ImageView
+               android:src="@drawable/ic_dday_empty"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:scaleType="center"
+               android:layout_marginBottom="24dp"
+               />
+           <TextView
+               android:text="디데이를 추가해보세요"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textStyle="bold"
+               android:textSize="22sp"
+               android:textColor="@color/item_guide_stroke"
+               android:lineSpacingExtra="12sp"
+               android:gravity="center"
+               />
+
+       </LinearLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/planner_d_day_nested_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        >
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/planner_d_day_representative_item_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/sub_color"
-            app:cardCornerRadius="8dp"
-            android:visibility="gone"
-            >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/planner_d_day_representative_item_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/sub_color"
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:cardBackgroundColor="@color/sub_color2"
-                        app:cardCornerRadius="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_todo_book" />
-                    </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="14dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="20dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:cardBackgroundColor="@color/sub_color2"
+                            app:cardCornerRadius="8dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_todo_book" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/planner_d_day_representative_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="start|center"
+                                android:textColor="@color/text_color"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/planner_d_day_representative_d_day"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="start|center"
+                                android:textColor="@color/text_color"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/planner_d_day_representative_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="start|center"
+                            android:id="@+id/planner_d_day_representative_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="00.00.00"
                             android:textColor="@color/text_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/planner_d_day_representative_d_day"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="start|center"
-                            android:textColor="@color/text_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/planner_d_day_representative_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:text="00.00.00"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/sub_color2"
+                        android:gravity="center"
+                        android:lineSpacingExtra="6sp"
+                        android:text="대표디데이로 설정했습니다."
                         android:textColor="@color/text_color"
                         android:textSize="12sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent" />
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/sub_color2"
-                    android:gravity="center"
-                    android:lineSpacingExtra="6sp"
-                    android:text="대표디데이로 설정했습니다."
-                    android:textColor="@color/text_color"
-                    android:textSize="12sp"
-                    android:textStyle="normal"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/planner_d_day_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/planner_d_day_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

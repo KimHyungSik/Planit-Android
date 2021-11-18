@@ -50,6 +50,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
                         moveIntent(intent)
                     }
                     plannerDDayRepresentativeItemView.visibility = View.VISIBLE
+                    notEmptyDdayList()
                 }
             }.isDisposed
 
@@ -59,7 +60,16 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             .subscribe {
                 dDayListRecyclerAdapter.dDayList.add(it)
                 dDayListRecyclerAdapter.notifyDataSetChanged()
+                binding.plannerDDayRecyclerView.visibility = View.VISIBLE
+                notEmptyDdayList()
             }.isDisposed
+    }
+
+    fun notEmptyDdayList(){
+        binding.apply {
+            plannerDDayNestedScrollview.visibility = View.VISIBLE
+            plannerDDayEmpty.visibility = View.GONE
+        }
     }
 
     override fun onClickedItem(position: Int) {

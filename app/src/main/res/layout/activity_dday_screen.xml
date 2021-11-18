@@ -97,7 +97,9 @@
                             android:hint="디데이 제목을 입력해주세요"
                             android:inputType="text"
                             android:maxLength="10"
-                            android:text='@={viewmodel.DDayState.title}' />
+                            android:text='@={viewmodel.DDayState.title}'
+                            android:textCursorDrawable="@color/text_color"
+                            />
 
                         <TextView
                             android:id="@+id/d_day_title_length_count"
