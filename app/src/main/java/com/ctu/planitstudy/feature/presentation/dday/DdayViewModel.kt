@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.dday
 
 import android.util.Log
 import android.widget.CompoundButton
-import android.widget.RadioGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +11,6 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.use_case.dday.DdayUseCase
-import com.ctu.planitstudy.feature.presentation.dday.dialog.EmptyTitleCheckDialog
-import com.ctu.planitstudy.feature.presentation.dday.dialog.RepresentativeCheckDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

@@ -1,4 +1,4 @@
-package com.ctu.planitstudy.feature.presentation.dday.dialog
+package com.ctu.planitstudy.feature.presentation.dialogs
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

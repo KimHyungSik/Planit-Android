@@ -13,9 +13,12 @@ import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
+import com.ctu.planitstudy.feature.presentation.dialogs.EmptyTitleCheckDialog
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
+@AndroidEntryPoint
 class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
     val TAG = "StudyScreen - 로그"
@@ -135,6 +138,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
         viewModel.apply {
             studyState.observe(this@StudyScreen, {
+                Log.d(TAG, "setup: $it")
                 // 매일을 제외한 모든 날을 선택시 매일 을 활성화
                 // 나머지 요일을 비활성화
                 if (listsEqual(
@@ -147,21 +151,29 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 checkBoxList.forEachIndexed { index, checkbox ->
                     checkbox.isChecked = it.week.contains(Weekday.values()[index])
                 }
-            }
-            )
+            })
         }
 
-        disposables.add(
+        // 팝업 상태 관리
+        viewModel.studyDialogState.observe(this, {
+            if(it.emptyTitleDialog)
+                EmptyTitleCheckDialog().show(
+                    supportFragmentManager, "EmptyTitleCheckDialog"
+                )
+        })
+
+        disposables.addAll(
             RxTextView.textChanges(binding.studyEditTitle)
                 .subscribe {
                     binding.studyTitleLengthCount.text = it.length.toString() + "/10"
-                })
+                }
+        )
     }
 
     @SuppressLint("ResourceType")
     fun activationWeekCheckBox(activationWeek: ArrayList<Weekday>) {
         for (checkBox in checkBoxList) {
-            if(checkBox == binding.studyAllDay) continue
+            if (checkBox == binding.studyAllDay) continue
             checkBox.apply {
                 isEnabled = false
                 background =

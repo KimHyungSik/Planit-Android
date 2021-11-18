@@ -4,16 +4,32 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
+import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
+import com.ctu.planitstudy.feature.domain.model.study.AddStudy
+import com.ctu.planitstudy.feature.domain.repository.DdayRepository
+import com.ctu.planitstudy.feature.domain.repository.StudyRepository
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import javax.inject.Inject
+import kotlin.math.log
 
-class StudyViewModel : ViewModel() {
+@HiltViewModel
+class StudyViewModel @Inject constructor(
+    private val studyRepository: StudyRepository,
+    private val studyValidatedTitleUseCase: StudyValidatedTitleUseCase
+) : ViewModel() {
 
     val TAG = "StudyViewModel - 로그"
     private val currentDate = DateConvter.dtoDateToTextDate(null)
     private val tomorrowDate =
         DateConvter.dtoDateToTextDate(DateCalculation().getCurrentDateString(1))
+
     private val _studyState = MutableLiveData<StudyState>(
         StudyState(
             tomorrowDate, currentDate, tomorrowDate,
@@ -21,6 +37,9 @@ class StudyViewModel : ViewModel() {
         )
     )
     val studyState: LiveData<StudyState> = _studyState
+
+    private val _studyDialogState = MutableLiveData<StudyDialogState>()
+    val studyDialogState : LiveData<StudyDialogState> = _studyDialogState
 
     init {
         _studyState.value = studyState.value!!.copy(
@@ -80,6 +99,58 @@ class StudyViewModel : ViewModel() {
                 studyState.value!!.copy(endAt = date)
             }
         }
+    }
 
+    private fun getRepeatedStudy(): AddRepeatedStudy {
+        studyState.value!!.apply {
+            return AddRepeatedStudy(
+                this.title,
+                DateConvter.textDateToDtoDate(this.startAt),
+                DateConvter.textDateToDtoDate(this.endAt),
+                getWeekList()
+            )
+        }
+    }
+
+    private fun getStudy(): AddStudy {
+        studyState.value!!.apply {
+            return AddStudy(
+                this.title,
+                DateConvter.textDateToDtoDate(this.startAt)
+            )
+        }
+    }
+
+    fun getWeekList(): ArrayList<String> {
+        val weeks = ArrayList<String>()
+        if (studyState.value!!.week.contains(Weekday.All))
+            studyState.value!!.activationWeek.forEach { weeks.add(it.weekEng) }
+        else
+            studyState.value!!.week.forEach { weeks.add(it.weekEng) }
+        return weeks
+    }
+
+    fun studyConfirmed() {
+        if(studyState.value!!.title.isEmpty()){
+            _studyDialogState.value = StudyDialogState(emptyTitleDialog = true)
+            return
+        }
+        viewModelScope.launch {
+            try{
+                Log.d(TAG, "studyConfirmed: ${studyState.value!!.title}")
+                studyValidatedTitleUseCase(studyState.value!!.title)
+            }catch (e: HttpException) {
+                _studyDialogState.value = StudyDialogState(emptyTitleDialog = true)
+                return@launch
+            }
+            try {
+                if (studyState.value!!.repeat)
+                    studyRepository.addStudy(getRepeatedStudy())
+                else
+                    studyRepository.addStudy(getStudy())
+            } catch (e: HttpException) {
+
+            }
+        }
     }
 }

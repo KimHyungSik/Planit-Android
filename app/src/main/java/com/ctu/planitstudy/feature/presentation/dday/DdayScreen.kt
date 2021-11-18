@@ -10,7 +10,7 @@ import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.dialog.DeleteCheckDialog
-import com.ctu.planitstudy.feature.presentation.dday.dialog.EmptyTitleCheckDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.EmptyTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.dday.dialog.RepresentativeCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
