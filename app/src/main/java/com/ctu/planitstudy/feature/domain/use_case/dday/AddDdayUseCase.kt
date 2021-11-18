@@ -15,21 +15,23 @@ import javax.inject.Inject
 
 class AddDdayUseCase @Inject constructor(
     private val ddayRepository: DdayRepository
-)  {
+) {
 
     val TAG = "AddDdayUseCase - 로그"
-    operator fun invoke(dday : Dday) : Flow<Resource<DdayDto>> = flow{
+    operator fun invoke(dday: Dday): Flow<Resource<DdayDto>> = flow {
         try {
             emit(Resource.Loading<DdayDto>(null))
             val jsonElement = ddayRepository.addDday(dday)
-            val dday= JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
+            val dday = JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
             emit(Resource.Success(dday))
-        }catch (e : Throwable){
+        } catch (e: Throwable) {
             Log.d(TAG, "invoke: ${e.message}}")
-            emit(Resource.Error<DdayDto>(
-                message = e.localizedMessage
-            ))
-            if(e is HttpException) {
+            emit(
+                Resource.Error<DdayDto>(
+                    message = e.localizedMessage
+                )
+            )
+            if (e is HttpException) {
                 emit(
                     Resource.Error<DdayDto>(
                         message = JSONObject(

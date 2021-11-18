@@ -1,6 +1,7 @@
 package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.network.AuthInterceptor
+import com.ctu.planitstudy.core.util.network.LogginInterceptor
 import com.ctu.planitstudy.core.util.network.TokenAuthenticator
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
@@ -25,6 +26,7 @@ object AppModule {
     fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator) : OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
+            .addInterceptor(LogginInterceptor.loggingInterceptor)
             .authenticator(tokenAuthenticator)
             .build()
 }

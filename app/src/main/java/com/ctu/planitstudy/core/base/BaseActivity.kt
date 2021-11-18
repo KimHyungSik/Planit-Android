@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 
 open class BaseActivity
     : AppCompatActivity()
@@ -47,6 +48,11 @@ open class BaseActivity
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or
                 Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    open fun showDialogFragment(arg : Bundle, fragment: DialogFragment){
+        fragment.arguments = arg
+        fragment.show(supportFragmentManager, "dialog")
     }
 
     // 리턴 값을 가지고 반환된 액티비티 설정

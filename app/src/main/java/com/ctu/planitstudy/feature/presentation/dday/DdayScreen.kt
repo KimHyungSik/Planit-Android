@@ -1,16 +1,18 @@
 package com.ctu.planitstudy.feature.presentation.dday
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.dialog.DeleteCheckDialog
-import com.ctu.planitstudy.feature.presentation.dday.dialog.EmptyTitleCheckDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.dday.dialog.RepresentativeCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
@@ -139,14 +141,15 @@ class DdayScreen
 
         // 팝업 상태 관리
         viewModel.dDayDialogState.observe(this, {
+            val arg = Bundle()
             if(it.deleteDialog)
                 DeleteCheckDialog().show(
                     supportFragmentManager, "DeleteCheckDialog"
                 )
-            if(it.emptyTitleDialog)
-                EmptyTitleCheckDialog().show(
-                    supportFragmentManager, "EmptyTitleCheckDialog"
-                )
+            if(it.emptyTitleDialog){
+                arg.putString("title", getString(R.string.empty_dialog_fragment))
+                showDialogFragment(arg, SingleTitleCheckDialog())
+            }
         })
     }
 

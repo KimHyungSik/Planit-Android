@@ -35,7 +35,6 @@ object DdayModule {
     fun providerDdayRepository(ddayApi: DdayApi): DdayRepository =
         DdayRepositoryImp(ddayApi)
 
-
     @Provides
     @Singleton
     fun providerGetDdayListUseCase(ddayRepository: DdayRepository) : GetDdayListUseCase =
