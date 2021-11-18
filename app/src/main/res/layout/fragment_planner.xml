@@ -109,8 +109,8 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/planner_fragment_view"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/planner__view_pager_fragment_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

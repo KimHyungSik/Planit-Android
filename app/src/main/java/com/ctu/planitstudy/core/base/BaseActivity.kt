@@ -15,7 +15,6 @@ open class BaseActivity
         super.onCreate(savedInstanceState)
     }
 
-
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
     ) { activityResult -> resultActivity(activityResult)}
