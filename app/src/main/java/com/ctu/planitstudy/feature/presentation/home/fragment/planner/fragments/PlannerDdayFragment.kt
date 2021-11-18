@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +49,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
                         intent.putExtra("dDay", dDay)
                         moveIntent(intent)
                     }
+                    plannerDDayRepresentativeItemView.visibility = View.VISIBLE
                 }
             }.isDisposed
 
