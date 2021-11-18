@@ -2,4 +2,6 @@
     <string name="app_name">PlanitStudy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_dialog_fragment">제목은 한 글자 이상 입력하세요</string>
+    <string name="study_validated_title_dialog_fragment">해당 공부는 이미 존재합니다 제목을 수정해주세요</string>
 </resources>

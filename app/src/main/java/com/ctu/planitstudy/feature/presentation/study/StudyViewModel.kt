@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
@@ -12,8 +13,11 @@ import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.AddStudy
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
+import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -21,7 +25,7 @@ import kotlin.math.log
 
 @HiltViewModel
 class StudyViewModel @Inject constructor(
-    private val studyRepository: StudyRepository,
+    private val addStudyUseCase: AddStudyUseCase,
     private val studyValidatedTitleUseCase: StudyValidatedTitleUseCase
 ) : ViewModel() {
 
@@ -116,7 +120,7 @@ class StudyViewModel @Inject constructor(
         studyState.value!!.apply {
             return AddStudy(
                 this.title,
-                DateConvter.textDateToDtoDate(this.startAt)
+                DateConvter.textDateToDtoDate(this.singleAt)
             )
         }
     }
@@ -140,14 +144,28 @@ class StudyViewModel @Inject constructor(
                 Log.d(TAG, "studyConfirmed: ${studyState.value!!.title}")
                 studyValidatedTitleUseCase(studyState.value!!.title)
             }catch (e: HttpException) {
-                _studyDialogState.value = StudyDialogState(emptyTitleDialog = true)
+                _studyDialogState.value = StudyDialogState(validatedTitle = true)
                 return@launch
             }
             try {
+                Log.d(TAG, "studyConfirmed: ${studyState.value}")
                 if (studyState.value!!.repeat)
-                    studyRepository.addStudy(getRepeatedStudy())
-                else
-                    studyRepository.addStudy(getStudy())
+                    addStudyUseCase(getRepeatedStudy())
+                else {
+                    addStudyUseCase(getStudy())
+                }.onEach {
+                    when(it){
+                        is Resource.Success -> {
+                            _studyDialogState.value = StudyDialogState(addStudy = true)
+                        }
+                        is Resource.Loading -> {
+                            Log.d(TAG, "studyConfirmed: loading")
+                        }
+                        is Resource.Error -> {
+                            Log.d(TAG, "studyConfirmed: ${it.message}")
+                        }
+                    }
+                }.launchIn(this)
             } catch (e: HttpException) {
 
             }

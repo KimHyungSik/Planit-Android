@@ -5,6 +5,8 @@ import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.remote.StudyApi
 import com.ctu.planitstudy.feature.data.repository.StudyRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
+import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +34,17 @@ object StudyModule {
 
     @Provides
     @Singleton
-    fun providerStudyRepository(studyApi: StudyApi) : StudyRepository =
+    fun providerStudyRepository(studyApi: StudyApi): StudyRepository =
         StudyRepositoryImp(studyApi)
+
+    @Provides
+    @Singleton
+    fun providerStudyValidatedTitleUseCase(studyRepository: StudyRepository): StudyValidatedTitleUseCase =
+        StudyValidatedTitleUseCase(studyRepository)
+
+    @Provides
+    @Singleton
+    fun providerAddStudyUseCase(studyRepository: StudyRepository): AddStudyUseCase =
+        AddStudyUseCase(studyRepository)
 
 }

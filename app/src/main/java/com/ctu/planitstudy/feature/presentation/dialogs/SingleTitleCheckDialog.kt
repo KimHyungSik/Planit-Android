@@ -11,12 +11,10 @@ import android.view.Window
 import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.databinding.DialogFragmentDeleteDdayBinding
-import com.ctu.planitstudy.databinding.DialogFragmentEmptyTitleDdayBinding
-import com.ctu.planitstudy.databinding.DialogFragmentRepresentativeBinding
+import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
 import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
 
-class EmptyTitleCheckDialog : DialogFragment() {
+class SingleTitleCheckDialog : DialogFragment() {
 
     val TAG = "Representative - 로그"
 
@@ -25,7 +23,7 @@ class EmptyTitleCheckDialog : DialogFragment() {
         isCancelable = false
     }
 
-    private lateinit var binding: DialogFragmentEmptyTitleDdayBinding
+    private lateinit var binding: DialogFragmentSingleTitleDdayBinding
     private val viewModel: DdayViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -33,7 +31,8 @@ class EmptyTitleCheckDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentEmptyTitleDdayBinding.inflate(inflater,container,false)
+
+        binding = DialogFragmentSingleTitleDdayBinding.inflate(inflater,container,false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
@@ -41,7 +40,9 @@ class EmptyTitleCheckDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (arguments != null) {
+            binding.dialogTitle.text = requireArguments().getString("title")
+        }
         binding.dDayEmptyTitleCheckConfirmed.setOnClickListener {
             this.dismiss()
         }
