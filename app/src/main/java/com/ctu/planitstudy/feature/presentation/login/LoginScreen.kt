@@ -42,7 +42,6 @@ class LoginScreen
         viewModel.loginState.observe(this, {
             when(it){
                 is LoginState.Loading->{
-                    Toast.makeText(this, "로그인 중", Toast.LENGTH_SHORT).show()
                 }
                 is LoginState.Login->{
                     if(it.state) {
