@@ -1,5 +1,10 @@
 package com.ctu.planitstudy.feature.presentation.login
 
+import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -12,6 +17,8 @@ import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 @AndroidEntryPoint
 class LoginScreen
@@ -49,6 +56,7 @@ class LoginScreen
             }
         })
     }
+
    fun printHashKey(pContext: Context) {
         try {
             val info: PackageInfo = pContext.getPackageManager()
