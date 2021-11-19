@@ -34,8 +34,6 @@ class LoginScreen
     override fun setup() {
 
         binding.viewmodel = viewModel
-        
-        printHashKey(CashStudyApp.instance)
 
         if(CashStudyApp.prefs.refreshToken != null)
             if(!JWTRefreshTokenExpiration().invoke())
@@ -55,24 +53,5 @@ class LoginScreen
                 }
             }
         })
-    }
-
-   fun printHashKey(pContext: Context) {
-        try {
-            val info: PackageInfo = pContext.getPackageManager()
-                .getPackageInfo(pContext.getPackageName(), PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures) {
-                val md: MessageDigest = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                val hashKey: String = String(Base64.encode(md.digest(), 0))
-                Toast.makeText(this, hashKey, Toast.LENGTH_SHORT).show()
-                binding.loginScreenMainTitle.text = hashKey
-                Log.i(TAG, "printHashKey() Hash Key: $hashKey")
-            }
-        } catch (e: NoSuchAlgorithmException) {
-            Log.e(TAG, "printHashKey()", e)
-        } catch (e: Exception) {
-            Log.e(TAG, "printHashKey()", e)
-        }
     }
 }
