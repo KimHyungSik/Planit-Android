@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.daysOfWeekFromLocale
@@ -43,6 +44,8 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
     val TAG = "PlannerPlanner - 로그"
 
     var mothToWeek = false
+
+    private val viewModel by activityViewModels<PlannerPlannerViewModel>()
 
     private val titleFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
 
@@ -99,15 +102,20 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
 
                 if(day.date == LocalDate.now())
                     textView.setTextColor(getResources().getColor(R.color.point_color))
-
+                if(day.date == viewModel.plannerState.value!!.checkDate)
+                    context?.let { it1 -> textView.background = ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background) }
+                else
+                    textView.setBackgroundColor(getResources().getColor(R.color.item_guide_stroke))
                 container.view.setOnClickListener {
-
+                    viewModel.updatePlannerState(
+                        viewModel.plannerState.value!!.copy(
+                            checkDate = day.date
+                        )
+                    )
+                    binding.plannerPlannerCustomCalendar.notifyCalendarChanged()
                 }
             }
         }
-
-        binding.plannerPlannerCustomCalendar.notifyCalendarChanged()
-
 
         binding.plannerPlannerCustomCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
@@ -122,8 +130,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
 
     fun setCalendarDate(){
         val daysOfWeek = daysOfWeekFromLocale()
-        val currentMonth = LocalDate.now().yearMonth
-        Log.d(TAG, "setInit: ${LocalDate.now()}")
+        val currentMonth = viewModel.plannerState.value!!.checkDate.yearMonth
         binding.plannerPlannerCustomCalendar.setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
         binding.plannerPlannerCustomCalendar.scrollToDate(LocalDate.now())
     }
