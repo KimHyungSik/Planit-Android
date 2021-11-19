@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
+import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.TodoListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -54,14 +56,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                 it.dDayList.ddays.toObservable()
                     .filter { it.isRepresentative }
                     .subscribe {
+                        dDay ->
                         binding.apply {
-                            homeFragmentDDayCount.text = "D -" + it.dDay
-                            homeFragmentDDayTitle.text = it.title
+                            homeFragmentDDayCount.text = "D - " + dDay.dDay
+                            homeFragmentDDayTitle.text = dDay.title
                             homeFragmentDDayColumn.visibility = View.VISIBLE
+                            homeFragmentDDayColumn.setOnClickListener {
+                                val intent = Intent(activity, Screens.DdayScreenSh.activity)
+                                intent.putExtra("dDay", dDay)
+                                moveIntent(intent)
+                            }
                         }
                     }
             }
         })
+
+        binding.homeFragmentEmptyRepresentative.setOnClickListener {
+            moveIntent(Screens.DdayScreenSh.activity)
+        }
     }
 
     override fun onClickedItem(position: Int) {

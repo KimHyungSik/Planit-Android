@@ -16,7 +16,6 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
 import java.util.regex.Pattern
 
-
 class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBinding>() {
 
     val TAG = "BirthFragment - 로그"
@@ -28,6 +27,7 @@ class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBi
 
     private val disposables = CompositeDisposable()
     var textCount = 0
+
     override fun setInit() {
         super.setInit()
         disposables.add(

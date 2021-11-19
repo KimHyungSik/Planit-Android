@@ -99,6 +99,7 @@
                             android:inputType="text"
                             android:maxLength="16"
                             android:text="@={viewmodel.studyState.title}"
+                            android:textCursorDrawable="@color/text_color"
                             />
 
                         <TextView
