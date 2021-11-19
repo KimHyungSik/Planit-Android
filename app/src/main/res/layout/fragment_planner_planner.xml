@@ -5,20 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.kizitonwose.calendarview.CalendarView
-        android:id="@+id/exSixCalendar"
+        android:id="@+id/planner_planner_custom_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/item_guide_stroke"
         android:clickable="true"
         android:focusable="true"
         app:cv_dayViewResource="@layout/calendar_layout"
         app:cv_monthHeaderResource="@layout/calendar_header"
         app:cv_orientation="horizontal"
-        app:cv_scrollMode="continuous"
-        app:cv_monthViewClass="com.kizitonwose.calendarviewsample.Example6MonthView"
-        tools:context=".Example6Fragment" />
+        app:cv_scrollMode="paged"
+
+        />
+    <ImageButton
+        android:id="@+id/planner_planner_calendar_down_arrow"
+        android:src="@drawable/ic_arrow_down"
+        android:background="@drawable/bottom_radius_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

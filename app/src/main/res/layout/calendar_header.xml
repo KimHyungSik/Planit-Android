@@ -10,21 +10,15 @@
         android:id="@+id/exSixMonthText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:textColor="@color/text_color"
-        android:textSize="20sp"
-        tools:text="June 2019" />
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="32dp"
+        android:gravity="start"
+        android:textColor="@color/sub_color2"
+        android:textSize="16sp"
+        tools:text="" />
 
     <include
         android:id="@+id/legendLayout"
         layout="@layout/calendar_day_legend" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="#eeeeee" />
 
 </LinearLayout>
