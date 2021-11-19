@@ -28,9 +28,9 @@ class LoginScreen
 
         binding.viewmodel = viewModel
 
-//        if(CashStudyApp.prefs.refreshToken != null)
-//            if(!JWTRefreshTokenExpiration().invoke())
-//                moveIntentAllClear(HomeScreenSh.activity)
+        if(CashStudyApp.prefs.refreshToken != null)
+            if(!JWTRefreshTokenExpiration().invoke())
+                moveIntentAllClear(HomeScreenSh.activity)
 
         viewModel.loginState.observe(this, {
             when(it){
