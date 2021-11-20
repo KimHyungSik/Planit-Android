@@ -7,13 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.date_util.DateCalculation
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.json.JSONObject
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.log
@@ -21,6 +25,7 @@ import kotlin.math.log
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val ddayListUseCase: GetDdayListUseCase,
+    private val getStudyListUseCase: GetStudyListUseCase
 ) : ViewModel() {
 
     val TAG = "HomeViewModel - 로그"
@@ -31,6 +36,7 @@ class HomeViewModel @Inject constructor(
     init {
         _homeState.value = HomeState()
         initSet()
+        getStudyList()
     }
 
     fun initSet(){
@@ -48,4 +54,22 @@ class HomeViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+    fun getStudyList(){
+        getStudyListUseCase(DateCalculation().getCurrentDateString(0)).onEach {
+            when(it){
+                is Resource.Success ->{
+                    _homeState.value = homeState.value!!.copy(
+                        studyListDto = it.data ?: StudyListDto(emptyList())
+                    )
+                }
+                is Resource.Loading ->{}
+                is Resource.Error -> {
+                    Log.d(TAG, "getStudyList: ${it.message}")
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+
 }

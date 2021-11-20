@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
+import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
@@ -14,11 +15,14 @@ import javax.inject.Inject
 class GetStudyListUseCase @Inject constructor(
     private val studyRepository: StudyRepository
 ) {
+    val TAG = "GetStudyUseCase - 로그"
+    
     operator fun invoke(date: String): Flow<Resource<StudyListDto>> = flow {
         try {
             emit(Resource.Loading<StudyListDto>(null))
             val studyList =
                 JsonConverter.jsonToStudyListDto(studyRepository.getStudyList(date).asJsonObject)
+            Log.d(TAG, "invoke: $studyList")
             emit(Resource.Success(studyList))
         } catch (e: Throwable) {
             if (e is HttpException) {

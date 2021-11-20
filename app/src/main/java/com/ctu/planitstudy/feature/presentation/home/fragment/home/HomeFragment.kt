@@ -28,8 +28,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
 
     private val viewModel by activityViewModels<HomeViewModel>()
 
-    private val dateCalculation = DateCalculation()
-
     override fun setUpViews() {
         super.setUpViews()
 
@@ -42,9 +40,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
         binding.homeFragmentAddStudy.setOnClickListener {
             moveIntent(Screens.StudyScreenSh.activity)
         }
-
-        todoListRecyclerAdapter.submitList(arrayListOf("test","test","test","test"),arrayListOf("test","test","test","test"))
-
 
     }
 
@@ -69,6 +64,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                         }
                     }
             }
+            todoListRecyclerAdapter.submitList(it.studyListDto)
+            todoListRecyclerAdapter.notifyDataSetChanged()
         })
 
         binding.homeFragmentEmptyRepresentative.setOnClickListener {
