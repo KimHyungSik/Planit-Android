@@ -16,6 +16,7 @@ import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.time.LocalDate
 import java.util.*
@@ -31,45 +32,45 @@ class HomeViewModel @Inject constructor(
     val TAG = "HomeViewModel - 로그"
 
     private val _homeState = MutableLiveData<HomeState>()
-    val homeState : LiveData<HomeState> = _homeState
+    val homeState: LiveData<HomeState> = _homeState
 
     init {
         _homeState.value = HomeState()
         initSet()
-        getStudyList()
     }
 
-    fun initSet(){
-        ddayListUseCase().onEach {
-            when(it){
-                is Resource.Success -> {
-                    _homeState.value = homeState.value!!.copy(
-                        dDayList = it.data
-                    )
+    fun initSet() {
+        viewModelScope.launch {
+            ddayListUseCase().onEach {
+                when (it) {
+                    is Resource.Success -> {
+                        Log.d(TAG, "initSet: ${it.data}")
+                        _homeState.value = homeState.value!!.copy(
+                            dDayList = it.data
+                        )
+                    }
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "initSet: ${it.message}")
+                    }
                 }
-                is Resource.Loading ->{
+            }.launchIn(this)
+            getStudyListUseCase(DateCalculation().getCurrentDateString(0)).onEach {
+                when (it) {
+                    is Resource.Success -> {
+                        _homeState.value = homeState.value!!.copy(
+                            studyListDto = it.data ?: StudyListDto(emptyList())
+                        )
+                    }
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "getStudyList: error ${it.message}")
+                    }
                 }
-                is Resource.Error -> {
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
-
-    fun getStudyList(){
-        Log.d(TAG, "getStudyList: ")
-        getStudyListUseCase(DateCalculation().getCurrentDateString(0)).onEach {
-            when(it){
-                is Resource.Success ->{
-                    _homeState.value = homeState.value!!.copy(
-                        studyListDto = it.data ?: StudyListDto(emptyList())
-                    )
-                }
-                is Resource.Loading ->{}
-                is Resource.Error -> {
-                    Log.d(TAG, "getStudyList: error ${it.message}")
-                }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(this)
+        }
     }
 
 

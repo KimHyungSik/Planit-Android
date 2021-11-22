@@ -48,7 +48,7 @@ object JsonConverter {
         isRepresentative = jsonObject["isRepresentative"].asBoolean,
         endAt = jsonObject["endAt"].asString,
         createdAt = jsonObject["createdAt"].asString,
-        color = jsonObject["color"].asString,
+        icon = jsonObject["icon"].asString,
         dDay = DateCalculation().calDateBetween(
             DateCalculation().getCurrentDateString(0),
             jsonObject["endAt"].asString
@@ -56,7 +56,6 @@ object JsonConverter {
     )
 
     fun jsonToStudyListDto(jsonObject: JsonObject) : StudyListDto{
-        Log.d(TAG, "jsonToStudyListDto: $jsonObject")
         val studyArrayList = ArrayList<StudyDto>()
         for(n in jsonObject["studies"].asJsonArray){
             studyArrayList.add(
@@ -67,7 +66,6 @@ object JsonConverter {
     }
 
     fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto {
-        Log.d(TAG, "jsonToStudyDto: $jsonObject")
         return StudyDto(
             endAt = jsonObject["endAt"].asString,
             isDone = jsonObject["isDone"].asBoolean,
@@ -83,10 +81,8 @@ object JsonConverter {
 
     fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String>?{
         if(jsonArray.isJsonNull) return null
-        Log.d(TAG, "jsonToStudyRepeatedDays: $jsonArray")
         val list = mutableListOf<String>()
         for (n in jsonArray){
-            Log.d(TAG, "jsonToStudyRepeatedDays: ${n.asString}")
             list.add(n.asString)
         }
         return list

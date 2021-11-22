@@ -7,11 +7,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
-import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.TodoListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.recycler.InTodoListRecycler
+import com.ctu.planitstudy.feature.presentation.recycler.TodoListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.toObservable

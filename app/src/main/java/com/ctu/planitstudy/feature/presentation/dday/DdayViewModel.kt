@@ -46,7 +46,7 @@ class DdayViewModel @Inject constructor(
     }
 
     fun dDayUpdate(ddayDto: DdayDto, date: String) {
-        _dDayState.value = DdayState(ddayDto.title, date, ddayDto.color, ddayDto.isRepresentative)
+        _dDayState.value = DdayState(ddayDto.title, date, ddayDto.icon, ddayDto.isRepresentative)
     }
 
     fun dDayUpdate(ddayState: DdayState) {

@@ -5,8 +5,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
-import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
 import com.google.android.material.card.MaterialCardView
 
 class DdayListRecyclerHolder(itemView: View, val inDdayListRecycler: InDdayListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

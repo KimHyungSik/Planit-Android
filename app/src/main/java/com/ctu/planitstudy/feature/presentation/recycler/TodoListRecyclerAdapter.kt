@@ -1,4 +1,4 @@
-package com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler
+package com.ctu.planitstudy.feature.presentation.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ class TodoListRecyclerAdapter(val inTodoListRecycler: InTodoListRecycler) : Recy
         TodoListRecyclerHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.recycler_home_todo_item, parent, false),
+                .inflate(R.layout.recycler_study_list_item, parent, false),
                 inTodoListRecycler
         )
 

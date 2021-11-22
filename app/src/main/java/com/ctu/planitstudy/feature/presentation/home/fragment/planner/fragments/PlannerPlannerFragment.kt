@@ -18,6 +18,7 @@ import com.ctu.planitstudy.core.util.daysOfWeekFromLocale
 import com.ctu.planitstudy.databinding.CalendarHeaderBinding
 import com.ctu.planitstudy.databinding.CalendarLayoutBinding
 import com.ctu.planitstudy.databinding.FragmentPlannerPlannerBinding
+import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.calendar.DayViewContainer
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.calendar.MonthViewContainer
 import com.google.android.material.internal.ViewUtils.dpToPx
@@ -46,6 +47,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
     var mothToWeek = false
 
     private val viewModel by activityViewModels<PlannerPlannerViewModel>()
+    private val homeViewModel by activityViewModels<HomeViewModel>()
 
     private val titleFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
 

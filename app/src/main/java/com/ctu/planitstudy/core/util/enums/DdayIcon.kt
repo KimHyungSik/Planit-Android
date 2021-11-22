@@ -5,19 +5,19 @@ import com.ctu.planitstudy.R
 
 class DdayIconSet {
     enum class DdayIcon(val radio: Int) {
-        PINK(R.id.d_day_radio_button_1),
-        GREEN(R.id.d_day_radio_button_2),
-        YELLOW(R.id.d_day_radio_button_3),
-        LIGHT_BLUE(R.id.d_day_radio_button_4),
-        DARK_BLUE(R.id.d_day_radio_button_5)
+        PLANET(R.id.d_day_radio_button_1),
+        PLANET_WITH_RINGS(R.id.d_day_radio_button_2),
+        STAR(R.id.d_day_radio_button_3),
+        FLAME(R.id.d_day_radio_button_4),
+        UFO(R.id.d_day_radio_button_5)
     }
 
     val dDayIconList = listOf<String>(
-        "PINK",
-        "GREEN",
-        "YELLOW",
-        "LIGHT_BLUE",
-        "DARK_BLUE"
+        "PLANET",
+        "PLANET_WITH_RINGS",
+        "STAR",
+        "FLAME",
+        "UFO"
     )
 
     val dDayIconListId = listOf(
