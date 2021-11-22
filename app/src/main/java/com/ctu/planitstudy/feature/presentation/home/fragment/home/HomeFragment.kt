@@ -64,6 +64,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                         }
                     }
             }
+            if(it.studyListDto.studies.isEmpty()){
+                binding.homeFragmentStudyEmptyImg.visibility = View.VISIBLE
+                binding.homeTodoRecyclerView.visibility = View.GONE
+            }else{
+                binding.homeFragmentStudyEmptyImg.visibility = View.GONE
+                binding.homeTodoRecyclerView.visibility = View.VISIBLE
+            }
+
             studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
             studyListRecyclerAdapter.notifyDataSetChanged()
         })

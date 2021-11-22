@@ -155,6 +155,16 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
 
     fun homeViewModelSetUp(){
         homeViewModel.homeState.observe(this, {
+
+            if(it.studyListDto.studies.isEmpty()){
+                binding.studyFragmentEmptyImg.visibility = View.VISIBLE
+                binding.plannerPlannerStudyList.visibility = View.GONE
+            }else{
+                binding.studyFragmentEmptyImg.visibility = View.GONE
+                binding.plannerPlannerStudyList.visibility = View.VISIBLE
+            }
+
+
             studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
             studyListRecyclerAdapter.notifyDataSetChanged()
         })

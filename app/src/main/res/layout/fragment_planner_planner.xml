@@ -36,5 +36,23 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/study_fragment_empty_img"
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/item_guide_stroke"
+        app:strokeWidth="1dp">
+
+        <include
+            layout="@layout/components_planner_study_empty" />
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
