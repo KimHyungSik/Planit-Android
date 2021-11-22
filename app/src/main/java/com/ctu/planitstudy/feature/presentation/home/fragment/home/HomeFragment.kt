@@ -8,32 +8,33 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
-import com.ctu.planitstudy.feature.presentation.recycler.InTodoListRecycler
-import com.ctu.planitstudy.feature.presentation.recycler.TodoListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.toObservable
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     val TAG = "HomFragmentR - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
-    private lateinit var todoListRecyclerAdapter: TodoListRecyclerAdapter
+    private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter
 
     private val viewModel by activityViewModels<HomeViewModel>()
 
     override fun setUpViews() {
         super.setUpViews()
 
-        todoListRecyclerAdapter = TodoListRecyclerAdapter(this)
+        studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
-            adapter = todoListRecyclerAdapter
+            adapter = studyListRecyclerAdapter
         }
         binding.homeFragmentAddStudy.setOnClickListener {
             moveIntent(Screens.StudyScreenSh.activity)
@@ -62,8 +63,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                         }
                     }
             }
-            todoListRecyclerAdapter.submitList(it.studyListDto)
-            todoListRecyclerAdapter.notifyDataSetChanged()
+            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
+            studyListRecyclerAdapter.notifyDataSetChanged()
         })
 
         binding.homeFragmentEmptyRepresentative.setOnClickListener {

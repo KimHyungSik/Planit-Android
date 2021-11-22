@@ -22,7 +22,6 @@ class GetStudyListUseCase @Inject constructor(
             emit(Resource.Loading<StudyListDto>(null))
             val studyList =
                 JsonConverter.jsonToStudyListDto(studyRepository.getStudyList(date).asJsonObject)
-            Log.d(TAG, "invoke: $studyList")
             emit(Resource.Success(studyList))
         } catch (e: Exception) {
             emit( Resource.Error<StudyListDto>(message = "Exception" + e.message))

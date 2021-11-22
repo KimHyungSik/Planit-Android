@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.daysOfWeekFromLocale
@@ -21,6 +22,9 @@ import com.ctu.planitstudy.databinding.FragmentPlannerPlannerBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.calendar.DayViewContainer
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.calendar.MonthViewContainer
+import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
 import com.google.android.material.internal.ViewUtils.dpToPx
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
@@ -38,7 +42,7 @@ import java.time.format.DateTimeFormatter
 
 
 
-class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
+class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , InStudyListRecycler {
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerPlannerBinding
         get() = FragmentPlannerPlannerBinding::inflate
 
@@ -49,6 +53,8 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
     private val viewModel by activityViewModels<PlannerPlannerViewModel>()
     private val homeViewModel by activityViewModels<HomeViewModel>()
 
+    private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter
+
     private val titleFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
 
     @SuppressLint("RestrictedApi")
@@ -57,6 +63,8 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
         val dm = DisplayMetrics()
         val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
         wm.defaultDisplay.getMetrics(dm)
+
+        studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         binding.apply {
 
@@ -73,6 +81,10 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
                     mothToWeek = !mothToWeek
                 }
 
+            plannerPlannerStudyList.apply {
+                layoutManager = LinearLayoutManager(activity?.applicationContext)
+                adapter = studyListRecyclerAdapter
+            }
         }
 
         binding.plannerPlannerCustomCalendar.apply {
@@ -128,6 +140,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
             }
         }
         setCalendarDate()
+        homeViewModelSetUp()
     }
 
     fun setCalendarDate(){
@@ -135,6 +148,16 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() {
         val currentMonth = viewModel.plannerState.value!!.checkDate.yearMonth
         binding.plannerPlannerCustomCalendar.setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
         binding.plannerPlannerCustomCalendar.scrollToDate(LocalDate.now())
+    }
+
+    fun homeViewModelSetUp(){
+        homeViewModel.homeState.observe(this, {
+            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
+            studyListRecyclerAdapter.notifyDataSetChanged()
+        })
+    }
+
+    override fun onClickedItem(position: Int) {
     }
 
 }

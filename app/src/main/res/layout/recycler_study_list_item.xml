@@ -23,7 +23,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="16dp"
-            android:visibility="gone"
             />
 
         <TextView
@@ -33,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/study_list_state_text"
             app:layout_constraintRight_toLeftOf="@id/study_list_arrow"
-            app:layout_constraintLeft_toLeftOf="@id/study_list_check_box"
+            app:layout_constraintLeft_toRightOf="@id/study_list_check_box"
             android:textStyle="normal"
             android:textSize="16sp"
             android:textColor="@color/text_color"
@@ -49,11 +48,11 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/study_list_title_text"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/study_list_check_box"
+            app:layout_constraintLeft_toRightOf="@id/study_list_check_box"
             app:layout_constraintRight_toLeftOf="@id/study_list_arrow"
             android:textStyle="normal"
             android:textSize="12sp"
-            android:textColor="@color/sub_color"
+            android:textColor="@color/sub_color2"
             android:gravity="start"
             android:lineSpacingExtra="6sp"
             android:layout_marginStart="24dp"

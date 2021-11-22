@@ -57,20 +57,22 @@ object JsonConverter {
 
     fun jsonToStudyListDto(jsonObject: JsonObject) : StudyListDto{
         val studyArrayList = ArrayList<StudyDto>()
+
         for(n in jsonObject["studies"].asJsonArray){
             studyArrayList.add(
                 jsonToStudyDto(n.asJsonObject)
             )
+
         }
         return StudyListDto(studyArrayList)
     }
 
     fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto {
         return StudyDto(
-            endAt = jsonObject["endAt"].asString,
+            endAt = if(jsonObject["endAt"].isJsonNull) null else jsonObject["endAt"].asString,
             isDone = jsonObject["isDone"].asBoolean,
             repeatedDays =
-                jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
+                if(jsonObject["repeatedDays"].isJsonNull) null else jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
             repeatedStudyId = if(jsonObject["repeatedStudyId"].isJsonNull) null else jsonObject["repeatedStudyId"].asInt,
             singleStudyId = if(jsonObject["singleStudyId"].isJsonNull) null else jsonObject["singleStudyId"].asInt,
             startAt = jsonObject["startAt"].asString,
@@ -79,8 +81,7 @@ object JsonConverter {
         )
     }
 
-    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String>?{
-        if(jsonArray.isJsonNull) return null
+    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String>{
         val list = mutableListOf<String>()
         for (n in jsonArray){
             list.add(n.asString)
