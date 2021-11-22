@@ -9,42 +9,37 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.InTodoListRecycler
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.recycler.TodoListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
+import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.toObservable
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     val TAG = "HomFragmentR - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
-    private lateinit var todoListRecyclerAdapter: TodoListRecyclerAdapter
+    private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter
 
     private val viewModel by activityViewModels<HomeViewModel>()
-
-    private val dateCalculation = DateCalculation()
 
     override fun setUpViews() {
         super.setUpViews()
 
-        todoListRecyclerAdapter = TodoListRecyclerAdapter(this)
+        studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
-            adapter = todoListRecyclerAdapter
+            adapter = studyListRecyclerAdapter
         }
         binding.homeFragmentAddStudy.setOnClickListener {
             moveIntent(Screens.StudyScreenSh.activity)
         }
-
-        todoListRecyclerAdapter.submitList(arrayListOf("test","test","test","test"),arrayListOf("test","test","test","test"))
-
 
     }
 
@@ -69,11 +64,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InTodoListRecycler {
                         }
                     }
             }
+            if(it.studyListDto.studies.isEmpty()){
+                binding.homeFragmentStudyEmptyImg.visibility = View.VISIBLE
+                binding.homeTodoRecyclerView.visibility = View.GONE
+            }else{
+                binding.homeFragmentStudyEmptyImg.visibility = View.GONE
+                binding.homeTodoRecyclerView.visibility = View.VISIBLE
+            }
+
+            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
+            studyListRecyclerAdapter.notifyDataSetChanged()
         })
 
         binding.homeFragmentEmptyRepresentative.setOnClickListener {
             moveIntent(Screens.DdayScreenSh.activity)
         }
+    }
+
+    override fun setOnStart() {
+        super.setOnStart()
+        viewModel.changeStudyDate(DateCalculation().getCurrentDateString(0))
     }
 
     override fun onClickedItem(position: Int) {

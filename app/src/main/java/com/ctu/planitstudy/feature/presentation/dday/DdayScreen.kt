@@ -111,7 +111,7 @@ class DdayScreen
             dDayTitle.text = "디데이 편집하기"
             dDayCustomIcon.check(
                 DdayIconSet.DdayIcon.values()[DdayIconSet().dDayIconList.indexOf(
-                    dDay.color
+                    dDay.icon
                 )].radio
             )
             dDayConfirmedBtnText.text = "저장하기"
@@ -122,7 +122,7 @@ class DdayScreen
     // 기존데이터가 없는 경우
     fun setUpView() {
         binding.apply {
-            dDayCustomIcon.check(DdayIconSet.DdayIcon.PINK.radio)
+            dDayCustomIcon.check(DdayIconSet.DdayIcon.PLANET.radio)
         }
     }
 

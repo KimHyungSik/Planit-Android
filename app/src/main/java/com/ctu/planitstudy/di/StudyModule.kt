@@ -6,6 +6,7 @@ import com.ctu.planitstudy.feature.data.remote.StudyApi
 import com.ctu.planitstudy.feature.data.repository.StudyRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.Module
 import dagger.Provides
@@ -47,4 +48,8 @@ object StudyModule {
     fun providerAddStudyUseCase(studyRepository: StudyRepository): AddStudyUseCase =
         AddStudyUseCase(studyRepository)
 
+    @Provides
+    @Singleton
+    fun providerGetListStudyUseCase(studyRepository: StudyRepository): GetStudyListUseCase =
+        GetStudyListUseCase(studyRepository)
 }

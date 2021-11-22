@@ -2,10 +2,8 @@ package com.ctu.planitstudy.feature.data.remote
 
 import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.AddStudy
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import com.google.gson.JsonElement
+import retrofit2.http.*
 
 interface StudyApi {
     @POST("/v1/study")
@@ -14,4 +12,6 @@ interface StudyApi {
     suspend fun addStudy(@Body addRepeatedStudy: AddRepeatedStudy)
     @GET("/v1/study/validate-title")
     suspend fun validateTitle(@Query("title") title : String)
+    @GET("/v1/study/list/{date}")
+    suspend fun getStudyList(@Path("date") date : String) : JsonElement
 }

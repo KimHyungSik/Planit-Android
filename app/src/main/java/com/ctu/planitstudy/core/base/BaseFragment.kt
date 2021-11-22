@@ -2,6 +2,7 @@ package com.ctu.planitstudy.core.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB: ViewBinding> : Fragment() {
-
     protected lateinit var binding: VB
     abstract val bindingInflater: (LayoutInflater) -> VB
 
@@ -27,6 +27,11 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        setOnStart()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpViews()
         observeData()
@@ -38,6 +43,8 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment() {
     open fun observeData() {}
 
     open fun setInit(){}
+
+    open fun setOnStart(){}
 
     // fragment 최초 설정
     private fun init() {

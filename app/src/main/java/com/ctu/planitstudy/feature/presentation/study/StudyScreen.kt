@@ -15,6 +15,7 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -170,7 +171,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             }
 
             if(it.addStudy)
-                finish()
+                moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 
         disposables.addAll(
