@@ -35,6 +35,7 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.Size
 import com.kizitonwose.calendarview.utils.yearMonth
+import java.text.DateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -101,6 +102,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
 
         }
 
+        // 캘린더 날짜 커스텀
         binding.plannerPlannerCustomCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             @SuppressLint("ResourceAsColor")
@@ -131,6 +133,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
             }
         }
 
+        // 캘린더 년월 커스텀
         binding.plannerPlannerCustomCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
@@ -154,6 +157,10 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
         homeViewModel.homeState.observe(this, {
             studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
             studyListRecyclerAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.plannerState.observe(this, {
+            homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
         })
     }
 

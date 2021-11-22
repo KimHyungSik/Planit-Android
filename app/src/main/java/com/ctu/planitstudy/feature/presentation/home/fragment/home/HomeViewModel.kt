@@ -72,5 +72,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun changeStudyDate(date : String){
+        getStudyListUseCase(date).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    _homeState.value = homeState.value!!.copy(
+                        studyListDto = it.data ?: StudyListDto(emptyList())
+                    )
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "getStudyList: error ${it.message}")
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
 
 }
