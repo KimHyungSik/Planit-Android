@@ -55,20 +55,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }.launchIn(this)
-            getStudyListUseCase(DateCalculation().getCurrentDateString(0)).onEach {
-                when (it) {
-                    is Resource.Success -> {
-                        _homeState.value = homeState.value!!.copy(
-                            studyListDto = it.data ?: StudyListDto(emptyList())
-                        )
-                    }
-                    is Resource.Loading -> {
-                    }
-                    is Resource.Error -> {
-                        Log.d(TAG, "getStudyList: error ${it.message}")
-                    }
-                }
-            }.launchIn(this)
         }
     }
 

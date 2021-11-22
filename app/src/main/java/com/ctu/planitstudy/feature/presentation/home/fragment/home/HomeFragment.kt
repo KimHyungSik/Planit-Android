@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
@@ -70,6 +71,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
         binding.homeFragmentEmptyRepresentative.setOnClickListener {
             moveIntent(Screens.DdayScreenSh.activity)
         }
+    }
+
+    override fun setOnStart() {
+        super.setOnStart()
+        viewModel.changeStudyDate(DateCalculation().getCurrentDateString(0))
     }
 
     override fun onClickedItem(position: Int) {
