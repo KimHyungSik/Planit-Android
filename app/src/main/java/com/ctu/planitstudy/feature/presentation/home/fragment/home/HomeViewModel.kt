@@ -56,6 +56,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getStudyList(){
+        Log.d(TAG, "getStudyList: ")
         getStudyListUseCase(DateCalculation().getCurrentDateString(0)).onEach {
             when(it){
                 is Resource.Success ->{
@@ -65,7 +66,7 @@ class HomeViewModel @Inject constructor(
                 }
                 is Resource.Loading ->{}
                 is Resource.Error -> {
-                    Log.d(TAG, "getStudyList: ${it.message}")
+                    Log.d(TAG, "getStudyList: error ${it.message}")
                 }
             }
         }.launchIn(viewModelScope)

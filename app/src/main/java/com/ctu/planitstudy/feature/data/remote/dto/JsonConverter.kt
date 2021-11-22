@@ -1,10 +1,12 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
+import android.util.Log
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 object JsonConverter {
@@ -54,6 +56,7 @@ object JsonConverter {
     )
 
     fun jsonToStudyListDto(jsonObject: JsonObject) : StudyListDto{
+        Log.d(TAG, "jsonToStudyListDto: $jsonObject")
         val studyArrayList = ArrayList<StudyDto>()
         for(n in jsonObject["studies"].asJsonArray){
             studyArrayList.add(
@@ -63,22 +66,28 @@ object JsonConverter {
         return StudyListDto(studyArrayList)
     }
 
-    fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto = StudyDto(
-        endAt = jsonObject["endAt"].asString,
-        isDone = jsonObject["isDone"].asBoolean,
-        repeatedDays = jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonObject),
-        repeatedStudyId = jsonObject["repeatedStudyId"].asInt,
-        singleStudyId = jsonObject["singleStudyId"].asInt,
-        startAt = jsonObject["startAt"].asString,
-        studyId = jsonObject["studyId"].asInt,
-        title = jsonObject["title"].asString
-    )
+    fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto {
+        Log.d(TAG, "jsonToStudyDto: $jsonObject")
+        return StudyDto(
+            endAt = jsonObject["endAt"].asString,
+            isDone = jsonObject["isDone"].asBoolean,
+            repeatedDays =
+                jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
+            repeatedStudyId = if(jsonObject["repeatedStudyId"].isJsonNull) null else jsonObject["repeatedStudyId"].asInt,
+            singleStudyId = if(jsonObject["singleStudyId"].isJsonNull) null else jsonObject["singleStudyId"].asInt,
+            startAt = jsonObject["startAt"].asString,
+            studyId = jsonObject["studyId"].asInt,
+            title = jsonObject["title"].asString
+        )
+    }
 
-    fun jsonToStudyRepeatedDays(jsonObject: JsonObject): List<String>{
+    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String>?{
+        if(jsonArray.isJsonNull) return null
+        Log.d(TAG, "jsonToStudyRepeatedDays: $jsonArray")
         val list = mutableListOf<String>()
-        for (n in jsonObject.asJsonArray){
-            val json = n.asJsonObject
-            list.add(json.asString)
+        for (n in jsonArray){
+            Log.d(TAG, "jsonToStudyRepeatedDays: ${n.asString}")
+            list.add(n.asString)
         }
         return list
     }

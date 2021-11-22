@@ -3,7 +3,7 @@ package com.ctu.planitstudy.feature.data.remote.dto.study
 data class StudyDto(
     val endAt: String,
     val isDone: Boolean,
-    val repeatedDays: List<String>,
+    val repeatedDays: List<String>?,
     val repeatedStudyId: Int?,
     val singleStudyId: Int?,
     val startAt: String,

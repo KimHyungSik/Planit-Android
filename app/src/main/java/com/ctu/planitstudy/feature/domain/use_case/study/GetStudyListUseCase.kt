@@ -24,7 +24,8 @@ class GetStudyListUseCase @Inject constructor(
                 JsonConverter.jsonToStudyListDto(studyRepository.getStudyList(date).asJsonObject)
             Log.d(TAG, "invoke: $studyList")
             emit(Resource.Success(studyList))
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
+            emit( Resource.Error<StudyListDto>(message = "Exception" + e.message))
             if (e is HttpException) {
                 emit(
                     Resource.Error<StudyListDto>(
@@ -34,6 +35,8 @@ class GetStudyListUseCase @Inject constructor(
                     )
                 )
             }
+        } catch (e: Throwable){
+            emit( Resource.Error<StudyListDto>(message = "Throwable" + e.message))
         }
     }
 }
