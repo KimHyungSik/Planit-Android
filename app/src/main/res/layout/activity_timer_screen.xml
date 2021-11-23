@@ -55,45 +55,196 @@
                 app:cs_circle_color="@color/module_color"
                 app:cs_circle_fill="#04041d"
                 app:cs_circle_progress_color="@color/sub_color"
-                app:cs_circle_stroke_width="8dp"
+                app:cs_circle_stroke_width="10dp"
                 app:cs_disable_progress_glow="true"
                 app:cs_pointer_color="@color/sub_color"
                 app:cs_pointer_stroke_width="32dp"
-                app:cs_progress="50"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:gravity="center"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/timer_time_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00:00"
-                    android:textStyle="bold"
-                    android:textSize="28sp"
-                    android:textColor="@color/text_color"
                     android:lineSpacingExtra="9sp"
-                    />
+                    android:text="00:00:00"
+                    android:textColor="@color/text_color"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:text="집중하면 1시간마다\n보너스 티켓 획득!"
                     android:id="@+id/timer_time_sub_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="normal"
-                    android:textSize="14sp"
-                    android:textColor="#4794ff"
-                    android:gravity="center"
                     android:layout_marginTop="8dp"
-                    />
+                    android:gravity="center"
+                    android:text="집중하면 1시간마다\n보너스 티켓 획득!"
+                    android:textColor="#4794ff"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="36dp"
+        app:cardBackgroundColor="@color/navy_blue_item_box"
+        app:cardCornerRadius="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="휴식횟수"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="0회"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        >
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/navy_blue_item_box"
+            app:cardCornerRadius="28dp"
+            android:layout_marginEnd="8dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:src="@drawable/ic_reward_start_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0회"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:layout_marginEnd="24dp"
+                    />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/navy_blue_item_box"
+            app:cardCornerRadius="28dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:src="@drawable/ic_bonus_ticket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0회"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:layout_marginEnd="24dp"
+                    />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/sub_color2"
+        app:cardCornerRadius="40dp"
+        >
+
+        <TextView
+            android:id="@+id/d_day_confirmed_btn_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="타이머 멈추기"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/text_color"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

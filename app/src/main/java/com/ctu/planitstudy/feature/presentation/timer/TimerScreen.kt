@@ -14,9 +14,6 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun setup() {
         binding.timerCircularBar.setOnTouchListener { v, event -> true }
-        binding.timerCircularBar.progress = 70.0f
+
     }
-
-
-
 }
