@@ -94,6 +94,7 @@ class DdayViewModel @Inject constructor(
                         _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
                     }
                     is Resource.Error -> {
+                        Log.d(TAG, "dDayDelete: ${it.message}")
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)

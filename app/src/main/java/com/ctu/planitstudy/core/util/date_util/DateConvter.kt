@@ -14,6 +14,10 @@ object DateConvter {
     private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
     private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
 
+    fun dtoDateTOLong(date : String) : Long{
+        return dateFormatDdayDto.parse(date).time
+    }
+
     fun textDateToLongDate(date :String) : Long{
         val sliceDate = date.slice(IntRange(0,10))
         return dateFormatText.parse(sliceDate).time

@@ -7,8 +7,8 @@ data class Dday (
     val title : String,
     @SerializedName("endAt")
     val endAt : String,
-    @SerializedName("color")
-    val color : String,
+    @SerializedName("icon")
+    val icon : String,
     @SerializedName("isRepresentative")
     val isRepresentative : Boolean
 )
