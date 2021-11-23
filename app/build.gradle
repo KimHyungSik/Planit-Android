@@ -132,4 +132,6 @@ dependencies {
 
     // clander
     implementation  'com.github.kizitonwose:CalendarView:1.0.4'
+
+    implementation 'me.tankery.lib:circularSeekBar:1.2.0'
 }
