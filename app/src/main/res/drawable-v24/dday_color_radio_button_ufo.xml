@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="8dp" />
+                    <solid android:color="@color/sub_color" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/icon_32_ufo"/>
+        </layer-list>
+    </item>
+    <item android:state_checked="false">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="8dp" />
+                    <solid android:color="@color/item_guide_stroke" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/icon_32_ufo"/>
+        </layer-list>
+    </item>
+</selector>

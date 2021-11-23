@@ -23,23 +23,31 @@ class StudyListRecyclerHolder(itemView: View, inTodoListRecycler: InStudyListRec
     @SuppressLint("ResourceAsColor")
     fun bindWithView(studyDto: StudyDto, studyListModel : StudyListMode){
         titleText.text = studyDto.title
-        stateText.text = "측정된 공부시간이 없습니다"
+
         when(studyListModel){
             is StudyListMode.HomeStudyListMode -> {
                 checkBox.visibility = View.GONE
+                stateText.text = "측정된 공부시간이 없습니다"
             }
             is StudyListMode.PlannerStudyListMode -> {
                 checkBox.visibility = View.VISIBLE
                 checkBox.isChecked = studyDto.isDone
-                var studyDay = "${studyDto.startAt}~${studyDto.endAt}"
-                var weekString = " | "
-                if(studyDto.repeatedStudyId != null) {
-                    for (n in studyDto.repeatedDays!!) {
-                        weekString += weekKorList[weekEngList.indexOf(n)]
+
+                val weekString = buildString {
+                    append("${studyDto.startAt}~${studyDto.endAt} | ")
+                    if(studyDto.repeatedDays != null) {
+                        for (n in studyDto.repeatedDays) {
+                            append( weekKorList[weekEngList.indexOf(n)])
+                        }
+                        append("반복")
+//                        studyDay += weekString + "반복"
                     }
-                    studyDay += weekString + "반복"
                 }
-                stateText.text = studyDay
+
+                if(studyDto.startAt != studyDto.endAt)
+                    stateText.text = weekString
+                else
+                    stateText.visibility = View.GONE
 
             }
         }

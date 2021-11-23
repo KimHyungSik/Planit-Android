@@ -69,12 +69,12 @@ object JsonConverter {
 
     fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto {
         return StudyDto(
-            endAt = if(jsonObject["endAt"].isJsonNull) null else jsonObject["endAt"].asString,
+            endAt = jsonObject["endAt"].asString,
             isDone = jsonObject["isDone"].asBoolean,
             repeatedDays =
                 if(jsonObject["repeatedDays"].isJsonNull) null else jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
-            repeatedStudyId = if(jsonObject["repeatedStudyId"].isJsonNull) null else jsonObject["repeatedStudyId"].asInt,
-            singleStudyId = if(jsonObject["singleStudyId"].isJsonNull) null else jsonObject["singleStudyId"].asInt,
+            studyGroupId = jsonObject["studyGroupId"].asInt,
+            studyScheduleId = jsonObject["studyScheduleId"].asInt,
             startAt = jsonObject["startAt"].asString,
             studyId = jsonObject["studyId"].asInt,
             title = jsonObject["title"].asString

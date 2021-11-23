@@ -200,49 +200,49 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                         studyMonDay.isEnabled = true
                         studyMonDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Tuesday -> {
                         studyTuesDay.isEnabled = true
                         studyTuesDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Wednesday -> {
                         studyWednesDay.isEnabled = true
                         studyWednesDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Thursday -> {
                         studyThursDay.isEnabled = true
                         studyThursDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Friday -> {
                         studyFriDay.isEnabled = true
                         studyFriDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Saturday -> {
                         studySaturDay.isEnabled = true
                         studySaturDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                     Weekday.Sunday -> {
                         studySunDay.isEnabled = true
                         studySunDay.background = ContextCompat.getDrawable(
                             this@StudyScreen,
-                            R.drawable.dday_color_radio_button
+                            R.drawable.dday_color_radio_button_fullmoon
                         )
                     }
                 }

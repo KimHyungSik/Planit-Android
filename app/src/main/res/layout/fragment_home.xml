@@ -25,7 +25,7 @@
                 android:layout_height="28dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="58dp"
-                android:src="@drawable/planit" />
+                android:src="@drawable/ic_planit_logo" />
 
             <View
                 android:layout_width="wrap_content"

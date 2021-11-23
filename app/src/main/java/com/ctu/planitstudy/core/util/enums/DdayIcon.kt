@@ -5,11 +5,19 @@ import com.ctu.planitstudy.R
 
 class DdayIconSet {
     enum class DdayIcon(val radio: Int) {
-        PLANET(R.id.d_day_radio_button_1),
-        PLANET_WITH_RINGS(R.id.d_day_radio_button_2),
+        FULLMOON(R.id.d_day_radio_button_1),
+        SATURN(R.id.d_day_radio_button_2),
         STAR(R.id.d_day_radio_button_3),
-        FLAME(R.id.d_day_radio_button_4),
+        METEOR(R.id.d_day_radio_button_4),
         UFO(R.id.d_day_radio_button_5)
+    }
+
+    enum class DdayIconImg(val imge: Int) {
+        FULLMOON(R.drawable.ic_fullmoon),
+        SATURN(R.drawable.icon_32_saturn),
+        STAR(R.drawable.icon_32_star),
+        METEOR(R.drawable.icon_32_meteor),
+        UFO(R.drawable.icon_32_ufo)
     }
 
     val dDayIconList = listOf<String>(

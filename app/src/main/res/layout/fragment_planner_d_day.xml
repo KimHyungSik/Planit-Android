@@ -77,10 +77,10 @@
                             app:cardCornerRadius="8dp">
 
                             <ImageView
+                                android:id="@+id/planner_d_day_representative_icon"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_todo_book" />
+                                android:layout_gravity="center"/>
                         </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout

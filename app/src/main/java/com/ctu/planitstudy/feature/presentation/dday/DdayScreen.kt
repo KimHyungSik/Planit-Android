@@ -83,7 +83,7 @@ class DdayScreen
                 .subscribe {
                     viewmodel!!.dDayUpdate(
                         viewmodel!!.dDayState.value!!.copy(
-                            color = ddayIconSet.dDayIconList[ddayIconSet.dDayIconListId.indexOf(
+                            icon = ddayIconSet.dDayIconList[ddayIconSet.dDayIconListId.indexOf(
                                 it
                             )]
                         )
@@ -122,7 +122,7 @@ class DdayScreen
     // 기존데이터가 없는 경우
     fun setUpView() {
         binding.apply {
-            dDayCustomIcon.check(DdayIconSet.DdayIcon.PLANET.radio)
+            dDayCustomIcon.check(DdayIconSet.DdayIcon.FULLMOON.radio)
         }
     }
 

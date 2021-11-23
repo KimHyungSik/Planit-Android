@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.FragmentPlannerDDayBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
@@ -40,10 +41,11 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             .filter { it.isRepresentative }
             .subscribe {
                 dDay ->
-                binding.apply {
+                with(binding) {
                     plannerDDayRepresentativeDDay.text = "D-" + dDay.dDay
                     plannerDDayRepresentativeTitle.text = dDay.title
                     plannerDDayRepresentativeDate.text = dDay.endAt
+                    plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)
                     plannerDDayRepresentativeItemView.setOnClickListener {
                         val intent = Intent(activity, DdayScreen::class.java)
                         intent.putExtra("dDay", dDay)
@@ -65,7 +67,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             }.isDisposed
     }
 
-    fun notEmptyDdayList(){
+    private fun notEmptyDdayList(){
         binding.apply {
             plannerDDayNestedScrollview.visibility = View.VISIBLE
             plannerDDayEmpty.visibility = View.GONE

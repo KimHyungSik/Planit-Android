@@ -39,7 +39,7 @@ class DdayViewModel @Inject constructor(
     private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
 
 
-    var ddayDto: DdayDto? = null
+    private var ddayDto: DdayDto? = null
 
     fun dDayDtoSet(ddayDto: DdayDto) {
         this.ddayDto = ddayDto
@@ -121,11 +121,11 @@ class DdayViewModel @Inject constructor(
         }
     }
 
-    fun getDday(): Dday =
+    private fun getDday(): Dday =
         Dday(
             dDayState.value!!.title,
-            DateConvter.textDateToDtoDate( dDayState!!.value!!.date),
-            dDayState!!.value!!.color,
-            dDayState!!.value!!.representative
+            DateConvter.textDateToDtoDate( dDayState.value!!.date),
+            dDayState.value!!.icon,
+            dDayState.value!!.representative
         )
 }

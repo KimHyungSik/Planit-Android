@@ -42,8 +42,7 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 
-
-class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , InStudyListRecycler {
+class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), InStudyListRecycler {
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerPlannerBinding
         get() = FragmentPlannerPlannerBinding::inflate
 
@@ -67,22 +66,21 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
 
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
-        binding.apply {
+        with(binding) {
+            plannerPlannerCalendarDownArrow.setOnClickListener {
+                if (mothToWeek)
+                    plannerPlannerCustomCalendar.updateMonthConfiguration(
+                        maxRowCount = 1,
+                    )
+                else
+                    plannerPlannerCustomCalendar.updateMonthConfiguration(
+                        maxRowCount = 6,
+                    )
+                setCalendarDate()
+                mothToWeek = !mothToWeek
+            }
 
-                plannerPlannerCalendarDownArrow.setOnClickListener {
-                    if(mothToWeek)
-                        plannerPlannerCustomCalendar.updateMonthConfiguration(
-                            maxRowCount = 1,
-                        )
-                    else
-                        plannerPlannerCustomCalendar.updateMonthConfiguration(
-                            maxRowCount = 6,
-                        )
-                    setCalendarDate()
-                    mothToWeek = !mothToWeek
-                }
-
-            plannerPlannerStudyList.apply {
+            with(plannerPlannerStudyList) {
                 layoutManager = LinearLayoutManager(activity?.applicationContext)
                 adapter = studyListRecyclerAdapter
             }
@@ -105,6 +103,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
         // 캘린더 날짜 커스텀
         binding.plannerPlannerCustomCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
+
             @SuppressLint("ResourceAsColor")
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 val textView = container.textView
@@ -116,10 +115,13 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
                     textView.visibility = View.INVISIBLE
                 }
 
-                if(day.date == LocalDate.now())
+                if (day.date == LocalDate.now())
                     textView.setTextColor(getResources().getColor(R.color.point_color))
-                if(day.date == viewModel.plannerState.value!!.checkDate)
-                    context?.let { it1 -> textView.background = ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background) }
+                if (day.date == viewModel.plannerState.value!!.checkDate)
+                    context?.let { it1 ->
+                        textView.background =
+                            ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background)
+                    }
                 else
                     textView.setBackgroundColor(getResources().getColor(R.color.item_guide_stroke))
                 container.view.setOnClickListener {
@@ -137,6 +139,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
         binding.plannerPlannerCustomCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
+
             @SuppressLint("ResourceAsColor")
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 container.textView.text = titleFormatter.format(month.yearMonth)
@@ -146,20 +149,24 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>() , I
         homeViewModelSetUp()
     }
 
-    fun setCalendarDate(){
+    fun setCalendarDate() {
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = viewModel.plannerState.value!!.checkDate.yearMonth
-        binding.plannerPlannerCustomCalendar.setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
+        binding.plannerPlannerCustomCalendar.setup(
+            currentMonth.minusMonths(10),
+            currentMonth.plusMonths(10),
+            daysOfWeek.first()
+        )
         binding.plannerPlannerCustomCalendar.scrollToDate(LocalDate.now())
     }
 
-    fun homeViewModelSetUp(){
+    private fun homeViewModelSetUp() {
         homeViewModel.homeState.observe(this, {
 
-            if(it.studyListDto.studies.isEmpty()){
+            if (it.studyListDto.studies.isEmpty()) {
                 binding.studyFragmentEmptyImg.visibility = View.VISIBLE
                 binding.plannerPlannerStudyList.visibility = View.GONE
-            }else{
+            } else {
                 binding.studyFragmentEmptyImg.visibility = View.GONE
                 binding.plannerPlannerStudyList.visibility = View.VISIBLE
             }
