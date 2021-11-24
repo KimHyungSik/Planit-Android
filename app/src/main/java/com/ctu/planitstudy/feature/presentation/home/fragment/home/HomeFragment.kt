@@ -1,14 +1,18 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
@@ -54,7 +58,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                         .subscribe {
                             dDay ->
                             binding.apply {
-                                homeFragmentDDayCount.text = if(dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
+                                homeFragmentDDayCount.text = if(dDay.dDay > 0) "D-${dDay.dDay}" else if(dDay.dDay == 0)"D-DAY"  else "D+${Math.abs(dDay.dDay)}"
+                                if(dDay.dDay == 0)
+                                    homeFragmentDDayCountBox.background = ContextCompat.getDrawable( CashStudyApp.instance ,R.drawable.d_day_gradation)
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {

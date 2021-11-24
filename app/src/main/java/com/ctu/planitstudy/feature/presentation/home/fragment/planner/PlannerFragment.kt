@@ -1,13 +1,16 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.planner
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentPlannerBinding
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.PlannerViewPager
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -25,43 +28,48 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
 
     private val homeViewModel by activityViewModels<HomeViewModel>()
 
+    @SuppressLint("ResourceAsColor")
     override fun setUpViews() {
         super.setUpViews()
-        binding.plannerRadioButton.check(R.id.planner_radio_planner_button)
-        binding.plannerRadioPlannerButton.setTextColor(resources.getColor(R.color.text_color))
-        binding.plannerViewPagerFragmentView.apply {
-            adapter = PlannerViewPager(requireActivity())
-            currentItem = 0
-        }
-        binding.plannerViewPagerFragmentView.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Log.d(TAG, "onPageSelected: $position")
-                    if (position == 0)
-                        binding.plannerRadioButton.check(R.id.planner_radio_planner_button)
-                    else
-                        binding.plannerRadioButton.check(R.id.planner_radio_d_day_button)
-                }
+        with(binding) {
+            plannerRadioButton.check(R.id.planner_radio_planner_button)
+            plannerRadioPlannerButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.text_color))
+            plannerViewPagerFragmentView.apply {
+                adapter = PlannerViewPager(requireActivity())
+                currentItem = 0
             }
-        )
+            plannerViewPagerFragmentView.registerOnPageChangeCallback(
+                object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        Log.d(TAG, "onPageSelected: $position")
+                        if (position == 0)
+                            plannerRadioButton.check(R.id.planner_radio_planner_button)
+                        else
+                            plannerRadioButton.check(R.id.planner_radio_d_day_button)
+                    }
+                }
+            )
+        }
         disposables.add(
             RxRadioGroup.checkedChanges(binding.plannerRadioButton)
                 .subscribe({
-                    when (it) {
-                        R.id.planner_radio_planner_button -> {
-                            binding.plannerRadioDDayButton.setTextColor(resources.getColor(R.color.enabled_text_color))
-                            binding.plannerRadioPlannerButton.setTextColor(resources.getColor(R.color.text_color))
-                            binding.studyAddedBtn.visibility = View.VISIBLE
-                            binding.dDayAddedBtn.visibility = View.GONE
-                            binding.plannerViewPagerFragmentView.currentItem = 0
-                        }
-                        R.id.planner_radio_d_day_button -> {
-                            binding.plannerRadioPlannerButton.setTextColor(resources.getColor(R.color.enabled_text_color))
-                            binding.plannerRadioDDayButton.setTextColor(resources.getColor(R.color.text_color))
-                            binding.studyAddedBtn.visibility = View.GONE
-                            binding.dDayAddedBtn.visibility = View.VISIBLE
-                            binding.plannerViewPagerFragmentView.currentItem = 1
+                    with(binding) {
+                        when (it) {
+                            R.id.planner_radio_planner_button -> {
+                                plannerRadioDDayButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.enabled_text_color))
+                                plannerRadioPlannerButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.text_color))
+                                studyAddedBtn.visibility = View.VISIBLE
+                                dDayAddedBtn.visibility = View.GONE
+                                plannerViewPagerFragmentView.currentItem = 0
+                            }
+                            R.id.planner_radio_d_day_button -> {
+                                plannerRadioPlannerButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.enabled_text_color))
+                                plannerRadioDDayButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.text_color))
+                                studyAddedBtn.visibility = View.GONE
+                                dDayAddedBtn.visibility = View.VISIBLE
+                                plannerViewPagerFragmentView.currentItem = 1
+                            }
                         }
                     }
                 }, {}, {})

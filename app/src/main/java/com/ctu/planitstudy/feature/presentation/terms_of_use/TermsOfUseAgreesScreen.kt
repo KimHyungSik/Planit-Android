@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.CheckBox
+import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
@@ -56,12 +57,12 @@ class TermsOfUseAgreesScreen :
 
                 if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked)
                     binding.termsOfUseCheckBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.white))
+                        setCardBackgroundColor(getColor(R.color.text_color))
                         isClickable = true
                     }
                 else
                     binding.termsOfUseCheckBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+                        setCardBackgroundColor(getColor(R.color.button_disabled))
                         isClickable = false
                     }
             }, {})
