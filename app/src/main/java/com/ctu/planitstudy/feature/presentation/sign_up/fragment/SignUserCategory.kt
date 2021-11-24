@@ -12,8 +12,6 @@ import io.reactivex.disposables.CompositeDisposable
 
 class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
 
-    val TAG = "Category - 로그"
-
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserCategoryBinding
         get() = FragmentSignUpUserCategoryBinding::inflate
 
@@ -28,7 +26,6 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
             RxRadioGroup.checkedChanges(binding.signUpCategoryRadioGroupLeft)
                 .filter { it -> it != -1 }
                 .subscribe({
-                    Log.d(TAG, "setInit: $it")
                     binding.signUpCategoryRadioGroupRight.clearCheck()
                     var state = viewModel.liveData.value
                     when (it) {
@@ -44,7 +41,6 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
             RxRadioGroup.checkedChanges(binding.signUpCategoryRadioGroupRight)
                 .filter { it -> it != -1 }
                 .subscribe({
-                    Log.d(TAG, "setInit: $it")
                     var state = viewModel.liveData.value
                     binding.signUpCategoryRadioGroupLeft.clearCheck()
                     when (it) {

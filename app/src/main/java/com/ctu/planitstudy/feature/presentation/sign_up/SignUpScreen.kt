@@ -80,13 +80,15 @@ class SignUpScreen :
         })
     }
 
-    fun setReceiverUi(state: Boolean) {
-        if (!state) {
-            binding.signUpBtn.visibility = View.VISIBLE
-            binding.signUpConfirm.visibility = View.GONE
-        } else {
-            binding.signUpBtn.visibility = View.GONE
-            binding.signUpConfirm.visibility = View.VISIBLE
+    private fun setReceiverUi(state: Boolean) {
+        with(binding) {
+            if (!state) {
+                signUpBtn.visibility = View.VISIBLE
+                signUpConfirm.visibility = View.GONE
+            } else {
+                signUpBtn.visibility = View.GONE
+                signUpConfirm.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -97,27 +99,4 @@ class SignUpScreen :
             super.onBackPressed()
         }
     }
-
-    // 추천인 입력 단일 버튼 활성화
-//    fun setReceiverUi(state: Boolean){
-//        if(!state){
-//            binding.signUpBtn.run {
-//                setCardBackgroundColor(resources.getColor(R.color.button_disabled))
-//                isClickable = true
-//            }
-//            binding.signUpBtnText.run{
-//                text = "건너뛰기"
-//                setTextColor(resources.getColor(R.color.white))
-//            }
-//        }else{
-//            binding.signUpBtn.run {
-//                setCardBackgroundColor(resources.getColor(R.color.white))
-//                isClickable = true
-//            }
-//            binding.signUpBtnText.run{
-//                binding.signUpBtnText.text = "확인"
-//                setTextColor(resources.getColor(R.color.black))
-//            }
-//        }
-//    }
 }

@@ -24,11 +24,12 @@ class TermsOfUseAgreesScreen :
         disposables.add(
             RxCompoundButton.checkedChanges(binding.termsOfUseAllCheckBox)
                 .subscribe({
-                    Log.d(TAG, "setup: $it")
-                    binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked = it
-                    binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked = it
-                    binding.termsOfUseItems.termsOfUsePersonalInformationOptional.isChecked = it
-                    binding.termsOfUseItems.termsOfUseMarketingOptional.isChecked = it
+                    with(binding.termsOfUseItems) {
+                        termsOfUseAcceptUseRequired.isChecked = it
+                        termsOfUsePersonalInformationRequired.isChecked = it
+                        termsOfUsePersonalInformationOptional.isChecked = it
+                        termsOfUseMarketingOptional.isChecked = it
+                    }
                 }, {})
         )
 

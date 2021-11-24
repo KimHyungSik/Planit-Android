@@ -47,14 +47,14 @@ class DdayScreen :
             setUpViewWithDday(dDay)
         }
 
-        viewModel.apply {
+        with(viewModel) {
             dDayUpdate(
                 dDay ?: DdayDto(-1, "", false, "", "", "", -1),
                 DateConvter.dtoDateToTextDate(dDay?.endAt)
             )
         }
 
-        binding.apply {
+        with(binding) {
             viewmodel = viewModel
             // 데이터 피커 날짜 변경 시
             dDayDatePicker.apply {
@@ -85,9 +85,9 @@ class DdayScreen :
                         viewmodel!!.dDayUpdate(
                             viewmodel!!.dDayState.value!!.copy(
                                 icon = ddayIconSet.dDayIconList[
-                                    ddayIconSet.dDayIconListId.indexOf(
-                                        it
-                                    )
+                                        ddayIconSet.dDayIconListId.indexOf(
+                                            it
+                                        )
                                 ]
                             )
                         )
@@ -116,9 +116,9 @@ class DdayScreen :
             dDayTitle.text = "디데이 편집하기"
             dDayCustomIcon.check(
                 DdayIconSet.DdayIcon.values()[
-                    DdayIconSet().dDayIconList.indexOf(
-                        dDay.icon
-                    )
+                        DdayIconSet().dDayIconList.indexOf(
+                            dDay.icon
+                        )
                 ].radio
             )
             dDayConfirmedBtnText.text = "저장하기"
@@ -127,13 +127,11 @@ class DdayScreen :
     }
 
     // 기존데이터가 없는 경우
-    fun setUpView() {
-        binding.apply {
-            dDayCustomIcon.check(DdayIconSet.DdayIcon.FULLMOON.radio)
-        }
+    private fun setUpView() {
+        binding.dDayCustomIcon.check(DdayIconSet.DdayIcon.FULLMOON.radio)
     }
 
-    fun viewModelSet() {
+    private fun viewModelSet() {
         viewModel.dDayNetworkState.observe(this, {
             if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
