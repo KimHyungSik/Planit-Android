@@ -4,19 +4,26 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.core.util.enums.weekKorList
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 
-class StudyListRecyclerHolder(itemView: View, inTodoListRecycler: InStudyListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     private val titleText = itemView.findViewById<TextView>(R.id.study_list_title_text)
     private val stateText = itemView.findViewById<TextView>(R.id.study_list_state_text)
     private val checkBox = itemView.findViewById<CheckBox>(R.id.study_list_check_box)
+    private val view = itemView.findViewById<CardView>(R.id.study_list_view)
+
+    init {
+        view.setOnClickListener(this)
+    }
 
     override fun onClick(v: View?) {
+        inTodoListRecycler.onClickedItem(bindingAdapterPosition)
     }
 
     @SuppressLint("ResourceAsColor")

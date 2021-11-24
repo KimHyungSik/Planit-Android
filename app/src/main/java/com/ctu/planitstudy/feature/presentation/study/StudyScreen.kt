@@ -58,7 +58,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             }
 
             studyDateItemView.setOnClickListener {
-               showCalendar()
+                showCalendar()
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.SingleDate
@@ -265,8 +265,8 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         }
     }
 
-    private fun showCalendar(){
-        with(binding){
+    private fun showCalendar() {
+        with(binding) {
             studyCustomDatePicker.visibility = View.VISIBLE
             studyBlur.visibility = View.VISIBLE
         }

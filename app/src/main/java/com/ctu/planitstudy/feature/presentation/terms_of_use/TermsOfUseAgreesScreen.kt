@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.terms_of_use
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.CheckBox
 import com.ctu.planitstudy.R
