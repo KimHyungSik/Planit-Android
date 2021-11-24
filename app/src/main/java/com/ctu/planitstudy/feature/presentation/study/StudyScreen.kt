@@ -94,7 +94,8 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
             // 데이터 피커 확인
             studyConfirmedDateBtn.setOnClickListener {
-                showCalendar()
+                studyCustomDatePicker.visibility = View.INVISIBLE
+                studyBlur.visibility = View.INVISIBLE
                 binding.invalidateAll()
                 viewModel.studyUpdate(
                     viewModel.studyState.value!!.copy(

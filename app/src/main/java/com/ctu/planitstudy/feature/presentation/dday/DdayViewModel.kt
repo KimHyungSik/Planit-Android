@@ -33,9 +33,6 @@ class DdayViewModel @Inject constructor(
     private val _dDayDialogState = MutableLiveData<DdayDialogState>(DdayDialogState())
     val dDayDialogState: LiveData<DdayDialogState> = _dDayDialogState
 
-    private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
-    private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
-
     private var ddayDto: DdayDto? = null
 
     fun dDayDtoSet(ddayDto: DdayDto) {

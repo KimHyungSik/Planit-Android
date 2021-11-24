@@ -17,7 +17,7 @@ class DateCalculation {
         val end = dateFormat.parse(endDate)
         val calDate: Long = end.time - start.time
         val calDay: Long = calDate / (24 * 60 * 60 * 1000)
-        return Math.abs(calDay).toInt()
+        return calDay.toInt()
     }
 
     // addDate 현재 날짜에서 날짜 추가₩

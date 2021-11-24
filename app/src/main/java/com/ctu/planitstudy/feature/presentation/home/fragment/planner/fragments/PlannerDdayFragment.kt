@@ -39,7 +39,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             .subscribe {
                 dDay ->
                 with(binding) {
-                    plannerDDayRepresentativeDDay.text = "D-" + dDay.dDay
+                    plannerDDayRepresentativeDDay.text = if(dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
                     plannerDDayRepresentativeTitle.text = dDay.title
                     plannerDDayRepresentativeDate.text = dDay.endAt
                     plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)

@@ -61,7 +61,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
                     )
                 else
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
-                        maxRowCount = 6,
+                        maxRowCount = 5,
                     )
                 setCalendarDate()
                 mothToWeek = !mothToWeek
