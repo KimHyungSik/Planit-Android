@@ -160,17 +160,17 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         viewModel.studyDialogState.observe(this, {
             val arg = Bundle()
 
-            if(it.emptyTitleDialog){
+            if (it.emptyTitleDialog) {
                 arg.putString("title", getString(R.string.empty_dialog_fragment))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if(it.validatedTitle){
+            if (it.validatedTitle) {
                 arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if(it.addStudy)
+            if (it.addStudy)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 

@@ -6,7 +6,6 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
-import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.core.util.enums.weekKorList
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
@@ -21,10 +20,10 @@ class StudyListRecyclerHolder(itemView: View, inTodoListRecycler: InStudyListRec
     }
 
     @SuppressLint("ResourceAsColor")
-    fun bindWithView(studyDto: StudyDto, studyListModel : StudyListMode){
+    fun bindWithView(studyDto: StudyDto, studyListModel: StudyListMode) {
         titleText.text = studyDto.title
 
-        when(studyListModel){
+        when (studyListModel) {
             is StudyListMode.HomeStudyListMode -> {
                 checkBox.visibility = View.GONE
                 stateText.text = "측정된 공부시간이 없습니다"
@@ -35,20 +34,19 @@ class StudyListRecyclerHolder(itemView: View, inTodoListRecycler: InStudyListRec
 
                 val weekString = buildString {
                     append("${studyDto.startAt}~${studyDto.endAt} | ")
-                    if(studyDto.repeatedDays != null) {
+                    if (studyDto.repeatedDays != null) {
                         for (n in studyDto.repeatedDays) {
-                            append( weekKorList[weekEngList.indexOf(n)])
+                            append(weekKorList[weekEngList.indexOf(n)])
                         }
                         append("반복")
 //                        studyDay += weekString + "반복"
                     }
                 }
 
-                if(studyDto.startAt != studyDto.endAt)
+                if (studyDto.startAt != studyDto.endAt)
                     stateText.text = weekString
                 else
                     stateText.visibility = View.GONE
-
             }
         }
     }

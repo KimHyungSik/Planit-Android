@@ -2,7 +2,6 @@ package com.ctu.planitstudy.core.util.enums
 
 import com.ctu.planitstudy.R
 
-
 class DdayIconSet {
     enum class DdayIcon(val radio: Int) {
         FULLMOON(R.id.d_day_radio_button_1),

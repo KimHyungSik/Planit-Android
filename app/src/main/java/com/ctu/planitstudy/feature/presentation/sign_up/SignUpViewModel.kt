@@ -1,16 +1,11 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
-import android.accounts.NetworkErrorException
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
-import com.ctu.planitstudy.core.util.CoreData.REFRESHTOKEN
-import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
@@ -27,11 +22,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.json.JSONObject
 import retrofit2.HttpException
-import retrofit2.adapter.rxjava2.Result.response
 import javax.inject.Inject
-
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
@@ -60,9 +52,8 @@ class SignUpViewModel @Inject constructor(
         MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
     val validateNickName: LiveData<Resource<Boolean>> = _validateNickName
 
-    private val _screens= MutableLiveData<Screens>(null)
-    val screens : LiveData<Screens> = _screens
-
+    private val _screens = MutableLiveData<Screens>(null)
+    val screens: LiveData<Screens> = _screens
 
     var currentFragmentPage = 0
     var maxFragmentPage = 0
@@ -140,7 +131,6 @@ class SignUpViewModel @Inject constructor(
             if (maxFragmentPage > currentFragmentPage)
                 _activityState.value = true
         }
-
     }
 
     fun sendSignUpUserData(receiverNameSkip: Boolean) {
@@ -149,7 +139,7 @@ class SignUpViewModel @Inject constructor(
                 val signUpUser = SignUpUser(
                     birth = liveData.value?.dateOfBirth!!,
                     category = liveData.value?.category!!,
-                    email =  it.data?.userEmail!!,
+                    email = it.data?.userEmail!!,
                     marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                     personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                     name = liveData.value?.name!!,
@@ -169,11 +159,11 @@ class SignUpViewModel @Inject constructor(
                     sex = liveData.value?.gender!!,
                 )
                 (
-                        if (receiverNameSkip)
-                            userAuthUseCase.userSignUp(signUpUserReceiver)
-                        else
-                            userAuthUseCase.userSignUp(signUpUser)
-                        )
+                    if (receiverNameSkip)
+                        userAuthUseCase.userSignUp(signUpUserReceiver)
+                    else
+                        userAuthUseCase.userSignUp(signUpUser)
+                    )
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
@@ -195,6 +185,5 @@ class SignUpViewModel @Inject constructor(
             }, {
                 _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
             }).isDisposed
-
     }
 }

@@ -1,33 +1,21 @@
 package com.ctu.planitstudy.feature.presentation.login
 
-import android.content.Context
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.core.util.CoreData.ACCESSTOKEN
-import com.ctu.planitstudy.core.util.PreferencesManager
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
-import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 @AndroidEntryPoint
-class LoginScreen
-    : BaseBindingActivity<ActivityLoginScreenBinding>()
-{
+class LoginScreen :
+    BaseBindingActivity<ActivityLoginScreenBinding>() {
     private val viewModel: LoginViewModel by viewModels()
 
-    override val bindingInflater: (LayoutInflater) -> ActivityLoginScreenBinding
-        = ActivityLoginScreenBinding::inflate
+    override val bindingInflater: (LayoutInflater) -> ActivityLoginScreenBinding =
+        ActivityLoginScreenBinding::inflate
 
     val TAG = "LoginScreen - 로그"
 
@@ -35,19 +23,18 @@ class LoginScreen
 
         binding.viewmodel = viewModel
 
-        if(CashStudyApp.prefs.refreshToken != null)
-            if(!JWTRefreshTokenExpiration().invoke())
+        if (CashStudyApp.prefs.refreshToken != null)
+            if (!JWTRefreshTokenExpiration().invoke())
                 moveIntentAllClear(HomeScreenSh.activity)
 
         viewModel.loginState.observe(this, {
-            when(it){
-                is LoginState.Loading->{
+            when (it) {
+                is LoginState.Loading -> {
                 }
-                is LoginState.Login->{
-                    if(it.state) {
+                is LoginState.Login -> {
+                    if (it.state) {
                         moveIntentAllClear(HomeScreenSh.activity)
-                    }
-                    else
+                    } else
                         moveIntentAllClear(TermsOfUseAgreesScreenSh.activity)
                 }
             }

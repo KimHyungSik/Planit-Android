@@ -3,21 +3,15 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.daysOfWeekFromLocale
-import com.ctu.planitstudy.databinding.CalendarHeaderBinding
-import com.ctu.planitstudy.databinding.CalendarLayoutBinding
 import com.ctu.planitstudy.databinding.FragmentPlannerPlannerBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.calendar.DayViewContainer
@@ -25,22 +19,15 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
-import com.google.android.material.internal.ViewUtils.dpToPx
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
-import com.kizitonwose.calendarview.model.InDateStyle
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
-import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.Size
 import com.kizitonwose.calendarview.utils.yearMonth
-import java.text.DateFormat
-import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-
 
 class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), InStudyListRecycler {
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerPlannerBinding
@@ -97,7 +84,6 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
             updateMonthConfiguration(
                 maxRowCount = 1,
             )
-
         }
 
         // 캘린더 날짜 커스텀
@@ -171,7 +157,6 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
                 binding.plannerPlannerStudyList.visibility = View.VISIBLE
             }
 
-
             studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
             studyListRecyclerAdapter.notifyDataSetChanged()
         })
@@ -183,5 +168,4 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
 
     override fun onClickedItem(position: Int) {
     }
-
 }

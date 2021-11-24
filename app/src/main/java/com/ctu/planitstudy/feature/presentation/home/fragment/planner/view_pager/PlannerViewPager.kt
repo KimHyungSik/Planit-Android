@@ -7,16 +7,15 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerPlannerFragment
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.*
 
-class PlannerViewPager(fragmentActivity : FragmentActivity)
-    : FragmentStateAdapter(fragmentActivity)
-{
+class PlannerViewPager(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
 
     val fragmentList = listOf<Fragment>(
         PlannerPlannerFragment(),
         PlannerDdayFragment(),
     )
 
-    override fun getItemCount(): Int  = fragmentList.size
+    override fun getItemCount(): Int = fragmentList.size
 
-    override fun createFragment(position: Int): Fragment  = fragmentList[position]
+    override fun createFragment(position: Int): Fragment = fragmentList[position]
 }

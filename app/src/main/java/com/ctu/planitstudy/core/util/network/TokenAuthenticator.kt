@@ -11,13 +11,12 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import java.net.HttpURLConnection
 import javax.inject.Inject
 
 class TokenAuthenticator @Inject constructor(
     private val jwtTokenRefreshUseCase: JwtTokenRefreshUseCase
-    )
-    : Authenticator{
+) :
+    Authenticator {
     val jwtRefreshTokenExpiration = JWTRefreshTokenExpiration()
 
     @DelicateCoroutinesApi
@@ -33,8 +32,8 @@ class TokenAuthenticator @Inject constructor(
             } else {
                 Intent(CashStudyApp.instance, LoginScreen::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                            Intent.FLAG_ACTIVITY_NEW_TASK
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_NEW_TASK
                 }.also { CashStudyApp.instance.startActivity(it) }
             }
         }

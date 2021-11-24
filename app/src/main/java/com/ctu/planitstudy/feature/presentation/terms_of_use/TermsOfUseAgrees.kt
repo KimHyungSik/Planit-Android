@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TermsOfUseAgrees (
-    val personalInformationAgree : Boolean,
-    val marketingInformationAgree : Boolean
-) : Parcelable{}
+data class TermsOfUseAgrees(
+    val personalInformationAgree: Boolean,
+    val marketingInformationAgree: Boolean
+) : Parcelable

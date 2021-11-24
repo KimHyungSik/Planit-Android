@@ -8,15 +8,12 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
-import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxCheckedTextView
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
-class TermsOfUseAgreesScreen
-    : BaseBindingActivity<ActivityTermsOfUseBinding>() {
+class TermsOfUseAgreesScreen :
+    BaseBindingActivity<ActivityTermsOfUseBinding>() {
 
     val TAG = "TermsOfUseScreen - 로그"
     private val disposables = CompositeDisposable()
@@ -53,19 +50,21 @@ class TermsOfUseAgreesScreen
     }
 
     private fun agreeCounter(view: CheckBox) {
-        disposables.add(RxCompoundButton.checkedChanges(view).subscribe({
+        disposables.add(
+            RxCompoundButton.checkedChanges(view).subscribe({
 
-            if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked)
-                binding.termsOfUseCheckBtn.run {
-                    setCardBackgroundColor(resources.getColor(R.color.white))
-                    isClickable = true
-                }
-            else
-                binding.termsOfUseCheckBtn.run {
-                    setCardBackgroundColor(resources.getColor(R.color.button_disabled))
-                    isClickable = false
-                }
-        }, {}))
+                if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked)
+                    binding.termsOfUseCheckBtn.run {
+                        setCardBackgroundColor(resources.getColor(R.color.white))
+                        isClickable = true
+                    }
+                else
+                    binding.termsOfUseCheckBtn.run {
+                        setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+                        isClickable = false
+                    }
+            }, {})
+        )
     }
 
     override fun onDestroy() {

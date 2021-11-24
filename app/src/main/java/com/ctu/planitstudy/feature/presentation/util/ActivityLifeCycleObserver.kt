@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-class ActivityLifeCycleObserver(private val lifecycle: Lifecycle): LifecycleObserver {
+class ActivityLifeCycleObserver(private val lifecycle: Lifecycle) : LifecycleObserver {
 
     companion object {
         const val TAG = "ActivityLife - 로그"

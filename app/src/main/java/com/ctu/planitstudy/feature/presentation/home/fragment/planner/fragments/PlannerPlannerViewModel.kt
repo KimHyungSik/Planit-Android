@@ -8,10 +8,9 @@ import java.time.LocalDate
 class PlannerPlannerViewModel : ViewModel() {
 
     private val _plannerState = MutableLiveData<PlannerPlannerState>(PlannerPlannerState(LocalDate.now()))
-    val plannerState : LiveData<PlannerPlannerState> = _plannerState
+    val plannerState: LiveData<PlannerPlannerState> = _plannerState
 
-    fun updatePlannerState(plannerState: PlannerPlannerState){
+    fun updatePlannerState(plannerState: PlannerPlannerState) {
         _plannerState.value = plannerState
     }
-
 }

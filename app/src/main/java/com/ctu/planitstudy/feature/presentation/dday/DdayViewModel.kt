@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-
 @HiltViewModel
 class DdayViewModel @Inject constructor(
     private val ddayUseCase: DdayUseCase
@@ -34,10 +33,8 @@ class DdayViewModel @Inject constructor(
     private val _dDayDialogState = MutableLiveData<DdayDialogState>(DdayDialogState())
     val dDayDialogState: LiveData<DdayDialogState> = _dDayDialogState
 
-
     private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
     private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
-
 
     private var ddayDto: DdayDto? = null
 
@@ -72,7 +69,6 @@ class DdayViewModel @Inject constructor(
                     _dDayNetworkState.value = DdayNetworkState(deleteDay = true)
                 }
                 is Resource.Error -> {
-
                 }
                 is Resource.Loading -> {
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
@@ -101,7 +97,6 @@ class DdayViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
-
         }
         // 디 데이 추가
         else {
@@ -118,14 +113,13 @@ class DdayViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
-
         }
     }
 
     private fun getDday(): Dday =
         Dday(
             dDayState.value!!.title,
-            DateConvter.textDateToDtoDate( dDayState.value!!.date),
+            DateConvter.textDateToDtoDate(dDayState.value!!.date),
             dDayState.value!!.icon,
             dDayState.value!!.representative
         )

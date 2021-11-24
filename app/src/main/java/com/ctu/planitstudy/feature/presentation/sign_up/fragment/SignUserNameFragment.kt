@@ -24,7 +24,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     override fun setUpViews() {
         super.setUpViews()
-
     }
 
     override fun setInit() {
@@ -76,7 +75,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
             }
         })
     }
-
 
     override fun onDestroy() {
         disposables.clear()

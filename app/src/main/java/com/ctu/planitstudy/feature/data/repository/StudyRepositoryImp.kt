@@ -9,12 +9,12 @@ import javax.inject.Inject
 
 class StudyRepositoryImp @Inject constructor(
     private val studyApi: StudyApi
-): StudyRepository {
+) : StudyRepository {
     override suspend fun addStudy(addStudy: AddStudy) = studyApi.addStudy(addStudy)
 
     override suspend fun addStudy(addRepeatedStudy: AddRepeatedStudy) = studyApi.addStudy(addRepeatedStudy)
 
     override suspend fun validateTitle(title: String) = studyApi.validateTitle(title)
 
-    override suspend fun getStudyList(date: String): JsonElement  = studyApi.getStudyList(date)
+    override suspend fun getStudyList(date: String): JsonElement = studyApi.getStudyList(date)
 }
