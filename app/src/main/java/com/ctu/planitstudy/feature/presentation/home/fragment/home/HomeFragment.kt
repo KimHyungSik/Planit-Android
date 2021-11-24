@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                         .subscribe {
                             dDay ->
                             binding.apply {
-                                homeFragmentDDayCount.text = "D - " + dDay.dDay
+                                homeFragmentDDayCount.text = if(dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {

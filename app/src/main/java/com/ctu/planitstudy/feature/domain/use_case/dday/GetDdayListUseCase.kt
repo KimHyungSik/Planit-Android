@@ -20,7 +20,7 @@ class GetDdayListUseCase @Inject constructor(
             emit(Resource.Loading<DdayListDto>(null))
             val jsonElement = ddayRepository.getDdayList()
             val ddayList = JsonConverter.jsonToDdayListDto(jsonElement.asJsonObject)
-            val ddaySrot = ddayList.ddays.sortedBy { dtoDateTOLong(it.endAt) }
+            val ddaySrot = ddayList.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
             emit(Resource.Success(DdayListDto(ddaySrot)))
         } catch (e: Throwable) {
             if (e is HttpException) {
