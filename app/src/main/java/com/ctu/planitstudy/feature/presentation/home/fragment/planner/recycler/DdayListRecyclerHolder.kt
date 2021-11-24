@@ -25,9 +25,9 @@ class DdayListRecyclerHolder(itemView: View, val inDdayListRecycler: InDdayListR
         inDdayListRecycler.onClickedItem(adapterPosition)
     }
 
-    fun bindWithView(dday : DdayDto){
+    fun bindWithView(dday: DdayDto) {
         titleText.text = dday.title
-        dDayText.text =  "D-" + dday.dDay
+        dDayText.text = "D-" + dday.dDay
         dateText.text = dday.endAt
         imageView.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dday.icon)].imge)
     }

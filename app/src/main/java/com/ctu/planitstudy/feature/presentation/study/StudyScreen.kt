@@ -38,14 +38,16 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         binding.apply {
             viewmodel = viewModel
 
-            checkBoxList.add(studyAllDay)
-            checkBoxList.add(studySunDay)
-            checkBoxList.add(studyMonDay)
-            checkBoxList.add(studyTuesDay)
-            checkBoxList.add(studyWednesDay)
-            checkBoxList.add(studyThursDay)
-            checkBoxList.add(studyFriDay)
-            checkBoxList.add(studySaturDay)
+            checkBoxList.apply {
+                add(studyAllDay)
+                add(studySunDay)
+                add(studyMonDay)
+                add(studyTuesDay)
+                add(studyWednesDay)
+                add(studyThursDay)
+                add(studyFriDay)
+                add(studySaturDay)
+            }
 
             activationWeekCheckBox(
                 viewModel.studyState.value!!.activationWeek
@@ -56,8 +58,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             }
 
             studyDateItemView.setOnClickListener {
-                studyCustomDatePicker.visibility = View.VISIBLE
-                studyBlur.visibility = View.VISIBLE
+               showCalendar()
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.SingleDate
@@ -69,8 +70,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
             // 시작일 선택
             studyRepeatStartDateItemView.setOnClickListener {
-                studyCustomDatePicker.visibility = View.VISIBLE
-                studyBlur.visibility = View.VISIBLE
+                showCalendar()
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.StartAt
@@ -79,10 +79,10 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 studyDatePicker.date =
                     DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
             }
+
             // 종료일 선택
             studyRepeatEndDateItemView.setOnClickListener {
-                studyCustomDatePicker.visibility = View.VISIBLE
-                studyBlur.visibility = View.VISIBLE
+                showCalendar()
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.EndAt
@@ -94,8 +94,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
             // 데이터 피커 확인
             studyConfirmedDateBtn.setOnClickListener {
-                studyCustomDatePicker.visibility = View.INVISIBLE
-                studyBlur.visibility = View.INVISIBLE
+                showCalendar()
                 binding.invalidateAll()
                 viewModel.studyUpdate(
                     viewModel.studyState.value!!.copy(
@@ -160,17 +159,17 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         viewModel.studyDialogState.observe(this, {
             val arg = Bundle()
 
-            if(it.emptyTitleDialog){
+            if (it.emptyTitleDialog) {
                 arg.putString("title", getString(R.string.empty_dialog_fragment))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if(it.validatedTitle){
+            if (it.validatedTitle) {
                 arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if(it.addStudy)
+            if (it.addStudy)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 
@@ -254,7 +253,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         viewModel.studyUpdate(studyState)
     }
 
-    fun listsEqual(list1: List<Any>, list2: List<Any>): Boolean {
+    private fun listsEqual(list1: List<Any>, list2: List<Any>): Boolean {
 
         if (list1.size != list2.size)
             return false
@@ -263,6 +262,13 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
         return pairList.all { (elt1, elt2) ->
             elt1 == elt2
+        }
+    }
+
+    private fun showCalendar(){
+        with(binding){
+            studyCustomDatePicker.visibility = View.VISIBLE
+            studyBlur.visibility = View.VISIBLE
         }
     }
 

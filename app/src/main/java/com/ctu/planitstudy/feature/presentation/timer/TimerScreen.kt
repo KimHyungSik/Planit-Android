@@ -2,8 +2,6 @@ package com.ctu.planitstudy.feature.presentation.timer
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
 
@@ -14,6 +12,5 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun setup() {
         binding.timerCircularBar.setOnTouchListener { v, event -> true }
-
     }
 }

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
-import android.util.Log
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
@@ -55,24 +54,23 @@ object JsonConverter {
         )
     )
 
-    fun jsonToStudyListDto(jsonObject: JsonObject) : StudyListDto{
+    fun jsonToStudyListDto(jsonObject: JsonObject): StudyListDto {
         val studyArrayList = ArrayList<StudyDto>()
 
-        for(n in jsonObject["studies"].asJsonArray){
+        for (n in jsonObject["studies"].asJsonArray) {
             studyArrayList.add(
                 jsonToStudyDto(n.asJsonObject)
             )
-
         }
         return StudyListDto(studyArrayList)
     }
 
-    fun jsonToStudyDto(jsonObject: JsonObject) : StudyDto {
+    fun jsonToStudyDto(jsonObject: JsonObject): StudyDto {
         return StudyDto(
             endAt = jsonObject["endAt"].asString,
             isDone = jsonObject["isDone"].asBoolean,
             repeatedDays =
-                if(jsonObject["repeatedDays"].isJsonNull) null else jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
+            if (jsonObject["repeatedDays"].isJsonNull) null else jsonToStudyRepeatedDays(jsonObject["repeatedDays"].asJsonArray),
             studyGroupId = jsonObject["studyGroupId"].asInt,
             studyScheduleId = jsonObject["studyScheduleId"].asInt,
             startAt = jsonObject["startAt"].asString,
@@ -81,9 +79,9 @@ object JsonConverter {
         )
     }
 
-    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String>{
+    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String> {
         val list = mutableListOf<String>()
-        for (n in jsonArray){
+        for (n in jsonArray) {
             list.add(n.asString)
         }
         return list

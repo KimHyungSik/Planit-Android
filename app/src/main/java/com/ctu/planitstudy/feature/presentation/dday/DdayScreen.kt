@@ -12,8 +12,8 @@ import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.dialog.DeleteCheckDialog
-import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.dday.dialog.RepresentativeCheckDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -22,8 +22,8 @@ import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
 @SuppressLint("SimpleDateFormat")
-class DdayScreen
-    : BaseBindingActivity<ActivityDdayScreenBinding>() {
+class DdayScreen :
+    BaseBindingActivity<ActivityDdayScreenBinding>() {
 
     val TAG = "DdayScreen - 로그"
 
@@ -47,14 +47,14 @@ class DdayScreen
             setUpViewWithDday(dDay)
         }
 
-        viewModel.apply {
+        with(viewModel) {
             dDayUpdate(
                 dDay ?: DdayDto(-1, "", false, "", "", "", -1),
                 DateConvter.dtoDateToTextDate(dDay?.endAt)
             )
         }
 
-        binding.apply {
+        with(binding) {
             viewmodel = viewModel
             // 데이터 피커 날짜 변경 시
             dDayDatePicker.apply {
@@ -73,32 +73,37 @@ class DdayScreen
                 dDayBlur.visibility = View.INVISIBLE
                 binding.invalidateAll()
             }
-            
+
             dDayDateItemView.setOnClickListener {
                 dDayCustomDatePicker.visibility = View.VISIBLE
                 dDayBlur.visibility = View.VISIBLE
             }
-            
-            disposables.add(RxRadioGroup.checkedChanges(binding.dDayCustomIcon)
-                .subscribe {
-                    viewmodel!!.dDayUpdate(
-                        viewmodel!!.dDayState.value!!.copy(
-                            icon = ddayIconSet.dDayIconList[ddayIconSet.dDayIconListId.indexOf(
-                                it
-                            )]
+
+            disposables.add(
+                RxRadioGroup.checkedChanges(binding.dDayCustomIcon)
+                    .subscribe {
+                        viewmodel!!.dDayUpdate(
+                            viewmodel!!.dDayState.value!!.copy(
+                                icon = ddayIconSet.dDayIconList[
+                                        ddayIconSet.dDayIconListId.indexOf(
+                                            it
+                                        )
+                                ]
+                            )
                         )
-                    )
-                }
+                    }
             )
             dDayBackScreenBtn.setOnClickListener {
                 finish()
             }
         }
 
-        disposables.add(RxTextView.textChanges(binding.dDayEditTitle)
-            .subscribe {
-                binding.dDayTitleLengthCount.text = it.length.toString() + "/10"
-            })
+        disposables.add(
+            RxTextView.textChanges(binding.dDayEditTitle)
+                .subscribe {
+                    binding.dDayTitleLengthCount.text = it.length.toString() + "/10"
+                }
+        )
 
         binding.invalidateAll()
         viewModelSet()
@@ -110,9 +115,11 @@ class DdayScreen
         binding.apply {
             dDayTitle.text = "디데이 편집하기"
             dDayCustomIcon.check(
-                DdayIconSet.DdayIcon.values()[DdayIconSet().dDayIconList.indexOf(
-                    dDay.icon
-                )].radio
+                DdayIconSet.DdayIcon.values()[
+                        DdayIconSet().dDayIconList.indexOf(
+                            dDay.icon
+                        )
+                ].radio
             )
             dDayConfirmedBtnText.text = "저장하기"
         }
@@ -120,13 +127,11 @@ class DdayScreen
     }
 
     // 기존데이터가 없는 경우
-    fun setUpView() {
-        binding.apply {
-            dDayCustomIcon.check(DdayIconSet.DdayIcon.FULLMOON.radio)
-        }
+    private fun setUpView() {
+        binding.dDayCustomIcon.check(DdayIconSet.DdayIcon.FULLMOON.radio)
     }
 
-    fun viewModelSet() {
+    private fun viewModelSet() {
         viewModel.dDayNetworkState.observe(this, {
             if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
@@ -145,11 +150,11 @@ class DdayScreen
         // 팝업 상태 관리
         viewModel.dDayDialogState.observe(this, {
             val arg = Bundle()
-            if(it.deleteDialog)
+            if (it.deleteDialog)
                 DeleteCheckDialog().show(
                     supportFragmentManager, "DeleteCheckDialog"
                 )
-            if(it.emptyTitleDialog){
+            if (it.emptyTitleDialog) {
                 arg.putString("title", getString(R.string.empty_dialog_fragment))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }

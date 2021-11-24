@@ -1,8 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
-import android.util.Log
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
@@ -16,7 +14,7 @@ class GetStudyListUseCase @Inject constructor(
     private val studyRepository: StudyRepository
 ) {
     val TAG = "GetStudyUseCase - 로그"
-    
+
     operator fun invoke(date: String): Flow<Resource<StudyListDto>> = flow {
         try {
             emit(Resource.Loading<StudyListDto>(null))
@@ -24,7 +22,7 @@ class GetStudyListUseCase @Inject constructor(
                 JsonConverter.jsonToStudyListDto(studyRepository.getStudyList(date).asJsonObject)
             emit(Resource.Success(studyList))
         } catch (e: Exception) {
-            emit( Resource.Error<StudyListDto>(message = "Exception" + e.message))
+            emit(Resource.Error<StudyListDto>(message = "Exception" + e.message))
             if (e is HttpException) {
                 emit(
                     Resource.Error<StudyListDto>(
@@ -34,8 +32,8 @@ class GetStudyListUseCase @Inject constructor(
                     )
                 )
             }
-        } catch (e: Throwable){
-            emit( Resource.Error<StudyListDto>(message = "Throwable" + e.message))
+        } catch (e: Throwable) {
+            emit(Resource.Error<StudyListDto>(message = "Throwable" + e.message))
         }
     }
 }

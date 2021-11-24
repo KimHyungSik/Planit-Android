@@ -4,5 +4,5 @@ import java.time.LocalDate
 import java.util.*
 
 data class PlannerPlannerState(
-    val checkDate : LocalDate
+    val checkDate: LocalDate
 )

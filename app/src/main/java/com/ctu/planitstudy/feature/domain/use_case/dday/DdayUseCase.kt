@@ -5,4 +5,4 @@ data class DdayUseCase(
     val deleteDdayUseCase: DeleteDdayUseCase,
     val getDdayListUseCase: GetDdayListUseCase,
     val modifiedDdayUseCase: ModifiedDdayUseCase
-    )
+)

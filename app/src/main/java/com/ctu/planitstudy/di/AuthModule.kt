@@ -19,7 +19,7 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideTokenAuthApi() : TokenAuthApi =
+    fun provideTokenAuthApi(): TokenAuthApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -28,11 +28,11 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepositoryImp(tokenAuthApi: TokenAuthApi) : AuthRepository =
+    fun provideAuthRepositoryImp(tokenAuthApi: TokenAuthApi): AuthRepository =
         AuthRepositoryImp(tokenAuthApi)
 
     @Provides
     @Singleton
-    fun providerJwtTokenRefreshUseCase(authRepository: AuthRepository) : JwtTokenRefreshUseCase =
+    fun providerJwtTokenRefreshUseCase(authRepository: AuthRepository): JwtTokenRefreshUseCase =
         JwtTokenRefreshUseCase(authRepository)
 }

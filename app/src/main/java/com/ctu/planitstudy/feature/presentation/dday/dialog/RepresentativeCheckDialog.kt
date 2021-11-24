@@ -3,12 +3,10 @@ package com.ctu.planitstudy.feature.presentation.dday.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.databinding.DialogFragmentRepresentativeBinding
@@ -31,7 +29,7 @@ class RepresentativeCheckDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentRepresentativeBinding.inflate(inflater,container,false)
+        binding = DialogFragmentRepresentativeBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root

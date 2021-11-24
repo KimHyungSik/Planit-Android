@@ -1,9 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.sign_up.fragment
 
-import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -28,8 +26,8 @@ class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding>() {
         disposables.add(
             RxRadioGroup.checkedChanges(binding.signUpGenderRadioGroup)
                 .subscribe({
-                   var state = viewModel.liveData.value!!.copy()
-                    when(it){
+                    var state = viewModel.liveData.value!!.copy()
+                    when (it) {
                         R.id.sign_up_gender_male ->
                             state = viewModel.liveData.value!!.copy(gender = "MALE")
                         R.id.sign_up_gender_female ->
@@ -37,7 +35,7 @@ class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding>() {
                     }
                     viewModel.updateSignState(state)
                 }, {
-                    Log.e(TAG, "setInit: ${it}", )
+                    Log.e(TAG, "setInit: $it",)
                 })
         )
     }

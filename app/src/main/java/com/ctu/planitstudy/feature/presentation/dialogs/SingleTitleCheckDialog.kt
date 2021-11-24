@@ -3,12 +3,10 @@ package com.ctu.planitstudy.feature.presentation.dialogs
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
@@ -32,7 +30,7 @@ class SingleTitleCheckDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DialogFragmentSingleTitleDdayBinding.inflate(inflater,container,false)
+        binding = DialogFragmentSingleTitleDdayBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root

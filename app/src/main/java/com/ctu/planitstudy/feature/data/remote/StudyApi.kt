@@ -11,7 +11,7 @@ interface StudyApi {
     @POST("/v1/study")
     suspend fun addStudy(@Body addRepeatedStudy: AddRepeatedStudy)
     @GET("/v1/study/validate-title")
-    suspend fun validateTitle(@Query("title") title : String)
+    suspend fun validateTitle(@Query("title") title: String)
     @GET("/v1/study/list/{date}")
-    suspend fun getStudyList(@Path("date") date : String) : JsonElement
+    suspend fun getStudyList(@Path("date") date: String): JsonElement
 }

@@ -40,41 +40,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
         binding.homeFragmentAddStudy.setOnClickListener {
             moveIntent(Screens.StudyScreenSh.activity)
         }
-
     }
 
     override fun setInit() {
         super.setInit()
         binding.viewmodel = viewModel
-        viewModel.homeState.observe(this, Observer {
-            if (it.dDayList != null) {
-                it.dDayList.ddays.toObservable()
-                    .filter { it.isRepresentative }
-                    .subscribe {
-                        dDay ->
-                        binding.apply {
-                            homeFragmentDDayCount.text = "D - " + dDay.dDay
-                            homeFragmentDDayTitle.text = dDay.title
-                            homeFragmentDDayColumn.visibility = View.VISIBLE
-                            homeFragmentDDayColumn.setOnClickListener {
-                                val intent = Intent(activity, Screens.DdayScreenSh.activity)
-                                intent.putExtra("dDay", dDay)
-                                moveIntent(intent)
+        viewModel.homeState.observe(
+            this,
+            Observer {
+                if (it.dDayList != null) {
+                    it.dDayList.ddays.toObservable()
+                        .filter { it.isRepresentative }
+                        .subscribe {
+                            dDay ->
+                            binding.apply {
+                                homeFragmentDDayCount.text = "D - " + dDay.dDay
+                                homeFragmentDDayTitle.text = dDay.title
+                                homeFragmentDDayColumn.visibility = View.VISIBLE
+                                homeFragmentDDayColumn.setOnClickListener {
+                                    val intent = Intent(activity, Screens.DdayScreenSh.activity)
+                                    intent.putExtra("dDay", dDay)
+                                    moveIntent(intent)
+                                }
                             }
                         }
+                }
+                with(binding) {
+                    if (it.studyListDto.studies.isEmpty()) {
+                        homeFragmentStudyEmptyImg.visibility = View.VISIBLE
+                        homeTodoRecyclerView.visibility = View.GONE
+                    } else {
+                        homeFragmentStudyEmptyImg.visibility = View.GONE
+                        homeTodoRecyclerView.visibility = View.VISIBLE
                     }
+                }
+                studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
+                studyListRecyclerAdapter.notifyDataSetChanged()
             }
-            if(it.studyListDto.studies.isEmpty()){
-                binding.homeFragmentStudyEmptyImg.visibility = View.VISIBLE
-                binding.homeTodoRecyclerView.visibility = View.GONE
-            }else{
-                binding.homeFragmentStudyEmptyImg.visibility = View.GONE
-                binding.homeTodoRecyclerView.visibility = View.VISIBLE
-            }
-
-            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
-            studyListRecyclerAdapter.notifyDataSetChanged()
-        })
+        )
 
         binding.homeFragmentEmptyRepresentative.setOnClickListener {
             moveIntent(Screens.DdayScreenSh.activity)

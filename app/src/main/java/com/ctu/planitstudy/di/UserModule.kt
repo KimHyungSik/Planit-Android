@@ -21,24 +21,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
-   @Provides
-   @Singleton
-   fun provideKakaoOauthImp(): KakaoOauthImp =
-           KakaoOauthImp()
-
-
-   @Provides
-   @Singleton
-   fun provideUserManager(
-           kakaoOauthImp: KakaoOauthImp
-   ): UserManager =
-           UserManager(
-                   kakaoOauth = kakaoOauthImp
-           )
+    @Provides
+    @Singleton
+    fun provideKakaoOauthImp(): KakaoOauthImp =
+        KakaoOauthImp()
 
     @Provides
     @Singleton
-    fun provideUserAuthApi() : UserAuthApi =
+    fun provideUserManager(
+        kakaoOauthImp: KakaoOauthImp
+    ): UserManager =
+        UserManager(
+            kakaoOauth = kakaoOauthImp
+        )
+
+    @Provides
+    @Singleton
+    fun provideUserAuthApi(): UserAuthApi =
         Retrofit.Builder()
             .baseUrl(BASE_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -53,12 +52,11 @@ object UserModule {
 
     @Provides
     @Singleton
-    fun providerUserAuthUseCase(userRepository: UserRepository) : UserAuthUseCase =
+    fun providerUserAuthUseCase(userRepository: UserRepository): UserAuthUseCase =
         UserAuthUseCase(userRepository)
 
     @Provides
     @Singleton
-    fun providerUserValidateNickName(userRepository: UserRepository) : UserValidateNickNameUseCase =
+    fun providerUserValidateNickName(userRepository: UserRepository): UserValidateNickNameUseCase =
         UserValidateNickNameUseCase(userRepository)
-
 }

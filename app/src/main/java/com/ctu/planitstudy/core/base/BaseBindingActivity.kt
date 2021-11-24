@@ -27,5 +27,4 @@ abstract class BaseBindingActivity<VB : ViewBinding>() : BaseActivity() {
         super.onDestroy()
         _binding = null
     }
-
 }

@@ -11,8 +11,6 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.AddStudy
-import com.ctu.planitstudy.feature.domain.repository.DdayRepository
-import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class StudyViewModel @Inject constructor(
@@ -43,7 +40,7 @@ class StudyViewModel @Inject constructor(
     val studyState: LiveData<StudyState> = _studyState
 
     private val _studyDialogState = MutableLiveData<StudyDialogState>()
-    val studyDialogState : LiveData<StudyDialogState> = _studyDialogState
+    val studyDialogState: LiveData<StudyDialogState> = _studyDialogState
 
     init {
         _studyState.value = studyState.value!!.copy(
@@ -67,7 +64,6 @@ class StudyViewModel @Inject constructor(
             newStudyStateWeek.add(week)
         else
             newStudyStateWeek.remove(week)
-
 
         newStudyStateWeek.sortBy { it.ordinal }
 
@@ -135,15 +131,15 @@ class StudyViewModel @Inject constructor(
     }
 
     fun studyConfirmed() {
-        if(studyState.value!!.title.isEmpty()){
+        if (studyState.value!!.title.isEmpty()) {
             _studyDialogState.value = StudyDialogState(emptyTitleDialog = true)
             return
         }
         viewModelScope.launch {
-            try{
+            try {
                 Log.d(TAG, "studyConfirmed: ${studyState.value!!.title}")
                 studyValidatedTitleUseCase(studyState.value!!.title)
-            }catch (e: HttpException) {
+            } catch (e: HttpException) {
                 _studyDialogState.value = StudyDialogState(validatedTitle = true)
                 return@launch
             }
@@ -154,7 +150,7 @@ class StudyViewModel @Inject constructor(
                 else {
                     addStudyUseCase(getStudy())
                 }.onEach {
-                    when(it){
+                    when (it) {
                         is Resource.Success -> {
                             _studyDialogState.value = StudyDialogState(addStudy = true)
                         }
@@ -167,7 +163,6 @@ class StudyViewModel @Inject constructor(
                     }
                 }.launchIn(this)
             } catch (e: HttpException) {
-
             }
         }
     }

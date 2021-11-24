@@ -10,7 +10,6 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.HiltAndroidApp
 
-
 @HiltAndroidApp
 class CashStudyApp : Application() {
     companion object {
@@ -32,5 +31,4 @@ class CashStudyApp : Application() {
     }
 
     fun context(): Context = applicationContext
-
 }

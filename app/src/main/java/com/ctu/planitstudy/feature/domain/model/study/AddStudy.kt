@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AddStudy(
     @SerializedName("title")
-    val title : String,
+    val title: String,
     @SerializedName("startAt")
-    val startAt : String,
+    val startAt: String,
 )
