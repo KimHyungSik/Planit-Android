@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit
 
 class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
-    val TAG = "NameFragment - 로그"
-
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserNameBinding
         get() = FragmentSignUpUserNameBinding::inflate
 
@@ -37,7 +35,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                         name = it.toString(),
                         nameCheck = it.toString().isValidText()
                     )
-                    Log.d(TAG, "setInit: $state")
                     viewModel.updateSignState(state)
                 }, {
                 })
@@ -46,7 +43,7 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
         disposables.add(
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .filter { it.isNotBlank() }
-                .debounce(700, TimeUnit.MILLISECONDS)
+                .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe({
                     viewModel.validateNickNameCheck()
                 }, {
@@ -61,7 +58,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                         nicknameCheck = it.toString()
                             .isValidText() && viewModel.validateNickName.value!!.data == true
                     )
-                    Log.d(TAG, "setInit: $state")
                     viewModel.updateSignState(state)
                     viewModel.validateNickNameStateChange(false)
                 }, {
