@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.data.remote
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.google.gson.JsonElement
+import retrofit2.Response
 import retrofit2.http.*
 
 interface StudyApi {
@@ -18,4 +19,6 @@ interface StudyApi {
     suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Body study: Study)
     @PUT("/v1/study/{studyGroupId}")
     suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Body repeatedStudy: RepeatedStudy)
+    @DELETE("/v1/study/{studyGroupId}")
+    suspend fun deleteStudy(@Path("studyGroupId") studyGroupId: String): Response<Unit>
 }

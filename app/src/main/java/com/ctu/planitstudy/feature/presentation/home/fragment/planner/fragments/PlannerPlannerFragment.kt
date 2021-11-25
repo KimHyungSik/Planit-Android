@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -167,5 +169,8 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
     }
 
     override fun onClickedItem(position: Int) {
+        val intent = Intent(activity, Screens.StudyScreenSh.activity)
+        intent.putExtra("studyDto", studyListRecyclerAdapter.studyList.studies[position])
+        moveIntent(intent)
     }
 }

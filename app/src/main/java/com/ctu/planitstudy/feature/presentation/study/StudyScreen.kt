@@ -12,7 +12,10 @@ import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
+import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
+import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -36,6 +39,12 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
     private val checkBoxList = ArrayList<CheckBox>()
 
     override fun setup() {
+
+        val study = intent.getParcelableExtra<StudyDto>("studyDto")
+
+        if (study != null)
+            setUpWithStudy(study)
+
         binding.apply {
             viewmodel = viewModel
 
@@ -114,7 +123,10 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             // 데이터 피커 변경
             studyDatePicker.apply {
                 setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong("$year-${month + 1}-$dayOfMonth") < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)) {
+                    if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong(
+                            "$year-${month + 1}-$dayOfMonth"
+                        ) < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
+                    ) {
                         val arg = Bundle()
                         arg.putString("title", getString(R.string.study_failed_endAt))
                         showDialogFragment(arg, SingleTitleCheckDialog())
@@ -177,7 +189,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if (it.addStudy)
+            if (it.addStudy || it.deleteStudy)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 
@@ -278,6 +290,48 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             studyCustomDatePicker.visibility = View.VISIBLE
             studyBlur.visibility = View.VISIBLE
         }
+    }
+
+    private fun setUpWithStudy(studyDto: StudyDto) {
+
+        // 반복 시 요일 추가
+        val studyWeek: ArrayList<Weekday> = ArrayList()
+
+        if (studyDto.repeatedDays != null)
+            for (week in studyDto.repeatedDays)
+                studyWeek.add(Weekday.values()[weekEngList.indexOf(week)])
+
+        // 데이터 채워 두기
+        viewModel.studyUpdate(
+            viewModel.studyState.value!!.copy(
+                singleAt = DateConvter.dtoDateToTextDate(studyDto.endAt),
+                startAt = DateConvter.dtoDateToTextDate(studyDto.startAt),
+                endAt = DateConvter.dtoDateToTextDate(studyDto.endAt),
+                kindDate = if (studyDto.repeatedDays == null) KindStudyDate.SingleDate else KindStudyDate.StartAt,
+                week = studyWeek,
+                repeat = studyDto.repeatedDays != null,
+                title = studyDto.title,
+                activationWeek = DateCalculation().calDateBetweenWeek(studyDto.startAt, studyDto.endAt),
+                studyGroupId = studyDto.studyGroupId.toString()
+            )
+        )
+
+        activationWeekCheckBox(
+            viewModel.studyState.value!!.activationWeek
+        )
+
+        with(binding) {
+            studyTitle.text = "공부 편집하기"
+            studyConfirmedBtnText.text = "저장하기"
+            studyEditTitle.setText(studyDto.title)
+            studyDeletBtn.visibility = View.VISIBLE
+            if (studyDto.repeatedDays != null) {
+                studyRepeatSwitch.isChecked = true
+                studyDateItemView.visibility = View.GONE
+                studyRepeatDateItemView.visibility = View.VISIBLE
+            }
+        }
+
     }
 
     override fun onDestroy() {

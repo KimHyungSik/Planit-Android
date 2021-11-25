@@ -5,6 +5,7 @@ import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import com.google.gson.JsonElement
+import retrofit2.Response
 import javax.inject.Inject
 
 class StudyRepositoryImp @Inject constructor(
@@ -21,4 +22,6 @@ class StudyRepositoryImp @Inject constructor(
     override suspend fun editStudy(studyGroupId : String, study: Study) = studyApi.editStudy(studyGroupId, study)
 
     override suspend fun editStudy(studyGroupId : String, repeatedStudy: RepeatedStudy)  = studyApi.editStudy(studyGroupId, repeatedStudy)
+
+    override suspend fun deleteStudy(studyGroupId: String) : Response<Unit> = studyApi.deleteStudy(studyGroupId)
 }

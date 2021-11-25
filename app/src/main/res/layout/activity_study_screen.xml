@@ -65,6 +65,7 @@
                         app:cardBackgroundColor="@android:color/transparent"
                         app:cardCornerRadius="8dp"
                         android:visibility="gone"
+                        android:onClick="@{()->viewmodel.studyDelete()}"
                         >
 
                         <ImageView
