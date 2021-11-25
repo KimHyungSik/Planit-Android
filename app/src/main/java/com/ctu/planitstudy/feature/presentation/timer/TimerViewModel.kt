@@ -17,11 +17,7 @@ class TimerViewModel :
 
     var timer = Timer()
 
-    init {
-        startTimer()
-    }
-
-    private fun startTimer() {
+    fun startTimer() {
         timer = kotlin.concurrent.timer(period = 1000) {
             _timerState.postValue(
                 timerState.value!!.copy(
@@ -35,7 +31,7 @@ class TimerViewModel :
     }
 
 
-    private fun stopTimer() {
+    fun stopTimer() {
         timer.cancel()
     }
 

@@ -40,8 +40,11 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_marginTop="40dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="6"
+        android:layout_marginHorizontal="40dp"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,7 +53,7 @@
             <me.tankery.lib.circularseekbar.CircularSeekBar
                 android:id="@+id/timer_circular_bar"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:cs_circle_color="@color/module_color"
                 app:cs_circle_fill="#04041d"
@@ -139,6 +142,7 @@
         android:orientation="horizontal"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="10dp"
+        android:layout_weight="1"
         >
 
         <com.google.android.material.card.MaterialCardView

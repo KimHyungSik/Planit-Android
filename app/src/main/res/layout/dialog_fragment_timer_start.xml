@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <FrameLayout
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/navy_blue_back_ground"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/dialog_title"
+                    android:text="기기의 홈버튼을 이용해서\n앱을 나가면 타이머 측정이\n자동으로 멈추게 돼요."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="44dp"
+                    android:layout_marginHorizontal="32dp"
+                    />
+                <TextView
+                    android:id="@+id/dialog_sub_title"
+                    android:text="앱을 유지해주세요"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/sub_color"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="32dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/timer_start_com"
+                        android:layout_width="248dp"
+                        android:layout_height="46dp"
+                        app:cardCornerRadius="23dp"
+                        app:cardBackgroundColor="@color/sub_color"
+                        android:clickable="true"
+                        >
+                        <TextView
+                            android:text="공부시간 측정 시작하기"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_color"
+                            android:letterSpacing="-0.03"
+                            android:lineSpacingExtra="4sp"
+                            />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>
