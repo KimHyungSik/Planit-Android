@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
+import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerExitedDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
@@ -62,15 +63,30 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 max = 3600f
             }
             timerStopBtn.setOnClickListener {
-                TimerStopDialog().show(
-                    supportFragmentManager, "TimerStopDialog"
-                )
+                viewModel.changeTimerCycle(TimerCycle.TimePause)
             }
         }
 
         viewModel.timerState.observe(this, {
             binding.timerTimeText.text = it.timeString
             binding.timerCircularBar.progress = it.time.toFloat()
+            when(it.timerCycle){
+                TimerCycle.TimeFlow ->{
+                }
+                TimerCycle.TimeStop -> {
+                    TimerExitedDialog().show(
+                        supportFragmentManager, "TimerExitedDialog"
+                    )
+                }
+                TimerCycle.TimePause ->{
+                    TimerStopDialog().show(
+                        supportFragmentManager, "TimerStopDialog"
+                    )
+                }
+                TimerCycle.TimerExited ->{
+                    finish()
+                }
+            }
         })
     }
 }

@@ -13,6 +13,7 @@ import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStartBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
+import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
 
 class TimerStopDialog : DialogFragment() {
@@ -40,11 +41,14 @@ class TimerStopDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.stopTimer()
         binding.studyTimerStopCheckCancel.setOnClickListener {
+            viewModel.startTimer()
+            viewModel.changeTimerCycle(TimerCycle.TimeFlow)
             this.dismiss()
         }
         binding.studyTimerStopCheckConfirmed.setOnClickListener{
-            viewModel.stopTimer()
+            viewModel.changeTimerCycle(TimerCycle.TimeStop)
             this.dismiss()
         }
     }

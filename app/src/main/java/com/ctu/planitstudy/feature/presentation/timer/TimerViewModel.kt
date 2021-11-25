@@ -17,7 +17,11 @@ class TimerViewModel :
 
     var timer = Timer()
 
+
     fun startTimer() {
+        _timerState.value = timerState.value!!.copy(
+            timerCycle = TimerCycle.TimeFlow
+        )
         timer = kotlin.concurrent.timer(period = 1000) {
             _timerState.postValue(
                 timerState.value!!.copy(
@@ -30,9 +34,14 @@ class TimerViewModel :
         }
     }
 
-
     fun stopTimer() {
         timer.cancel()
+    }
+
+    fun changeTimerCycle(timerCycle: TimerCycle){
+        _timerState.value = timerState.value!!.copy(
+            timerCycle = timerCycle
+        )
     }
 
     private fun longToString(time: Long): String {
