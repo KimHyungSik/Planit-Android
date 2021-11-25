@@ -9,8 +9,8 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
-import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
-import com.ctu.planitstudy.feature.domain.model.study.AddStudy
+import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
+import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -101,9 +101,9 @@ class StudyViewModel @Inject constructor(
         }
     }
 
-    private fun getRepeatedStudy(): AddRepeatedStudy {
+    private fun getRepeatedStudy(): RepeatedStudy {
         studyState.value!!.apply {
-            return AddRepeatedStudy(
+            return RepeatedStudy(
                 this.title,
                 DateConvter.textDateToDtoDate(this.startAt),
                 DateConvter.textDateToDtoDate(this.endAt),
@@ -112,9 +112,9 @@ class StudyViewModel @Inject constructor(
         }
     }
 
-    private fun getStudy(): AddStudy {
+    private fun getStudy(): Study {
         studyState.value!!.apply {
-            return AddStudy(
+            return Study(
                 this.title,
                 DateConvter.textDateToDtoDate(this.singleAt)
             )

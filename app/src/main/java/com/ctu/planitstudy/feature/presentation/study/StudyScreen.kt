@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.study
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
@@ -115,7 +114,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             // 데이터 피커 변경
             studyDatePicker.apply {
                 setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    if( viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong("$year-${month + 1}-$dayOfMonth") < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)){
+                    if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong("$year-${month + 1}-$dayOfMonth") < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)) {
                         val arg = Bundle()
                         arg.putString("title", getString(R.string.study_failed_endAt))
                         showDialogFragment(arg, SingleTitleCheckDialog())

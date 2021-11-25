@@ -1,8 +1,8 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
-import com.ctu.planitstudy.feature.domain.model.study.AddStudy
+import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
+import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,10 +12,10 @@ import javax.inject.Inject
 class AddStudyUseCase @Inject constructor(
     private val studyRepository: StudyRepository
 ) {
-    operator fun invoke(addStudy: AddStudy): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(study: Study): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.addStudy(addStudy)
+            studyRepository.addStudy(study)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             emit(
@@ -32,10 +32,10 @@ class AddStudyUseCase @Inject constructor(
         }
     }
 
-    operator fun invoke(addRepeatedStudy: AddRepeatedStudy): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(repeatedStudy: RepeatedStudy): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.addStudy(addRepeatedStudy)
+            studyRepository.addStudy(repeatedStudy)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             emit(
