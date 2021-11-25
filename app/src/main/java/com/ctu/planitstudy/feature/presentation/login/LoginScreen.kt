@@ -24,6 +24,7 @@ class LoginScreen :
         binding.viewmodel = viewModel
 
         if (CashStudyApp.prefs.refreshToken != null)
+            if(CashStudyApp.prefs.refreshToken!!.isNotBlank())
             if (!JWTRefreshTokenExpiration().invoke())
                 moveIntentAllClear(HomeScreenSh.activity)
 

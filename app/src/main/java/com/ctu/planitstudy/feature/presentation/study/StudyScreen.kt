@@ -19,6 +19,8 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
@@ -113,6 +115,13 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             // 데이터 피커 변경
             studyDatePicker.apply {
                 setOnDateChangeListener { view, year, month, dayOfMonth ->
+                    if( viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong("$year-${month + 1}-$dayOfMonth") < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)){
+                        val arg = Bundle()
+                        arg.putString("title", getString(R.string.study_failed_endAt))
+                        showDialogFragment(arg, SingleTitleCheckDialog())
+                        return@setOnDateChangeListener
+                    }
+
                     viewmodel!!.studyDateUpdate(
                         DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth"),
                         viewModel.studyState.value!!.kindDate
@@ -140,7 +149,6 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
 
         viewModel.apply {
             studyState.observe(this@StudyScreen, {
-                Log.d(TAG, "setup: $it")
                 // 매일을 제외한 모든 날을 선택시 매일 을 활성화
                 // 나머지 요일을 비활성화
                 if (listsEqual(
@@ -250,7 +258,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
         }
     }
 
-    fun updateStudyState(studyState: StudyState) {
+    private fun updateStudyState(studyState: StudyState) {
         viewModel.studyUpdate(studyState)
     }
 
