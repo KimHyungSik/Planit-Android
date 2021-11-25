@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
-import com.ctu.planitstudy.feature.presentation.dday.dialog.DeleteCheckDialog
-import com.ctu.planitstudy.feature.presentation.dialogs.TimerStartDialog
+import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
+import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
 
 class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
@@ -61,6 +60,11 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
             with(timerCircularBar) {
                 setOnTouchListener { v, event -> true }
                 max = 3600f
+            }
+            timerStopBtn.setOnClickListener {
+                TimerStopDialog().show(
+                    supportFragmentManager, "TimerStopDialog"
+                )
             }
         }
 

@@ -1,4 +1,4 @@
-package com.ctu.planitstudy.feature.presentation.dialogs
+package com.ctu.planitstudy.feature.presentation.timer.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,10 +11,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStartBinding
+import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
 
-class TimerStartDialog : DialogFragment() {
+class TimerStopDialog : DialogFragment() {
 
     val TAG = "Representative - 로그"
 
@@ -23,7 +24,7 @@ class TimerStartDialog : DialogFragment() {
         isCancelable = false
     }
 
-    private lateinit var binding: DialogFragmentTimerStartBinding
+    private lateinit var binding: DialogFragmentTimerStopCheckBinding
     private val viewModel: TimerViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class TimerStartDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentTimerStartBinding.inflate(inflater, container, false)
+        binding = DialogFragmentTimerStopCheckBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
@@ -39,8 +40,11 @@ class TimerStartDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.timerStartCom.setOnClickListener {
-            viewModel.startTimer()
+        binding.studyTimerStopCheckCancel.setOnClickListener {
+            this.dismiss()
+        }
+        binding.studyTimerStopCheckConfirmed.setOnClickListener{
+            viewModel.stopTimer()
             this.dismiss()
         }
     }
