@@ -9,9 +9,10 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
-import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
-import com.ctu.planitstudy.feature.domain.model.study.AddStudy
+import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
+import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -22,8 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StudyViewModel @Inject constructor(
-    private val addStudyUseCase: AddStudyUseCase,
-    private val studyValidatedTitleUseCase: StudyValidatedTitleUseCase
+   val studyUseCase: StudyUseCase
 ) : ViewModel() {
 
     val TAG = "StudyViewModel - 로그"
@@ -101,9 +101,9 @@ class StudyViewModel @Inject constructor(
         }
     }
 
-    private fun getRepeatedStudy(): AddRepeatedStudy {
+    private fun getRepeatedStudy(): RepeatedStudy {
         studyState.value!!.apply {
-            return AddRepeatedStudy(
+            return RepeatedStudy(
                 this.title,
                 DateConvter.textDateToDtoDate(this.startAt),
                 DateConvter.textDateToDtoDate(this.endAt),
@@ -112,16 +112,16 @@ class StudyViewModel @Inject constructor(
         }
     }
 
-    private fun getStudy(): AddStudy {
+    private fun getStudy(): Study {
         studyState.value!!.apply {
-            return AddStudy(
+            return Study(
                 this.title,
                 DateConvter.textDateToDtoDate(this.singleAt)
             )
         }
     }
 
-    fun getWeekList(): ArrayList<String> {
+    private fun getWeekList(): ArrayList<String> {
         val weeks = ArrayList<String>()
         if (studyState.value!!.week.contains(Weekday.All))
             studyState.value!!.activationWeek.forEach { weeks.add(it.weekEng) }
@@ -131,39 +131,91 @@ class StudyViewModel @Inject constructor(
     }
 
     fun studyConfirmed() {
+
         if (studyState.value!!.title.isEmpty()) {
             _studyDialogState.value = StudyDialogState(emptyTitleDialog = true)
             return
         }
+
         viewModelScope.launch {
-            try {
-                Log.d(TAG, "studyConfirmed: ${studyState.value!!.title}")
-                studyValidatedTitleUseCase(studyState.value!!.title)
-            } catch (e: HttpException) {
-                _studyDialogState.value = StudyDialogState(validatedTitle = true)
-                return@launch
-            }
-            try {
-                Log.d(TAG, "studyConfirmed: ${studyState.value}")
-                if (studyState.value!!.repeat)
-                    addStudyUseCase(getRepeatedStudy())
-                else {
-                    addStudyUseCase(getStudy())
-                }.onEach {
-                    when (it) {
-                        is Resource.Success -> {
-                            _studyDialogState.value = StudyDialogState(addStudy = true)
-                        }
-                        is Resource.Loading -> {
-                            Log.d(TAG, "studyConfirmed: loading")
-                        }
-                        is Resource.Error -> {
-                            Log.d(TAG, "studyConfirmed: ${it.message}")
-                        }
+            // 기존 데이터의 타이틀과 현제 타이틀이 다르다면
+            if(studyState.value!!.originalTitle != null)
+                if(studyState.value!!.originalTitle != studyState.value!!.title)
+                    try {
+                        studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
+                    } catch (e: HttpException) {
+                        _studyDialogState.value = StudyDialogState(validatedTitle = true)
+                        return@launch
                     }
-                }.launchIn(this)
-            } catch (e: HttpException) {
+            // 기존 타이틀이 없는 경우
+            if(studyState.value!!.originalTitle == null)
+                try {
+                    studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
+                } catch (e: HttpException) {
+                    _studyDialogState.value = StudyDialogState(validatedTitle = true)
+                    return@launch
+                }
+            // 데이터 수정
+            if(studyState.value!!.studyGroupId != null){
+                try {
+                    if (studyState.value!!.repeat)
+                        studyUseCase.editStudyUseCase(studyState.value!!.studyGroupId!!, getRepeatedStudy())
+                    else {
+                        studyUseCase.editStudyUseCase(studyState.value!!.studyGroupId!!, getStudy())
+                    }.onEach {
+                        when (it) {
+                            is Resource.Success -> {
+                                _studyDialogState.value = StudyDialogState(addStudy = true)
+                            }
+                            is Resource.Loading -> {
+                                Log.d(TAG, "studyConfirmed: loading")
+                            }
+                            is Resource.Error -> {
+                                Log.d(TAG, "studyConfirmed: ${it.message}")
+                            }
+                        }
+                    }.launchIn(this)
+                } catch (e: HttpException) {
+                }
             }
+            // 데이터 추가
+            else{
+                try {
+                    if (studyState.value!!.repeat)
+                        studyUseCase.addStudyUseCase(getRepeatedStudy())
+                    else {
+                        studyUseCase.addStudyUseCase(getStudy())
+                    }.onEach {
+                        when (it) {
+                            is Resource.Success -> {
+                                _studyDialogState.value = StudyDialogState(addStudy = true)
+                            }
+                            is Resource.Loading -> {
+                                Log.d(TAG, "studyConfirmed: loading")
+                            }
+                            is Resource.Error -> {
+                                Log.d(TAG, "studyConfirmed: ${it.message}")
+                            }
+                        }
+                    }.launchIn(this)
+                } catch (e: HttpException) {
+                }
+            }
+
         }
+    }
+
+    fun studyDelete(){
+        studyUseCase.deleteStudyUseCase(studyState.value!!.studyGroupId!!).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    _studyDialogState.value = StudyDialogState(deleteStudy = true)
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

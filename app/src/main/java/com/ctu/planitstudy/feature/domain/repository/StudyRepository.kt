@@ -1,12 +1,16 @@
 package com.ctu.planitstudy.feature.domain.repository
 
-import com.ctu.planitstudy.feature.domain.model.study.AddRepeatedStudy
-import com.ctu.planitstudy.feature.domain.model.study.AddStudy
+import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
+import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.google.gson.JsonElement
+import retrofit2.Response
 
 interface StudyRepository {
-    suspend fun addStudy(addStudy: AddStudy)
-    suspend fun addStudy(addRepeatedStudy: AddRepeatedStudy)
+    suspend fun addStudy(study: Study)
+    suspend fun addStudy(repeatedStudy: RepeatedStudy)
     suspend fun validateTitle(title: String)
     suspend fun getStudyList(date: String): JsonElement
+    suspend fun editStudy(studyGroupId : String, study: Study)
+    suspend fun editStudy(studyGroupId : String, repeatedStudy: RepeatedStudy)
+    suspend fun deleteStudy(studyGroupId : String) : Response<Unit>
 }

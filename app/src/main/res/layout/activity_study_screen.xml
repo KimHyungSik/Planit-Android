@@ -52,7 +52,6 @@
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
                         android:textStyle="normal"
-                        android:layout_marginEnd="56dp"
                         />
 
                     <androidx.cardview.widget.CardView
@@ -64,7 +63,8 @@
                         android:clickable="true"
                         app:cardBackgroundColor="@android:color/transparent"
                         app:cardCornerRadius="8dp"
-                        android:visibility="gone"
+                        android:visibility="invisible"
+                        android:onClick="@{()->viewmodel.studyDelete()}"
                         >
 
                         <ImageView

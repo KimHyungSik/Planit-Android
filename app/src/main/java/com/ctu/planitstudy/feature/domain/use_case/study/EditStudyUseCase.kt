@@ -6,21 +6,24 @@ import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.json.JSONObject
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AddStudyUseCase @Inject constructor(
+class EditStudyUseCase @Inject constructor(
     private val studyRepository: StudyRepository
 ) {
-    operator fun invoke(study: Study): Flow<Resource<Boolean>> = flow {
+
+    operator fun invoke(studyGroupId : String, study: Study): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.addStudy(study)
+            studyRepository.editStudy(studyGroupId, study)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
+            val jsonbjError = JSONObject(e.response()!!.errorBody()!!.string())
             emit(
                 Resource.Error<Boolean>(
-                    message = e.localizedMessage
+                    message = jsonbjError.toString()
                 )
             )
         } catch (e: Throwable) {
@@ -32,10 +35,10 @@ class AddStudyUseCase @Inject constructor(
         }
     }
 
-    operator fun invoke(repeatedStudy: RepeatedStudy): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(studyGroupId : String, repeatedStudy: RepeatedStudy): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.addStudy(repeatedStudy)
+            studyRepository.editStudy(studyGroupId, repeatedStudy)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             emit(

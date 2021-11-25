@@ -1,13 +1,12 @@
 package com.ctu.planitstudy.core.util
 
-import android.util.Log
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
 import java.util.*
 
 fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
 fun String?.isJsonArray(): Boolean = this?.startsWith("[") == true && this.endsWith("]")
-fun String.isValidText() : Boolean = isValidString(this)
+fun String.isValidText(): Boolean = isValidString(this)
 
 fun isValidString(text: String): Boolean {
     val exp = Regex(pattern = "^[가-힣ㄱ-ㅎa-zA-Z0-9^\\S]+\$")
