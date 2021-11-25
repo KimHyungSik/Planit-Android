@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.terms_of_use
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.CheckBox
-import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding

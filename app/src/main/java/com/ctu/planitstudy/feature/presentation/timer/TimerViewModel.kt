@@ -1,10 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.timer
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import java.util.*
 
 class TimerViewModel :
@@ -16,7 +14,6 @@ class TimerViewModel :
     val timerState: LiveData<TimerState> = _timerState
 
     var timer = Timer()
-
 
     fun startTimer() {
         _timerState.value = timerState.value!!.copy(
@@ -38,7 +35,7 @@ class TimerViewModel :
         timer.cancel()
     }
 
-    fun changeTimerCycle(timerCycle: TimerCycle){
+    fun changeTimerCycle(timerCycle: TimerCycle) {
         _timerState.value = timerState.value!!.copy(
             timerCycle = timerCycle
         )

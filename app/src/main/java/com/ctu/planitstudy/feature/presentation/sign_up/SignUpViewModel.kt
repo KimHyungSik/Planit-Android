@@ -75,7 +75,7 @@ class SignUpViewModel @Inject constructor(
         // 현재 회원가입 상태 별로 화면 전환 검사
         liveData.observeForever { signUpState ->
             var pageCount = 0
-            pageCount += if (signUpState.nickname.isNotBlank() && signUpState.name.isNotBlank()) 1 else 0
+            pageCount += if (signUpState.nameCheck && signUpState.nicknameCheck) 1 else 0
             pageCount += if (signUpState.gender.isNotBlank()) 1 else 0
             pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat) 1 else 0
             pageCount += if (signUpState.category.isNotBlank()) 1 else 0

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -59,9 +58,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                         .subscribe {
                             dDay ->
                             binding.apply {
-                                homeFragmentDDayCount.text = if(dDay.dDay > 0) "D-${dDay.dDay}" else if(dDay.dDay == 0)"D-DAY"  else "D+${Math.abs(dDay.dDay)}"
-                                if(dDay.dDay == 0)
-                                    homeFragmentDDayCountBox.background = ContextCompat.getDrawable( CashStudyApp.instance ,R.drawable.d_day_gradation)
+                                homeFragmentDDayCount.text = if (dDay.dDay > 0) "D-${dDay.dDay}" else if (dDay.dDay == 0)"D-DAY" else "D+${Math.abs(dDay.dDay)}"
+                                if (dDay.dDay == 0)
+                                    homeFragmentDDayCountBox.background = ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.d_day_gradation)
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {

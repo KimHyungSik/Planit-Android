@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.recycler.study
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
@@ -51,11 +50,10 @@ class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyLis
                     }
                 }
 
-                if (studyDto.startAt != studyDto.endAt){
+                if (studyDto.startAt != studyDto.endAt) {
                     stateText.visibility = View.VISIBLE
                     stateText.text = weekString
-                }
-                else
+                } else
                     stateText.visibility = View.GONE
             }
         }

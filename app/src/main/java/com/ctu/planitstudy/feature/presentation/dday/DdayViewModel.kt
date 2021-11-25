@@ -14,7 +14,6 @@ import com.ctu.planitstudy.feature.domain.use_case.dday.DdayUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 

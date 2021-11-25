@@ -19,7 +19,7 @@ import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
 class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
     val TAG = "TimerScreen - 로그"
-    
+
     override val bindingInflater: (LayoutInflater) -> ActivityTimerScreenBinding
         get() = ActivityTimerScreenBinding::inflate
 
@@ -39,7 +39,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
         val intentFilter = IntentFilter(Intent.ACTION_SCREEN_OFF)
         intentFilter.addAction(Intent.ACTION_SCREEN_ON)
-        val receiver = object: BroadcastReceiver() {
+        val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val action = intent!!.action
                 Log.d("로그", "receive : $action")
@@ -70,20 +70,20 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         viewModel.timerState.observe(this, {
             binding.timerTimeText.text = it.timeString
             binding.timerCircularBar.progress = it.time.toFloat()
-            when(it.timerCycle){
-                TimerCycle.TimeFlow ->{
+            when (it.timerCycle) {
+                TimerCycle.TimeFlow -> {
                 }
                 TimerCycle.TimeStop -> {
                     TimerExitedDialog().show(
                         supportFragmentManager, "TimerExitedDialog"
                     )
                 }
-                TimerCycle.TimePause ->{
+                TimerCycle.TimePause -> {
                     TimerStopDialog().show(
                         supportFragmentManager, "TimerStopDialog"
                     )
                 }
-                TimerCycle.TimerExited ->{
+                TimerCycle.TimerExited -> {
                     finish()
                 }
             }

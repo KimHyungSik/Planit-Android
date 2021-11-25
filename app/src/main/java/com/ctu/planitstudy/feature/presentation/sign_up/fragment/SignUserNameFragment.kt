@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.isValidText
 import com.ctu.planitstudy.databinding.FragmentSignUpUserNameBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -32,8 +33,10 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
             RxTextView.textChanges(binding.signUpNameEditText)
                 .subscribe({
                     val state = viewModel.liveData.value!!.copy(
-                        name = it.toString()
+                        name = it.toString(),
+                        nameCheck = it.toString().isValidText()
                     )
+                    Log.d(TAG, "setInit: $state")
                     viewModel.updateSignState(state)
                 }, {
                 })
@@ -41,10 +44,12 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
         disposables.add(
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .subscribe({
-                    Log.d(TAG, "setInit: ")
+
                     val state = viewModel.liveData.value!!.copy(
-                        nickname = it.toString()
+                        nickname = it.toString(),
+                        nicknameCheck = it.toString().isValidText()
                     )
+                    Log.d(TAG, "setInit: $state")
                     viewModel.updateSignState(state)
                     viewModel.validateNickNameStateChange(false)
                 }, {
@@ -77,6 +82,8 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
             }
         })
     }
+
+
 
     override fun onDestroy() {
         disposables.clear()

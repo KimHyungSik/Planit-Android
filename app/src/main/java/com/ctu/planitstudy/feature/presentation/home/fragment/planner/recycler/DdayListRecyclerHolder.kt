@@ -27,7 +27,7 @@ class DdayListRecyclerHolder(itemView: View, val inDdayListRecycler: InDdayListR
 
     fun bindWithView(dday: DdayDto) {
         titleText.text = dday.title
-        dDayText.text = if(dday.dDay.toInt() >= 0) "D-${dday.dDay}" else "D+${Math.abs(dday.dDay)}"
+        dDayText.text = if (dday.dDay.toInt() >= 0) "D-${dday.dDay}" else "D+${Math.abs(dday.dDay)}"
         dateText.text = dday.endAt
         imageView.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dday.icon)].imge)
     }

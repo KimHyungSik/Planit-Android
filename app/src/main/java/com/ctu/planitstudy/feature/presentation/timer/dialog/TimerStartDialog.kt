@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStartBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
 

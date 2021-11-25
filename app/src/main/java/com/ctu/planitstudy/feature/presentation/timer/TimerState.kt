@@ -6,7 +6,7 @@ data class TimerState(
     val timerCycle: TimerCycle = TimerCycle.TimeReady
 )
 
-enum class TimerCycle{
+enum class TimerCycle {
     TimeReady,
     TimeFlow,
     TimePause,
