@@ -138,13 +138,23 @@ class StudyViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            try {
-                Log.d(TAG, "studyConfirmed: ${studyState.value!!.title}")
-                studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
-            } catch (e: HttpException) {
-                _studyDialogState.value = StudyDialogState(validatedTitle = true)
-                return@launch
-            }
+            // 기존 데이터의 타이틀과 현제 타이틀이 다르다면
+            if(studyState.value!!.originalTitle != null)
+                if(studyState.value!!.originalTitle != studyState.value!!.title)
+                    try {
+                        studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
+                    } catch (e: HttpException) {
+                        _studyDialogState.value = StudyDialogState(validatedTitle = true)
+                        return@launch
+                    }
+            // 기존 타이틀이 없는 경우
+            if(studyState.value!!.originalTitle == null)
+                try {
+                    studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
+                } catch (e: HttpException) {
+                    _studyDialogState.value = StudyDialogState(validatedTitle = true)
+                    return@launch
+                }
             // 데이터 수정
             if(studyState.value!!.studyGroupId != null){
                 try {

@@ -312,7 +312,8 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 repeat = studyDto.repeatedDays != null,
                 title = studyDto.title,
                 activationWeek = DateCalculation().calDateBetweenWeek(studyDto.startAt, studyDto.endAt),
-                studyGroupId = studyDto.studyGroupId.toString()
+                studyGroupId = studyDto.studyGroupId.toString(),
+                originalTitle = studyDto.title
             )
         )
 
