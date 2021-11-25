@@ -2,11 +2,8 @@ package com.ctu.planitstudy.core.util.network
 
 import okhttp3.ResponseBody
 import retrofit2.Converter
-
 import retrofit2.Retrofit
-import java.io.IOException
 import java.lang.reflect.Type
-
 
 class NullOnEmptyConverterFactory {
     val nullOnEmptyConverterFactory = object : Converter.Factory() {

@@ -1,12 +1,10 @@
 package com.ctu.planitstudy.feature.data.data_source.user.componets
 
 import android.content.Context
-import android.util.Log
+import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.OauthUserPolicy
 import com.ctu.planitstudy.feature.domain.model.User
-import com.ctu.core.util.Resource
 import com.kakao.sdk.auth.AuthApiClient
-import com.kakao.sdk.auth.model.Prompt
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.rx
 import io.reactivex.Completable
@@ -33,11 +31,10 @@ class KakaoOauthImp() : OauthUserPolicy {
                 }
         }
 
-    override fun logout() : Completable =
+    override fun logout(): Completable =
         UserApiClient.rx.logout()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-
 
     override fun getUserInfo(): Single<Resource<User>> =
         Single.just(AuthApiClient.instance.hasToken())

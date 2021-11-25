@@ -1,14 +1,13 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.FragmentPlannerDDayBinding
-import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.DdayListRecyclerAdapter
@@ -18,7 +17,7 @@ import io.reactivex.rxkotlin.toObservable
 class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayListRecycler {
 
     val TAG = "DdayFragment - 로그"
-    
+
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerDDayBinding
         get() = FragmentPlannerDDayBinding::inflate
 
@@ -39,15 +38,18 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             .filter { it.isRepresentative }
             .subscribe {
                 dDay ->
-                binding.apply {
-                    plannerDDayRepresentativeDDay.text = "D-" + dDay.dDay
+                with(binding) {
+                    plannerDDayRepresentativeDDay.text = if (dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
                     plannerDDayRepresentativeTitle.text = dDay.title
                     plannerDDayRepresentativeDate.text = dDay.endAt
+                    plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)
                     plannerDDayRepresentativeItemView.setOnClickListener {
                         val intent = Intent(activity, DdayScreen::class.java)
                         intent.putExtra("dDay", dDay)
                         moveIntent(intent)
                     }
+                    plannerDDayRepresentativeItemView.visibility = View.VISIBLE
+                    notEmptyDdayList()
                 }
             }.isDisposed
 
@@ -57,7 +59,16 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             .subscribe {
                 dDayListRecyclerAdapter.dDayList.add(it)
                 dDayListRecyclerAdapter.notifyDataSetChanged()
+                binding.plannerDDayRecyclerView.visibility = View.VISIBLE
+                notEmptyDdayList()
             }.isDisposed
+    }
+
+    private fun notEmptyDdayList() {
+        binding.apply {
+            plannerDDayNestedScrollview.visibility = View.VISIBLE
+            plannerDDayEmpty.visibility = View.GONE
+        }
     }
 
     override fun onClickedItem(position: Int) {

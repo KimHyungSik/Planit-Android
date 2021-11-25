@@ -9,15 +9,16 @@ import com.ctu.planitstudy.databinding.ActivityHomeScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeScreen
-    : BaseBindingActivity<ActivityHomeScreenBinding>() {
+class HomeScreen :
+    BaseBindingActivity<ActivityHomeScreenBinding>() {
     override val bindingInflater: (LayoutInflater) -> ActivityHomeScreenBinding
         get() = ActivityHomeScreenBinding::inflate
 
     override fun setup() {
 
-        val navHostFragment =  supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment
         val navController = navHostFragment.navController
+
         NavigationUI.setupWithNavController(binding.homeBottomNav, navController)
     }
 }

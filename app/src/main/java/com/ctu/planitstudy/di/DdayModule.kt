@@ -35,25 +35,24 @@ object DdayModule {
     fun providerDdayRepository(ddayApi: DdayApi): DdayRepository =
         DdayRepositoryImp(ddayApi)
 
-
     @Provides
     @Singleton
-    fun providerGetDdayListUseCase(ddayRepository: DdayRepository) : GetDdayListUseCase =
+    fun providerGetDdayListUseCase(ddayRepository: DdayRepository): GetDdayListUseCase =
         GetDdayListUseCase(ddayRepository)
 
     @Provides
     @Singleton
-    fun providerAddDdayUseCase(ddayRepository: DdayRepository) : AddDdayUseCase =
+    fun providerAddDdayUseCase(ddayRepository: DdayRepository): AddDdayUseCase =
         AddDdayUseCase(ddayRepository)
 
     @Provides
     @Singleton
-    fun providerModifiedDdayUseCase(ddayRepository: DdayRepository) : ModifiedDdayUseCase =
+    fun providerModifiedDdayUseCase(ddayRepository: DdayRepository): ModifiedDdayUseCase =
         ModifiedDdayUseCase(ddayRepository)
 
     @Provides
     @Singleton
-    fun providerDeleteDdayUseCase(ddayRepository: DdayRepository) : DeleteDdayUseCase =
+    fun providerDeleteDdayUseCase(ddayRepository: DdayRepository): DeleteDdayUseCase =
         DeleteDdayUseCase(ddayRepository)
 
     @Provides
@@ -63,6 +62,6 @@ object DdayModule {
         deleteDdayUseCase: DeleteDdayUseCase,
         getDdayListUseCase: GetDdayListUseCase,
         modifiedDdayUseCase: ModifiedDdayUseCase
-    ) : DdayUseCase =
+    ): DdayUseCase =
         DdayUseCase(addDdayUseCase, deleteDdayUseCase, getDdayListUseCase, modifiedDdayUseCase)
 }

@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.data.remote.dto.Dday
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 
 @Parcelize
 data class DdayDto(
@@ -12,6 +11,6 @@ data class DdayDto(
     @SerializedName("isRepresentative") val isRepresentative: Boolean,
     @SerializedName("endAt") val endAt: String,
     @SerializedName("createdAt") val createdAt: String,
-    @SerializedName("color") val color: String,
+    @SerializedName("icon") val icon: String,
     val dDay: Int
-): Parcelable{}
+) : Parcelable

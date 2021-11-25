@@ -1,14 +1,10 @@
 package com.ctu.planitstudy.feature.data.remote
 
-import com.ctu.planitstudy.feature.data.remote.dto.LoginDto
-import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.LoginUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
-import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import io.reactivex.Flowable
-import org.json.JSONObject
 import retrofit2.http.*
 
 interface UserAuthApi {
@@ -32,5 +28,5 @@ interface UserAuthApi {
     ): Flowable<JsonElement>
 
     @GET("/v1/user/validate-nickname")
-    suspend fun userValidateNickName(@Query("nickname") nickname : String )
+    suspend fun userValidateNickName(@Query("nickname") nickname: String)
 }

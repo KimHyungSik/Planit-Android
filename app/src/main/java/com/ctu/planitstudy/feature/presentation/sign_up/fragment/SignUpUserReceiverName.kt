@@ -46,7 +46,6 @@ class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBindin
                 }
             }
         })
-
     }
 
     override fun onDestroy() {

@@ -6,14 +6,14 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.isValidText
 import com.ctu.planitstudy.databinding.FragmentSignUpUserNameBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
-
-    val TAG = "NameFragment - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserNameBinding
         get() = FragmentSignUpUserNameBinding::inflate
@@ -24,7 +24,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     override fun setUpViews() {
         super.setUpViews()
-
     }
 
     override fun setInit() {
@@ -33,18 +32,31 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
             RxTextView.textChanges(binding.signUpNameEditText)
                 .subscribe({
                     val state = viewModel.liveData.value!!.copy(
-                        name = it.toString()
+                        name = it.toString(),
+                        nameCheck = it.toString().isValidText()
                     )
                     viewModel.updateSignState(state)
                 }, {
                 })
         )
+
+        disposables.add(
+            RxTextView.textChanges(binding.signUpNicknameEditText)
+                .filter { it.isNotBlank() }
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    viewModel.validateNickNameCheck()
+                }, {
+                })
+        )
+
         disposables.add(
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .subscribe({
-                    Log.d(TAG, "setInit: ")
                     val state = viewModel.liveData.value!!.copy(
-                        nickname = it.toString()
+                        nickname = it.toString(),
+                        nicknameCheck = it.toString()
+                            .isValidText() && viewModel.validateNickName.value!!.data == true
                     )
                     viewModel.updateSignState(state)
                     viewModel.validateNickNameStateChange(false)
@@ -53,30 +65,31 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
         )
 
         viewModel.validateNickName.observe(this, {
-            if (it.data!!) {
-                binding.signUpNicknameErrorIcon.visibility = View.INVISIBLE
-                binding.signUpNicknameErrorText.visibility = View.VISIBLE
-                binding.signUpNicknameErrorText.text = "사용 가능한 닉네임 입니다."
-            } else {
+            with(binding) {
+                if (it.data!!) {
+                    signUpNicknameErrorIcon.visibility = View.INVISIBLE
+                    signUpNicknameErrorText.visibility = View.VISIBLE
+                    signUpNicknameErrorText.text = "사용 가능한 닉네임 입니다."
+                } else {
 
-                binding.signUpNicknameErrorText.visibility = View.VISIBLE
-                when (it) {
-                    is Resource.Success -> {
-                        binding.signUpNicknameErrorIcon.visibility = View.VISIBLE
-                        binding.signUpNicknameErrorText.text = "이미 사용중인 닉네임입니다"
-                    }
-                    is Resource.Error -> {
-                        binding.signUpNicknameErrorText.text = ""
-                    }
-                    is Resource.Loading -> {
-                        binding.signUpNicknameErrorText.visibility = View.INVISIBLE
-                        binding.signUpNicknameErrorIcon.visibility = View.INVISIBLE
+                    signUpNicknameErrorText.visibility = View.VISIBLE
+                    when (it) {
+                        is Resource.Success -> {
+                            signUpNicknameErrorIcon.visibility = View.VISIBLE
+                            signUpNicknameErrorText.text = "이미 사용중인 닉네임입니다"
+                        }
+                        is Resource.Error -> {
+                            signUpNicknameErrorText.text = ""
+                        }
+                        is Resource.Loading -> {
+                            signUpNicknameErrorText.visibility = View.INVISIBLE
+                            signUpNicknameErrorIcon.visibility = View.INVISIBLE
+                        }
                     }
                 }
             }
         })
     }
-
 
     override fun onDestroy() {
         disposables.clear()

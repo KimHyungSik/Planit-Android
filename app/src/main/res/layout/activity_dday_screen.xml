@@ -94,10 +94,12 @@
                             android:layout_marginStart="22dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="디데이 제목을 입력해주세"
+                            android:hint="디데이 제목을 입력해주세요"
                             android:inputType="text"
                             android:maxLength="10"
-                            android:text='@={viewmodel.DDayState.title}' />
+                            android:text='@={viewmodel.DDayState.title}'
+                            android:textCursorDrawable="@color/text_color"
+                            />
 
                         <TextView
                             android:id="@+id/d_day_title_length_count"
@@ -205,15 +207,16 @@
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:layout_marginEnd="8dp"
-                                    android:background="@drawable/dday_color_radio_button"
-                                    android:button="@null" />
+                                    android:background="@drawable/dday_color_radio_button_fullmoon"
+                                    android:button="@null"
+                                    />
 
                                 <RadioButton
                                     android:id="@+id/d_day_radio_button_2"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:layout_marginEnd="8dp"
-                                    android:background="@drawable/dday_color_radio_button"
+                                    android:background="@drawable/dday_color_radio_button_saturn"
                                     android:button="@null" />
 
                                 <RadioButton
@@ -221,7 +224,7 @@
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:layout_marginEnd="8dp"
-                                    android:background="@drawable/dday_color_radio_button"
+                                    android:background="@drawable/dday_color_radio_button_star"
                                     android:button="@null" />
 
                                 <RadioButton
@@ -229,14 +232,14 @@
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:layout_marginEnd="8dp"
-                                    android:background="@drawable/dday_color_radio_button"
+                                    android:background="@drawable/dday_color_radio_button_meteor"
                                     android:button="@null" />
 
                                 <RadioButton
                                     android:id="@+id/d_day_radio_button_5"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
-                                    android:background="@drawable/dday_color_radio_button"
+                                    android:background="@drawable/dday_color_radio_button_ufo"
                                     android:button="@null" />
 
                             </RadioGroup>

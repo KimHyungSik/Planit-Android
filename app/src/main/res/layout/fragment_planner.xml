@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        >
 
         <RadioGroup
             android:id="@+id/planner_radio_button"
@@ -57,10 +59,11 @@
             android:layout_marginEnd="24dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/item_guide_stroke"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/text_color"
-            app:strokeWidth="1dp">
+            app:strokeWidth="1dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +72,7 @@
                 android:gravity="center"
                 >
                 <ImageView
-                    android:src="@drawable/ic__plus"
+                    android:src="@drawable/ic_plus"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginEnd="8dp"
@@ -82,10 +85,34 @@
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/study_added_btn"
+            android:layout_width="115dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/text_color"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <include layout="@layout/components_home_add_study" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/planner_fragment_view"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/planner__view_pager_fragment_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

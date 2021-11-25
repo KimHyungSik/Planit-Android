@@ -24,8 +24,8 @@ data class SignUpUserDto(
     val refreshToken: String,
 )
 
-fun SignUpUserDto.getRefreshToken() : String = this.refreshToken
-fun SignUpUserDto.getAccessToken() : String = this.accessToken
+fun SignUpUserDto.getRefreshToken(): String = this.refreshToken
+fun SignUpUserDto.getAccessToken(): String = this.accessToken
 
-fun SignUpUserDto.toSignUpUserResponse() : SignUpUserResponse =
+fun SignUpUserDto.toSignUpUserResponse(): SignUpUserResponse =
     SignUpUserResponse(accessToken = this.accessToken, refreshToken = this.refreshToken)
