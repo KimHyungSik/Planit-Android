@@ -1,6 +1,6 @@
 package com.ctu.planitstudy.feature.data.remote.dto.timer
 
-data class TimerMeasurement(
+data class TimerMeasurementDto(
     val bonusTicket: Int,
     val id: Int,
     val isDone: Boolean,

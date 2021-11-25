@@ -14,7 +14,6 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
-import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -313,6 +312,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 title = studyDto.title,
                 activationWeek = DateCalculation().calDateBetweenWeek(studyDto.startAt, studyDto.endAt),
                 studyGroupId = studyDto.studyGroupId.toString(),
+                studyScheduleId = studyDto.studyScheduleId.toString(),
                 originalTitle = studyDto.title
             )
         )
@@ -332,7 +332,6 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 studyRepeatDateItemView.visibility = View.VISIBLE
             }
         }
-
     }
 
     override fun onDestroy() {

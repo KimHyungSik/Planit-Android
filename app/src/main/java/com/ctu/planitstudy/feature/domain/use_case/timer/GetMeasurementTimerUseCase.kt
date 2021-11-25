@@ -1,4 +1,35 @@
 package com.ctu.planitstudy.feature.domain.use_case.timer
 
-class GetMeasurementTimerUseCase {
+import com.ctu.core.util.Resource
+import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
+import com.ctu.planitstudy.feature.domain.repository.TimerRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import org.json.JSONObject
+import retrofit2.HttpException
+import javax.inject.Inject
+
+class GetMeasurementTimerUseCase @Inject constructor(
+    val timerRepository: TimerRepository
+) {
+    operator fun invoke(studyId: String): Flow<Resource<TimerMeasurementDto>> = flow {
+        try {
+            emit(Resource.Loading<TimerMeasurementDto>(null))
+            val timerMeasurementDto = timerRepository.getMeasurementTime(studyId)
+            emit(Resource.Success<TimerMeasurementDto>(timerMeasurementDto))
+        } catch (e: Exception) {
+            emit(Resource.Error<TimerMeasurementDto>(message = "Exception" + e.message))
+            if (e is HttpException) {
+                emit(
+                    Resource.Error<TimerMeasurementDto>(
+                        message = JSONObject(
+                            e.response()!!.errorBody()!!.string()
+                        ).toString()
+                    )
+                )
+            }
+        } catch (e: Throwable) {
+            emit(Resource.Error<TimerMeasurementDto>(message = "Throwable" + e.message))
+        }
+    }
 }

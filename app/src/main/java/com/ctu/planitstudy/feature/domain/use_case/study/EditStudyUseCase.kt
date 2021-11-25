@@ -14,10 +14,10 @@ class EditStudyUseCase @Inject constructor(
     private val studyRepository: StudyRepository
 ) {
 
-    operator fun invoke(studyGroupId : String, study: Study): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(studyGroupId: String, studyScheduleId: String, study: Study): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.editStudy(studyGroupId, study)
+            studyRepository.editStudy(studyGroupId, studyScheduleId, study)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             val jsonbjError = JSONObject(e.response()!!.errorBody()!!.string())
@@ -35,10 +35,10 @@ class EditStudyUseCase @Inject constructor(
         }
     }
 
-    operator fun invoke(studyGroupId : String, repeatedStudy: RepeatedStudy): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            studyRepository.editStudy(studyGroupId, repeatedStudy)
+            studyRepository.editStudy(studyGroupId, studyScheduleId, repeatedStudy)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             emit(

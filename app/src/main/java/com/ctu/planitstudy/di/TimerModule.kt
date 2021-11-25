@@ -29,6 +29,6 @@ object TimerModule {
 
     @Provides
     @Singleton
-    fun providerTimerRepository(timerApi: TimerApi) : TimerRepository =
+    fun providerTimerRepository(timerApi: TimerApi): TimerRepository =
         TimerRepositoryImp(timerApi)
 }

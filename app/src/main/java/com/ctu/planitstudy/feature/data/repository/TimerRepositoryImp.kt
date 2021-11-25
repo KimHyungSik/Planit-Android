@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.data.repository
 
 import com.ctu.planitstudy.feature.data.remote.TimerApi
+import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
 import com.google.gson.JsonElement
@@ -14,5 +15,5 @@ class TimerRepositoryImp @Inject constructor(
         recordMeasurementTimer: RecordMeasurementTimer
     ): JsonElement = timerApi.recordMeasurementTime(studyId, recordMeasurementTimer)
 
-    override suspend fun getMeasurementTime(studyId: String): JsonElement = timerApi.getMeasurementTime(studyId)
+    override suspend fun getMeasurementTime(studyId: String): TimerMeasurementDto = timerApi.getMeasurementTime(studyId)
 }

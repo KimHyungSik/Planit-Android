@@ -10,7 +10,7 @@ interface StudyRepository {
     suspend fun addStudy(repeatedStudy: RepeatedStudy)
     suspend fun validateTitle(title: String)
     suspend fun getStudyList(date: String): JsonElement
-    suspend fun editStudy(studyGroupId : String, study: Study)
-    suspend fun editStudy(studyGroupId : String, repeatedStudy: RepeatedStudy)
-    suspend fun deleteStudy(studyGroupId : String) : Response<Unit>
+    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study)
+    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy)
+    suspend fun deleteStudy(studyGroupId: String): Response<Unit>
 }
