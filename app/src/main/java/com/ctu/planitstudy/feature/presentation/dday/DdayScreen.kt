@@ -85,9 +85,9 @@ class DdayScreen :
                         viewmodel!!.dDayUpdate(
                             viewmodel!!.dDayState.value!!.copy(
                                 icon = ddayIconSet.dDayIconList[
-                                        ddayIconSet.dDayIconListId.indexOf(
-                                            it
-                                        )
+                                    ddayIconSet.dDayIconListId.indexOf(
+                                        it
+                                    )
                                 ]
                             )
                         )
@@ -116,9 +116,9 @@ class DdayScreen :
             dDayTitle.text = "디데이 편집하기"
             dDayCustomIcon.check(
                 DdayIconSet.DdayIcon.values()[
-                        DdayIconSet().dDayIconList.indexOf(
-                            dDay.icon
-                        )
+                    DdayIconSet().dDayIconList.indexOf(
+                        dDay.icon
+                    )
                 ].radio
             )
             dDayConfirmedBtnText.text = "저장하기"
