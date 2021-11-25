@@ -36,16 +36,18 @@ class TermsOfUseAgreesScreen :
         agreeCounter(binding.termsOfUseItems.termsOfUsePersonalInformationRequired)
 
         binding.termsOfUseCheckBtn.setOnClickListener {
-            val intent = Intent(applicationContext, SignUpScreen::class.java)
-            intent.putExtra("text", "test")
-            intent.putExtra(
-                "termsOfUseAgrees",
-                TermsOfUseAgrees(
-                    binding.termsOfUseItems.termsOfUsePersonalInformationOptional.isChecked,
-                    binding.termsOfUseItems.termsOfUseMarketingOptional.isChecked
+            if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked) {
+                val intent = Intent(applicationContext, SignUpScreen::class.java)
+                intent.putExtra("text", "test")
+                intent.putExtra(
+                    "termsOfUseAgrees",
+                    TermsOfUseAgrees(
+                        binding.termsOfUseItems.termsOfUsePersonalInformationOptional.isChecked,
+                        binding.termsOfUseItems.termsOfUseMarketingOptional.isChecked
+                    )
                 )
-            )
-            moveIntentAllClear(intent)
+                moveIntentAllClear(intent)
+            }
         }
     }
 
