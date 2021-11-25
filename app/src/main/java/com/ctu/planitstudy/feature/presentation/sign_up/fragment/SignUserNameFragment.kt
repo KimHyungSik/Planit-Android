@@ -11,6 +11,7 @@ import com.ctu.planitstudy.databinding.FragmentSignUpUserNameBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
@@ -41,13 +42,24 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                 }, {
                 })
         )
+
+        disposables.add(
+            RxTextView.textChanges(binding.signUpNicknameEditText)
+                .filter { it.isNotBlank() }
+                .debounce(700, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    viewModel.validateNickNameCheck()
+                }, {
+                })
+        )
+
         disposables.add(
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .subscribe({
-
                     val state = viewModel.liveData.value!!.copy(
                         nickname = it.toString(),
-                        nicknameCheck = it.toString().isValidText()
+                        nicknameCheck = it.toString()
+                            .isValidText() && viewModel.validateNickName.value!!.data == true
                     )
                     Log.d(TAG, "setInit: $state")
                     viewModel.updateSignState(state)
@@ -82,8 +94,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
             }
         })
     }
-
-
 
     override fun onDestroy() {
         disposables.clear()

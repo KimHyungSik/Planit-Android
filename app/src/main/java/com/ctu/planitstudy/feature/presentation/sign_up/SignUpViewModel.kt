@@ -84,7 +84,8 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun validateNickNameCheck() {
+    fun validateNickNameCheck() {
+        Log.d(TAG, "validateNickNameCheck: ")
         userValidateNickNameUseCase(liveData.value?.nickname!!).onEach { result ->
             _validateNickName.value = result
             when (result) {
