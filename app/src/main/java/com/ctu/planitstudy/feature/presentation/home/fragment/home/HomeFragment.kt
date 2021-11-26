@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -96,8 +95,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
     }
 
     override fun onClickedItem(position: Int) {
-        val intent = Intent(activity, Screens.StudyScreenSh.activity)
+        val intent = Intent(activity, Screens.TimerScreenSh.activity)
         intent.putExtra("studyDto", studyListRecyclerAdapter.studyList.studies[position])
-        moveIntent(Screens.TimerScreenSh.activity)
+        moveIntent(intent)
     }
 }

@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.di
 
 import com.ctu.planitstudy.core.util.CoreData
+import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.remote.TimerApi
 import com.ctu.planitstudy.feature.data.repository.TimerRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
@@ -11,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,11 +24,13 @@ object TimerModule {
 
     @Provides
     @Singleton
-    fun provideTimerApi(): TimerApi =
+    fun provideTimerApi(okHttpClient: OkHttpClient): TimerApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
             .build()
             .create(TimerApi::class.java)
 
@@ -37,12 +41,12 @@ object TimerModule {
 
     @Provides
     @Singleton
-    fun providerGetMeasurementTimerUseCase(timerRepository: TimerRepository) : GetMeasurementTimerUseCase =
+    fun providerGetMeasurementTimerUseCase(timerRepository: TimerRepository): GetMeasurementTimerUseCase =
         GetMeasurementTimerUseCase(timerRepository)
 
     @Provides
     @Singleton
-    fun providerRecordMeasurementTimerUseCase(timerRepository: TimerRepository) : RecordMeasurementTimerUseCase =
+    fun providerRecordMeasurementTimerUseCase(timerRepository: TimerRepository): RecordMeasurementTimerUseCase =
         RecordMeasurementTimerUseCase(timerRepository)
 
     @Provides
@@ -50,9 +54,8 @@ object TimerModule {
     fun providerTimerUseCase(
         getMeasurementTimerUseCase: GetMeasurementTimerUseCase,
         recordMeasurementTimerUseCase: RecordMeasurementTimerUseCase
-    ) : TimerUseCase = TimerUseCase(
+    ): TimerUseCase = TimerUseCase(
         getMeasurementTimerUseCase,
         recordMeasurementTimerUseCase
     )
-
 }

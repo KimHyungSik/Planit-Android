@@ -39,6 +39,4 @@ class TimerViewModel :
             timerCycle = timerCycle
         )
     }
-
-
 }

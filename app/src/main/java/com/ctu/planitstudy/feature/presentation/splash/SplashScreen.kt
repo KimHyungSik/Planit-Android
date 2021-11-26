@@ -1,7 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.splash
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.LayoutInflater
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
@@ -24,11 +22,9 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding>() {
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
                         if (!JWTRefreshTokenExpiration().invoke())
                             moveIntentAllClear(Screens.HomeScreenSh.activity)
-                else
-                    moveIntentAllClear(Screens.LoginScreenSh.activity)
+                        else
+                            moveIntentAllClear(Screens.LoginScreenSh.activity)
             }
             .isDisposed
-
     }
-
 }

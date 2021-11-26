@@ -15,7 +15,6 @@ import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
-import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
 import com.ctu.planitstudy.feature.presentation.util.Screens
 
 class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
@@ -27,9 +26,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
     private val viewModel: TimerViewModel by viewModels()
 
-    private var observer = ActivityLifeCycleObserver(lifecycle)
-
-    private var study : StudyDto? = null
+    private var study: StudyDto? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun setup() {
@@ -60,7 +57,6 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 }
             }
         }
-        lifecycle.addObserver(observer)
         registerReceiver(receiver, intentFilter)
 
         with(binding) {
@@ -80,7 +76,10 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 TimerCycle.TimeFlow -> {
                 }
                 TimerCycle.TimeStop -> {
-                    moveIntent(Screens.MeasurementScreenSh.activity)
+                    val intent = Intent(this, Screens.MeasurementScreenSh.activity)
+                    intent.putExtra("studyDto", study)
+                    intent.putExtra("time", viewModel.timerState.value!!.time)
+                    moveIntent(intent)
                 }
                 TimerCycle.TimePause -> {
                     TimerStopDialog().show(
@@ -94,13 +93,12 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         })
     }
 
-
-    fun setViewWithStudy(studyDto: StudyDto){
-        binding.timerTimeText.text = studyDto.title
+    private fun setViewWithStudy(studyDto: StudyDto) {
+        binding.timerTitle.text = studyDto.title
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             TimerStopDialog().show(
                 supportFragmentManager, "TimerStopDialog"
             )

@@ -3,9 +3,7 @@ package com.ctu.planitstudy.feature.presentation.login
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
-import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.util.Screens.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +20,6 @@ class LoginScreen :
     override fun setup() {
 
         binding.viewmodel = viewModel
-
-
 
         viewModel.loginState.observe(this, {
             when (it) {
