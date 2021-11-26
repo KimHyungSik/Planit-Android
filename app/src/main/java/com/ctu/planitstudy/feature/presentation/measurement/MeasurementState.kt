@@ -8,5 +8,5 @@ data class MeasurementState (
     val totalBrakeTime : Int = 0,
     val totalStar : Int = 0,
     val totalTicket : Int = 0,
-    val studyDto: StudyDto? = null
+    val studyDto: StudyDto? = nullA
 )
