@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
@@ -28,9 +29,13 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
     private var observer = ActivityLifeCycleObserver(lifecycle)
 
+    private var study : StudyDto? = null
+
     @SuppressLint("ClickableViewAccessibility")
     override fun setup() {
 
+        study = intent.getParcelableExtra<StudyDto>("studyDto")
+        setViewWithStudy(study!!)
         // 화면 자동 꺼짐 방지
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
@@ -89,6 +94,10 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         })
     }
 
+
+    fun setViewWithStudy(studyDto: StudyDto){
+        binding.timerTimeText.text = studyDto.title
+    }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if(keyCode == KeyEvent.KEYCODE_BACK){

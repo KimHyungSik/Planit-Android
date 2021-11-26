@@ -4,6 +4,9 @@ import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.feature.data.remote.TimerApi
 import com.ctu.planitstudy.feature.data.repository.TimerRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
+import com.ctu.planitstudy.feature.domain.use_case.timer.GetMeasurementTimerUseCase
+import com.ctu.planitstudy.feature.domain.use_case.timer.RecordMeasurementTimerUseCase
+import com.ctu.planitstudy.feature.domain.use_case.timer.TimerUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,4 +34,25 @@ object TimerModule {
     @Singleton
     fun providerTimerRepository(timerApi: TimerApi): TimerRepository =
         TimerRepositoryImp(timerApi)
+
+    @Provides
+    @Singleton
+    fun providerGetMeasurementTimerUseCase(timerRepository: TimerRepository) : GetMeasurementTimerUseCase =
+        GetMeasurementTimerUseCase(timerRepository)
+
+    @Provides
+    @Singleton
+    fun providerRecordMeasurementTimerUseCase(timerRepository: TimerRepository) : RecordMeasurementTimerUseCase =
+        RecordMeasurementTimerUseCase(timerRepository)
+
+    @Provides
+    @Singleton
+    fun providerTimerUseCase(
+        getMeasurementTimerUseCase: GetMeasurementTimerUseCase,
+        recordMeasurementTimerUseCase: RecordMeasurementTimerUseCase
+    ) : TimerUseCase = TimerUseCase(
+        getMeasurementTimerUseCase,
+        recordMeasurementTimerUseCase
+    )
+
 }

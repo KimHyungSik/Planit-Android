@@ -96,7 +96,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
     }
 
     override fun onClickedItem(position: Int) {
-        Log.d(TAG, "onClickedItem: $position")
+        val intent = Intent(activity, Screens.StudyScreenSh.activity)
+        intent.putExtra("studyDto", studyListRecyclerAdapter.studyList.studies[position])
         moveIntent(Screens.TimerScreenSh.activity)
     }
 }
