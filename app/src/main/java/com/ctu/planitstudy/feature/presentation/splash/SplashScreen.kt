@@ -20,13 +20,12 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding>() {
         Completable.complete()
             .delay(1500, TimeUnit.MILLISECONDS)
             .subscribe {
-                moveIntentAllClear(Screens.LoginScreenSh.activity)
-//                if (CashStudyApp.prefs.refreshToken != null)
-//                    if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
-//                        if (!JWTRefreshTokenExpiration().invoke())
-//                            moveIntentAllClear(Screens.HomeScreenSh.activity)
-//                else
-//                    moveIntentAllClear(Screens.LoginScreenSh.activity)
+                if (CashStudyApp.prefs.refreshToken != null)
+                    if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
+                        if (!JWTRefreshTokenExpiration().invoke())
+                            moveIntentAllClear(Screens.HomeScreenSh.activity)
+                else
+                    moveIntentAllClear(Screens.LoginScreenSh.activity)
             }
             .isDisposed
 

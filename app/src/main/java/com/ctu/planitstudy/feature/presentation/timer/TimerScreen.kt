@@ -6,15 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
-import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerExitedDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
+import com.ctu.planitstudy.feature.presentation.util.Screens
 
 class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
@@ -74,9 +75,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 TimerCycle.TimeFlow -> {
                 }
                 TimerCycle.TimeStop -> {
-                    TimerExitedDialog().show(
-                        supportFragmentManager, "TimerExitedDialog"
-                    )
+                    moveIntent(Screens.MeasurementScreenSh.activity)
                 }
                 TimerCycle.TimePause -> {
                     TimerStopDialog().show(
@@ -88,5 +87,17 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 }
             }
         })
+    }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            TimerStopDialog().show(
+                supportFragmentManager, "TimerStopDialog"
+            )
+            return false
+        }
+
+        return super.onKeyDown(keyCode, event)
     }
 }
