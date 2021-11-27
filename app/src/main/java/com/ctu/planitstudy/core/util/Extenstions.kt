@@ -60,14 +60,20 @@ fun longToTimerKorString(time: Long): String {
     currentTime %= 60
     val s = currentTime
     val string = buildString {
-        if (h < 10)
-            append(0)
-        append(h)
-        append("시간")
-        if (m < 10)
-            append(0)
-        append(m)
-        append("분")
+        if(h != 0L){
+            if (h < 10)
+                append(0)
+            append(h)
+            append("시간")
+        }
+
+        if(m != 0L){
+            if (m < 10)
+                append(0)
+            append(m)
+            append("분")
+        }
+
         if (s < 10)
             append(0)
         append(s)
