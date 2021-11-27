@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTimerScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
+import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerBreakTimeDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -74,6 +75,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
             binding.timerCircularBar.progress = it.time.toFloat()
             binding.timerStarText.text = "+ ${it.star}"
             binding.timerTicketText.text = "+ ${it.ticket}"
+            binding.timerBreakCountText.text = "${it.breakTime}회"
             when (it.timerCycle) {
                 TimerCycle.TimeFlow -> {
                 }
@@ -90,6 +92,11 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                 }
                 TimerCycle.TimerExited -> {
                     finish()
+                }
+                TimerCycle.TimeBreak -> {
+                    TimerBreakTimeDialog().show(
+                        supportFragmentManager, "TimerBreakTimeDialog"
+                    )
                 }
             }
         })

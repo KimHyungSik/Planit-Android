@@ -9,20 +9,24 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.ctu.planitstudy.core.util.longToTimeShortString
+import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
+import java.util.*
 
-class TimerStopDialog : DialogFragment() {
+class TimerBreakTimeDialog : DialogFragment() {
 
-    val TAG = "Representative - 로그"
+    var timer: Timer = Timer()
+    private var breakTime = 500L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
     }
 
-    private lateinit var binding: DialogFragmentTimerStopCheckBinding
+    private lateinit var binding: DialogFragmentTimerBrakeTimeBinding
     private val viewModel: TimerViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,7 +34,7 @@ class TimerStopDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentTimerStopCheckBinding.inflate(inflater, container, false)
+        binding = DialogFragmentTimerBrakeTimeBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
@@ -38,21 +42,19 @@ class TimerStopDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.stopTimer()
-        binding.studyTimerStopCheckCancel.setOnClickListener {
+
+        timer = kotlin.concurrent.timer(period = 1000) {
+            binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
+            breakTime--
+            if(breakTime <= 0){
+                timer.cancel()
+                viewModel.startTimer()
+                this@TimerBreakTimeDialog.dismiss()
+            }
+        }
+
+        binding.timerBreakConfirm.setOnClickListener {
             viewModel.startTimer()
-            viewModel.changeTimerCycle(TimerCycle.TimeFlow)
-            this.dismiss()
-        }
-        binding.studyTimerStopCheckConfirmed.setOnClickListener {
-            viewModel.changeTimerCycle(TimerCycle.TimeStop)
-            this.dismiss()
-        }
-        binding.studyBrackTime.setOnClickListener {
-            viewModel.changeTimerCycle(TimerCycle.TimeBreak)
-            viewModel.updateTimerState(viewModel.timerState.value!!.copy(
-                breakTime = viewModel.timerState.value!!.breakTime + 1
-            ))
             this.dismiss()
         }
     }

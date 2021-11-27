@@ -36,6 +36,10 @@ class TimerViewModel :
         timer.cancel()
     }
 
+    fun updateTimerState(timerState: TimerState){
+        _timerState.value = timerState
+    }
+
     fun changeTimerCycle(timerCycle: TimerCycle) {
         _timerState.value = timerState.value!!.copy(
             timerCycle = timerCycle

@@ -5,7 +5,8 @@ data class TimerState(
     val timeString: String = "00:00:00",
     val timerCycle: TimerCycle = TimerCycle.TimeReady,
     val star: Int = 0,
-    val ticket: Int = 0
+    val ticket: Int = 0,
+    val breakTime: Int = 0
 )
 
 enum class TimerCycle {
@@ -13,6 +14,6 @@ enum class TimerCycle {
     TimeFlow,
     TimePause,
     TimeStop,
-    TimeBrake,
+    TimeBreak,
     TimerExited
 }
