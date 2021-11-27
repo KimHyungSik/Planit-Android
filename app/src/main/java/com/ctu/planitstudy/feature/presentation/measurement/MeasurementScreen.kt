@@ -39,7 +39,7 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
             measurementState.observe(this@MeasurementScreen, {
 
                 with(binding) {
-
+                    invalidateAll()
                     // 체크 유무 확인
                     if (it.isDone) {
                         measurementStudyConfirm.visibility = View.VISIBLE
@@ -53,7 +53,6 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
                     if (it.onExit)
                         moveIntentAllClear(Screens.HomeScreenSh.activity)
 
-                    invalidateAll()
                 }
             })
         }

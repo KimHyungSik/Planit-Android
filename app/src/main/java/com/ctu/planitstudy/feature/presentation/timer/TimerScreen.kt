@@ -72,6 +72,8 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         viewModel.timerState.observe(this, {
             binding.timerTimeText.text = it.timeString
             binding.timerCircularBar.progress = it.time.toFloat()
+            binding.timerStarText.text = "+ ${it.star}"
+            binding.timerTicketText.text = "+ ${it.ticket}"
             when (it.timerCycle) {
                 TimerCycle.TimeFlow -> {
                 }
@@ -84,9 +86,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                     moveIntent(intent)
                 }
                 TimerCycle.TimePause -> {
-                    TimerStopDialog().show(
-                        supportFragmentManager, "TimerStopDialog"
-                    )
+                    showStopDialog()
                 }
                 TimerCycle.TimerExited -> {
                     finish()
@@ -99,11 +99,15 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         binding.timerTitle.text = studyDto.title
     }
 
+    private fun showStopDialog(){
+        TimerStopDialog().show(
+            supportFragmentManager, "TimerStopDialog"
+        )
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            TimerStopDialog().show(
-                supportFragmentManager, "TimerStopDialog"
-            )
+            showStopDialog()
             return false
         }
 

@@ -1,5 +1,7 @@
 package com.ctu.planitstudy.core.util
 
+import androidx.core.content.ContextCompat
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
 import java.util.*
@@ -81,3 +83,5 @@ fun longToTimerKorString(time: Long): String {
     }
     return string
 }
+
+fun setColor(color : Int) = ContextCompat.getColor(CashStudyApp.instance, color)

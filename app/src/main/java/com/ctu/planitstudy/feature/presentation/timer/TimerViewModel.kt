@@ -25,6 +25,8 @@ class TimerViewModel :
                 timerState.value!!.copy(
                     time = _timerState.value!!.time + 1,
                     timeString = (_timerState.value!!.time + 1).longToTimeString(),
+                    star = ((_timerState.value!!.time + 1) / (300 *(timerState.value!!.star + 1))).toInt(),
+                    ticket = ((_timerState.value!!.time + 1) / (3600 *(timerState.value!!.ticket + 1))).toInt(),
                 )
             )
         }

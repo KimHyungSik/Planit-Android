@@ -19,4 +19,5 @@
     <color name="point_color">#DCB92D</color>
     <color name="module_color">#11123d</color>
     <color name="item_guide_stroke">#171853</color>
+    <color name="item_gray">#888888</color>
 </resources>
