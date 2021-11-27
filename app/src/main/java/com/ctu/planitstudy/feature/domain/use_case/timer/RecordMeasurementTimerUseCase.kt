@@ -1,6 +1,8 @@
 package com.ctu.planitstudy.feature.domain.use_case.timer
 
+import android.util.Log
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.feature.data.remote.dto.util.MessageDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,16 +14,19 @@ import javax.inject.Inject
 class RecordMeasurementTimerUseCase @Inject constructor(
     private val timerRepository: TimerRepository
 ) {
-    operator fun invoke(studyId: String, recordMeasurementTimer: RecordMeasurementTimer): Flow<Resource<Boolean>> = flow {
+
+    val TAG = "RecordMeasurementTimer - 로그"
+    
+    operator fun invoke(studyId: String, recordMeasurementTimer: RecordMeasurementTimer): Flow<Resource<MessageDto>> = flow {
         try {
-            emit(Resource.Loading<Boolean>(false))
-            timerRepository.recordMeasurementTime(studyId, recordMeasurementTimer)
-            emit(Resource.Success<Boolean>(true))
+            emit(Resource.Loading<MessageDto>(null))
+            val message =  timerRepository.recordMeasurementTime(studyId, recordMeasurementTimer)
+            emit(Resource.Success<MessageDto>(message))
         } catch (e: Exception) {
-            emit(Resource.Error<Boolean>(message = "Exception" + e.message))
+            emit(Resource.Error<MessageDto>(message = "Exception" + e.message))
             if (e is HttpException) {
                 emit(
-                    Resource.Error<Boolean>(
+                    Resource.Error<MessageDto>(
                         message = JSONObject(
                             e.response()!!.errorBody()!!.string()
                         ).toString()
@@ -29,7 +34,7 @@ class RecordMeasurementTimerUseCase @Inject constructor(
                 )
             }
         } catch (e: Throwable) {
-            emit(Resource.Error<Boolean>(message = "Throwable" + e.message))
+            emit(Resource.Error<MessageDto>(message = "Throwable" + e.message))
         }
     }
 }

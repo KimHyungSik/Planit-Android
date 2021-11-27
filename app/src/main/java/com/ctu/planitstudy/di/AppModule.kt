@@ -26,6 +26,7 @@ object AppModule {
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
             .addInterceptor(LogginInterceptor.loggingInterceptor)
+            .addNetworkInterceptor(LogginInterceptor.interceptor)
             .authenticator(tokenAuthenticator)
             .build()
 }

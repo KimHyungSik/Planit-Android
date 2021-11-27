@@ -71,6 +71,7 @@ class MeasurementViewModel @Inject constructor(
         )
 
         Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
+        Log.d(TAG, "recordMeasurementTimer: ${measurementState.value!!.studyDto!!.studyId}")
 
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
@@ -78,7 +79,7 @@ class MeasurementViewModel @Inject constructor(
         ).onEach {
             when (it) {
                 is Resource.Success -> {
-                    Log.d(TAG, "recordMeasurementTimer: Success")
+                    Log.d(TAG, "recordMeasurementTimer: Success ${it.data}")
                     _measurementState.value = measurementState.value!!.copy(
                         onExit = true
                     )

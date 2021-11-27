@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object LogginInterceptor {
     private var retrofitClient: Retrofit? = null
-    val TAG = "LogginInterceptor - 로그"
+    val TAG = "LogginInterceptor"
 
     val client = OkHttpClient
         .Builder()
@@ -25,10 +25,10 @@ object LogginInterceptor {
 
             when {
                 message.isJsonObject() -> {
-                    Log.d(TAG, JSONObject(message).toString(4))
+                    Log.d(TAG, "loggingInterceptor" + JSONObject(message).toString(4))
                 }
                 message.isJsonArray() -> {
-                    Log.d(TAG, JSONObject(message).toString(4))
+                    Log.d(TAG, "loggingInterceptor" + JSONObject(message).toString(4))
                 }
                 else -> {
                     try {
@@ -50,11 +50,11 @@ object LogginInterceptor {
 
                 val response = chain.proceed(originalRequest)
 
-                Log.d(TAG, "intercept: ${response.request}")
-                Log.d(TAG, "intercept: ${response.message}")
-                Log.d(TAG, "intercept: ${response.code}")
-                Log.d(TAG, "intercept: ${response.protocol}")
-                Log.d(TAG, "intercept: ${response.body}")
+                Log.d(TAG, "intercept: request : ${response.request}")
+                Log.d(TAG, "intercept: message : ${response.message}")
+                Log.d(TAG, "intercept: code : ${response.code}")
+                Log.d(TAG, "intercept: protocol : ${response.protocol}")
+                Log.d(TAG, "intercept: ${JSONObject(response.peekBody(2048).string())}")
 
                 return response
             }
