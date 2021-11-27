@@ -18,12 +18,9 @@ class ModifiedDdayUseCase@Inject constructor(
     val TAG = "Modified - 로그"
     operator fun invoke(dday: Dday, ddayId: Int): Flow<Resource<DdayDto>> = flow {
         try {
-            Log.d(TAG, "invoke: $dday")
             emit(Resource.Loading<DdayDto>(null))
-            val jsonElement = ddayRepository.modifiedDday(dday, ddayId)
-            val dday = JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
-
-            emit(Resource.Success(dday))
+            val dDay = ddayRepository.modifiedDday(dday, ddayId)
+            emit(Resource.Success(dDay))
         } catch (e: Throwable) {
             if (e is HttpException) {
                 emit(

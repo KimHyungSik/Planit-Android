@@ -18,8 +18,7 @@ class GetDdayListUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<DdayListDto>> = flow {
         try {
             emit(Resource.Loading<DdayListDto>(null))
-            val jsonElement = ddayRepository.getDdayList()
-            val ddayList = JsonConverter.jsonToDdayListDto(jsonElement.asJsonObject)
+            val ddayList = ddayRepository.getDdayList()
             val ddaySrot = ddayList.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
             emit(Resource.Success(DdayListDto(ddaySrot)))
         } catch (e: Throwable) {

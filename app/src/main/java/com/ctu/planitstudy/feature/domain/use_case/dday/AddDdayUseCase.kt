@@ -20,9 +20,8 @@ class AddDdayUseCase @Inject constructor(
     operator fun invoke(dday: Dday): Flow<Resource<DdayDto>> = flow {
         try {
             emit(Resource.Loading<DdayDto>(null))
-            val jsonElement = ddayRepository.addDday(dday)
-            val dday = JsonConverter.jsonToDdayDto(jsonElement.asJsonObject)
-            emit(Resource.Success(dday))
+            val dDay = ddayRepository.addDday(dday)
+            emit(Resource.Success(dDay))
         } catch (e: Throwable) {
             Log.d(TAG, "invoke: ${e.message}}")
             emit(

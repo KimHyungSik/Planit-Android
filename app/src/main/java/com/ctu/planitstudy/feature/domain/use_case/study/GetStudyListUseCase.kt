@@ -21,8 +21,6 @@ class GetStudyListUseCase @Inject constructor(
         try {
             emit(Resource.Loading<StudyListDto>(null))
             val studyList = studyRepository.getStudyList(date)
-            Log.d(TAG, "invoke: ${studyRepository.getStudyList(date)}")
-            Log.d(TAG, "invoke: $studyList")
             emit(Resource.Success(studyList))
         }
         catch (e: NullPointerException) {

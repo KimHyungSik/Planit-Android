@@ -28,36 +28,4 @@ object JsonConverter {
         refreshToken = jsonObject["refreshToken"].asString
     )
 
-    fun jsonToDdayListDto(jsonObject: JsonObject): DdayListDto {
-        val ddayList = ArrayList<DdayDto>()
-        for (n in jsonObject["ddays"].asJsonArray) {
-            val json = n.asJsonObject
-            ddayList.add(
-                jsonToDdayDto(json)
-            )
-        }
-        return DdayListDto(ddayList)
-    }
-
-    fun jsonToDdayDto(jsonObject: JsonObject): DdayDto = DdayDto(
-        id = jsonObject["id"].asInt,
-        title = jsonObject["title"].asString,
-        isRepresentative = jsonObject["isRepresentative"].asBoolean,
-        endAt = jsonObject["endAt"].asString,
-        createdAt = jsonObject["createdAt"].asString,
-        icon = jsonObject["icon"].asString,
-        dDay = DateCalculation().calDateBetween(
-            DateCalculation().getCurrentDateString(0),
-            jsonObject["endAt"].asString
-        )
-    )
-
-
-    fun jsonToStudyRepeatedDays(jsonArray: JsonArray): List<String> {
-        val list = mutableListOf<String>()
-        for (n in jsonArray) {
-            list.add(n.asString)
-        }
-        return list
-    }
 }
