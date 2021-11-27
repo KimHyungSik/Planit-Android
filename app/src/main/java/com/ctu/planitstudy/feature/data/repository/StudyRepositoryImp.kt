@@ -5,7 +5,6 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
-import com.google.gson.JsonElement
 import retrofit2.Response
 import javax.inject.Inject
 

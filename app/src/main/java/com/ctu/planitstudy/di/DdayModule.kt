@@ -13,14 +13,12 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DdayModule {
 
     @Provides
-    @Singleton
     fun providerDdayApi(okHttpClient: OkHttpClient): DdayApi =
         Retrofit.Builder()
             .baseUrl(BASE_SERVER_URL)
@@ -31,32 +29,26 @@ object DdayModule {
             .create(DdayApi::class.java)
 
     @Provides
-    @Singleton
     fun providerDdayRepository(ddayApi: DdayApi): DdayRepository =
         DdayRepositoryImp(ddayApi)
 
     @Provides
-    @Singleton
     fun providerGetDdayListUseCase(ddayRepository: DdayRepository): GetDdayListUseCase =
         GetDdayListUseCase(ddayRepository)
 
     @Provides
-    @Singleton
     fun providerAddDdayUseCase(ddayRepository: DdayRepository): AddDdayUseCase =
         AddDdayUseCase(ddayRepository)
 
     @Provides
-    @Singleton
     fun providerModifiedDdayUseCase(ddayRepository: DdayRepository): ModifiedDdayUseCase =
         ModifiedDdayUseCase(ddayRepository)
 
     @Provides
-    @Singleton
     fun providerDeleteDdayUseCase(ddayRepository: DdayRepository): DeleteDdayUseCase =
         DeleteDdayUseCase(ddayRepository)
 
     @Provides
-    @Singleton
     fun providerDdayUseCase(
         addDdayUseCase: AddDdayUseCase,
         deleteDdayUseCase: DeleteDdayUseCase,

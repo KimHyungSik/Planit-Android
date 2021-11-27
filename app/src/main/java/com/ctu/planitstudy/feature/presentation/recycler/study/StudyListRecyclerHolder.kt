@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.util.enums.weekEngList
@@ -13,7 +12,6 @@ import com.ctu.planitstudy.core.util.enums.weekKorList
 import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
-import com.ctu.planitstudy.feature.presentation.CashStudyApp
 
 class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
@@ -37,13 +35,12 @@ class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyLis
         when (studyListModel) {
             is StudyListMode.HomeStudyListMode -> {
                 checkBox.visibility = View.GONE
-                if(studyDto.recordedTime == 0) {
+                if (studyDto.recordedTime == 0) {
                     stateText.text = "측정된 공부시간이 없습니다"
                     stateText.setTextColor(setColor(R.color.item_gray))
-                }
-                else {
+                } else {
                     stateText.text = "측정시간 ${
-                        studyDto.recordedTime.toLong().longToTimeKorString()
+                    studyDto.recordedTime.toLong().longToTimeKorString()
                     } ∙ 휴식횟수 ${studyDto.rest}회"
                     stateText.setTextColor(setColor(R.color.sub_color))
                 }

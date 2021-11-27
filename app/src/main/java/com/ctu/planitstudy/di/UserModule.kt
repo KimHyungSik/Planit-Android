@@ -15,19 +15,16 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
     @Provides
-    @Singleton
     fun provideKakaoOauthImp(): KakaoOauthImp =
         KakaoOauthImp()
 
     @Provides
-    @Singleton
     fun provideUserManager(
         kakaoOauthImp: KakaoOauthImp
     ): UserManager =
@@ -36,7 +33,6 @@ object UserModule {
         )
 
     @Provides
-    @Singleton
     fun provideUserAuthApi(): UserAuthApi =
         Retrofit.Builder()
             .baseUrl(BASE_SERVER_URL)
@@ -46,17 +42,14 @@ object UserModule {
             .create(UserAuthApi::class.java)
 
     @Provides
-    @Singleton
     fun providerUserRepository(authApi: UserAuthApi): UserRepository =
         UserRepositoryImp(authApi)
 
     @Provides
-    @Singleton
     fun providerUserAuthUseCase(userRepository: UserRepository): UserAuthUseCase =
         UserAuthUseCase(userRepository)
 
     @Provides
-    @Singleton
     fun providerUserValidateNickName(userRepository: UserRepository): UserValidateNickNameUseCase =
         UserValidateNickNameUseCase(userRepository)
 }

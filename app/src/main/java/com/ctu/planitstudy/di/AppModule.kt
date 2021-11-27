@@ -1,7 +1,6 @@
 package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.network.AuthInterceptor
-import com.ctu.planitstudy.core.util.network.LogginInterceptor
 import com.ctu.planitstudy.core.util.network.TokenAuthenticator
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.Module
@@ -25,7 +24,7 @@ object AppModule {
     fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
-                //로그 확인용 인터럽트
+            // 로그 확인용 인터럽트
 //            .addInterceptor(LogginInterceptor.loggingInterceptor)
 //            .addNetworkInterceptor(LogginInterceptor.interceptor)
             .authenticator(tokenAuthenticator)

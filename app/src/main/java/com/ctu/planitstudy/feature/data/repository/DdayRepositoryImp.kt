@@ -5,7 +5,6 @@ import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
-import com.google.gson.JsonElement
 import retrofit2.Response
 import javax.inject.Inject
 

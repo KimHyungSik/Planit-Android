@@ -99,7 +99,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         binding.timerTitle.text = studyDto.title
     }
 
-    private fun showStopDialog(){
+    private fun showStopDialog() {
         TimerStopDialog().show(
             supportFragmentManager, "TimerStopDialog"
         )

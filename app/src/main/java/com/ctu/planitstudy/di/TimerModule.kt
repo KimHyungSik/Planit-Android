@@ -16,14 +16,12 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object TimerModule {
 
     @Provides
-    @Singleton
     fun provideTimerApi(okHttpClient: OkHttpClient): TimerApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
@@ -35,22 +33,18 @@ object TimerModule {
             .create(TimerApi::class.java)
 
     @Provides
-    @Singleton
     fun providerTimerRepository(timerApi: TimerApi): TimerRepository =
         TimerRepositoryImp(timerApi)
 
     @Provides
-    @Singleton
     fun providerGetMeasurementTimerUseCase(timerRepository: TimerRepository): GetMeasurementTimerUseCase =
         GetMeasurementTimerUseCase(timerRepository)
 
     @Provides
-    @Singleton
     fun providerRecordMeasurementTimerUseCase(timerRepository: TimerRepository): RecordMeasurementTimerUseCase =
         RecordMeasurementTimerUseCase(timerRepository)
 
     @Provides
-    @Singleton
     fun providerTimerUseCase(
         getMeasurementTimerUseCase: GetMeasurementTimerUseCase,
         recordMeasurementTimerUseCase: RecordMeasurementTimerUseCase

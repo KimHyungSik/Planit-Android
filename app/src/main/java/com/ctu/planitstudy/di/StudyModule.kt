@@ -13,14 +13,12 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object StudyModule {
 
     @Provides
-    @Singleton
     fun providerStudyApi(okHttpClient: OkHttpClient): StudyApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
@@ -31,37 +29,30 @@ object StudyModule {
             .create(StudyApi::class.java)
 
     @Provides
-    @Singleton
     fun providerStudyRepository(studyApi: StudyApi): StudyRepository =
         StudyRepositoryImp(studyApi)
 
     @Provides
-    @Singleton
     fun providerStudyValidatedTitleUseCase(studyRepository: StudyRepository): StudyValidatedTitleUseCase =
         StudyValidatedTitleUseCase(studyRepository)
 
     @Provides
-    @Singleton
     fun providerAddStudyUseCase(studyRepository: StudyRepository): AddStudyUseCase =
         AddStudyUseCase(studyRepository)
 
     @Provides
-    @Singleton
     fun providerGetListStudyUseCase(studyRepository: StudyRepository): GetStudyListUseCase =
         GetStudyListUseCase(studyRepository)
 
     @Provides
-    @Singleton
     fun providerEditStudyUseCase(studyRepository: StudyRepository): EditStudyUseCase =
         EditStudyUseCase(studyRepository)
 
     @Provides
-    @Singleton
     fun providerDeleteStudyUseCase(studyRepository: StudyRepository): DeleteStudyUseCase =
         DeleteStudyUseCase(studyRepository)
 
     @Provides
-    @Singleton
     fun providerStudyUseCase(
         addStudyUseCase: AddStudyUseCase,
         getStudyListUseCase: GetStudyListUseCase,

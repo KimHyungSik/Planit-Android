@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.domain.use_case.dday
 import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
-import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import kotlinx.coroutines.flow.Flow

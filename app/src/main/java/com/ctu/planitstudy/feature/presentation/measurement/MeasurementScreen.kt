@@ -52,7 +52,6 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
                     // 저장 확인
                     if (it.onExit)
                         moveIntentAllClear(Screens.HomeScreenSh.activity)
-
                 }
             })
         }

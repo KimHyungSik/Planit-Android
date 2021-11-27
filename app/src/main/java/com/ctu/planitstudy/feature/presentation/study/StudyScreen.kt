@@ -192,10 +192,9 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             if (it.addStudy || it.exitStudy)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
 
-            if(it.deleteDialog){
+            if (it.deleteDialog) {
                 showDialogFragment(arg, DeleteCheckStudy())
             }
-
         })
 
         disposables.addAll(

@@ -62,14 +62,14 @@ fun longToTimerKorString(time: Long): String {
     currentTime %= 60
     val s = currentTime
     val string = buildString {
-        if(h != 0L){
+        if (h != 0L) {
             if (h < 10)
                 append(0)
             append(h)
             append("시간")
         }
 
-        if(m != 0L){
+        if (m != 0L) {
             if (m < 10)
                 append(0)
             append(m)
@@ -84,4 +84,4 @@ fun longToTimerKorString(time: Long): String {
     return string
 }
 
-fun setColor(color : Int) = ContextCompat.getColor(CashStudyApp.instance, color)
+fun setColor(color: Int) = ContextCompat.getColor(CashStudyApp.instance, color)

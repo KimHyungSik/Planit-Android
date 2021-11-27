@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.domain.repository
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
-import com.google.gson.JsonElement
 import retrofit2.Response
 
 interface StudyRepository {
