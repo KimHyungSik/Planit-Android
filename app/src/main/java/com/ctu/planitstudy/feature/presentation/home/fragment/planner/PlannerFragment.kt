@@ -42,7 +42,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
                 object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        Log.d(TAG, "onPageSelected: $position")
                         if (position == 0)
                             plannerRadioButton.check(R.id.planner_radio_planner_button)
                         else

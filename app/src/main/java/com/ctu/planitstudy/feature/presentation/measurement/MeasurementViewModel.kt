@@ -26,10 +26,13 @@ class MeasurementViewModel @Inject constructor(
     val measurementState: LiveData<MeasurementState> = _measurementState
 
     fun getExistingMeasurementTime() {
+
+        Log.d(TAG, "getExistingMeasurementTime: ${measurementState.value!!.studyDto!!.studyId}")
         timerUseCase.getMeasurementTimerUseCase(measurementState.value!!.studyDto!!.studyId.toString())
             .onEach {
                 when (it) {
                     is Resource.Success -> {
+                        Log.d(TAG, "getExistingMeasurementTime: ${it.data}")
                         setViewDataWithTimerData(it.data!!)
                     }
                     is Resource.Loading -> {
@@ -46,6 +49,8 @@ class MeasurementViewModel @Inject constructor(
     }
 
     private fun setViewDataWithTimerData(timerMeasurementDto: TimerMeasurementDto) {
+        Log.d(TAG, "setViewDataWithTimerData: $timerMeasurementDto")
+        Log.d(TAG, "setViewDataWithTimerData: ${measurementState.value!!}")
         with(timerMeasurementDto) {
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(

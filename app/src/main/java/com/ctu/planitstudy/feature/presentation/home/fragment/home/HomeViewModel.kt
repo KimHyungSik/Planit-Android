@@ -57,7 +57,6 @@ class HomeViewModel @Inject constructor(
                     _homeState.value = homeState.value!!.copy(
                         studyListDto = it.data!!
                     )
-                    Log.d(TAG, "changeStudyDate: ${it.data}")
                 }
                 is Resource.Loading -> {
                 }
