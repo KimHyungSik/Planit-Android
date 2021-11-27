@@ -16,6 +16,7 @@ import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
+import com.ctu.planitstudy.feature.presentation.study.dialog.DeleteCheckStudy
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -188,8 +189,13 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if (it.addStudy || it.deleteStudy)
+            if (it.addStudy || it.exitStudy)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
+
+            if(it.deleteDialog){
+                showDialogFragment(arg, DeleteCheckStudy())
+            }
+
         })
 
         disposables.addAll(

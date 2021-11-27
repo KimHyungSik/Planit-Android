@@ -25,8 +25,9 @@ object AppModule {
     fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
-            .addInterceptor(LogginInterceptor.loggingInterceptor)
-            .addNetworkInterceptor(LogginInterceptor.interceptor)
+                //로그 확인용 인터럽트
+//            .addInterceptor(LogginInterceptor.loggingInterceptor)
+//            .addNetworkInterceptor(LogginInterceptor.interceptor)
             .authenticator(tokenAuthenticator)
             .build()
 }

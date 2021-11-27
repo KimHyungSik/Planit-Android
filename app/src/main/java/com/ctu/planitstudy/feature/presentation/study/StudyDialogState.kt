@@ -5,5 +5,6 @@ data class StudyDialogState(
     val deleteDialog: Boolean = false,
     val emptyTitleDialog: Boolean = false,
     val validatedTitle: Boolean = false,
-    val deleteStudy: Boolean = false
+    val deleteStudy: Boolean = false,
+    val exitStudy: Boolean = false
 )

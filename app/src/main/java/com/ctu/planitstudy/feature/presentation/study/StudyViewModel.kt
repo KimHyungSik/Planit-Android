@@ -211,11 +211,15 @@ class StudyViewModel @Inject constructor(
         }
     }
 
+    fun studyDeleteDialog() {
+        _studyDialogState.value = StudyDialogState(deleteDialog = true)
+    }
+
     fun studyDelete() {
         studyUseCase.deleteStudyUseCase(studyState.value!!.studyGroupId!!).onEach {
             when (it) {
                 is Resource.Success -> {
-                    _studyDialogState.value = StudyDialogState(deleteStudy = true)
+                    _studyDialogState.value = StudyDialogState(exitStudy = true)
                 }
                 is Resource.Loading -> {
                 }
