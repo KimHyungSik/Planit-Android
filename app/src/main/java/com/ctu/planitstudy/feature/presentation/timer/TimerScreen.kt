@@ -79,6 +79,8 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                     val intent = Intent(this, Screens.MeasurementScreenSh.activity)
                     intent.putExtra("studyDto", study)
                     intent.putExtra("time", viewModel.timerState.value!!.time)
+                    intent.putExtra("totalStar", viewModel.timerState.value!!.star)
+                    intent.putExtra("totalTicket", viewModel.timerState.value!!.ticket)
                     moveIntent(intent)
                 }
                 TimerCycle.TimePause -> {

@@ -24,7 +24,7 @@ class TimerViewModel :
             _timerState.postValue(
                 timerState.value!!.copy(
                     time = _timerState.value!!.time + 1,
-                    timeString = (_timerState.value!!.time + 1).longToTimeString()
+                    timeString = (_timerState.value!!.time + 1).longToTimeString(),
                 )
             )
         }

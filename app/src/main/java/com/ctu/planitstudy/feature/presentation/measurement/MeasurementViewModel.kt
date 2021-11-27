@@ -61,12 +61,12 @@ class MeasurementViewModel @Inject constructor(
         }
     }
 
-    fun recordMeasurementTimer(isDone : Boolean){
+    fun recordMeasurementTimer(isDone: Boolean) {
         val recordMeasurementTimer = RecordMeasurementTimer(
             isDone = isDone,
             star = measurementState.value!!.totalStar,
             bonusTicket = measurementState.value!!.totalTicket,
-            rest =  measurementState.value!!.totalBrakeTime,
+            rest = measurementState.value!!.totalBrakeTime,
             recordedTime = measurementState.value!!.totalTime
         )
 
@@ -76,7 +76,7 @@ class MeasurementViewModel @Inject constructor(
             measurementState.value!!.studyDto!!.studyId.toString(),
             recordMeasurementTimer
         ).onEach {
-            when(it){
+            when (it) {
                 is Resource.Success -> {
                     Log.d(TAG, "recordMeasurementTimer: Success")
                     _measurementState.value = measurementState.value!!.copy(

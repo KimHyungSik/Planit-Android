@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
-import android.app.ProgressDialog.show
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -51,13 +50,12 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
                     }
 
                     // 저장 확인
-                    if(it.onExit)
+                    if (it.onExit)
                         moveIntentAllClear(Screens.HomeScreenSh.activity)
 
                     invalidateAll()
                 }
             })
         }
-
     }
 }
