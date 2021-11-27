@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,8 +55,9 @@ class HomeViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _homeState.value = homeState.value!!.copy(
-                        studyListDto = it.data ?: StudyListDto(emptyList())
+                        studyListDto = it.data!!
                     )
+                    Log.d(TAG, "changeStudyDate: ${it.data}")
                 }
                 is Resource.Loading -> {
                 }

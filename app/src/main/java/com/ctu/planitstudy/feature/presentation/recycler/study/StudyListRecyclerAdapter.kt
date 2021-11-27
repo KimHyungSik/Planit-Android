@@ -8,7 +8,7 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 
 class StudyListRecyclerAdapter(val inTodoListRecycler: InStudyListRecycler) : RecyclerView.Adapter<StudyListRecyclerHolder>() {
 
-    var studyList = StudyListDto(emptyList())
+    var studyList = StudyListDto("", emptyList())
     var studyListMode: StudyListMode = StudyListMode.HomeStudyListMode
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudyListRecyclerHolder =

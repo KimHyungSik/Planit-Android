@@ -31,7 +31,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun setup() {
 
-        study = intent.getParcelableExtra<StudyDto>("studyDto")
+        study = intent.getParcelableExtra("studyDto")
         setViewWithStudy(study!!)
         // 화면 자동 꺼짐 방지
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

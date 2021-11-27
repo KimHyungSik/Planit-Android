@@ -5,5 +5,5 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 
 data class HomeState(
     val dDayList: DdayListDto? = null,
-    val studyListDto: StudyListDto = StudyListDto(emptyList())
+    val studyListDto: StudyListDto = StudyListDto("", emptyList())
 )

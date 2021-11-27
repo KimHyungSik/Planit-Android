@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.32'
 }
 
 android {
@@ -134,4 +135,5 @@ dependencies {
     implementation  'com.github.kizitonwose:CalendarView:1.0.4'
 
     implementation 'me.tankery.lib:circularSeekBar:1.2.0'
+
 }
