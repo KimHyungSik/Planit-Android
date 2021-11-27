@@ -55,7 +55,6 @@ object StudyModule {
     fun providerEditStudyUseCase(studyRepository: StudyRepository): EditStudyUseCase =
         EditStudyUseCase(studyRepository)
 
-
     @Provides
     @Singleton
     fun providerDeleteStudyUseCase(studyRepository: StudyRepository): DeleteStudyUseCase =
@@ -75,5 +74,5 @@ object StudyModule {
         studyValidatedTitleUseCase = validatedTitleUseCase,
         editStudyUseCase = editStudyUseCase,
         deleteStudyUseCase = deleteStudyUseCase
-        )
+    )
 }

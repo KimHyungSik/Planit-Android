@@ -14,5 +14,6 @@ data class StudyState(
     var title: String = "",
     // null이 아니라면 기존 데이터를 주입 받은 경우
     val studyGroupId: String? = null,
+    val studyScheduleId: String? = null,
     val originalTitle: String? = null
 )

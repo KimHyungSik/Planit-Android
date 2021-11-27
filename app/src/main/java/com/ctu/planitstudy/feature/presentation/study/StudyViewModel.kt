@@ -11,9 +11,7 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
-import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
-import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StudyViewModel @Inject constructor(
-   val studyUseCase: StudyUseCase
+    val studyUseCase: StudyUseCase
 ) : ViewModel() {
 
     val TAG = "StudyViewModel - 로그"
@@ -139,8 +137,8 @@ class StudyViewModel @Inject constructor(
 
         viewModelScope.launch {
             // 기존 데이터의 타이틀과 현제 타이틀이 다르다면
-            if(studyState.value!!.originalTitle != null)
-                if(studyState.value!!.originalTitle != studyState.value!!.title)
+            if (studyState.value!!.originalTitle != null)
+                if (studyState.value!!.originalTitle != studyState.value!!.title)
                     try {
                         studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
                     } catch (e: HttpException) {
@@ -148,7 +146,7 @@ class StudyViewModel @Inject constructor(
                         return@launch
                     }
             // 기존 타이틀이 없는 경우
-            if(studyState.value!!.originalTitle == null)
+            if (studyState.value!!.originalTitle == null)
                 try {
                     studyUseCase.studyValidatedTitleUseCase(studyState.value!!.title)
                 } catch (e: HttpException) {
@@ -156,12 +154,21 @@ class StudyViewModel @Inject constructor(
                     return@launch
                 }
             // 데이터 수정
-            if(studyState.value!!.studyGroupId != null){
+            if (studyState.value!!.studyGroupId != null) {
                 try {
+                    Log.d(TAG, "studyConfirmed: ${studyState.value!!.studyScheduleId!!}")
                     if (studyState.value!!.repeat)
-                        studyUseCase.editStudyUseCase(studyState.value!!.studyGroupId!!, getRepeatedStudy())
+                        studyUseCase.editStudyUseCase(
+                            studyState.value!!.studyGroupId!!,
+                            studyState.value!!.studyScheduleId!!,
+                            getRepeatedStudy()
+                        )
                     else {
-                        studyUseCase.editStudyUseCase(studyState.value!!.studyGroupId!!, getStudy())
+                        studyUseCase.editStudyUseCase(
+                            studyState.value!!.studyGroupId!!,
+                            studyState.value!!.studyScheduleId!!,
+                            getStudy()
+                        )
                     }.onEach {
                         when (it) {
                             is Resource.Success -> {
@@ -179,7 +186,7 @@ class StudyViewModel @Inject constructor(
                 }
             }
             // 데이터 추가
-            else{
+            else {
                 try {
                     if (studyState.value!!.repeat)
                         studyUseCase.addStudyUseCase(getRepeatedStudy())
@@ -201,11 +208,10 @@ class StudyViewModel @Inject constructor(
                 } catch (e: HttpException) {
                 }
             }
-
         }
     }
 
-    fun studyDelete(){
+    fun studyDelete() {
         studyUseCase.deleteStudyUseCase(studyState.value!!.studyGroupId!!).onEach {
             when (it) {
                 is Resource.Success -> {

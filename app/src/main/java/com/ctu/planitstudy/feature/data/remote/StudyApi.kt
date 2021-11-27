@@ -15,10 +15,10 @@ interface StudyApi {
     suspend fun validateTitle(@Query("title") title: String)
     @GET("/v1/study/list/{date}")
     suspend fun getStudyList(@Path("date") date: String): JsonElement
-    @PUT("/v1/study/{studyGroupId}")
-    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Body study: Study)
-    @PUT("/v1/study/{studyGroupId}")
-    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Body repeatedStudy: RepeatedStudy)
+    @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
+    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body study: Study)
+    @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
+    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body repeatedStudy: RepeatedStudy)
     @DELETE("/v1/study/{studyGroupId}")
     suspend fun deleteStudy(@Path("studyGroupId") studyGroupId: String): Response<Unit>
 }

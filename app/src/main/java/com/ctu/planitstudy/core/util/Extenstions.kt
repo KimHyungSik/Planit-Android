@@ -25,3 +25,53 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
     }
     return daysOfWeek
 }
+
+fun Long.longToTimeString(): String = longToTimerString(this)
+fun Long.longToTimeKorString(): String = longToTimerKorString(this)
+
+fun longToTimerString(time: Long): String {
+    var currentTime = time
+    val h = time / 3600
+    currentTime = time % 3600
+    val m = currentTime / 60
+    currentTime %= 60
+    val s = currentTime
+    val string = buildString {
+        if (h < 10)
+            append(0)
+        append(h)
+        append(":")
+        if (m < 10)
+            append(0)
+        append(m)
+        append(":")
+        if (s < 10)
+            append(0)
+        append(s)
+    }
+    return string
+}
+
+fun longToTimerKorString(time: Long): String {
+    var currentTime = time
+    val h = time / 3600
+    currentTime = time % 3600
+    val m = currentTime / 60
+    currentTime %= 60
+    val s = currentTime
+    val string = buildString {
+        if (h < 10)
+            append(0)
+        append(h)
+        append("시간")
+        if (m < 10)
+            append(0)
+        append(m)
+        append("분")
+        if (s < 10)
+            append(0)
+        append(s)
+        append("초")
+    }
+    return string
+}
