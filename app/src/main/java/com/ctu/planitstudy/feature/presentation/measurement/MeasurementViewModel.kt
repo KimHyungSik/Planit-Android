@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
+import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.use_case.timer.TimerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -48,13 +49,45 @@ class MeasurementViewModel @Inject constructor(
         with(timerMeasurementDto) {
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(
-                    totalMeasurementTime = if (recordedTime == null) measurementTime.longToTimeKorString() else (recordedTime.toLong() + measurementTime).longToTimeKorString(),
-                    extraTime = if (recordedTime != null) measurementTime.longToTimeKorString() else null,
+                    totalMeasurementTime = (recordedTime.toLong() + measurementTime).longToTimeKorString(),
+                    extraTime = recordedTime.toLong().longToTimeKorString(),
+                    totalTime = measurementTime.toInt() + recordedTime,
                     totalBrakeTime = totalBrakeTime + rest,
                     totalStar = totalStar + star,
-                    totalTicket = totalTicket + bonusTicket
+                    totalTicket = totalTicket + bonusTicket,
+                    isDone = isDone
                 )
             }
         }
+    }
+
+    fun recordMeasurementTimer(isDone : Boolean){
+        val recordMeasurementTimer = RecordMeasurementTimer(
+            isDone = isDone,
+            star = measurementState.value!!.totalStar,
+            bonusTicket = measurementState.value!!.totalTicket,
+            rest =  measurementState.value!!.totalBrakeTime,
+            recordedTime = measurementState.value!!.totalTime
+        )
+
+        Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
+
+        timerUseCase.recordMeasurementTimerUseCase(
+            measurementState.value!!.studyDto!!.studyId.toString(),
+            recordMeasurementTimer
+        ).onEach {
+            when(it){
+                is Resource.Success -> {
+                    Log.d(TAG, "recordMeasurementTimer: Success")
+                    _measurementState.value = measurementState.value!!.copy(
+                        onExit = true
+                    )
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "recordMeasurementTimer: Error")
+                }
+                is Resource.Loading -> {}
+            }
+        }.launchIn(viewModelScope)
     }
 }

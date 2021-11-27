@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:src="@drawable/ic_roundcheck"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        />
+
+    <TextView
+        android:text="해당 공부를 플래너에\n완료 상태로 표시해놓을까요?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="normal"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:layout_marginStart="14dp"
+        android:lineSpacingExtra="6sp"
+        android:textAlignment="textStart"
+        />
+
+</LinearLayout>
