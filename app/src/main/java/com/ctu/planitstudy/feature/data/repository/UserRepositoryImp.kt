@@ -1,9 +1,9 @@
 package com.ctu.planitstudy.feature.data.repository
 
 import com.ctu.planitstudy.feature.data.remote.UserAuthApi
-import com.ctu.planitstudy.feature.domain.model.LoginUser
-import com.ctu.planitstudy.feature.domain.model.SignUpUser
-import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
+import com.ctu.planitstudy.feature.domain.model.user.LoginUser
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import com.google.gson.JsonElement
 import io.reactivex.Flowable

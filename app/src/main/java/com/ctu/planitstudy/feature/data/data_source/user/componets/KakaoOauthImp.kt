@@ -3,7 +3,7 @@ package com.ctu.planitstudy.feature.data.data_source.user.componets
 import android.content.Context
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.OauthUserPolicy
-import com.ctu.planitstudy.feature.domain.model.User
+import com.ctu.planitstudy.feature.domain.model.user.User
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.rx

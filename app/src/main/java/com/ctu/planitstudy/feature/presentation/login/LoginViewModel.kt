@@ -8,7 +8,7 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
-import com.ctu.planitstudy.feature.domain.model.LoginUser
+import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,8 +1,11 @@
 package com.ctu.planitstudy.feature.data.remote.dto.user
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class UserInformation(
+@Parcelize
+data class UserInformationDto(
     @SerializedName("birth")
     val birth: String,
     @SerializedName("birth")
@@ -17,4 +20,4 @@ data class UserInformation(
     val nickname: String,
     @SerializedName("birth")
     val sex: String
-)
+): Parcelable

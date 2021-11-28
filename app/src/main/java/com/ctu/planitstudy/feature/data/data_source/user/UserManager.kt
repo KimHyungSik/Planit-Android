@@ -3,7 +3,7 @@ package com.ctu.planitstudy.feature.data.data_source.user
 import android.content.Context
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
-import com.ctu.planitstudy.feature.domain.model.User
+import com.ctu.planitstudy.feature.domain.model.user.User
 import io.reactivex.Completable
 import io.reactivex.Single
 

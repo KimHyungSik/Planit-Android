@@ -1,6 +1,6 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
-import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUserResponse
 import com.google.gson.annotations.SerializedName
 
 data class SignUpUserDto(
