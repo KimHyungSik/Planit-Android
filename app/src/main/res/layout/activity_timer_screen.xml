@@ -8,6 +8,9 @@
         <variable
             name="viewmodel"
             type="com.ctu.planitstudy.feature.presentation.timer.TimerViewModel" />
+        <variable
+            name="activity"
+            type="com.ctu.planitstudy.feature.presentation.timer.TimerScreen" />
         <import type="com.ctu.planitstudy.feature.presentation.timer.TimerCycle"/>
     </data>
 
@@ -43,7 +46,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:lineSpacingExtra="12sp"
-                android:text="타이머"
+                android:text="@{activity.study.title}"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -74,7 +77,8 @@
                     app:cs_disable_progress_glow="true"
                     app:cs_pointer_color="@color/sub_color"
                     app:cs_pointer_stroke_width="32dp"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="9sp"
-                        android:text="00:00:00"
+                        android:text="@{viewmodel.timerState.timeString}"
                         android:textColor="@color/text_color"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -136,10 +140,11 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/timer_break_count_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="0회"
+                    android:text="@{viewmodel.timerState.star + `회`}"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -186,7 +191,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="24dp"
-                        android:text="+ 0"
+                        android:text="@{`+` + viewmodel.timerState.star}"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -222,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="24dp"
-                        android:text="+ 0"
+                        android:text="@{`+` + viewmodel.timerState.ticket}"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -244,7 +249,9 @@
             android:layout_marginBottom="40dp"
             android:clickable="true"
             app:cardBackgroundColor="@color/sub_color2"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="40dp"
+            android:onClick="@{()->viewmodel.changeTimerCycle(TimerCycle.TimePause)}"
+            >
 
             <TextView
                 android:id="@+id/d_day_confirmed_btn_text"

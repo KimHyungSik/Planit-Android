@@ -3,26 +3,36 @@ package com.ctu.planitstudy.feature.presentation.timer.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.ctu.planitstudy.core.util.longToTimeShortString
+import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
 
-class TimerStopDialog : DialogFragment() {
+class TimerBreakTimeDialog : DialogFragment() {
 
-    val TAG = "Representative - 로그"
+    val TAG = "TimerBreak - 로그"
+
+    var timer: Timer = Timer()
+    private var breakTime = 300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
     }
 
-    private lateinit var binding: DialogFragmentTimerStopCheckBinding
+    private lateinit var binding: DialogFragmentTimerBrakeTimeBinding
     private val viewModel: TimerViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,7 +40,7 @@ class TimerStopDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentTimerStopCheckBinding.inflate(inflater, container, false)
+        binding = DialogFragmentTimerBrakeTimeBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
@@ -38,21 +48,27 @@ class TimerStopDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.stopTimer()
-        binding.studyTimerStopCheckCancel.setOnClickListener {
+
+        timer = kotlin.concurrent.timer(period = 1000) {
+            CoroutineScope(Dispatchers.Main).launch() {
+                binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
+                breakTime--
+                if(breakTime <= 0){
+                    timer.cancel()
+                    viewModel.changeTimerCycle(TimerCycle.TimeFlow)
+                    this@TimerBreakTimeDialog.dismiss()
+                }
+            }
+        }
+        binding.timerBreakConfirm.setOnClickListener {
             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
+            timer.cancel()
             this.dismiss()
         }
-        binding.studyTimerStopCheckConfirmed.setOnClickListener {
-            viewModel.changeTimerCycle(TimerCycle.TimeStop)
-            this.dismiss()
-        }
-        binding.studyBrackTime.setOnClickListener {
-            viewModel.updateTimerState(viewModel.timerState.value!!.copy(
-                breakTime = viewModel.timerState.value!!.breakTime + 1
-            ))
-            viewModel.changeTimerCycle(TimerCycle.TimeBreak)
-            this.dismiss()
-        }
+    }
+
+    override fun onDestroy() {
+
+        super.onDestroy()
     }
 }
