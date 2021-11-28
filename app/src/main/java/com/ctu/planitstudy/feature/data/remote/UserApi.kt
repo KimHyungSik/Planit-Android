@@ -6,12 +6,17 @@ import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
+import retrofit2.http.Query
 
 interface UserApi {
+
+    @GET("/v1/user/validate-nickname")
+    suspend fun userValidateNickName(@Query("nickname") nickname: String)
 
     @GET("/v1/user")
     fun getUser() : UserInformationDto
 
     @PUT("/v1/user")
     fun editUser(@Body editUser: EditUser) : MessageDto
+
 }
