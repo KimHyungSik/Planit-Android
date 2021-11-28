@@ -39,7 +39,6 @@ class TimerStartDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.timerStartCom.setOnClickListener {
-            viewModel.startTimer()
             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
             this.dismiss()
         }

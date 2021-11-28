@@ -40,7 +40,6 @@ class TimerStopDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.stopTimer()
         binding.studyTimerStopCheckCancel.setOnClickListener {
-            viewModel.startTimer()
             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
             this.dismiss()
         }
@@ -49,10 +48,10 @@ class TimerStopDialog : DialogFragment() {
             this.dismiss()
         }
         binding.studyBrackTime.setOnClickListener {
-            viewModel.changeTimerCycle(TimerCycle.TimeBreak)
             viewModel.updateTimerState(viewModel.timerState.value!!.copy(
                 breakTime = viewModel.timerState.value!!.breakTime + 1
             ))
+            viewModel.changeTimerCycle(TimerCycle.TimeBreak)
             this.dismiss()
         }
     }

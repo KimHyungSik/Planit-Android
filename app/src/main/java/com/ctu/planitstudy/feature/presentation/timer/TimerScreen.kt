@@ -76,8 +76,12 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
             binding.timerStarText.text = "+ ${it.star}"
             binding.timerTicketText.text = "+ ${it.ticket}"
             binding.timerBreakCountText.text = "${it.breakTime}회"
-            when (it.timerCycle) {
+
+        })
+        viewModel.timerCycle.observe(this, {
+            when (it) {
                 TimerCycle.TimeFlow -> {
+                    viewModel.startTimer()
                 }
                 TimerCycle.TimeStop -> {
                     val intent = Intent(this, Screens.MeasurementScreenSh.activity)

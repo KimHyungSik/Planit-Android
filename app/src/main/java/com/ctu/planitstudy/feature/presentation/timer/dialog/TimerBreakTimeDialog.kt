@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.presentation.timer.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,17 @@ import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class TimerBreakTimeDialog : DialogFragment() {
 
+    val TAG = "TimerBreak - 로그"
+
     var timer: Timer = Timer()
-    private var breakTime = 500L
+    private var breakTime = 300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +50,25 @@ class TimerBreakTimeDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         timer = kotlin.concurrent.timer(period = 1000) {
-            binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
-            breakTime--
-            if(breakTime <= 0){
-                timer.cancel()
-                viewModel.startTimer()
-                this@TimerBreakTimeDialog.dismiss()
+            CoroutineScope(Dispatchers.Main).launch() {
+                binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
+                breakTime--
+                if(breakTime <= 0){
+                    timer.cancel()
+                    viewModel.changeTimerCycle(TimerCycle.TimeFlow)
+                    this@TimerBreakTimeDialog.dismiss()
+                }
             }
         }
-
         binding.timerBreakConfirm.setOnClickListener {
-            viewModel.startTimer()
+            viewModel.changeTimerCycle(TimerCycle.TimeFlow)
+            timer.cancel()
             this.dismiss()
         }
+    }
+
+    override fun onDestroy() {
+
+        super.onDestroy()
     }
 }
