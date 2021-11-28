@@ -15,7 +15,7 @@ class TimerViewModel :
     val timerState: LiveData<TimerState> = _timerState
 
     private val _timerCycle = MutableLiveData<TimerCycle>()
-    val timerCycle : LiveData<TimerCycle> = _timerCycle
+    val timerCycle: LiveData<TimerCycle> = _timerCycle
 
     var timer = Timer()
 
@@ -36,7 +36,7 @@ class TimerViewModel :
         timer.cancel()
     }
 
-    fun updateTimerState(timerState: TimerState){
+    fun updateTimerState(timerState: TimerState) {
         _timerState.value = timerState
     }
 

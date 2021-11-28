@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.timer.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
-import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -53,7 +51,7 @@ class TimerBreakTimeDialog : DialogFragment() {
             CoroutineScope(Dispatchers.Main).launch() {
                 binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
                 breakTime--
-                if(breakTime <= 0){
+                if (breakTime <= 0) {
                     timer.cancel()
                     viewModel.changeTimerCycle(TimerCycle.TimeFlow)
                     this@TimerBreakTimeDialog.dismiss()
