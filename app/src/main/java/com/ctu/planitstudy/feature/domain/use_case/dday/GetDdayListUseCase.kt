@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.domain.use_case.dday
 
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter.dtoDateTOLong
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
@@ -18,6 +19,14 @@ class GetDdayListUseCase @Inject constructor(
         try {
             emit(Resource.Loading<DdayListDto>(null))
             val ddayList = ddayRepository.getDdayList()
+
+            for(dday in ddayList.ddays){
+                dday.dDay = DateCalculation().calDateBetween(
+                    DateCalculation().getCurrentDateString(0),
+                    dday.endAt
+                )
+            }
+
             val ddaySrot = ddayList.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
             emit(Resource.Success(DdayListDto(ddaySrot)))
         } catch (e: Throwable) {

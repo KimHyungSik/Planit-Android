@@ -12,5 +12,5 @@ data class DdayDto(
     @SerializedName("endAt") val endAt: String,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("icon") val icon: String,
-    val dDay: Int
+    var dDay: Int
 ) : Parcelable
