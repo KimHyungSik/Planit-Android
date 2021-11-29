@@ -21,7 +21,8 @@ class EditUserViewModel @Inject constructor(
 
     val TAG = "EditUserViewModel - 로그"
 
-    private val _editUserState = MutableLiveData<EditUserState>(EditUserState(EditUser("","",""), false))
+    private val _editUserState =
+        MutableLiveData<EditUserState>(EditUserState(EditUser("", "", ""), false))
     val editUserState: LiveData<EditUserState> = _editUserState
 
     fun updateEditUser(editUser: EditUser) {
@@ -34,7 +35,10 @@ class EditUserViewModel @Inject constructor(
 
     fun checkNickNameValidate(nickname: String, existingNickName: String) {
         updateUserNickName(nickname)
-        userUseCase.validateNickNameUseCase(editUserState.value!!.editUser.nickname, existingNickName).onEach {
+        userUseCase.validateNickNameUseCase(
+            editUserState.value!!.editUser.nickname,
+            existingNickName
+        ).onEach {
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(nickNameValidate = it.data!!)
@@ -56,5 +60,20 @@ class EditUserViewModel @Inject constructor(
     fun updateUserNickName(nickname: String) {
         _editUserState.value =
             editUserState.value!!.copy(editUser = editUserState.value!!.editUser.copy(nickname = nickname))
+    }
+
+    fun editUser() {
+        userUseCase.editUserUseCase(editUserState.value!!.editUser).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    _editUserState.value = editUserState.value!!.copy(edit = true)
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "editUser: ${it.message}")
+                }
+                is Resource.Loading -> {
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

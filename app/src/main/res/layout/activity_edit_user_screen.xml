@@ -10,6 +10,9 @@
             name="activity"
             type="com.ctu.planitstudy.feature.presentation.edituser.EditUserScreen" />
 
+        <variable
+            name="viewmodel"
+            type="com.ctu.planitstudy.feature.presentation.edituser.EditUserViewModel" />
 
     </data>
 
@@ -274,7 +277,10 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="40dp"
                 app:cardBackgroundColor="@color/enabled_confirm_btn"
-                app:cardCornerRadius="40dp">
+                app:cardCornerRadius="40dp"
+                android:clickable="false"
+                android:onClick="@{()->viewmodel.editUser()}"
+                >
 
                 <TextView
                     android:id="@+id/edit_user_confirm_text"

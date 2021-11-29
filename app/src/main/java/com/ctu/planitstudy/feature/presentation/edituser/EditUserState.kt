@@ -4,5 +4,6 @@ import com.ctu.planitstudy.feature.domain.model.user.EditUser
 
 data class EditUserState(
     val editUser: EditUser,
-    val nickNameValidate: Boolean
+    val nickNameValidate: Boolean,
+    val edit: Boolean = false
 )

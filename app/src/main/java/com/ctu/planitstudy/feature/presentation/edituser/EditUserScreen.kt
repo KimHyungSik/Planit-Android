@@ -15,6 +15,7 @@ import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.ActivityEditUserScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.domain.model.user.EditUser
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
     override fun setup() {
         user = intent.getParcelableExtra<UserInformationDto>("user")
         binding.activity = this
+        binding.viewmodel = viewModel
 
         editUser = EditUser(
             category = user!!.category,
@@ -58,15 +60,22 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
             )
             editUserState.observe(this@EditUserScreen, {
 
-                if (this@EditUserScreen.editUser == it.editUser) {
+                if(it.edit)
+                    moveIntentAllClear(Screens.HomeScreenSh.activity)
+
+                if (this@EditUserScreen.editUser == it.editUser || it.editUser.category.isBlank()) {
                     with(binding) {
                         editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.enabled_confirm_btn))
                         editUserConfirmText.setTextColor(setColor(R.color.navy_blue_item_box))
+                        editUserConfirmBtn.isCheckable = false
                     }
                 } else {
                     if (this@EditUserScreen.editUser.nickname != it.editUser.nickname && !it.nickNameValidate){
-                        binding.editUserNicknameErrorText.text = "이미 사용중인 닉네임입니다."
-                        binding.editUserNicknameErrorIcon.visibility = View.VISIBLE
+                        with(binding) {
+                            editUserNicknameErrorText.text = "이미 사용중인 닉네임입니다."
+                            editUserNicknameErrorIcon.visibility = View.VISIBLE
+                            editUserConfirmBtn.isCheckable = false
+                        }
                     }
 
                     else
@@ -74,6 +83,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
                             editUserNicknameErrorIcon.visibility = View.INVISIBLE
                             editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.white))
                             editUserConfirmText.setTextColor(setColor(R.color.item_black))
+                            editUserConfirmBtn.isCheckable = true
                         }
                 }
             })
@@ -96,6 +106,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
                             if (!it.toString().isValidText()) {
                                 text = "닉네임 형식이 올바르지 않습니다."
                                 binding.editUserNicknameErrorIcon.visibility = View.VISIBLE
+                                binding.editUserConfirmBtn.isCheckable = false
                             } else {
                                 viewModel.checkNickNameValidate(
                                     it.toString(),
