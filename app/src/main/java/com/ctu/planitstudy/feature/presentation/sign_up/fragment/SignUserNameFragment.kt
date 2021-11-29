@@ -21,13 +21,9 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     private val disposables = CompositeDisposable()
 
-    override fun setUpViews() {
-        super.setUpViews()
-    }
-
     override fun setInit() {
         super.setInit()
-        disposables.add(
+        disposables.addAll(
             RxTextView.textChanges(binding.signUpNameEditText)
                 .subscribe({
                     val state = viewModel.liveData.value!!.copy(
@@ -36,20 +32,14 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
                     )
                     viewModel.updateSignState(state)
                 }, {
-                })
-        )
-
-        disposables.add(
+                }),
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .filter { it.isNotBlank() }
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe({
                     viewModel.validateNickNameCheck()
                 }, {
-                })
-        )
-
-        disposables.add(
+                }),
             RxTextView.textChanges(binding.signUpNicknameEditText)
                 .subscribe({
                     val state = viewModel.liveData.value!!.copy(

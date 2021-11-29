@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
-import com.ctu.planitstudy.feature.domain.model.SignUpUser
-import com.ctu.planitstudy.feature.domain.model.SignUpUserReceiver
-import com.ctu.planitstudy.feature.domain.model.SignUpUserResponse
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
+import com.ctu.planitstudy.feature.domain.model.user.SignUpUserResponse
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp

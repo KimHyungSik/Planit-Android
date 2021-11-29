@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".feature.presentation.edituser.EditUserScreen">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.ctu.planitstudy.feature.presentation.edituser.EditUserScreen" />
+
+        <variable
+            name="viewmodel"
+            type="com.ctu.planitstudy.feature.presentation.edituser.EditUserViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/navy_blue_back_ground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/ic_baseline_arrow_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="54dp"
+                android:text="나의 정보를\n변경할 수 있습니다"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="80dp"
+                android:text="이름"
+                android:textColor="@color/text_color"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/navy_blue_item_box"
+                app:cardCornerRadius="11dp">
+
+                <EditText
+                    android:id="@+id/edit_user_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="26dp"
+                    android:layout_marginVertical="26dp"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:maxLength="8"
+                    android:text="@{activity.user.name}"
+                    android:textColor="@color/text_color"
+                    android:textCursorDrawable="@color/text_color"
+                    android:textSize="18sp" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="80dp"
+                android:text="닉네임"
+                android:textColor="@color/text_color"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/navy_blue_item_box"
+                app:cardCornerRadius="11dp">
+
+                <EditText
+                    android:id="@+id/edit_user_nickname_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="26dp"
+                    android:layout_marginVertical="26dp"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:maxLines="8"
+                    android:text="@{activity.user.nickname}"
+                    android:textColor="@color/text_color"
+                    android:textCursorDrawable="@color/text_color"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/edit_user_nickname_error_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="24dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/blue_error_icon"
+                    android:visibility="invisible"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/edit_user_nickname_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/sub_color"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="80dp"
+                android:text="카테고리"
+                android:textColor="@color/text_color"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/edit_user_category_radio_group_left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_elementary_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="초등학생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_high_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="고등학생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_college"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="대학생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_job_seeker"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="취업준비생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/edit_user_category_radio_group_right"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_middle_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="중학생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_repeater"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="N수생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_civil_service_exam"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="고시생"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <RadioButton
+                        android:id="@+id/edit_user_category_radio_workers"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/sign_up_radio_button"
+                        android:button="@null"
+                        android:text="직장인"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/edit_user_confirm_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="40dp"
+                app:cardBackgroundColor="@color/enabled_confirm_btn"
+                app:cardCornerRadius="40dp"
+                android:clickable="false"
+                android:onClick="@{()->viewmodel.editUser()}"
+                >
+
+                <TextView
+                    android:id="@+id/edit_user_confirm_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="완료"
+                    android:textColor="@color/navy_blue_item_box"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

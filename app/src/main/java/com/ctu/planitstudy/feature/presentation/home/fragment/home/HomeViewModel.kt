@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         initSet()
     }
 
-    fun initSet() {
+    private fun initSet() {
         viewModelScope.launch {
             ddayListUseCase().onEach {
                 when (it) {

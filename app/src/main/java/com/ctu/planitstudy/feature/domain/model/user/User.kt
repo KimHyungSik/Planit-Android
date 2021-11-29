@@ -1,4 +1,4 @@
-package com.ctu.planitstudy.feature.domain.model
+package com.ctu.planitstudy.feature.domain.model.user
 
 import java.io.Serializable
 

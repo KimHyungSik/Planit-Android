@@ -14,10 +14,13 @@ class UserValidateNickNameUseCase @Inject constructor(
 
     val TAG = "ValidateName - 로그"
 
-    operator fun invoke(nickname: String): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(nickname: String, previousNickname: String? = null): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading(data = false))
-            userRepository.userValidateNickName(nickname)
+            if (previousNickname == null)
+                userRepository.userValidateNickName(nickname)
+            else
+                userRepository.userValidateNickName(nickname, previousNickname)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
             Log.d(TAG, "invoke: $e")

@@ -2,8 +2,8 @@ package com.ctu.planitstudy.feature.presentation.sign_up.fragment
 
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.databinding.FragmentSignUpUserCategoryBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
@@ -27,12 +27,7 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
                 .subscribe({
                     binding.signUpCategoryRadioGroupRight.clearCheck()
                     var state = viewModel.liveData.value
-                    when (it) {
-                        R.id.sign_up_category_radio_elementary_school -> state = state!!.copy(category = "ELEMENTARY_SCHOOL")
-                        R.id.sign_up_category_radio_high_school -> state = state!!.copy(category = "HIGH_SCHOOL")
-                        R.id.sign_up_category_radio_college -> state = state!!.copy(category = "UNIVERSITY")
-                        R.id.sign_up_category_radio_job_seeker -> state = state!!.copy(category = "JOB_PREP")
-                    }
+                    state = state!!.copy(category = findCategoryFromView(it)!!.category)
                     viewModel.updateSignState(state!!)
                 }, {})
         )
@@ -40,14 +35,9 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
             RxRadioGroup.checkedChanges(binding.signUpCategoryRadioGroupRight)
                 .filter { it -> it != -1 }
                 .subscribe({
-                    var state = viewModel.liveData.value
                     binding.signUpCategoryRadioGroupLeft.clearCheck()
-                    when (it) {
-                        R.id.sign_up_category_radio_middle_school -> state = state!!.copy(category = "MIDDLE_SCHOOL")
-                        R.id.sign_up_category_radio_repeater -> state = state!!.copy(category = "NTH_EXAM")
-                        R.id.sign_up_category_radio_civil_service_exam -> state = state!!.copy(category = "EXAM_PREP")
-                        R.id.sign_up_category_radio_workers -> state = state!!.copy(category = "WORKER")
-                    }
+                    var state = viewModel.liveData.value
+                    state = state!!.copy(category = findCategoryFromView(it)!!.category)
                     viewModel.updateSignState(state!!)
                 }, {})
         )

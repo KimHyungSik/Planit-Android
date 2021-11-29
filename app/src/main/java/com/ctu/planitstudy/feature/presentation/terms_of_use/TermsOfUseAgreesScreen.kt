@@ -6,18 +6,19 @@ import android.widget.CheckBox
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
+import com.ctu.planitstudy.databinding.ActivityTermsOfUseScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
 class TermsOfUseAgreesScreen :
-    BaseBindingActivity<ActivityTermsOfUseBinding>() {
+    BaseBindingActivity<ActivityTermsOfUseScreenBinding>() {
 
     val TAG = "TermsOfUseScreen - 로그"
     private val disposables = CompositeDisposable()
-    override val bindingInflater: (LayoutInflater) -> ActivityTermsOfUseBinding =
-        ActivityTermsOfUseBinding::inflate
+    override val bindingInflater: (LayoutInflater) -> ActivityTermsOfUseScreenBinding =
+        ActivityTermsOfUseScreenBinding::inflate
 
     override fun setup() {
         disposables.add(

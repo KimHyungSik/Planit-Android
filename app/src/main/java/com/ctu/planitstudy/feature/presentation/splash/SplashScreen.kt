@@ -24,6 +24,10 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding>() {
                             moveIntentAllClear(Screens.HomeScreenSh.activity)
                         else
                             moveIntentAllClear(Screens.LoginScreenSh.activity)
+                    else
+                        moveIntentAllClear(Screens.LoginScreenSh.activity)
+                else
+                    moveIntentAllClear(Screens.LoginScreenSh.activity)
             }
             .isDisposed
     }
