@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.util
 
 import com.ctu.planitstudy.MainActivity
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
+import com.ctu.planitstudy.feature.presentation.edituser.EditUserScreen
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.login.LoginScreen
 import com.ctu.planitstudy.feature.presentation.measurement.MeasurementScreen
@@ -20,4 +21,5 @@ sealed class Screens(val activity: Class<*>) {
     object StudyScreenSh : Screens(StudyScreen::class.java)
     object TimerScreenSh : Screens(TimerScreen::class.java)
     object MeasurementScreenSh : Screens(MeasurementScreen::class.java)
+    object EditUserScreenSh : Screens(EditUserScreen::class.java)
 }

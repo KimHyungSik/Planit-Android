@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy">
-        <activity android:name=".feature.presentation.edituser.EditUserScreen"></activity>
+        <activity android:name=".feature.presentation.edituser.EditUserScreen"/>
         <activity android:name=".feature.presentation.splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
