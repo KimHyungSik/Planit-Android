@@ -23,6 +23,10 @@ class MyViewModel @Inject constructor(
     private val _userInformationDto = MutableLiveData<UserInformationDto>()
     val userInformationDto: LiveData<UserInformationDto> = _userInformationDto
 
+    private val _logout = MutableLiveData<Boolean>(false)
+    val logout: LiveData<Boolean> = _logout
+
+
     init {
         getUserInformation()
     }
@@ -30,7 +34,8 @@ class MyViewModel @Inject constructor(
     private fun getUserInformation() {
         userUseCase.getUserUseCase().onEach {
             when (it) {
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                }
                 is Resource.Success -> {
                     Log.d(TAG, "getUserInformation: ${it.data}")
                     _userInformationDto.value = it.data!!
@@ -40,5 +45,9 @@ class MyViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun logoutFun(boolean: Boolean) {
+        _logout.value = boolean
     }
 }

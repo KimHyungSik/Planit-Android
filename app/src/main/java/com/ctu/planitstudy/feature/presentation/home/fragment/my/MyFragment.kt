@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentMyBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.home.fragment.my.dialog.LogoutDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +33,17 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             userInformationDto.observe(this@MyFragment, {
                 binding.invalidateAll()
             })
+            logout.observe(this@MyFragment, {
+                if(it)
+                    logout()
+            })
         }
+    }
+
+    fun showLogoutDialog(){
+        LogoutDialog().show(
+            parentFragmentManager, "LogoutDialog"
+        )
     }
 
     fun logout() {

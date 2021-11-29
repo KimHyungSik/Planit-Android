@@ -237,7 +237,7 @@
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="0dp"
                 android:clickable="true"
-                android:onClick="@{()->activity.logout()}"
+                android:onClick="@{()->activity.showLogoutDialog()}"
                 >
 
                 <TextView

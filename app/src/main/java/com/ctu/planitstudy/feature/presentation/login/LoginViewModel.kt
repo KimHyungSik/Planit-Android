@@ -55,9 +55,11 @@ class LoginViewModel @Inject constructor(
                                                 .subscribe({
                                                     Log.d(TAG, "login: ${it.refreshToken}")
                                                     CashStudyApp.prefs.accessToken = it.accessToken
-                                                    CashStudyApp.prefs.refreshToken = it.refreshToken
+                                                    CashStudyApp.prefs.refreshToken =
+                                                        it.refreshToken
                                                     loginState.postValue(LoginState.Login(it.result))
                                                 }, {
+                                                    Log.d(TAG, "login: userAuthUseCase : ${it.message}")
                                                 })
                                         }
                                         is Resource.Error -> {
@@ -69,10 +71,12 @@ class LoginViewModel @Inject constructor(
                         }
                         is Resource.Error -> {
                             loginState.postValue(LoginState.Loading(false))
+                            Log.d(TAG, "login: Error: ${resource.message}")
                         }
                     }
                 },
                 { error ->
+                    Log.d(TAG, "login: error ${error.message}")
                 }
             ).addTo(disposables)
     }

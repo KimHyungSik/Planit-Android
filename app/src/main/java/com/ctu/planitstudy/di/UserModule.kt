@@ -1,5 +1,7 @@
 package com.ctu.planitstudy.di
 
+import com.ctu.planitstudy.core.util.CoreData
+import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
 import com.ctu.planitstudy.feature.data.remote.UserApi
@@ -12,6 +14,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,8 +34,13 @@ object UserModule {
         )
 
     @Provides
-    fun provideUserAuthApi(retrofit: Retrofit): UserAuthApi =
-        retrofit
+    fun provideUserAuthApi(): UserAuthApi =
+        Retrofit.Builder()
+            .baseUrl(CoreData.BASE_SERVER_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
+            .build()
             .create(UserAuthApi::class.java)
 
     @Provides
