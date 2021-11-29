@@ -136,7 +136,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
-                android:paddingVertical="26dp">
+                android:paddingVertical="26dp"
+                android:onClick="@{()->activity.termsOfService()}"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
