@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.EmailUtils
 import com.ctu.planitstudy.databinding.FragmentMyBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.dialog.LogoutDialog
@@ -34,13 +35,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 binding.invalidateAll()
             })
             logout.observe(this@MyFragment, {
-                if(it)
+                if (it)
                     logout()
             })
         }
     }
 
-    fun showLogoutDialog(){
+    fun showLogoutDialog() {
         LogoutDialog().show(
             parentFragmentManager, "LogoutDialog"
         )
@@ -50,5 +51,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         CashStudyApp.prefs.accessToken = ""
         CashStudyApp.prefs.refreshToken = ""
         moveIntentAllClear(Screens.LoginScreenSh.activity)
+    }
+
+    fun email(){
+        context?.let { EmailUtils.sendEmail(it, "플래닛 문의", arrayOf("planit.timer@gmail.com")) }
     }
 }

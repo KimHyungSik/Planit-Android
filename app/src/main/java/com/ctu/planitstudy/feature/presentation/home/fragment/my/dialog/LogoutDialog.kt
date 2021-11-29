@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.databinding.DialogFragmentDeleteDdayBinding
 import com.ctu.planitstudy.databinding.DialogFragmentLogoutBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.MyViewModel
 
 class LogoutDialog : DialogFragment() {

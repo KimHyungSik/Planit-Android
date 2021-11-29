@@ -26,7 +26,6 @@ class MyViewModel @Inject constructor(
     private val _logout = MutableLiveData<Boolean>(false)
     val logout: LiveData<Boolean> = _logout
 
-
     init {
         getUserInformation()
     }

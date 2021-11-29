@@ -1,7 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.edituser
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +17,7 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +53,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
             )
             editUserState.observe(this@EditUserScreen, {
 
-                if(it.edit)
+                if (it.edit)
                     moveIntentAllClear(Screens.HomeScreenSh.activity)
 
                 if (this@EditUserScreen.editUser == it.editUser || it.editUser.category.isBlank()) {
@@ -70,15 +63,13 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
                         editUserConfirmBtn.isCheckable = false
                     }
                 } else {
-                    if (this@EditUserScreen.editUser.nickname != it.editUser.nickname && !it.nickNameValidate){
+                    if (this@EditUserScreen.editUser.nickname != it.editUser.nickname && !it.nickNameValidate) {
                         with(binding) {
                             editUserNicknameErrorText.text = "이미 사용중인 닉네임입니다."
                             editUserNicknameErrorIcon.visibility = View.VISIBLE
                             editUserConfirmBtn.isCheckable = false
                         }
-                    }
-
-                    else
+                    } else
                         with(binding) {
                             editUserNicknameErrorIcon.visibility = View.INVISIBLE
                             editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.white))
@@ -92,7 +83,6 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
         val checkCategory =
             findViewById<RadioButton>(findCategoryFromString(user!!.category)!!.editUser)
         checkCategory.isChecked = true
-
 
         // 닉네임 텍스트 변경
         disposables.addAll(
