@@ -1,6 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
@@ -18,7 +20,8 @@ class MyViewModel @Inject constructor(
 
     val TAG = "MyViewModel - 로그"
 
-    lateinit var userInformationDto: UserInformationDto
+    private val _userInformationDto = MutableLiveData<UserInformationDto>()
+    val userInformationDto: LiveData<UserInformationDto> = _userInformationDto
 
     init {
         getUserInformation()
@@ -30,7 +33,7 @@ class MyViewModel @Inject constructor(
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     Log.d(TAG, "getUserInformation: ${it.data}")
-                    userInformationDto = it.data!!
+                    _userInformationDto.value = it.data!!
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getUserInformation: ${it.message}")

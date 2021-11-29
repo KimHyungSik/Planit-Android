@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my
 
+import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -18,10 +19,19 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
 
     override fun setInit() {
         super.setInit()
-        binding.viewmodel = viewModel
-        binding.activity = this
-        binding.myFragmentEditUserImg.setOnClickListener {
-            moveIntent(Screens.EditUserScreenSh.activity)
+        with(binding) {
+            viewmodel = viewModel
+            activity = this@MyFragment
+            myFragmentEditUserImg.setOnClickListener {
+                val intent = Intent(context, Screens.EditUserScreenSh.activity)
+                intent.putExtra("user", viewModel.userInformationDto.value)
+                moveIntent(intent)
+            }
+        }
+        with(viewModel) {
+            userInformationDto.observe(this@MyFragment, {
+                binding.invalidateAll()
+            })
         }
     }
 

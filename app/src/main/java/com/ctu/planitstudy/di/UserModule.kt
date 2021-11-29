@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.di
 
-import com.ctu.planitstudy.core.util.CoreData.BASE_SERVER_URL
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
 import com.ctu.planitstudy.feature.data.remote.UserApi
@@ -12,10 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)

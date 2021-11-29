@@ -1,7 +1,5 @@
 package com.ctu.planitstudy.di
 
-import com.ctu.planitstudy.core.util.CoreData
-import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.remote.StudyApi
 import com.ctu.planitstudy.feature.data.repository.StudyRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
@@ -10,9 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
