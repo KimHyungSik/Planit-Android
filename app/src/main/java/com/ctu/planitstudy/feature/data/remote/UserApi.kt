@@ -14,9 +14,8 @@ interface UserApi {
     suspend fun userValidateNickName(@Query("nickname") nickname: String)
 
     @GET("/v1/user")
-    fun getUser() : UserInformationDto
+    suspend fun getUser(): UserInformationDto
 
     @PUT("/v1/user")
-    fun editUser(@Body editUser: EditUser) : MessageDto
-
+    suspend fun editUser(@Body editUser: EditUser): MessageDto
 }

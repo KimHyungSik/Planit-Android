@@ -7,8 +7,7 @@ import com.ctu.planitstudy.feature.data.remote.UserApi
 import com.ctu.planitstudy.feature.data.remote.UserAuthApi
 import com.ctu.planitstudy.feature.data.repository.UserRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
-import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
-import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +47,6 @@ object UserModule {
         Retrofit.Builder()
             .baseUrl(BASE_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
             .create(UserApi::class.java)
@@ -64,4 +62,22 @@ object UserModule {
     @Provides
     fun providerUserValidateNickName(userRepository: UserRepository): UserValidateNickNameUseCase =
         UserValidateNickNameUseCase(userRepository)
+
+    @Provides
+    fun providerGetUserUseCase(userRepository: UserRepository): GetUserUseCase =
+        GetUserUseCase(userRepository)
+
+    @Provides
+    fun providerEditUserUseCase(userRepository: UserRepository): EditUserUseCase =
+        EditUserUseCase(userRepository)
+
+    @Provides
+    fun providerUserUseCase(
+        getUserUseCase: GetUserUseCase,
+        editUserUseCase: EditUserUseCase
+    ): UserUseCase =
+        UserUseCase(
+            getUserUseCase = getUserUseCase,
+            editUserUseCase = editUserUseCase
+        )
 }

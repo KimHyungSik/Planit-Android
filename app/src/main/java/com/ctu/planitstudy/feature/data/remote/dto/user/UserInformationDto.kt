@@ -20,4 +20,4 @@ data class UserInformationDto(
     val nickname: String,
     @SerializedName("birth")
     val sex: String
-): Parcelable
+) : Parcelable
