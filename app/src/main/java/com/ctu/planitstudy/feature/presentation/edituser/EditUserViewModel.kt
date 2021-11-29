@@ -8,10 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.feature.domain.model.user.EditUser
-import com.ctu.planitstudy.feature.domain.use_case.user.GetUserUseCase
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

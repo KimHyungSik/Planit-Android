@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.enums.findCategoryFromString
-import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.core.util.isValidText
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.ActivityEditUserScreenBinding
@@ -88,7 +87,6 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe({
                     if (!!it.toString().isValidText()) {
-
                     }
                 }, {}, {})
         )

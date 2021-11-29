@@ -17,7 +17,7 @@ class UserValidateNickNameUseCase @Inject constructor(
     operator fun invoke(nickname: String, previousNickname: String? = null): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading(data = false))
-            if(previousNickname == null)
+            if (previousNickname == null)
                 userRepository.userValidateNickName(nickname)
             else
                 userRepository.userValidateNickName(nickname, previousNickname)
