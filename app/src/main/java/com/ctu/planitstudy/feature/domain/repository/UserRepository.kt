@@ -14,6 +14,7 @@ interface UserRepository {
     fun userSignUp(signUpUser: SignUpUser): Flowable<JsonElement>
     fun userSignUp(signUpUser: SignUpUserReceiver): Flowable<JsonElement>
     suspend fun userValidateNickName(nickname: String)
+    suspend fun userValidateNickName(nickname: String, previousNickname: String)
     suspend fun getUser(): UserInformationDto
     suspend fun editUser(editUser: EditUser): MessageDto
 }

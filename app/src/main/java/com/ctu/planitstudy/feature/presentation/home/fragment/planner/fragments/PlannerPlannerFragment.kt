@@ -63,7 +63,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
                     )
                 else
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
-                        maxRowCount = 5,
+                        maxRowCount = 6,
                     )
                 setCalendarDate()
                 mothToWeek = !mothToWeek
@@ -76,8 +76,6 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
         }
 
         binding.plannerPlannerCustomCalendar.apply {
-            // We want the immediately following/previous month to be
-            // partially visible so we multiply the total width by 0.73
             val monthWidth = (dm.widthPixels).toInt()
             val dayWidth = monthWidth / 7
             val dayHeight = dayWidth // We don't want a square calendar.

@@ -13,6 +13,10 @@ interface UserApi {
     @GET("/v1/user/validate-nickname")
     suspend fun userValidateNickName(@Query("nickname") nickname: String)
 
+    @GET("/v1/user/validate-nickname")
+    suspend fun userValidateNickName(@Query("nickname") nickname: String, @Query("previousNickname") previousNickname: String)
+
+
     @GET("/v1/user")
     suspend fun getUser(): UserInformationDto
 

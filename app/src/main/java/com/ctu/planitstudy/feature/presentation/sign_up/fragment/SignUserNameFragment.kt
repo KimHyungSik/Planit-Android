@@ -21,10 +21,6 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
 
     private val disposables = CompositeDisposable()
 
-    override fun setUpViews() {
-        super.setUpViews()
-    }
-
     override fun setInit() {
         super.setInit()
         disposables.add(

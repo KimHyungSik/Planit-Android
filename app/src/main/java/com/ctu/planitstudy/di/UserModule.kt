@@ -62,10 +62,12 @@ object UserModule {
     @Provides
     fun providerUserUseCase(
         getUserUseCase: GetUserUseCase,
-        editUserUseCase: EditUserUseCase
+        editUserUseCase: EditUserUseCase,
+        validateNickNameUseCase: UserValidateNickNameUseCase
     ): UserUseCase =
         UserUseCase(
             getUserUseCase = getUserUseCase,
-            editUserUseCase = editUserUseCase
+            editUserUseCase = editUserUseCase,
+            validateNickNameUseCase = validateNickNameUseCase
         )
 }
