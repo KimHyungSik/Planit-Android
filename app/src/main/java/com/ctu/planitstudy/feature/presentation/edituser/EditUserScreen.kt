@@ -1,6 +1,10 @@
 package com.ctu.planitstudy.feature.presentation.edituser
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RadioButton
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
@@ -14,7 +18,15 @@ import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -45,16 +57,24 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
                 this@EditUserScreen.editUser
             )
             editUserState.observe(this@EditUserScreen, {
-                if (this@EditUserScreen.editUser == it.editUser && it.nickNameValidate) {
+
+                if (this@EditUserScreen.editUser == it.editUser) {
                     with(binding) {
                         editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.enabled_confirm_btn))
                         editUserConfirmText.setTextColor(setColor(R.color.navy_blue_item_box))
                     }
                 } else {
-                    with(binding) {
-                        editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.white))
-                        editUserConfirmText.setTextColor(setColor(R.color.item_black))
+                    if (this@EditUserScreen.editUser.nickname != it.editUser.nickname && !it.nickNameValidate){
+                        binding.editUserNicknameErrorText.text = "이미 사용중인 닉네임입니다."
+                        binding.editUserNicknameErrorIcon.visibility = View.VISIBLE
                     }
+
+                    else
+                        with(binding) {
+                            editUserNicknameErrorIcon.visibility = View.INVISIBLE
+                            editUserConfirmBtn.setCardBackgroundColor(setColor(R.color.white))
+                            editUserConfirmText.setTextColor(setColor(R.color.item_black))
+                        }
                 }
             })
         }
@@ -63,32 +83,50 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
             findViewById<RadioButton>(findCategoryFromString(user!!.category)!!.editUser)
         checkCategory.isChecked = true
 
-        disposables.add(
-            RxRadioGroup.checkedChanges(binding.editUserCategoryRadioGroupLeft)
-                .filter { it -> it != -1 }
-                .subscribe({
-                    binding.editUserCategoryRadioGroupRight.clearCheck()
-                    viewModel.updateCategory(it)
-                }, {})
-        )
 
-        disposables.add(
-            RxRadioGroup.checkedChanges(binding.editUserCategoryRadioGroupRight)
-                .filter { it -> it != -1 }
-                .subscribe({
-                    binding.editUserCategoryRadioGroupLeft.clearCheck()
-                    viewModel.updateCategory(it)
-                }, {})
-        )
-
-        disposables.add(
+        // 닉네임 텍스트 변경
+        disposables.addAll(
             RxTextView.textChanges(binding.editUserNicknameText)
                 .filter { it.isNotBlank() }
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    if (!!it.toString().isValidText()) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        with(binding.editUserNicknameErrorText) {
+                            text = ""
+                            if (!it.toString().isValidText()) {
+                                text = "닉네임 형식이 올바르지 않습니다."
+                                binding.editUserNicknameErrorIcon.visibility = View.VISIBLE
+                            } else {
+                                viewModel.checkNickNameValidate(
+                                    it.toString(),
+                                    this@EditUserScreen.editUser.nickname
+                                )
+                            }
+                        }
                     }
-                }, {}, {})
+                }, {
+                    Log.d(TAG, "setup: editUserNicknameText error ${it.message}")
+                }, {
+                    Log.d(TAG, "setup: editUserNicknameText com")
+                }),
+            // 이름 텍스트 변경
+            RxTextView.textChanges(binding.editUserNameText)
+                .subscribe {
+                    viewModel.updateUserName(it.toString())
+                },
+            // 카테고리 선택 라디오 버튼
+            RxRadioGroup.checkedChanges(binding.editUserCategoryRadioGroupRight)
+                .filter { it != -1 }
+                .subscribe({
+                    binding.editUserCategoryRadioGroupLeft.clearCheck()
+                    viewModel.updateCategory(it)
+                }, {}),
+            RxRadioGroup.checkedChanges(binding.editUserCategoryRadioGroupLeft)
+                .filter { it != -1 }
+                .subscribe({
+                    binding.editUserCategoryRadioGroupRight.clearCheck()
+                    viewModel.updateCategory(it)
+                }, {})
         )
     }
 

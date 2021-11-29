@@ -21,7 +21,7 @@ class EditUserViewModel @Inject constructor(
 
     val TAG = "EditUserViewModel - 로그"
 
-    private val _editUserState = MutableLiveData<EditUserState>()
+    private val _editUserState = MutableLiveData<EditUserState>(EditUserState(EditUser("","",""), false))
     val editUserState: LiveData<EditUserState> = _editUserState
 
     fun updateEditUser(editUser: EditUser) {
@@ -32,8 +32,9 @@ class EditUserViewModel @Inject constructor(
         updateEditUser(editUserState.value!!.editUser.copy(category = findCategoryFromView(view)!!.category))
     }
 
-    fun checkNickNameValidate() {
-        userUseCase.validateNickNameUseCase(editUserState.value!!.editUser.nickname).onEach {
+    fun checkNickNameValidate(nickname: String, existingNickName: String) {
+        updateUserNickName(nickname)
+        userUseCase.validateNickNameUseCase(editUserState.value!!.editUser.nickname, existingNickName).onEach {
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(nickNameValidate = it.data!!)
