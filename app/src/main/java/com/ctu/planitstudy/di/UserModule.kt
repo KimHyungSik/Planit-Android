@@ -34,21 +34,13 @@ object UserModule {
         )
 
     @Provides
-    fun provideUserAuthApi(): UserAuthApi =
-        Retrofit.Builder()
-            .baseUrl(BASE_SERVER_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
+    fun provideUserAuthApi(retrofit: Retrofit): UserAuthApi =
+        retrofit
             .create(UserAuthApi::class.java)
 
     @Provides
-    fun provideUserApi(okHttpClient: OkHttpClient): UserApi =
-        Retrofit.Builder()
-            .baseUrl(BASE_SERVER_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
+    fun provideUserApi(retrofit: Retrofit): UserApi =
+        retrofit
             .create(UserApi::class.java)
 
     @Provides

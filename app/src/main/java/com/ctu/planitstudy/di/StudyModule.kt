@@ -19,13 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object StudyModule {
 
     @Provides
-    fun providerStudyApi(okHttpClient: OkHttpClient): StudyApi =
-        Retrofit.Builder()
-            .baseUrl(CoreData.BASE_SERVER_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
-            .build()
+    fun providerStudyApi(retrofit: Retrofit): StudyApi =
+        retrofit
             .create(StudyApi::class.java)
 
     @Provides

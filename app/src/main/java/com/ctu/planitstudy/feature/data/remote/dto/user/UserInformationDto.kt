@@ -8,16 +8,16 @@ import kotlinx.parcelize.Parcelize
 data class UserInformationDto(
     @SerializedName("birth")
     val birth: String,
-    @SerializedName("birth")
+    @SerializedName("category")
     val category: String,
-    @SerializedName("birth")
+    @SerializedName("email")
     val email: String,
-    @SerializedName("birth")
+    @SerializedName("id")
     val id: Int,
-    @SerializedName("birth")
+    @SerializedName("name")
     val name: String,
-    @SerializedName("birth")
+    @SerializedName("nickname")
     val nickname: String,
-    @SerializedName("birth")
+    @SerializedName("sex")
     val sex: String
 ) : Parcelable

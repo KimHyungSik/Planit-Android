@@ -17,6 +17,12 @@ class UserRepositoryImp @Inject constructor(
     private val authApi: UserAuthApi,
     private val userApi: UserApi
 ) : UserRepository {
+
+    val TAG = "UserRepositoryImp - 로그"
+
+    init {
+    }
+
     override fun userLogin(loginUser: LoginUser): Flowable<JsonElement> = authApi.userLogin(loginUser)
     override fun userSignUp(signUpUser: SignUpUser): Flowable<JsonElement> = authApi.userSignUp(signUpUser)
     override fun userSignUp(signUpUser: SignUpUserReceiver): Flowable<JsonElement> = authApi.userSignUp(signUpUser)

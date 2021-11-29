@@ -30,6 +30,7 @@ class MyViewModel @Inject constructor(
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     Log.d(TAG, "getUserInformation: ${it.data}")
+                    userInformationDto = it.data!!
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getUserInformation: ${it.message}")

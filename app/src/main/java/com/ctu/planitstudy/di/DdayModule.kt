@@ -1,7 +1,5 @@
 package com.ctu.planitstudy.di
 
-import com.ctu.planitstudy.core.util.CoreData.BASE_SERVER_URL
-import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.feature.data.remote.DdayApi
 import com.ctu.planitstudy.feature.data.repository.DdayRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
@@ -10,22 +8,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DdayModule {
 
     @Provides
-    fun providerDdayApi(okHttpClient: OkHttpClient): DdayApi =
-        Retrofit.Builder()
-            .baseUrl(BASE_SERVER_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
-            .build()
+    fun providerDdayApi(retrofit: Retrofit): DdayApi =
+        retrofit
             .create(DdayApi::class.java)
 
     @Provides

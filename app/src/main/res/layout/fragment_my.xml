@@ -9,6 +9,10 @@
         <variable
             name="viewmodel"
             type="com.ctu.planitstudy.feature.presentation.home.fragment.my.MyViewModel" />
+
+        <variable
+            name="activity"
+            type="com.ctu.planitstudy.feature.presentation.home.fragment.my.MyFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -232,6 +236,8 @@
                 android:layout_marginBottom="60dp"
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="0dp"
+                android:clickable="true"
+                android:onClick="@{()->activity.logout()}"
                 >
 
                 <TextView

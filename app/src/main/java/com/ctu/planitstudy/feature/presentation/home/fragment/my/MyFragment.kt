@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentMyBinding
+import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +19,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     override fun setInit() {
         super.setInit()
         binding.viewmodel = viewModel
+        binding.activity = this
         binding.myFragmentEditUserImg.setOnClickListener {
             moveIntent(Screens.EditUserScreenSh.activity)
         }
+    }
+
+    fun logout() {
+        CashStudyApp.prefs.accessToken = ""
+        CashStudyApp.prefs.refreshToken = ""
+        moveIntentAllClear(Screens.LoginScreenSh.activity)
     }
 }

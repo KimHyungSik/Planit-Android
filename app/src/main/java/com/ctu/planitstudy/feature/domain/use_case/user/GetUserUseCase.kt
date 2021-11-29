@@ -13,6 +13,8 @@ class GetUserUseCase @Inject constructor(
     private val userApiRepository: UserRepository
 ) {
 
+    val TAG = "GetUserUseCase - 로그"
+
     operator fun invoke(): Flow<Resource<UserInformationDto>> = flow {
         try {
             emit(Resource.Loading<UserInformationDto>(null))
