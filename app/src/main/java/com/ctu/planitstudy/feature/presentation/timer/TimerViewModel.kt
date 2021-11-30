@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ctu.planitstudy.core.util.longToTimeString
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import java.util.*
 
 class TimerViewModel :
@@ -17,6 +18,8 @@ class TimerViewModel :
     private val _timerCycle = MutableLiveData<TimerCycle>()
     val timerCycle: LiveData<TimerCycle> = _timerCycle
 
+    var study: StudyDto? = null
+
     var timer = Timer()
 
     fun startTimer() {
@@ -24,12 +27,21 @@ class TimerViewModel :
             _timerState.postValue(
                 timerState.value!!.copy(
                     time = _timerState.value!!.time + 1,
-                    timeString = (_timerState.value!!.time + 1).longToTimeString(),
-                    star = ((_timerState.value!!.time + 1) / (300 * (timerState.value!!.star + 1))).toInt(),
-                    ticket = ((_timerState.value!!.time + 1) / (3600 * (timerState.value!!.ticket + 1))).toInt(),
+                    timeString = (study!!.recordedTime + (_timerState.value!!.time + 1)).longToTimeString(),
+                    star = ((study!!.recordedTime + (_timerState.value!!.time + 1)) / 300).toInt(),
+                    ticket = ((study!!.recordedTime + (_timerState.value!!.time + 1)) / 3600).toInt(),
                 )
             )
         }
+    }
+
+    fun setStudyDto(studyDto: StudyDto){
+        study = studyDto
+        _timerState.postValue(
+            timerState.value!!.copy(
+                breakTime = studyDto.rest
+            )
+        )
     }
 
     fun stopTimer() {

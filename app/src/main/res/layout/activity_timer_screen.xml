@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@{viewmodel.timerState.star + `회`}"
+                    android:text="@{viewmodel.timerState.breakTime + `회`}"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -251,14 +251,41 @@
             app:cardBackgroundColor="@color/sub_color2"
             app:cardCornerRadius="40dp"
             android:onClick="@{()->viewmodel.changeTimerCycle(TimerCycle.TimePause)}"
+            android:visibility="gone"
             >
 
             <TextView
-                android:id="@+id/d_day_confirmed_btn_text"
+                android:id="@+id/timer_confirmed_stop_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="타이머 멈추기"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/timer_start_btn"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="40dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/navy_blue_back_ground"
+            app:cardCornerRadius="40dp"
+            app:strokeColor="@color/sub_color"
+            app:strokeWidth="1dp"
+            android:onClick="@{()->viewmodel.changeTimerCycle(TimerCycle.TimeFlow)}"
+            >
+
+            <TextView
+                android:id="@+id/timer_confirmed_star_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="타이머 시작하기"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />

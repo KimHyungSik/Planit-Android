@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -18,7 +19,6 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
     val viewModel: MeasurementViewModel by viewModels()
 
     override fun setup() {
-
         viewModelSetUp()
         binding.viewmodel = viewModel
     }
@@ -56,4 +56,13 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
             })
         }
     }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            viewModel.recordMeasurementTimer(viewModel.measurementState.value!!.isDone)
+            return false
+        }
+
+        return super.onKeyDown(keyCode, event)
+    }
+
 }

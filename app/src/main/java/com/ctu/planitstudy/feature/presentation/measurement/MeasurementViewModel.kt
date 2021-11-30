@@ -32,7 +32,6 @@ class MeasurementViewModel @Inject constructor(
             .onEach {
                 when (it) {
                     is Resource.Success -> {
-                        Log.d(TAG, "getExistingMeasurementTime: ${it.data}")
                         setViewDataWithTimerData(it.data!!)
                     }
                     is Resource.Loading -> {
@@ -49,8 +48,6 @@ class MeasurementViewModel @Inject constructor(
     }
 
     private fun setViewDataWithTimerData(timerMeasurementDto: TimerMeasurementDto) {
-        Log.d(TAG, "setViewDataWithTimerData: $timerMeasurementDto")
-        Log.d(TAG, "setViewDataWithTimerData: ${measurementState.value!!}")
         with(timerMeasurementDto) {
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(
@@ -75,16 +72,12 @@ class MeasurementViewModel @Inject constructor(
             recordedTime = measurementState.value!!.totalTime
         )
 
-        Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
-        Log.d(TAG, "recordMeasurementTimer: ${measurementState.value!!.studyDto!!.studyId}")
-
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
             recordMeasurementTimer
         ).onEach {
             when (it) {
                 is Resource.Success -> {
-                    Log.d(TAG, "recordMeasurementTimer: Success ${it.data}")
                     _measurementState.value = measurementState.value!!.copy(
                         onExit = true
                     )

@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -22,7 +23,7 @@ import io.reactivex.rxkotlin.toObservable
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
-    val TAG = "HomFragmentR - 로그"
+    val TAG = "HomFragment - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -33,21 +34,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     override fun setUpViews() {
         super.setUpViews()
-
+        Log.d(TAG, "setUpViews: ")
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = studyListRecyclerAdapter
         }
-        binding.homeFragmentAddStudy.setOnClickListener {
-            moveIntent(Screens.StudyScreenSh.activity)
-        }
     }
 
     override fun setInit() {
         super.setInit()
         binding.viewmodel = viewModel
+        binding.activity = this
+        viewModel.changeStudyDate(DateCalculation().getCurrentDateString(0))
         viewModel.homeState.observe(
             this,
             Observer {
@@ -63,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {
-                                    val intent = Intent(activity, Screens.DdayScreenSh.activity)
+                                    val intent = Intent(context, Screens.DdayScreenSh.activity)
                                     intent.putExtra("dDay", dDay)
                                     moveIntent(intent)
                                 }
@@ -89,9 +89,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
         }
     }
 
-    override fun setOnStart() {
-        super.setOnStart()
-        viewModel.changeStudyDate(DateCalculation().getCurrentDateString(0))
+    fun addStudyScreen(){
+        moveIntent(Screens.StudyScreenSh.activity)
     }
 
     override fun onClickedItem(position: Int) {

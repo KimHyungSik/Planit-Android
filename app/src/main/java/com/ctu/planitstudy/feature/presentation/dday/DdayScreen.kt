@@ -2,11 +2,13 @@ package com.ctu.planitstudy.feature.presentation.dday
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
+import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
@@ -35,6 +37,8 @@ class DdayScreen :
 
     private val ddayIconSet = DdayIconSet()
     private var representativeSwitchOnesCheck = false
+    
+    private val deleteDialog = DeleteCheckDialog()
 
     override fun setup() {
         val dDay = intent.getParcelableExtra<DdayDto>("dDay")
@@ -133,11 +137,13 @@ class DdayScreen :
 
     private fun viewModelSet() {
         viewModel.dDayNetworkState.observe(this, {
+            Log.d(TAG, "viewModelSet: dDayNetworkState $it")
             if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
         })
 
         // 디데이 데이터 관리
         viewModel.dDayState.observe(this, {
+            Log.d(TAG, "viewModelSet: dDayState $it")
             if (it.representative && !representativeSwitchOnesCheck) {
                 RepresentativeCheckDialog().show(
                     supportFragmentManager, "RepresentativeCheckDialog"
@@ -150,8 +156,9 @@ class DdayScreen :
         // 팝업 상태 관리
         viewModel.dDayDialogState.observe(this, {
             val arg = Bundle()
+            Log.d(TAG, "viewModelSet: dDayDialogState $it")
             if (it.deleteDialog)
-                DeleteCheckDialog().show(
+                deleteDialog.show(
                     supportFragmentManager, "DeleteCheckDialog"
                 )
             if (it.emptyTitleDialog) {

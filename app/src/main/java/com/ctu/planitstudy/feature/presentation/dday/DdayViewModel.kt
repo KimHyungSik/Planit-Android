@@ -26,7 +26,7 @@ class DdayViewModel @Inject constructor(
     private val _dDayState = MutableLiveData<DdayState>(DdayState())
     val dDayState: LiveData<DdayState> = _dDayState
 
-    private val _dDayNetworkState = MutableLiveData<DdayNetworkState>()
+    private val _dDayNetworkState = MutableLiveData<DdayNetworkState>(DdayNetworkState())
     val dDayNetworkState: LiveData<DdayNetworkState> = _dDayNetworkState
 
     private val _dDayDialogState = MutableLiveData<DdayDialogState>(DdayDialogState())
@@ -46,6 +46,10 @@ class DdayViewModel @Inject constructor(
         _dDayState.value = ddayState
     }
 
+    fun dDayDialogUpdate(ddayState: DdayDialogState) {
+        _dDayDialogState.value = ddayState
+    }
+
     fun onSwitchChanged(buttonView: CompoundButton, isChecked: Boolean) {
         _dDayState.value = dDayState.value!!.copy(representative = isChecked)
     }
@@ -55,7 +59,7 @@ class DdayViewModel @Inject constructor(
     }
 
     fun dDayDeleteDialog() {
-        _dDayDialogState.value = dDayDialogState.value!!.copy(deleteDialog = true)
+        _dDayDialogState.value = DdayDialogState(deleteDialog = true)
     }
 
     fun dDayDelete() {
