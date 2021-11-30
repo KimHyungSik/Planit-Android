@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.terms_of_use.webview
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.webkit.WebSettings
 import com.ctu.planitstudy.R

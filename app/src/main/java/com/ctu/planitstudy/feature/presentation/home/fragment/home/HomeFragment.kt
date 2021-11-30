@@ -34,7 +34,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     override fun setUpViews() {
         super.setUpViews()
-        Log.d(TAG, "setUpViews: ")
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         binding.homeTodoRecyclerView.apply {

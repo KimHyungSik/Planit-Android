@@ -8,6 +8,7 @@ import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
@@ -21,6 +22,9 @@ class TermsOfUseAgreesScreen :
         ActivityTermsOfUseScreenBinding::inflate
 
     override fun setup() {
+
+        binding.activity = this
+
         disposables.add(
             RxCompoundButton.checkedChanges(binding.termsOfUseAllCheckBox)
                 .subscribe({
@@ -69,6 +73,14 @@ class TermsOfUseAgreesScreen :
             }, {})
         )
     }
+
+    fun termsOfService(url : String){
+        val intent = Intent(this, Screens.TermsOfUseSh.activity)
+        intent.putExtra("Url", url)
+        moveIntent(intent)
+    }
+
+    fun getStringFromR(id : Int) = getString(id)
 
     override fun onDestroy() {
         disposables.clear()
