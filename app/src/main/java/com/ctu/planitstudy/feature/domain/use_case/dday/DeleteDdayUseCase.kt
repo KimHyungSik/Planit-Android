@@ -16,7 +16,7 @@ class DeleteDdayUseCase @Inject constructor(
     operator fun invoke(ddayId: Int): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>(null))
-            val responseBody = ddayRepository.deleteDday(ddayId)
+            ddayRepository.deleteDday(ddayId)
             emit(Resource.Success(true))
         } catch (e: Exception) {
             emit(Resource.Error<Boolean>(message = e.message!!))

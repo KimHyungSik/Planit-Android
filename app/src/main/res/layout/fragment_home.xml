@@ -7,6 +7,9 @@
         <variable
             name="viewmodel"
             type="com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel" />
+        <variable
+            name="activity"
+            type="com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeFragment" />
     </data>
 
     <LinearLayout
@@ -169,7 +172,10 @@
                             />
                     </com.google.android.material.card.MaterialCardView>
 
-                    <include layout="@layout/components_home_todo_title" />
+                    <include
+                        android:id="@+id/components_home_todo_title_layout"
+                        layout="@layout/components_home_todo_title"
+                        />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -193,7 +199,9 @@
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/item_guide_stroke"
-                app:strokeWidth="1dp">
+                app:strokeWidth="1dp"
+                android:onClick="@{()->activity.addStudyScreen()}"
+                >
 
                 <include
                     layout="@layout/components_home_todo_empty" />

@@ -56,6 +56,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         with(binding) {
+            activity = this@PlannerPlannerFragment
             plannerPlannerCalendarDownArrow.setOnClickListener {
                 if (mothToWeek)
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
@@ -70,7 +71,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
             }
 
             with(plannerPlannerStudyList) {
-                layoutManager = LinearLayoutManager(activity?.applicationContext)
+                layoutManager = LinearLayoutManager(context)
                 adapter = studyListRecyclerAdapter
             }
         }
@@ -164,6 +165,10 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
         viewModel.plannerState.observe(this, {
             homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
         })
+    }
+
+    fun addStudyScreen(){
+        moveIntent(Screens.StudyScreenSh.activity)
     }
 
     override fun onClickedItem(position: Int) {
