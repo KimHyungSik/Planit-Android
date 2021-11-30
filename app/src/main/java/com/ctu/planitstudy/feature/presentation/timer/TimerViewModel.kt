@@ -35,7 +35,7 @@ class TimerViewModel :
         }
     }
 
-    fun setStudyDto(studyDto: StudyDto){
+    fun setStudyDto(studyDto: StudyDto) {
         study = studyDto
         _timerState.postValue(
             timerState.value!!.copy(

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -52,11 +51,11 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
                 when (action) {
                     Intent.ACTION_SCREEN_ON -> {
-                        if(viewModel.timerCycle.value!! != TimerCycle.TimeFlow)
+                        if (viewModel.timerCycle.value!! != TimerCycle.TimeFlow)
                             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
                     }
                     Intent.ACTION_SCREEN_OFF -> {
-                        if(viewModel.timerCycle.value!! != TimerCycle.TimeReady)
+                        if (viewModel.timerCycle.value!! != TimerCycle.TimeReady)
                             viewModel.changeTimerCycle(TimerCycle.TimeReady)
                     }
                 }
@@ -107,7 +106,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                     )
                     timerBtn(false)
                 }
-                TimerCycle.TimeReady ->{
+                TimerCycle.TimeReady -> {
                     viewModel.stopTimer()
                     timerBtn(false)
                 }
@@ -115,14 +114,14 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         })
     }
 
-    private fun timerBtn(start : Boolean){
-        if(start){
-            with(binding){
+    private fun timerBtn(start: Boolean) {
+        if (start) {
+            with(binding) {
                 timerStartBtn.visibility = View.GONE
                 timerStopBtn.visibility = View.VISIBLE
             }
-        }else{
-            with(binding){
+        } else {
+            with(binding) {
                 timerStartBtn.visibility = View.VISIBLE
                 timerStopBtn.visibility = View.GONE
             }

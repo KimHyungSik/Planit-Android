@@ -20,7 +20,7 @@ class GetDdayListUseCase @Inject constructor(
             emit(Resource.Loading<DdayListDto>(null))
             val ddayList = ddayRepository.getDdayList()
 
-            for(dday in ddayList.ddays){
+            for (dday in ddayList.ddays) {
                 dday.dDay = DateCalculation().calDateBetween(
                     DateCalculation().getCurrentDateString(0),
                     dday.endAt

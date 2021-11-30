@@ -2,10 +2,7 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.my
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.EmailUtils
 import com.ctu.planitstudy.databinding.FragmentMyBinding
@@ -57,18 +54,17 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         moveIntentAllClear(Screens.LoginScreenSh.activity)
     }
 
-    fun email(){
+    fun email() {
         context?.let { EmailUtils.sendEmail(it, "플래닛 문의", arrayOf("planit.timer@gmail.com")) }
     }
 
-    fun showReadyDialog()
-    {
+    fun showReadyDialog() {
         ReadyDialog().show(
             parentFragmentManager, "ReadyDialog"
         )
     }
 
-    fun termsOfService(){
-       moveIntent(Screens.TermsOfUseSh.activity)
+    fun termsOfService() {
+        moveIntent(Screens.TermsOfUseSh.activity)
     }
 }

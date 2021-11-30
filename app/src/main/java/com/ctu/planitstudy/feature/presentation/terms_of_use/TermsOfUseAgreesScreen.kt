@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.widget.CheckBox
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -74,13 +73,13 @@ class TermsOfUseAgreesScreen :
         )
     }
 
-    fun termsOfService(url : String){
+    fun termsOfService(url: String) {
         val intent = Intent(this, Screens.TermsOfUseSh.activity)
         intent.putExtra("Url", url)
         moveIntent(intent)
     }
 
-    fun getStringFromR(id : Int) = getString(id)
+    fun getStringFromR(id: Int) = getString(id)
 
     override fun onDestroy() {
         disposables.clear()

@@ -37,7 +37,6 @@ class LoginViewModel @Inject constructor(
 
     fun login(context: Context) {
         changeUserPolicy(OauthType.KakaoOauth)
-
         userManager.userLogin(context)
             .subscribe(
                 { resource ->
@@ -48,6 +47,7 @@ class LoginViewModel @Inject constructor(
                                 .subscribe({ it ->
                                     when (it) {
                                         is Resource.Success -> {
+                                            Log.d(TAG, "login: $it")
                                             userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                                 .subscribeOn(Schedulers.computation())
                                                 .observeOn(AndroidSchedulers.mainThread())
@@ -58,7 +58,10 @@ class LoginViewModel @Inject constructor(
                                                         it.refreshToken
                                                     loginState.postValue(LoginState.Login(it.result))
                                                 }, {
-                                                    Log.d(TAG, "login: userAuthUseCase : ${it.message}")
+                                                    Log.d(
+                                                        TAG,
+                                                        "login: userAuthUseCase : ${it.message}"
+                                                    )
                                                 })
                                         }
                                         is Resource.Error -> {

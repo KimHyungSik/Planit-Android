@@ -8,7 +8,6 @@ import android.view.View
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
@@ -37,7 +36,7 @@ class DdayScreen :
 
     private val ddayIconSet = DdayIconSet()
     private var representativeSwitchOnesCheck = false
-    
+
     private val deleteDialog = DeleteCheckDialog()
 
     override fun setup() {

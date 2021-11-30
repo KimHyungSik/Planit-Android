@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -11,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
+import com.ctu.planitstudy.core.util.longToTimeKorString
+import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
@@ -31,6 +32,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
     private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter
 
     private val viewModel by activityViewModels<HomeViewModel>()
+    var totalTime = 0
+    var totalString: String = "0초"
 
     override fun setUpViews() {
         super.setUpViews()
@@ -50,6 +53,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
         viewModel.homeState.observe(
             this,
             Observer {
+
+                for(n in it.studyListDto.studies)
+                    totalTime += n.recordedTime
+                totalString = totalTime.toLong().longToTimeKorString()
+                binding.invalidateAll()
                 if (it.dDayList != null) {
                     it.dDayList.ddays.toObservable()
                         .filter { it.isRepresentative }
@@ -88,7 +96,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
         }
     }
 
-    fun addStudyScreen(){
+    fun addStudyScreen() {
         moveIntent(Screens.StudyScreenSh.activity)
     }
 

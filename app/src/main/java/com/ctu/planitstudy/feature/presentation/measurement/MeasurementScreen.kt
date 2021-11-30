@@ -64,5 +64,4 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
 
         return super.onKeyDown(keyCode, event)
     }
-
 }
