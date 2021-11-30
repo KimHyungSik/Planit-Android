@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
@@ -34,6 +35,8 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
         study = intent.getParcelableExtra("studyDto")
 
+        viewModel.setStudyDto(study!!)
+
         // 화면 자동 꺼짐 방지
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
@@ -46,14 +49,15 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val action = intent!!.action
-                Log.d("로그", "receive : $action")
 
                 when (action) {
                     Intent.ACTION_SCREEN_ON -> {
-                        // do something
+                        if(viewModel.timerCycle.value!! != TimerCycle.TimeFlow)
+                            viewModel.changeTimerCycle(TimerCycle.TimeFlow)
                     }
                     Intent.ACTION_SCREEN_OFF -> {
-                        // do something
+                        if(viewModel.timerCycle.value!! != TimerCycle.TimeReady)
+                            viewModel.changeTimerCycle(TimerCycle.TimeReady)
                     }
                 }
             }
@@ -62,7 +66,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
 
         with(binding) {
             with(timerCircularBar) {
-                setOnTouchListener { v, event -> true }
+                setOnTouchListener { _, _ -> true }
                 max = 3600f
             }
             viewmodel = viewModel
@@ -78,6 +82,7 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
             when (it) {
                 TimerCycle.TimeFlow -> {
                     viewModel.startTimer()
+                    timerBtn(true)
                 }
                 TimerCycle.TimeStop -> {
                     val intent = Intent(this, Screens.MeasurementScreenSh.activity)
@@ -87,9 +92,11 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                     intent.putExtra("totalTicket", viewModel.timerState.value!!.ticket)
                     intent.putExtra("brakeTime", viewModel.timerState.value!!.breakTime)
                     moveIntent(intent)
+                    timerBtn(false)
                 }
                 TimerCycle.TimePause -> {
                     showStopDialog()
+                    timerBtn(false)
                 }
                 TimerCycle.TimerExited -> {
                     finish()
@@ -98,15 +105,39 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
                     TimerBreakTimeDialog().show(
                         supportFragmentManager, "TimerBreakTimeDialog"
                     )
+                    timerBtn(false)
+                }
+                TimerCycle.TimeReady ->{
+                    viewModel.stopTimer()
+                    timerBtn(false)
                 }
             }
         })
+    }
+
+    private fun timerBtn(start : Boolean){
+        if(start){
+            with(binding){
+                timerStartBtn.visibility = View.GONE
+                timerStopBtn.visibility = View.VISIBLE
+            }
+        }else{
+            with(binding){
+                timerStartBtn.visibility = View.VISIBLE
+                timerStopBtn.visibility = View.GONE
+            }
+        }
     }
 
     private fun showStopDialog() {
         TimerStopDialog().show(
             supportFragmentManager, "TimerStopDialog"
         )
+    }
+
+    override fun onStop() {
+        viewModel.changeTimerCycle(TimerCycle.TimeReady)
+        super.onStop()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
