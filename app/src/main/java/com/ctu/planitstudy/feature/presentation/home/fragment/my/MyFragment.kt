@@ -10,6 +10,7 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.EmailUtils
 import com.ctu.planitstudy.databinding.FragmentMyBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.dialog.LogoutDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,6 +59,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
 
     fun email(){
         context?.let { EmailUtils.sendEmail(it, "플래닛 문의", arrayOf("planit.timer@gmail.com")) }
+    }
+
+    fun showReadyDialog()
+    {
+        ReadyDialog().show(
+            parentFragmentManager, "ReadyDialog"
+        )
     }
 
     fun termsOfService(){

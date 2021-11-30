@@ -48,7 +48,6 @@ class MeasurementViewModel @Inject constructor(
     }
 
     private fun setViewDataWithTimerData(timerMeasurementDto: TimerMeasurementDto) {
-        Log.d(TAG, "setViewDataWithTimerData: $timerMeasurementDto")
         with(timerMeasurementDto) {
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(

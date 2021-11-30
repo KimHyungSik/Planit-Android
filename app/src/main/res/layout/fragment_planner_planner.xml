@@ -30,9 +30,9 @@
             />
 
         <ImageButton
-            android:id="@+id/planner_planner_calendar_down_arrow"
+            android:id="@+id/planner_planner_calendar_arrow"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="@drawable/bottom_radius_item"
             android:src="@drawable/ic_arrow_down" />
 

@@ -24,6 +24,7 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
+import com.kizitonwose.calendarview.model.InDateStyle
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.utils.Size
@@ -56,16 +57,22 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
         with(binding) {
-            activity = this@PlannerPlannerFragment
-            plannerPlannerCalendarDownArrow.setOnClickListener {
-                if (mothToWeek)
+            plannerPlannerCalendarArrow.setOnClickListener {
+                if (mothToWeek) {
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
+                        inDateStyle = InDateStyle.ALL_MONTHS,
                         maxRowCount = 1,
+                        hasBoundaries = false
                     )
-                else
+                    plannerPlannerCalendarArrow.setImageResource(R.drawable.ic_arrow_down)
+                } else {
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
+                        inDateStyle = InDateStyle.ALL_MONTHS,
                         maxRowCount = 6,
+                        hasBoundaries = true
                     )
+                    plannerPlannerCalendarArrow.setImageResource(R.drawable.ic_arrow_up)
+                }
                 setCalendarDate()
                 mothToWeek = !mothToWeek
             }
@@ -83,7 +90,9 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
             daySize = Size(dayWidth, dayHeight)
 
             updateMonthConfiguration(
+                inDateStyle = InDateStyle.ALL_MONTHS,
                 maxRowCount = 1,
+                hasBoundaries = false
             )
         }
 
@@ -167,7 +176,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
         })
     }
 
-    fun addStudyScreen(){
+    fun addStudyScreen() {
         moveIntent(Screens.StudyScreenSh.activity)
     }
 

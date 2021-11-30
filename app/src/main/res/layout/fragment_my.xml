@@ -91,7 +91,10 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <include layout="@layout/components_my_rewards" />
+            <include
+                layout="@layout/components_my_rewards"
+                app:activity="@{activity}"
+                />
 
             <View
                 android:layout_width="match_parent"
