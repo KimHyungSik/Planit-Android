@@ -37,11 +37,10 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
             getExistingMeasurementTime()
 
             measurementState.observe(this@MeasurementScreen, {
-
                 with(binding) {
                     invalidateAll()
                     // 체크 유무 확인
-                    if (it.isDone) {
+                    if (it.studyDto!!.isDone) {
                         measurementStudyConfirm.visibility = View.VISIBLE
                         measurementStudyCheckedView.visibility = View.GONE
                     } else {

@@ -26,8 +26,6 @@ class MeasurementViewModel @Inject constructor(
     val measurementState: LiveData<MeasurementState> = _measurementState
 
     fun getExistingMeasurementTime() {
-
-        Log.d(TAG, "getExistingMeasurementTime: ${measurementState.value!!.studyDto!!.studyId}")
         timerUseCase.getMeasurementTimerUseCase(measurementState.value!!.studyDto!!.studyId.toString())
             .onEach {
                 when (it) {
@@ -51,12 +49,12 @@ class MeasurementViewModel @Inject constructor(
         with(timerMeasurementDto) {
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(
-                    totalMeasurementTime = (recordedTime.toLong() + measurementTime).longToTimeKorString(),
+                    totalMeasurementTime = (recordedTime.toLong() + measurementTime.toLong()).longToTimeKorString(),
                     extraTime = recordedTime.toLong().longToTimeKorString(),
                     totalTime = measurementTime.toInt() + recordedTime,
-                    totalBrakeTime = totalBrakeTime + rest,
-                    totalStar = totalStar + star,
-                    totalTicket = totalTicket + bonusTicket,
+                    totalBrakeTime = totalBrakeTime,
+                    totalStar = totalStar,
+                    totalTicket = totalTicket,
                     isDone = isDone
                 )
             }
@@ -89,4 +87,6 @@ class MeasurementViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+    fun getMeasurementTime(): String = measurementState.value!!.measurementTime.longToTimeKorString()
 }

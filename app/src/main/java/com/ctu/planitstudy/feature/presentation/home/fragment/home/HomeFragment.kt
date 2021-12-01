@@ -32,7 +32,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     private val viewModel by activityViewModels<HomeViewModel>()
     var totalTime = 0
-    var totalString: String = "0초"
+    var totalString: String = ""
+    var studyTimeTitle = "공부했어요"
 
     override fun setUpViews() {
         super.setUpViews()
@@ -55,17 +56,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
                 for (n in it.studyListDto.studies)
                     totalTime += n.recordedTime
-                totalString = totalTime.toLong().longToTimeKorString()
+
+                if (totalTime == 0) {
+                    studyTimeTitle = "공부를 응원합니다!"
+                } else {
+                    totalString = totalTime.toLong().longToTimeKorString()
+                }
+
                 binding.invalidateAll()
                 if (it.dDayList != null) {
                     it.dDayList.ddays.toObservable()
                         .filter { it.isRepresentative }
-                        .subscribe {
-                            dDay ->
+                        .subscribe { dDay ->
                             binding.apply {
-                                homeFragmentDDayCount.text = if (dDay.dDay > 0) "D-${dDay.dDay}" else if (dDay.dDay == 0)"D-DAY" else "D+${Math.abs(dDay.dDay)}"
+                                homeFragmentDDayCount.text =
+                                    if (dDay.dDay > 0) "D-${dDay.dDay}" else if (dDay.dDay == 0) "D-DAY" else "D+${
+                                    Math.abs(dDay.dDay)
+                                    }"
                                 if (dDay.dDay == 0)
-                                    homeFragmentDDayCountBox.background = ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.d_day_gradation)
+                                    homeFragmentDDayCountBox.background = ContextCompat.getDrawable(
+                                        CashStudyApp.instance,
+                                        R.drawable.d_day_gradation
+                                    )
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {
@@ -85,7 +97,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                         homeTodoRecyclerView.visibility = View.VISIBLE
                     }
                 }
-                studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.HomeStudyListMode)
+                studyListRecyclerAdapter.submitList(
+                    it.studyListDto,
+                    StudyListMode.HomeStudyListMode
+                )
                 studyListRecyclerAdapter.notifyDataSetChanged()
             }
         )

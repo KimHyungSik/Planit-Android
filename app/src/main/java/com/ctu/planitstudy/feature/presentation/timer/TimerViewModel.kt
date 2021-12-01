@@ -15,14 +15,16 @@ class TimerViewModel :
     private val _timerState = MutableLiveData<TimerState>(TimerState())
     val timerState: LiveData<TimerState> = _timerState
 
-    private val _timerCycle = MutableLiveData<TimerCycle>()
+    private val _timerCycle = MutableLiveData<TimerCycle>(TimerCycle.TimeReady)
     val timerCycle: LiveData<TimerCycle> = _timerCycle
 
     var study: StudyDto? = null
 
     var timer = Timer()
+    var timerThreadState: Boolean = false
 
     fun startTimer() {
+        timerThreadState = true
         timer = kotlin.concurrent.timer(period = 1000) {
             _timerState.postValue(
                 timerState.value!!.copy(
@@ -45,6 +47,7 @@ class TimerViewModel :
     }
 
     fun stopTimer() {
+        timerThreadState = false
         timer.cancel()
     }
 
@@ -53,6 +56,7 @@ class TimerViewModel :
     }
 
     fun changeTimerCycle(timerCycle: TimerCycle) {
-        _timerCycle.value = timerCycle
+        if (this.timerCycle.value!! != timerCycle)
+            _timerCycle.value = timerCycle
     }
 }
