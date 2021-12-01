@@ -11,7 +11,6 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.longToTimeKorString
-import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
@@ -54,7 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
             this,
             Observer {
 
-                for(n in it.studyListDto.studies)
+                for (n in it.studyListDto.studies)
                     totalTime += n.recordedTime
                 totalString = totalTime.toLong().longToTimeKorString()
                 binding.invalidateAll()

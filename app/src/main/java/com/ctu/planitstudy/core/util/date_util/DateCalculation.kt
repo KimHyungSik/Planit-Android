@@ -21,7 +21,7 @@ class DateCalculation {
     }
 
     // addDate 현재 날짜에서 날짜 추가₩
-    fun getCurrentDateString(addDate: Int): String {
+    fun getCurrentDateString(addDate: Int?): String {
         // 현재시간을 가져오기
         val now = System.currentTimeMillis()
 
@@ -29,7 +29,8 @@ class DateCalculation {
         val t_date = Date(now)
 
         cal.time = t_date
-        cal.add(Calendar.DATE, addDate)
+        if (addDate != null)
+            cal.add(Calendar.DATE, addDate)
 
         // 현재 시간을 dateFormat 에 선언한 형태의 String 으로 변환
         val str_date = dateFormat.format(cal.time)
