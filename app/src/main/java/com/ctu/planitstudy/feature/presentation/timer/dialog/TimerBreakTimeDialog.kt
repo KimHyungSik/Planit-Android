@@ -41,6 +41,11 @@ class TimerBreakTimeDialog : DialogFragment() {
         binding = DialogFragmentTimerBrakeTimeBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        viewModel.updateTimerState(
+            viewModel.timerState.value!!.copy(
+                breakTime = viewModel.timerState.value!!.breakTime + 1
+            )
+        )
         return binding.root
     }
 
