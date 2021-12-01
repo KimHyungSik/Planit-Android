@@ -26,9 +26,7 @@ class GetDdayListUseCase @Inject constructor(
                     dday.endAt
                 )
             }
-
-            val ddaySrot = ddayList.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
-            emit(Resource.Success(DdayListDto(ddaySrot)))
+            emit(Resource.Success(sortedDdayList(ddayList)))
         } catch (e: Throwable) {
             if (e is HttpException) {
                 emit(
@@ -40,5 +38,10 @@ class GetDdayListUseCase @Inject constructor(
                 )
             }
         }
+    }
+
+    fun sortedDdayList(ddayListDto: DdayListDto) : DdayListDto{
+        val ddaySort = ddayListDto.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
+        return DdayListDto(ddaySort)
     }
 }
