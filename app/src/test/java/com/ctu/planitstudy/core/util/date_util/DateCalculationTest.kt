@@ -6,6 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
 import com.ctu.planitstudy.core.util.enums.Weekday
+import com.google.common.truth.Truth.assertThat
 
 class DateCalculationTest : TestCase() {
     private lateinit var dateCalculation: DateCalculation
@@ -39,9 +40,16 @@ class DateCalculationTest : TestCase() {
                 Weekday.Saturday
             )
         )
-        for(week in 0..Weekday.values().size - 2)
-            assertThat(result[week].ordinal).isGreaterThan(result[week+1].ordinal)
+
         val emptyResult  = dateCalculation.calDateBetweenWeek("2021-12-1", "2021-11-1")
         assertEquals(emptyResult, arrayListOf<Weekday>())
+    }
+
+    @Test
+    fun testCalDateBetweenWeekAscendingSort() = runBlocking {
+        val result = dateCalculation.calDateBetweenWeek("2021-12-1", "2021-12-4")
+        // 오름 차순 정렬 확인
+        for(week in 0..result.size - 2)
+            assertThat(result[week].ordinal).isLessThan(result[week+1].ordinal)
     }
 }
