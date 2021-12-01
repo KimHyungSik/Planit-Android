@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -37,11 +38,11 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
             getExistingMeasurementTime()
 
             measurementState.observe(this@MeasurementScreen, {
-
+                Log.d(TAG, "viewModelSetUp: $it")
                 with(binding) {
                     invalidateAll()
                     // 체크 유무 확인
-                    if (it.isDone) {
+                    if (it.studyDto!!.isDone) {
                         measurementStudyConfirm.visibility = View.VISIBLE
                         measurementStudyCheckedView.visibility = View.GONE
                     } else {
