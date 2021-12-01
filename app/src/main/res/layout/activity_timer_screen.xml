@@ -94,7 +94,8 @@
                         android:text="@{viewmodel.timerState.timeString}"
                         android:textColor="@color/text_color"
                         android:textSize="28sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:id="@+id/timer_time_sub_text"
