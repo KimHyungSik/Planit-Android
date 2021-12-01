@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View

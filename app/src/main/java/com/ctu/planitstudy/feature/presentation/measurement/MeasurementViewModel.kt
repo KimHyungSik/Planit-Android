@@ -88,5 +88,5 @@ class MeasurementViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun getMeasurementTime(): String =  measurementState.value!!.measurementTime.longToTimeKorString()
+    fun getMeasurementTime(): String = measurementState.value!!.measurementTime.longToTimeKorString()
 }

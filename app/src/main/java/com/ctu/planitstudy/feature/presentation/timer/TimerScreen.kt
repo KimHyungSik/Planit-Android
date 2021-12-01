@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -140,10 +139,10 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
         )
     }
 
-    private fun timerStartAndStop(b: Boolean){
-        if(b && !viewModel.timerThreadState)
+    private fun timerStartAndStop(b: Boolean) {
+        if (b && !viewModel.timerThreadState)
             viewModel.startTimer()
-        if(!b && viewModel.timerThreadState)
+        if (!b && viewModel.timerThreadState)
             viewModel.stopTimer()
     }
 

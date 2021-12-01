@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -72,7 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
                             binding.apply {
                                 homeFragmentDDayCount.text =
                                     if (dDay.dDay > 0) "D-${dDay.dDay}" else if (dDay.dDay == 0) "D-DAY" else "D+${
-                                        Math.abs(dDay.dDay)
+                                    Math.abs(dDay.dDay)
                                     }"
                                 if (dDay.dDay == 0)
                                     homeFragmentDDayCountBox.background = ContextCompat.getDrawable(

@@ -56,7 +56,7 @@ class TimerViewModel :
     }
 
     fun changeTimerCycle(timerCycle: TimerCycle) {
-        if(this.timerCycle.value!! != timerCycle)
+        if (this.timerCycle.value!! != timerCycle)
             _timerCycle.value = timerCycle
     }
 }
