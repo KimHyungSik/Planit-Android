@@ -6,14 +6,13 @@ import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
+import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 import java.util.*
-import com.google.common.truth.Truth.assertThat
 
-class DdayUseCaseTest{
+class DdayUseCaseTest {
     lateinit var ddayUseCase: DdayUseCase
     lateinit var ddayRepository: DdayRepository
     lateinit var ddayIconSet: DdayIconSet
@@ -54,8 +53,8 @@ class DdayUseCaseTest{
     @Test
     fun getDdayListUseCaseSortTest() = runBlocking {
         val result = ddayUseCase.getDdayListUseCase.sortedDdayList(ddayRepository.getDdayList()).ddays
-        for(n in 0..result.size - 2) {
-            if(result[n].endAt != result[n + 1].endAt)
+        for (n in 0..result.size - 2) {
+            if (result[n].endAt != result[n + 1].endAt)
                 assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isGreaterThan(
                     DateConvter.dtoDateTOLong(
                         result[n + 1].endAt

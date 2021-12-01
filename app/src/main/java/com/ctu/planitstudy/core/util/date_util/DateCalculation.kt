@@ -29,7 +29,7 @@ class DateCalculation {
         val t_date = Date(now)
 
         cal.time = t_date
-        if(addDate != null)
+        if (addDate != null)
             cal.add(Calendar.DATE, addDate)
 
         // 현재 시간을 dateFormat 에 선언한 형태의 String 으로 변환

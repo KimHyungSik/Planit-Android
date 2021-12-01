@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.data.data_source.user.componets
 
 import android.content.Context
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.OauthUserPolicy
 import com.ctu.planitstudy.feature.domain.model.user.User

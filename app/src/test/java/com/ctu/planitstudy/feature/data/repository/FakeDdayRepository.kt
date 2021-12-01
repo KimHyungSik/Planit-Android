@@ -4,11 +4,9 @@ import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
-class FakeDdayRepository: DdayRepository {
+class FakeDdayRepository : DdayRepository {
 
     private val ddays = mutableListOf<Dday>()
     private val ddayListDto = mutableListOf<DdayDto>()
