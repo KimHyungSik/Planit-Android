@@ -99,7 +99,7 @@
                             android:textSize="22sp"
                             android:textStyle="bold" />
                         <TextView
-                            android:text="공부했어요"
+                            android:text="@{activity.studyTimeTitle}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="12sp"

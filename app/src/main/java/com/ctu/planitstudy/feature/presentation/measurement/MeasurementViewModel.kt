@@ -26,7 +26,6 @@ class MeasurementViewModel @Inject constructor(
     val measurementState: LiveData<MeasurementState> = _measurementState
 
     fun getExistingMeasurementTime() {
-
         timerUseCase.getMeasurementTimerUseCase(measurementState.value!!.studyDto!!.studyId.toString())
             .onEach {
                 when (it) {

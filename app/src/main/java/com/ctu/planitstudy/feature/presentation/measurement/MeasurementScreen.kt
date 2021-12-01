@@ -38,7 +38,6 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>()
             getExistingMeasurementTime()
 
             measurementState.observe(this@MeasurementScreen, {
-                Log.d(TAG, "viewModelSetUp: $it")
                 with(binding) {
                     invalidateAll()
                     // 체크 유무 확인
