@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -276,8 +276,8 @@
 
                         <Switch
                             android:id="@+id/d_day_representative_switch"
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
                             android:layout_marginEnd="22dp"
                             android:checked="@={viewmodel.DDayState.representative}"
                             android:onCheckedChanged="@{viewmodel::onSwitchChanged}"
@@ -297,7 +297,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/d_day_confirmed_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="64dp"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginBottom="40dp"
                     android:clickable="true"
@@ -311,7 +311,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="추가하기" />
+                        android:text="추가하기"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -355,7 +358,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="완료"
+                            android:text="저장하기"
                             android:textColor="@color/text_color"
                             android:textSize="16sp"
                             android:textStyle="bold" />

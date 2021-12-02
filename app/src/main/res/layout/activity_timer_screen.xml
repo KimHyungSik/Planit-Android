@@ -68,7 +68,7 @@
                 <me.tankery.lib.circularseekbar.CircularSeekBar
                     android:id="@+id/timer_circular_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     app:cs_circle_color="@color/module_color"
                     app:cs_circle_fill="#04041d"
@@ -95,6 +95,8 @@
                         android:textColor="@color/text_color"
                         android:textSize="28sp"
                         android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         />
 
                     <TextView
@@ -102,11 +104,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"
                         android:text="집중하면 1시간마다\n보너스 티켓 획득!"
                         android:textColor="#4794ff"
                         android:textSize="14sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
