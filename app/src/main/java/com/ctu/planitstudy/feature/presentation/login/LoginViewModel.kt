@@ -47,7 +47,6 @@ class LoginViewModel @Inject constructor(
                                 .subscribe({ it ->
                                     when (it) {
                                         is Resource.Success -> {
-                                            Log.d(TAG, "login: $it")
                                             userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                                 .subscribeOn(Schedulers.computation())
                                                 .observeOn(AndroidSchedulers.mainThread())

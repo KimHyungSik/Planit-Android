@@ -41,10 +41,10 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Redirect URI: "kakaof953402e66a75c29b3150798868f15c4://oauth" -->
+                <!-- Redirect URI: "kakaoa76352f6670e85030076b792cbff190e://oauth" -->
                 <data
                     android:host="oauth"
-                    android:scheme="kakaof953402e66a75c29b3150798868f15c4" />
+                    android:scheme="kakaoa76352f6670e85030076b792cbff190e" />
             </intent-filter>
         </activity>
     </application>
