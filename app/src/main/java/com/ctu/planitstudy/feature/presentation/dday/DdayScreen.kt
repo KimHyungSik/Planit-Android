@@ -14,6 +14,7 @@ import com.ctu.planitstudy.databinding.ActivityDdayScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.presentation.dday.dialog.DeleteCheckDialog
 import com.ctu.planitstudy.feature.presentation.dday.dialog.RepresentativeCheckDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
@@ -24,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable
 @AndroidEntryPoint
 @SuppressLint("SimpleDateFormat")
 class DdayScreen :
-    BaseBindingActivity<ActivityDdayScreenBinding>() {
+    BaseBindingActivity<ActivityDdayScreenBinding>(), BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "DdayScreen - 로그"
 
@@ -36,7 +37,7 @@ class DdayScreen :
 
     private val ddayIconSet = DdayIconSet()
     private var representativeSwitchOnesCheck = false
-
+    private val calendarDialog = BottomSheetCalendarDialog()
     private val deleteDialog = DeleteCheckDialog()
 
     override fun setup() {
@@ -59,27 +60,9 @@ class DdayScreen :
 
         with(binding) {
             viewmodel = viewModel
-            // 데이터 피커 날짜 변경 시
-            dDayDatePicker.apply {
-                setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    viewmodel!!.dDayUpdate(
-                        viewmodel!!.dDayState.value!!.copy(
-                            date = DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth")
-                        )
-                    )
-                }
-            }
-
-            // 데이터 피커 확인 버튼
-            dDayConfirmedDateBtn.setOnClickListener {
-                dDayCustomDatePicker.visibility = View.INVISIBLE
-                dDayBlur.visibility = View.INVISIBLE
-                binding.invalidateAll()
-            }
 
             dDayDateItemView.setOnClickListener {
-                dDayCustomDatePicker.visibility = View.VISIBLE
-                dDayBlur.visibility = View.VISIBLE
+                showCalendar(DateConvter.textDateToLongDate(viewModel.dDayState.value!!.date))
             }
 
             disposables.add(
@@ -167,8 +150,28 @@ class DdayScreen :
         })
     }
 
+    private fun showCalendar(time: Long) {
+        val args = Bundle()
+        args.putLong("date",  time)
+        calendarDialog.arguments = args
+        calendarDialog.setDialogListener(this)
+        calendarDialog.show(supportFragmentManager, "calendarDialog")
+    }
+
     override fun onDestroy() {
         disposables.clear()
         super.onDestroy()
+    }
+
+    override fun onConfirmedClick() {
+        binding.invalidateAll()
+    }
+
+    override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
+        viewModel!!.dDayUpdate(
+            viewModel!!.dDayState.value!!.copy(
+                date = DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth")
+            )
+        )
     }
 }
