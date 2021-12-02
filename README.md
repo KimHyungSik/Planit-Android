@@ -1,5 +1,5 @@
 # Planit
-![Generic badeg](https://img.shields.io/badge/release-1.0.0-blue)
+![Generic badeg](https://img.shields.io/badge/release-1.0.0-blue) 
 돈버는 공부타이머 플래닛
 
 ## `Android`
