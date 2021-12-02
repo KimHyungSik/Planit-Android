@@ -2,7 +2,7 @@
 --------------------
 돈버는 공부타이머 플래닛
 ## `Android` 
-<img alt="Python" src ="https://img.shields.io/badge/Android-3DDc84.svg?&style=for-the-badge&logo=안드로이드&logoColor=white"/>
+<img alt="Android" src ="https://img.shields.io/badge/Android-3DDc84.svg?&style=for-the-badge&logo=안드로이드&logoColor=white"/>
 
 ## Development
 - IDE : Android Studio (4.1.3)
