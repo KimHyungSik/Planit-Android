@@ -15,6 +15,7 @@ import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
+import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.study.dialog.DeleteCheckStudy
 import com.ctu.planitstudy.feature.presentation.util.Screens
@@ -25,7 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
+class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>(), BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "StudyScreen - 로그"
 
@@ -35,7 +36,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
     private val viewModel: StudyViewModel by viewModels()
 
     private val disposables = CompositeDisposable()
-
+    private val calendarDialog = BottomSheetCalendarDialog()
     private val checkBoxList = ArrayList<CheckBox>()
 
     override fun setup() {
@@ -68,78 +69,32 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
             }
 
             studyDateItemView.setOnClickListener {
-                showCalendar()
+                showCalendar(DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt))
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.SingleDate
                     )
                 )
-                studyDatePicker.date =
-                    DateConvter.textDateToLongDate(viewModel.studyState.value!!.singleAt)
             }
 
             // 시작일 선택
             studyRepeatStartDateItemView.setOnClickListener {
-                showCalendar()
+                showCalendar(DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt))
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.StartAt
                     )
                 )
-                studyDatePicker.date =
-                    DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
             }
 
             // 종료일 선택
             studyRepeatEndDateItemView.setOnClickListener {
-                showCalendar()
+                showCalendar(DateConvter.textDateToLongDate(viewModel.studyState.value!!.endAt))
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         kindDate = KindStudyDate.EndAt
                     )
                 )
-                studyDatePicker.date =
-                    DateConvter.textDateToLongDate(viewModel.studyState.value!!.endAt)
-            }
-
-            // 데이터 피커 확인
-            studyConfirmedDateBtn.setOnClickListener {
-                studyCustomDatePicker.visibility = View.INVISIBLE
-                studyBlur.visibility = View.INVISIBLE
-                binding.invalidateAll()
-                viewModel.studyUpdate(
-                    viewModel.studyState.value!!.copy(
-                        activationWeek = DateCalculation().calDateBetweenWeek(
-                            DateConvter.textDateToDtoDate(viewModel.studyState.value!!.startAt),
-                            DateConvter.textDateToDtoDate(viewModel.studyState.value!!.endAt)
-                        )
-                    )
-                )
-                activationWeekCheckBox(
-                    viewModel.studyState.value!!.activationWeek
-                )
-            }
-
-            // 데이터 피커 변경
-            studyDatePicker.apply {
-                setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong(
-                            "$year-${month + 1}-$dayOfMonth"
-                        ) < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
-                    ) {
-                        val arg = Bundle()
-                        arg.putString("title", getString(R.string.study_failed_endAt))
-                        showDialogFragment(arg, SingleTitleCheckDialog())
-                        return@setOnDateChangeListener
-                    }
-
-                    viewmodel!!.studyDateUpdate(
-                        DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth"),
-                        viewModel.studyState.value!!.kindDate
-                    )
-                    binding.studyAllDay.isChecked = false
-                    viewModel.clearCheckWeek()
-                }
             }
 
             studyRepeatSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -278,22 +233,20 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
     }
 
     private fun listsEqual(list1: List<Any>, list2: List<Any>): Boolean {
-
         if (list1.size != list2.size)
             return false
-
         val pairList = list1.zip(list2)
-
         return pairList.all { (elt1, elt2) ->
             elt1 == elt2
         }
     }
 
-    private fun showCalendar() {
-        with(binding) {
-            studyCustomDatePicker.visibility = View.VISIBLE
-            studyBlur.visibility = View.VISIBLE
-        }
+    private fun showCalendar(time: Long) {
+        val args = Bundle()
+        args.putLong("date", time)
+        calendarDialog.arguments = args
+        calendarDialog.setDialogListener(this@StudyScreen)
+        calendarDialog.show(supportFragmentManager, "calendarDialog")
     }
 
     private fun setUpWithStudy(studyDto: StudyDto) {
@@ -342,5 +295,39 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>() {
     override fun onDestroy() {
         disposables.clear()
         super.onDestroy()
+    }
+
+    override fun onConfirmedClick() {
+        binding.invalidateAll()
+        viewModel.studyUpdate(
+            viewModel.studyState.value!!.copy(
+                activationWeek = DateCalculation().calDateBetweenWeek(
+                    DateConvter.textDateToDtoDate(viewModel.studyState.value!!.startAt),
+                    DateConvter.textDateToDtoDate(viewModel.studyState.value!!.endAt)
+                )
+            )
+        )
+        activationWeekCheckBox(
+            viewModel.studyState.value!!.activationWeek
+        )
+    }
+
+    override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
+        if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong(
+                "$year-${month + 1}-$dayOfMonth"
+            ) < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
+        ) {
+            val arg = Bundle()
+            arg.putString("title", getString(R.string.study_failed_endAt))
+            showDialogFragment(arg, SingleTitleCheckDialog())
+            return
+        }
+
+        viewModel!!.studyDateUpdate(
+            DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth"),
+            viewModel.studyState.value!!.kindDate
+        )
+        binding.studyAllDay.isChecked = false
+        viewModel.clearCheckWeek()
     }
 }
