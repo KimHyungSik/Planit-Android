@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.dialogs
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -38,7 +37,7 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val  dialog = BottomSheetDialog(requireContext(), R.style.NewDialog)
+        val dialog = BottomSheetDialog(requireContext(), R.style.NewDialog)
         return dialog
     }
 
@@ -67,7 +66,5 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
         binding.bottomSheetDatePicker.setOnDateChangeListener { _, year, month, dayOfMonth ->
             bottomSheetCalendar.onChangeDate(year, month, dayOfMonth)
         }
-
     }
-
 }

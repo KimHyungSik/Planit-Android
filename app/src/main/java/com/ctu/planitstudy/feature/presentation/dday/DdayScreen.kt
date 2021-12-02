@@ -152,7 +152,7 @@ class DdayScreen :
 
     private fun showCalendar(time: Long) {
         val args = Bundle()
-        args.putLong("date",  time)
+        args.putLong("date", time)
         calendarDialog.arguments = args
         calendarDialog.setDialogListener(this)
         calendarDialog.show(supportFragmentManager, "calendarDialog")

@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.study
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
@@ -244,7 +243,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>(), BottomShe
 
     private fun showCalendar(time: Long) {
         val args = Bundle()
-        args.putLong("date",  time)
+        args.putLong("date", time)
         calendarDialog.arguments = args
         calendarDialog.setDialogListener(this@StudyScreen)
         calendarDialog.show(supportFragmentManager, "calendarDialog")
