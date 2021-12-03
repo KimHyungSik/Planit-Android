@@ -15,11 +15,11 @@ import java.util.*
 
 @AndroidEntryPoint
 class SignUpScreen :
-    BaseBindingActivity<ActivitySignUpScreenBinding>() {
+    BaseBindingActivity<ActivitySignUpScreenBinding, SignUpViewModel>() {
 
     val TAG = "SignUpScreen - 로그"
 
-    private val viewModel: SignUpViewModel by viewModels()
+    override val viewModel: SignUpViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater) -> ActivitySignUpScreenBinding =
         ActivitySignUpScreenBinding::inflate

@@ -9,14 +9,14 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
 import java.util.regex.Pattern
 
-class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBinding>() {
+class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBinding, SignUpViewModel>() {
 
     val TAG = "BirthFragment - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserDateofbirthBinding
         get() = FragmentSignUpUserDateofbirthBinding::inflate
 
-    private val viewModel: SignUpViewModel by activityViewModels()
+    override val viewModel: SignUpViewModel by activityViewModels()
 
     private val disposables = CompositeDisposable()
     var textCount = 0

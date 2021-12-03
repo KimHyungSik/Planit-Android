@@ -9,8 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginScreen :
-    BaseBindingActivity<ActivityLoginScreenBinding>() {
-    private val viewModel: LoginViewModel by viewModels()
+    BaseBindingActivity<ActivityLoginScreenBinding, LoginViewModel>() {
+    override val viewModel: LoginViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater) -> ActivityLoginScreenBinding =
         ActivityLoginScreenBinding::inflate

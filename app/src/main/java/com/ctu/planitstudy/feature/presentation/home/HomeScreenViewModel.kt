@@ -1,3 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.home
 
-class HomeScreenViewModel
+import com.ctu.planitstudy.core.base.BaseViewModel
+
+class HomeScreenViewModel : BaseViewModel(){
+
+}

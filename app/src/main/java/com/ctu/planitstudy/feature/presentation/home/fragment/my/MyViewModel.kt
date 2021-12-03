@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     private val userUseCase: UserUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "MyViewModel - 로그"
 

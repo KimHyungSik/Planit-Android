@@ -10,14 +10,14 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
 
-class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBinding>() {
+class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBinding, SignUpViewModel>() {
 
     val TAG = "ReceiverName - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserReceiverNameBinding
         get() = FragmentSignUpUserReceiverNameBinding::inflate
 
-    private val viewModel: SignUpViewModel by activityViewModels()
+    override val viewModel: SignUpViewModel by activityViewModels()
 
     private val disposables = CompositeDisposable()
 

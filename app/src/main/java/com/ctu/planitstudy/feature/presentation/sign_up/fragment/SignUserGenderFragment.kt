@@ -10,14 +10,14 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.disposables.CompositeDisposable
 
-class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding>() {
+class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding, SignUpViewModel>() {
 
     val TAG = "GenderFragment - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserGenderBinding
         get() = FragmentSignUpUserGenderBinding::inflate
 
-    private val viewModel: SignUpViewModel by activityViewModels()
+    override val viewModel: SignUpViewModel by activityViewModels()
 
     private val disposables = CompositeDisposable()
     override fun setInit() {

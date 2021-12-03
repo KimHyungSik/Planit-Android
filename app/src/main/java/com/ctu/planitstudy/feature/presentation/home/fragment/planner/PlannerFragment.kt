@@ -16,7 +16,7 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.disposables.CompositeDisposable
 
-class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
+class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>() {
 
     val TAG = "PlannerFragment - 로그"
 
@@ -26,6 +26,7 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
     private val disposables = CompositeDisposable()
 
     private val homeViewModel by activityViewModels<HomeViewModel>()
+    override val viewModel: PlannerViewModel by activityViewModels<PlannerViewModel>()
 
     @SuppressLint("ResourceAsColor")
     override fun setUpViews() {
@@ -90,4 +91,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding>() {
         disposables.clear()
         super.onDestroy()
     }
+
+
 }

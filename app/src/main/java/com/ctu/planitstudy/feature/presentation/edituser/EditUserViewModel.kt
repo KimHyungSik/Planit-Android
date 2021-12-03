@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditUserViewModel @Inject constructor(
     private val userUseCase: UserUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "EditUserViewModel - 로그"
 

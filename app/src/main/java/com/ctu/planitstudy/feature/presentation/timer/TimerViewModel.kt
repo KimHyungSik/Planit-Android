@@ -3,12 +3,13 @@ package com.ctu.planitstudy.feature.presentation.timer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.longToTimeString
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import java.util.*
 
 class TimerViewModel :
-    ViewModel() {
+    BaseViewModel() {
 
     val TAG = "TimerViewModel - 로그"
 

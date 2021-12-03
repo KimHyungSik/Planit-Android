@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
@@ -30,7 +31,7 @@ class SignUpViewModel @Inject constructor(
     private val userManager: UserManager,
     private val userAuthUseCase: UserAuthUseCase,
     private val userValidateNickNameUseCase: UserValidateNickNameUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
     // 현재 회원 가입 정보

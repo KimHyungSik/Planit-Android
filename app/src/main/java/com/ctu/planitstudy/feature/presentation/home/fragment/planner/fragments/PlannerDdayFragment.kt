@@ -14,14 +14,14 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.D
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.InDdayListRecycler
 import io.reactivex.rxkotlin.toObservable
 
-class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayListRecycler {
+class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding, HomeViewModel>(), InDdayListRecycler {
 
     val TAG = "DdayFragment - 로그"
 
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerDDayBinding
         get() = FragmentPlannerDDayBinding::inflate
 
-    private val homeViewModel by activityViewModels<HomeViewModel>()
+    override val viewModel by activityViewModels<HomeViewModel>()
 
     private lateinit var dDayListRecyclerAdapter: DdayListRecyclerAdapter
 
@@ -34,7 +34,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             adapter = dDayListRecyclerAdapter
         }
         // 대표 디데이
-        homeViewModel.homeState.value!!.dDayList!!.ddays.toObservable()
+        viewModel.homeState.value!!.dDayList!!.ddays.toObservable()
             .filter { it.isRepresentative }
             .subscribe {
                 dDay ->
@@ -54,7 +54,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding>(), InDdayLi
             }.isDisposed
 
         // 대표 디데이를 제외한 디데이 리스
-        homeViewModel.homeState.value!!.dDayList!!.ddays.toObservable()
+        viewModel.homeState.value!!.dDayList!!.ddays.toObservable()
             .filter { !it.isRepresentative }
             .subscribe {
                 dDayListRecyclerAdapter.dDayList.add(it)

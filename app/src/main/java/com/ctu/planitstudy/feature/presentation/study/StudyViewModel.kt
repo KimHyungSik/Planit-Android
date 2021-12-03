@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StudyViewModel @Inject constructor(
     val studyUseCase: StudyUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "StudyViewModel - 로그"
     private val currentDate = DateConvter.dtoDateToTextDate(null)

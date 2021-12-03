@@ -18,14 +18,14 @@ import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 
-class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding>() {
+class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding, TimerViewModel>() {
 
     val TAG = "TimerScreen - 로그"
 
     override val bindingInflater: (LayoutInflater) -> ActivityTimerScreenBinding
         get() = ActivityTimerScreenBinding::inflate
 
-    private val viewModel: TimerViewModel by viewModels()
+    override val viewModel: TimerViewModel by viewModels()
 
     var study: StudyDto? = null
     private val timerStartDialog = TimerStartDialog()

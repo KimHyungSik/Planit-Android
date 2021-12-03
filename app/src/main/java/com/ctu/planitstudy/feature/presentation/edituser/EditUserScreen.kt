@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
+class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding, EditUserViewModel>() {
 
     val TAG = "EditUserScreen - 로그"
 
@@ -33,7 +33,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding>() {
     var user: UserInformationDto? = null
 
     private val disposables = CompositeDisposable()
-    private val viewModel: EditUserViewModel by viewModels()
+    override val viewModel: EditUserViewModel by viewModels()
     private lateinit var editUser: EditUser
 
     override fun setup() {

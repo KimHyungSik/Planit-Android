@@ -25,14 +25,14 @@ import io.reactivex.disposables.CompositeDisposable
 @AndroidEntryPoint
 @SuppressLint("SimpleDateFormat")
 class DdayScreen :
-    BaseBindingActivity<ActivityDdayScreenBinding>(), BottomSheetCalendarDialog.BottomSheetCalendar {
+    BaseBindingActivity<ActivityDdayScreenBinding, DdayViewModel>(), BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "DdayScreen - 로그"
 
     override val bindingInflater: (LayoutInflater) -> ActivityDdayScreenBinding
         get() = ActivityDdayScreenBinding::inflate
 
-    private val viewModel: DdayViewModel by viewModels()
+    override val viewModel: DdayViewModel by viewModels()
     private val disposables = CompositeDisposable()
 
     private val ddayIconSet = DdayIconSet()

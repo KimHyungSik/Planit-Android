@@ -32,7 +32,7 @@ import com.kizitonwose.calendarview.utils.yearMonth
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), InStudyListRecycler {
+class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding, PlannerPlannerViewModel>(), InStudyListRecycler {
     override val bindingInflater: (LayoutInflater) -> FragmentPlannerPlannerBinding
         get() = FragmentPlannerPlannerBinding::inflate
 
@@ -40,7 +40,7 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding>(), In
 
     var mothToWeek = false
 
-    private val viewModel by activityViewModels<PlannerPlannerViewModel>()
+    override val viewModel by activityViewModels<PlannerPlannerViewModel>()
     private val homeViewModel by activityViewModels<HomeViewModel>()
 
     private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter

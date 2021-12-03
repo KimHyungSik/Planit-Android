@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val ddayListUseCase: GetDdayListUseCase,
     private val getStudyListUseCase: GetStudyListUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "HomeViewModel - 로그"
 
@@ -39,8 +40,10 @@ class HomeViewModel @Inject constructor(
                         _homeState.value = homeState.value!!.copy(
                             dDayList = it.data
                         )
+                        _loading.value = false
                     }
                     is Resource.Loading -> {
+                        _loading.value = true
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "initSet: ${it.message}")
@@ -57,8 +60,10 @@ class HomeViewModel @Inject constructor(
                     _homeState.value = homeState.value!!.copy(
                         studyListDto = it.data!!
                     )
+                    _loading.value = false
                 }
                 is Resource.Loading -> {
+                    _loading.value = true
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getStudyList: error ${it.message}")

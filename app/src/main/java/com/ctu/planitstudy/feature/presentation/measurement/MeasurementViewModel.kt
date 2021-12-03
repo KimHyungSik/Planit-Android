@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MeasurementViewModel @Inject constructor(
     val timerUseCase: TimerUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "MeasurementViewModel - 로그"
 

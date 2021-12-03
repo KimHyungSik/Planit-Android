@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.presentation.splash
 import android.os.Build
 import android.util.Base64.*
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
@@ -13,7 +14,7 @@ import io.reactivex.Completable
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding>() {
+class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScreenViewModel>() {
     override val bindingInflater: (LayoutInflater) -> ActivitySplashScreenBinding
         get() = ActivitySplashScreenBinding::inflate
 
@@ -35,4 +36,6 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding>() {
             }
             .isDisposed
     }
+
+    override val viewModel: SplashScreenViewModel by viewModels()
 }

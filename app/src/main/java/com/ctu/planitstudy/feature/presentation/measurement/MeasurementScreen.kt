@@ -11,12 +11,12 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding>() {
+class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding, MeasurementViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityMeasurementTimerBinding
         get() = ActivityMeasurementTimerBinding::inflate
 
-    val viewModel: MeasurementViewModel by viewModels()
+    override val viewModel: MeasurementViewModel by viewModels()
 
     override fun setup() {
         viewModelSetUp()
