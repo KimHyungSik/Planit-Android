@@ -26,6 +26,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loading = LoadingDialog(requireContext())
         viewModel.loading.observe(viewLifecycleOwner, {
             if(it == null)
                 return@observe

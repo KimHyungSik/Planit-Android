@@ -155,7 +155,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
         disposables.addAll(
             RxTextView.textChanges(binding.studyEditTitle)
                 .subscribe {
-                    binding.studyTitleLengthCount.text = it.length.toString() + "/10"
+                    binding.studyTitleLengthCount.text = it.length.toString() + "/16"
                 }
         )
     }

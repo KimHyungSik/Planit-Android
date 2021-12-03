@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
     override fun setUpViews() {
         super.setUpViews()
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
-        loading = LoadingDialog(requireContext())
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = studyListRecyclerAdapter

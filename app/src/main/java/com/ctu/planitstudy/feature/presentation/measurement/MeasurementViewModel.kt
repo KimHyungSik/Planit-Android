@@ -32,11 +32,14 @@ class MeasurementViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         setViewDataWithTimerData(it.data!!)
+                        _loading.value = false
                     }
                     is Resource.Loading -> {
+                        _loading.value = true
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "getExistingMeasurementTime Error: ${it.message}")
+                        _loading.value = false
                     }
                 }
             }.launchIn(viewModelScope)
@@ -80,14 +83,19 @@ class MeasurementViewModel @Inject constructor(
                     _measurementState.value = measurementState.value!!.copy(
                         onExit = true
                     )
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "recordMeasurementTimer: Error")
+                    loadingDismiss()
                 }
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    loadingShow()
+                }
             }
         }.launchIn(viewModelScope)
     }
 
-    fun getMeasurementTime(): String = measurementState.value!!.measurementTime.longToTimeKorString()
+    fun getMeasurementTime(): String =
+        measurementState.value!!.measurementTime.longToTimeKorString()
 }

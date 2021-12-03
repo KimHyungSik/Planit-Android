@@ -43,11 +43,15 @@ class EditUserViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(nickNameValidate = it.data!!)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "checkNickNameValidate: ${it.message}")
+                    loadingDismiss()
+
                 }
                 is Resource.Loading -> {
+                   loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
@@ -68,11 +72,14 @@ class EditUserViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(edit = true)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "editUser: ${it.message}")
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
+                   loadingShow()
                 }
             }
         }.launchIn(viewModelScope)

@@ -21,6 +21,7 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
         super.onCreate(savedInstanceState)
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(requireNotNull(_binding).root)
+        loading = LoadingDialog(this)
         viewModel.loading.observe(this, {
             if(it == null)
                 return@observe

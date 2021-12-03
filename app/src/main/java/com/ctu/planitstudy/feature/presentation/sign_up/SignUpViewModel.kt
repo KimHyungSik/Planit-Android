@@ -98,7 +98,6 @@ class SignUpViewModel @Inject constructor(
                     Log.d(TAG, "validateNickNameCheck: error ${result.message}")
                 }
                 is Resource.Loading -> {
-                    Log.d(TAG, "validateNickNameCheck: loading")
                     _activityState.value = false
                 }
             }

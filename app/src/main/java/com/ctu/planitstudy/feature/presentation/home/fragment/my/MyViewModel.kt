@@ -35,12 +35,15 @@ class MyViewModel @Inject constructor(
         userUseCase.getUserUseCase().onEach {
             when (it) {
                 is Resource.Loading -> {
+                   loadingShow()
                 }
                 is Resource.Success -> {
                     _userInformationDto.value = it.data!!
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getUserInformation: ${it.message}")
+                    loadingDismiss()
                 }
             }
         }.launchIn(viewModelScope)

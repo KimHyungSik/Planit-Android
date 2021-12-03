@@ -40,13 +40,14 @@ class HomeViewModel @Inject constructor(
                         _homeState.value = homeState.value!!.copy(
                             dDayList = it.data
                         )
-                        _loading.value = false
+                       loadingDismiss()
                     }
                     is Resource.Loading -> {
-                        _loading.value = true
+                       loadingShow()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "initSet: ${it.message}")
+                        loadingDismiss()
                     }
                 }
             }.launchIn(this)
@@ -60,13 +61,14 @@ class HomeViewModel @Inject constructor(
                     _homeState.value = homeState.value!!.copy(
                         studyListDto = it.data!!
                     )
-                    _loading.value = false
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
-                    _loading.value = true
+                   loadingShow()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getStudyList: error ${it.message}")
+                    loadingDismiss()
                 }
             }
         }.launchIn(viewModelScope)

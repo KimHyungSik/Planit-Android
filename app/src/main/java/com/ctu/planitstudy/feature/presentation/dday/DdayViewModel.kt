@@ -68,11 +68,14 @@ class DdayViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _dDayNetworkState.value = DdayNetworkState(deleteDay = true)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
@@ -89,12 +92,15 @@ class DdayViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
+                        loadingDismiss()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "dDayDelete: ${it.message}")
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
+                        loadingShow()
                     }
                 }
             }.launchIn(viewModelScope)
@@ -105,12 +111,15 @@ class DdayViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _dDayNetworkState.value = DdayNetworkState(addDday = true)
+                        loadingDismiss()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "dDayDelete: ${it.message}")
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
+                        loadingShow()
                     }
                 }
             }.launchIn(viewModelScope)
