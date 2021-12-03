@@ -26,14 +26,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>(), BottomSheetCalendarDialog.BottomSheetCalendar {
+class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewModel>(), BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "StudyScreen - 로그"
 
     override val bindingInflater: (LayoutInflater) -> ActivityStudyScreenBinding
         get() = ActivityStudyScreenBinding::inflate
 
-    private val viewModel: StudyViewModel by viewModels()
+    override val viewModel: StudyViewModel by viewModels()
 
     private val disposables = CompositeDisposable()
     private val calendarDialog = BottomSheetCalendarDialog()
@@ -155,7 +155,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding>(), BottomShe
         disposables.addAll(
             RxTextView.textChanges(binding.studyEditTitle)
                 .subscribe {
-                    binding.studyTitleLengthCount.text = it.length.toString() + "/10"
+                    binding.studyTitleLengthCount.text = it.length.toString() + "/16"
                 }
         )
     }

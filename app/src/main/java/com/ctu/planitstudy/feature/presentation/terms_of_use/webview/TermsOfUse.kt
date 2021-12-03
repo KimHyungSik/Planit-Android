@@ -2,11 +2,13 @@ package com.ctu.planitstudy.feature.presentation.terms_of_use.webview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
+import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseViewModel
 
-class TermsOfUse : BaseBindingActivity<ActivityTermsOfUseBinding>() {
+class TermsOfUse : BaseBindingActivity<ActivityTermsOfUseBinding, TermsOfUseViewModel>() {
     override val bindingInflater: (LayoutInflater) -> ActivityTermsOfUseBinding
         get() = ActivityTermsOfUseBinding::inflate
 
@@ -22,4 +24,6 @@ class TermsOfUse : BaseBindingActivity<ActivityTermsOfUseBinding>() {
             )
         }
     }
+
+    override val viewModel: TermsOfUseViewModel by viewModels()
 }

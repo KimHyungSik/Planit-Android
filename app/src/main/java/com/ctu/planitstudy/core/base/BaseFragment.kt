@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected lateinit var binding: VB
     abstract val bindingInflater: (LayoutInflater) -> VB
+    abstract val viewModel: VM
+
+    lateinit var loading: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loading = LoadingDialog(requireContext())
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == null)
+                return@observe
+            if (it)
+                showLoading()
+            else
+                dismiss()
+        })
         setInit()
         return binding.root
     }
@@ -35,6 +48,14 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         setUpViews()
         observeData()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    open fun showLoading() {
+        loading.show()
+    }
+
+    open fun dismiss() {
+        loading.dismiss()
     }
 
     open fun setUpViews() {}

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.util
 
-import com.ctu.planitstudy.MainActivity
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
 import com.ctu.planitstudy.feature.presentation.edituser.EditUserScreen
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
@@ -13,7 +12,6 @@ import com.ctu.planitstudy.feature.presentation.terms_of_use.webview.TermsOfUse
 import com.ctu.planitstudy.feature.presentation.timer.TimerScreen
 
 sealed class Screens(val activity: Class<*>) {
-    object MainScreenSh : Screens(MainActivity::class.java)
     object LoginScreenSh : Screens(LoginScreen::class.java)
     object TermsOfUseAgreesScreenSh : Screens(TermsOfUseAgreesScreen::class.java)
     object TermsOfUseSh : Screens(TermsOfUse::class.java)

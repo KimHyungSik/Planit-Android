@@ -13,9 +13,9 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyFragment : BaseFragment<FragmentMyBinding>() {
+class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
 
-    private val viewModel by activityViewModels<MyViewModel>()
+    override val viewModel by activityViewModels<MyViewModel>()
 
     override val bindingInflater: (LayoutInflater) -> FragmentMyBinding
         get() = FragmentMyBinding::inflate

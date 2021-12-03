@@ -12,12 +12,12 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding>() {
+class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding, SignUpViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserNameBinding
         get() = FragmentSignUpUserNameBinding::inflate
 
-    private val viewModel: SignUpViewModel by activityViewModels()
+    override val viewModel: SignUpViewModel by activityViewModels()
 
     private val disposables = CompositeDisposable()
 

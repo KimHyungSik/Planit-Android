@@ -4,9 +4,9 @@ import android.util.Log
 import android.widget.CompoundButton
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.domain.model.Dday
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DdayViewModel @Inject constructor(
     private val ddayUseCase: DdayUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     val TAG = "DdayViewmodel - 로그"
 
     private val _dDayState = MutableLiveData<DdayState>(DdayState())
@@ -67,11 +67,14 @@ class DdayViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _dDayNetworkState.value = DdayNetworkState(deleteDay = true)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
@@ -88,12 +91,15 @@ class DdayViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _dDayNetworkState.value = DdayNetworkState(modifiedDay = true)
+                        loadingDismiss()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "dDayDelete: ${it.message}")
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
+                        loadingShow()
                     }
                 }
             }.launchIn(viewModelScope)
@@ -104,12 +110,15 @@ class DdayViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _dDayNetworkState.value = DdayNetworkState(addDday = true)
+                        loadingDismiss()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "dDayDelete: ${it.message}")
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
+                        loadingShow()
                     }
                 }
             }.launchIn(viewModelScope)

@@ -3,9 +3,9 @@ package com.ctu.planitstudy.feature.presentation.measurement
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MeasurementViewModel @Inject constructor(
     val timerUseCase: TimerUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "MeasurementViewModel - 로그"
 
@@ -31,11 +31,14 @@ class MeasurementViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         setViewDataWithTimerData(it.data!!)
+                        _loading.value = false
                     }
                     is Resource.Loading -> {
+                        _loading.value = true
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "getExistingMeasurementTime Error: ${it.message}")
+                        _loading.value = false
                     }
                 }
             }.launchIn(viewModelScope)
@@ -79,14 +82,19 @@ class MeasurementViewModel @Inject constructor(
                     _measurementState.value = measurementState.value!!.copy(
                         onExit = true
                     )
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "recordMeasurementTimer: Error")
+                    loadingDismiss()
                 }
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    loadingShow()
+                }
             }
         }.launchIn(viewModelScope)
     }
 
-    fun getMeasurementTime(): String = measurementState.value!!.measurementTime.longToTimeKorString()
+    fun getMeasurementTime(): String =
+        measurementState.value!!.measurementTime.longToTimeKorString()
 }

@@ -3,9 +3,9 @@ package com.ctu.planitstudy.feature.presentation.study
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.Weekday
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StudyViewModel @Inject constructor(
     val studyUseCase: StudyUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "StudyViewModel - 로그"
     private val currentDate = DateConvter.dtoDateToTextDate(null)
@@ -173,9 +173,10 @@ class StudyViewModel @Inject constructor(
                         when (it) {
                             is Resource.Success -> {
                                 _studyDialogState.value = StudyDialogState(addStudy = true)
+                                _loading.value = false
                             }
                             is Resource.Loading -> {
-                                Log.d(TAG, "studyConfirmed: loading")
+                                _loading.value = true
                             }
                             is Resource.Error -> {
                                 Log.d(TAG, "studyConfirmed: ${it.message}")
@@ -196,12 +197,14 @@ class StudyViewModel @Inject constructor(
                         when (it) {
                             is Resource.Success -> {
                                 _studyDialogState.value = StudyDialogState(addStudy = true)
+                                loadingDismiss()
                             }
                             is Resource.Loading -> {
-                                Log.d(TAG, "studyConfirmed: loading")
+                                loadingShow()
                             }
                             is Resource.Error -> {
                                 Log.d(TAG, "studyConfirmed: ${it.message}")
+                                loadingDismiss()
                             }
                         }
                     }.launchIn(this)
@@ -220,10 +223,13 @@ class StudyViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _studyDialogState.value = StudyDialogState(exitStudy = true)
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
+                    loadingShow()
                 }
                 is Resource.Error -> {
+                    loadingDismiss()
                 }
             }
         }.launchIn(viewModelScope)

@@ -3,8 +3,8 @@ package com.ctu.planitstudy.feature.presentation.login
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val userManager: UserManager,
     private val userAuthUseCase: UserAuthUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     val TAG = "LoginViewModel - 로그"
 
     val loginState: MutableLiveData<LoginState> by lazy {

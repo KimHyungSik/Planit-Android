@@ -3,9 +3,9 @@ package com.ctu.planitstudy.feature.presentation.sign_up
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
@@ -30,7 +30,7 @@ class SignUpViewModel @Inject constructor(
     private val userManager: UserManager,
     private val userAuthUseCase: UserAuthUseCase,
     private val userValidateNickNameUseCase: UserValidateNickNameUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     val TAG = "SignUpViewModel - 로그"
 
     // 현재 회원 가입 정보
@@ -97,7 +97,6 @@ class SignUpViewModel @Inject constructor(
                     Log.d(TAG, "validateNickNameCheck: error ${result.message}")
                 }
                 is Resource.Loading -> {
-                    Log.d(TAG, "validateNickNameCheck: loading")
                     _activityState.value = false
                 }
             }

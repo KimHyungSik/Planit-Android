@@ -3,6 +3,7 @@ package com.ctu.planitstudy.feature.presentation.terms_of_use
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.CheckBox
+import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseScreenBinding
@@ -13,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
 class TermsOfUseAgreesScreen :
-    BaseBindingActivity<ActivityTermsOfUseScreenBinding>() {
+    BaseBindingActivity<ActivityTermsOfUseScreenBinding, TermsOfUseAgreeViewModel>() {
 
     val TAG = "TermsOfUseScreen - 로그"
     private val disposables = CompositeDisposable()
@@ -85,4 +86,6 @@ class TermsOfUseAgreesScreen :
         disposables.clear()
         super.onDestroy()
     }
+
+    override val viewModel: TermsOfUseAgreeViewModel by viewModels()
 }

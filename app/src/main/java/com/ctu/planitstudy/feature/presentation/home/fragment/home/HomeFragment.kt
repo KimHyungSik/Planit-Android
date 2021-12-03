@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.toObservable
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudyListRecycler {
 
     val TAG = "HomFragment - 로그"
 
@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
 
     private lateinit var studyListRecyclerAdapter: StudyListRecyclerAdapter
 
-    private val viewModel by activityViewModels<HomeViewModel>()
+    override val viewModel by activityViewModels<HomeViewModel>()
     var totalTime = 0
     var totalString: String = ""
     var studyTimeTitle = "공부했어요"
@@ -38,7 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), InStudyListRecycler {
     override fun setUpViews() {
         super.setUpViews()
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
-
         binding.homeTodoRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity?.applicationContext)
             adapter = studyListRecyclerAdapter

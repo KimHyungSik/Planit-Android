@@ -3,9 +3,9 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.my
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     private val userUseCase: UserUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "MyViewModel - 로그"
 
@@ -34,12 +34,15 @@ class MyViewModel @Inject constructor(
         userUseCase.getUserUseCase().onEach {
             when (it) {
                 is Resource.Loading -> {
+                    loadingShow()
                 }
                 is Resource.Success -> {
                     _userInformationDto.value = it.data!!
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getUserInformation: ${it.message}")
+                    loadingDismiss()
                 }
             }
         }.launchIn(viewModelScope)

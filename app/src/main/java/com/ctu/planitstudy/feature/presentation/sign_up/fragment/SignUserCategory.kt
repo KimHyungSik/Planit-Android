@@ -9,12 +9,12 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.disposables.CompositeDisposable
 
-class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding>() {
+class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding, SignUpViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> FragmentSignUpUserCategoryBinding
         get() = FragmentSignUpUserCategoryBinding::inflate
 
-    private val viewModel: SignUpViewModel by activityViewModels()
+    override val viewModel: SignUpViewModel by activityViewModels()
 
     private val disposables = CompositeDisposable()
 

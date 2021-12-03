@@ -3,9 +3,9 @@ package com.ctu.planitstudy.feature.presentation.edituser
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditUserViewModel @Inject constructor(
     private val userUseCase: UserUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     val TAG = "EditUserViewModel - 로그"
 
@@ -42,11 +42,14 @@ class EditUserViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(nickNameValidate = it.data!!)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "checkNickNameValidate: ${it.message}")
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
@@ -67,11 +70,14 @@ class EditUserViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _editUserState.value = editUserState.value!!.copy(edit = true)
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "editUser: ${it.message}")
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
