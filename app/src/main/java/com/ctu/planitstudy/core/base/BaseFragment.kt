@@ -13,7 +13,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected lateinit var binding: VB
     abstract val bindingInflater: (LayoutInflater) -> VB
     abstract val viewModel: VM
-    private val loading = LoadingDialog()
+
+    lateinit var loading : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if(it == null)
+                return@observe
+            if(it)
+                showLoading()
+            else
+                dismiss()
+        })
         setInit()
         return binding.root
     }
@@ -41,7 +50,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 
     open fun showLoading(){
-        loading.show(parentFragmentManager, "Loading")
+        loading.show()
     }
 
     open fun dismiss(){
