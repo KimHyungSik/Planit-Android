@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.edituser
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
@@ -48,10 +47,9 @@ class EditUserViewModel @Inject constructor(
                 is Resource.Error -> {
                     Log.d(TAG, "checkNickNameValidate: ${it.message}")
                     loadingDismiss()
-
                 }
                 is Resource.Loading -> {
-                   loadingShow()
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
@@ -79,7 +77,7 @@ class EditUserViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Loading -> {
-                   loadingShow()
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)

@@ -7,7 +7,6 @@ import androidx.navigation.ui.NavigationUI
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityHomeScreenBinding
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

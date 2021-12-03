@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.databinding.ActivityTermsOfUseBinding
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseViewModel
 

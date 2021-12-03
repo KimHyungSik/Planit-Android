@@ -7,17 +7,17 @@ import androidx.lifecycle.ViewModel
 abstract class BaseViewModel : ViewModel() {
 
     val _loading = MutableLiveData<Boolean?>(null)
-    val loading : LiveData<Boolean?> = _loading
+    val loading: LiveData<Boolean?> = _loading
 
-    open fun loadingShow(){
-        if(loading.value != null)
-            if(!loading.value!!)
+    open fun loadingShow() {
+        if (loading.value != null)
+            if (!loading.value!!)
                 _loading.value = true
     }
 
-    open fun loadingDismiss(){
-        if(loading.value != null)
-            if(!loading.value!!)
+    open fun loadingDismiss() {
+        if (loading.value != null)
+            if (!loading.value!!)
                 _loading.value = false
     }
 }

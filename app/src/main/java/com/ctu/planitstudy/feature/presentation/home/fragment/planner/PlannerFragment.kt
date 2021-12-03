@@ -91,6 +91,4 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
         disposables.clear()
         super.onDestroy()
     }
-
-
 }

@@ -13,7 +13,6 @@ import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
-import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter

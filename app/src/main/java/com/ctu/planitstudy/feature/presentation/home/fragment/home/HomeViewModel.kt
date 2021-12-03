@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.home
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
@@ -40,10 +39,10 @@ class HomeViewModel @Inject constructor(
                         _homeState.value = homeState.value!!.copy(
                             dDayList = it.data
                         )
-                       loadingDismiss()
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
-                       loadingShow()
+                        loadingShow()
                     }
                     is Resource.Error -> {
                         Log.d(TAG, "initSet: ${it.message}")
@@ -64,7 +63,7 @@ class HomeViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Loading -> {
-                   loadingShow()
+                    loadingShow()
                 }
                 is Resource.Error -> {
                     Log.d(TAG, "getStudyList: error ${it.message}")

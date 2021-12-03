@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.login
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType

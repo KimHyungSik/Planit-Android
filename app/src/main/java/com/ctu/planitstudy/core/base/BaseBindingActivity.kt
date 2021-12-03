@@ -15,7 +15,7 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     protected val binding: VB
         get() = _binding as VB
 
-    lateinit var loading : LoadingDialog
+    lateinit var loading: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +23,9 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
         setContentView(requireNotNull(_binding).root)
         loading = LoadingDialog(this)
         viewModel.loading.observe(this, {
-            if(it == null)
+            if (it == null)
                 return@observe
-            if(it)
+            if (it)
                 showLoading()
             else
                 dismiss()
@@ -37,11 +37,11 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     // 최초 액티비티 설정 시 사
     abstract fun setup()
 
-    open fun showLoading(){
+    open fun showLoading() {
         loading.show()
     }
 
-    open fun dismiss(){
+    open fun dismiss() {
         loading.dismiss()
     }
 

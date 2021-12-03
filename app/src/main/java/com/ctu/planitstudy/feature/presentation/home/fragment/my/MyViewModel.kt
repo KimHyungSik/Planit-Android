@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.my
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
@@ -35,7 +34,7 @@ class MyViewModel @Inject constructor(
         userUseCase.getUserUseCase().onEach {
             when (it) {
                 is Resource.Loading -> {
-                   loadingShow()
+                    loadingShow()
                 }
                 is Resource.Success -> {
                     _userInformationDto.value = it.data!!
