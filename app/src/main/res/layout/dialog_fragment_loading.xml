@@ -6,10 +6,13 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent">
 
-        <ProgressBar
-
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            app:indicatorColor="@color/text_color"
+            app:indicatorSize="30dp"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:indeterminate="true"
+            />
         
     </FrameLayout>
 </layout>

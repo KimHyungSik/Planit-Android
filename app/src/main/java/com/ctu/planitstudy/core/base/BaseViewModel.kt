@@ -10,14 +10,16 @@ abstract class BaseViewModel : ViewModel() {
     val loading: LiveData<Boolean?> = _loading
 
     open fun loadingShow() {
-        if (loading.value != null)
-            if (!loading.value!!)
-                _loading.value = true
+        if (loading.value == null)
+            _loading.value = true
+        if (!loading.value!!)
+            _loading.value = true
     }
 
     open fun loadingDismiss() {
-        if (loading.value != null)
-            if (!loading.value!!)
-                _loading.value = false
+        if (loading.value == null)
+            _loading.value = false
+        if (loading.value!!)
+            _loading.value = false
     }
 }

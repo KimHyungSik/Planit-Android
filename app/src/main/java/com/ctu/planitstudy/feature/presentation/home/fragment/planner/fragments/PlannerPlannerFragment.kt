@@ -60,14 +60,12 @@ class PlannerPlannerFragment : BaseFragment<FragmentPlannerPlannerBinding, Plann
             plannerPlannerCalendarArrow.setOnClickListener {
                 if (mothToWeek) {
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
-                        inDateStyle = InDateStyle.ALL_MONTHS,
                         maxRowCount = 1,
                         hasBoundaries = false
                     )
                     plannerPlannerCalendarArrow.setImageResource(R.drawable.ic_arrow_down)
                 } else {
                     plannerPlannerCustomCalendar.updateMonthConfiguration(
-                        inDateStyle = InDateStyle.ALL_MONTHS,
                         maxRowCount = 6,
                         hasBoundaries = true
                     )
