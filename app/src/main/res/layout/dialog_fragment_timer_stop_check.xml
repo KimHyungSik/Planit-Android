@@ -43,7 +43,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center_horizontal"
                         android:lineSpacingExtra="9sp"
-                        android:text="보너스 티켓까지 앞으로 \n15분 남았어요!"
+                        android:text="보너스 티켓까지 앞으로 \n60분 남았어요!"
                         android:textColor="@color/sub_color"
                         android:textSize="14sp" />
 

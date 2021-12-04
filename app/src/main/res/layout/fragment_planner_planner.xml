@@ -15,26 +15,41 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <TextView
+            android:id="@+id/planner_planner_calendar_month_text"
+            android:background="@color/item_guide_stroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="32dp"
+            android:paddingTop="20dp"
+            android:gravity="start"
+            android:textColor="@color/sub_color2"
+            android:textSize="16sp" />
+
         <com.kizitonwose.calendarview.CalendarView
             android:id="@+id/planner_planner_custom_calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/item_guide_stroke"
             android:clickable="true"
-            android:focusable="true"
             app:cv_dayViewResource="@layout/calendar_layout"
             app:cv_monthHeaderResource="@layout/calendar_header"
             app:cv_orientation="horizontal"
+            app:cv_outDateStyle="endOfRow"
+            app:cv_inDateStyle="allMonths"
             app:cv_scrollMode="paged"
-
+            app:cv_maxRowCount="1"
             />
+
 
         <ImageButton
             android:id="@+id/planner_planner_calendar_arrow"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/bottom_radius_item"
-            android:src="@drawable/ic_arrow_down" />
+            android:src="@drawable/ic_arrow_down"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/planner_planner_study_list"

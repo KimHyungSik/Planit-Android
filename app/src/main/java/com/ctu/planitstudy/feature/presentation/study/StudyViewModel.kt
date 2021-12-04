@@ -27,7 +27,7 @@ class StudyViewModel @Inject constructor(
     val TAG = "StudyViewModel - 로그"
     private val currentDate = DateConvter.dtoDateToTextDate(null)
     private val tomorrowDate =
-        DateConvter.dtoDateToTextDate(DateCalculation().getCurrentDateString(1))
+        DateConvter.dtoDateToTextDate(DateCalculation().getCurrentDateString(0))
 
     private val _studyState = MutableLiveData<StudyState>(
         StudyState(

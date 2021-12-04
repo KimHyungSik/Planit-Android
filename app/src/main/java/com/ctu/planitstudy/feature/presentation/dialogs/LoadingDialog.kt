@@ -14,6 +14,7 @@ class LoadingDialog(context: Context) : Dialog(context) {
         super.onCreate(savedInstanceState)
         setContentView(DialogFragmentLoadingBinding.inflate(layoutInflater).root)
         setCancelable(false)
+        window?.setDimAmount(0.0f)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 

@@ -6,5 +6,4 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 
 class MonthViewContainer(view: View) : ViewContainer(view) {
     val binding = CalendarHeaderBinding.bind(view)
-    val textView = binding.exSixMonthText
 }
