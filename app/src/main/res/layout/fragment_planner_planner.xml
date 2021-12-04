@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments.PlannerPlannerFragment" />
-        <import type="com.ctu.planitstudy.feature.presentation.util.Screens"/>
+
+        <import type="com.ctu.planitstudy.feature.presentation.util.Screens" />
     </data>
 
     <LinearLayout
@@ -18,12 +20,12 @@
 
         <TextView
             android:id="@+id/planner_planner_calendar_month_text"
-            android:background="@color/item_guide_stroke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/module_color"
+            android:gravity="start"
             android:paddingStart="32dp"
             android:paddingTop="20dp"
-            android:gravity="start"
             android:textColor="@color/sub_color2"
             android:textSize="16sp" />
 
@@ -31,25 +33,22 @@
             android:id="@+id/planner_planner_custom_calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/item_guide_stroke"
+            android:background="@color/module_color"
             android:clickable="true"
             app:cv_dayViewResource="@layout/calendar_layout"
+            app:cv_inDateStyle="allMonths"
+            app:cv_maxRowCount="1"
             app:cv_monthHeaderResource="@layout/calendar_header"
             app:cv_orientation="horizontal"
             app:cv_outDateStyle="endOfRow"
-            app:cv_inDateStyle="allMonths"
-            app:cv_scrollMode="paged"
-            app:cv_maxRowCount="1"
-            />
-
+            app:cv_scrollMode="paged" />
 
         <ImageButton
             android:id="@+id/planner_planner_calendar_arrow"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/bottom_radius_item"
-            android:src="@drawable/ic_arrow_down"
-            />
+            android:src="@drawable/ic_arrow_down" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/planner_planner_study_list"
@@ -66,14 +65,13 @@
             android:layout_marginTop="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="@{()->activity.addStudyScreen()}"
             android:visibility="gone"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:strokeColor="@color/item_guide_stroke"
-            app:strokeWidth="1dp"
-            android:onClick="@{()->activity.addStudyScreen()}"
-            >
+            app:strokeWidth="1dp">
 
             <include layout="@layout/components_planner_study_empty" />
         </com.google.android.material.card.MaterialCardView>

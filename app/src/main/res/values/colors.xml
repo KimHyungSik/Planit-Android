@@ -22,4 +22,5 @@
     <color name="item_gray">#888888</color>
     <color name="item_black">#222222</color>
     <color name="enabled_confirm_btn">#252641</color>
+    <color name="text_shadows_color">#6b000000</color>
 </resources>

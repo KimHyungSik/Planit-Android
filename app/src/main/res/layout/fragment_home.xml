@@ -44,7 +44,7 @@
                 android:layout_marginEnd="24dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/navy_blue_back_ground"
+                app:cardBackgroundColor="@color/module_color"
                 app:cardCornerRadius="20dp"
                 app:strokeColor="@color/text_color"
                 app:strokeWidth="1dp"
@@ -126,7 +126,7 @@
                         app:strokeWidth="1dp">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:id="@+id/home_fragment_d_day_column"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -150,9 +150,9 @@
                                         android:id="@+id/home_fragment_d_day_count"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:textStyle="normal"
+                                        android:textStyle="bold"
                                         android:textSize="18sp"
-                                        android:textColor="@color/text_color"
+                                        android:textColor="@color/white"
                                         android:gravity="center"
                                         />
                                 </com.google.android.material.card.MaterialCardView>
@@ -175,10 +175,13 @@
                                         android:textColor="@color/text_color"
                                         android:textStyle="normal"
                                         android:textSize="12sp"
-                                        android:layout_marginBottom="2dp"
                                         android:lineSpacingExtra="6sp"
-
+                                        android:layout_marginTop="22dp"
                                         />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"/>
                                     <TextView
                                         android:id="@+id/home_fragment_d_day_title"
                                         android:text="대표 디데이"
@@ -188,6 +191,7 @@
                                         android:textStyle="normal"
                                         android:textSize="16sp"
                                         android:textColor="@color/text_color"
+                                        android:layout_marginBottom="26dp"
                                         />
                                 </LinearLayout>
 

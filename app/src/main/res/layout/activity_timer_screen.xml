@@ -51,14 +51,12 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="40dp"
             android:layout_weight="6">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,8 +93,6 @@
                         android:textColor="@color/text_color"
                         android:textSize="28sp"
                         android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         />
 
                     <TextView
@@ -104,12 +100,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="집중하면 1시간마다\n보너스 티켓 획득!"
+                        android:text="집중하면 1시간마다\n플래닛 패스 획득!"
+                        android:lineSpacingExtra="4sp"
                         android:textColor="#4794ff"
                         android:textSize="14sp"
                         android:textStyle="normal"
-                        android:layout_gravity="center"
-                        android:gravity="center"
+                        android:textAlignment="center"
                         />
                 </LinearLayout>
 
@@ -120,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/navy_blue_item_box"
             app:cardCornerRadius="28dp">
 
@@ -196,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="24dp"
-                        android:text="@{`+` + viewmodel.timerState.star}"
+                        android:text="@{`+ ` + viewmodel.timerState.star}"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -232,7 +228,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="24dp"
-                        android:text="@{`+` + viewmodel.timerState.ticket}"
+                        android:text="@{`+ ` + viewmodel.timerState.ticket}"
                         android:textColor="@color/text_color"
                         android:textSize="16sp"
                         android:textStyle="normal" />
