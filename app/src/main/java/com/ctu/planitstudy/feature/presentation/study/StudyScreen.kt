@@ -38,13 +38,14 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     private val disposables = CompositeDisposable()
     private val calendarDialog = BottomSheetCalendarDialog()
     private val checkBoxList = ArrayList<CheckBox>()
+    private var study : StudyDto? = null
 
     override fun setup() {
 
-        val study = intent.getParcelableExtra<StudyDto>("studyDto")
+        study = intent.getParcelableExtra<StudyDto>("studyDto")
 
         if (study != null)
-            setUpWithStudy(study)
+            setUpWithStudy(study!!)
 
         binding.apply {
             viewmodel = viewModel
@@ -313,6 +314,17 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     }
 
     override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
+
+        if(study != null)
+            if(DateConvter.dtoDateTOLong(
+                    "$year-${month + 1}-$dayOfMonth"
+                ) < DateConvter.dtoDateTOLong(study!!.startAt)){
+                val arg = Bundle()
+                arg.putString("title", getString(R.string.study_failed_edit))
+                showDialogFragment(arg, SingleTitleCheckDialog())
+                return
+            }
+
         // 공부 종료일 서택일이 공부 시작일 보다 앞일 경우
         if ((viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt) && DateConvter.dtoDateTOLong(
                 "$year-${month + 1}-$dayOfMonth"
