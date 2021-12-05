@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
+import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.core.util.enums.weekKorList
 import com.ctu.planitstudy.core.util.longToTimeKorString
@@ -50,7 +51,7 @@ class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyLis
                 checkBox.isChecked = studyDto.isDone
 
                 val weekString = buildString {
-                    append("${studyDto.startAt}~${studyDto.endAt} | ")
+                    append("${DateConvter.dtoDateToPointDate(studyDto.startAt)}~${DateConvter.dtoDateToPointDate(studyDto.endAt)} | ")
                     if (studyDto.repeatedDays != null) {
                         for (n in studyDto.repeatedDays) {
                             append(weekKorList[weekEngList.indexOf(n)])

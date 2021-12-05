@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.FragmentPlannerDDayBinding
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
@@ -13,6 +14,7 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.DdayListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.recycler.InDdayListRecycler
 import io.reactivex.rxkotlin.toObservable
+import java.time.LocalDate
 
 class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding, HomeViewModel>(), InDdayListRecycler {
 
@@ -39,9 +41,9 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding, HomeViewMod
             .subscribe {
                 dDay ->
                 with(binding) {
-                    plannerDDayRepresentativeDDay.text = if (dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
+                    plannerDDayRepresentativeDDay.text = if (dDay.dDay >= 0) "D-${dDay.dDay}" else if(LocalDate.now().toString() == dDay.createdAt) "D+0"  else "D+${Math.abs(dDay.dDay)}"
                     plannerDDayRepresentativeTitle.text = dDay.title
-                    plannerDDayRepresentativeDate.text = dDay.endAt
+                    plannerDDayRepresentativeDate.text = DateConvter.dtoDateToPointDate(dDay.endAt)
                     plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)
                     plannerDDayRepresentativeItemView.setOnClickListener {
                         val intent = Intent(activity, DdayScreen::class.java)

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
@@ -53,9 +54,6 @@ class PlannerPlannerFragment :
     @SuppressLint("RestrictedApi")
     override fun setInit() {
         super.setInit()
-        val dm = DisplayMetrics()
-        val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        wm.defaultDisplay.getMetrics(dm)
 
         studyListRecyclerAdapter = StudyListRecyclerAdapter(this)
 
@@ -77,7 +75,7 @@ class PlannerPlannerFragment :
                     )
                     plannerPlannerCalendarArrow.setImageResource(R.drawable.ic_arrow_up)
                 }
-                binding.plannerPlannerCustomCalendar.scrollToMonth(YearMonth.now())
+                binding.plannerPlannerCustomCalendar.scrollToDate(viewModel.plannerState.value!!.checkDate)
                 monthToWeek = !monthToWeek
             }
 
@@ -88,11 +86,8 @@ class PlannerPlannerFragment :
         }
 
         binding.plannerPlannerCustomCalendar.apply {
-            val monthWidth = (dm.widthPixels).toInt()
-            val dayWidth = monthWidth / 7
-            val dayHeight = dayWidth // We don't want a square calendar.
-            daySize = Size(dayWidth, dayHeight)
-
+            val defaultSize = daySize
+            daySize = Size(defaultSize.width, defaultSize.width)
             updateMonthConfiguration(
                 inDateStyle = InDateStyle.ALL_MONTHS,
                 maxRowCount = 1,
@@ -107,7 +102,7 @@ class PlannerPlannerFragment :
             @SuppressLint("ResourceAsColor")
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 val textView = container.textView
-
+//                val imageView = container.imageView
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.text = day.date.dayOfMonth.toString()
 //                    textView.visibility = View.VISIBLE
@@ -118,10 +113,10 @@ class PlannerPlannerFragment :
                     if (day.date == viewModel.plannerState.value!!.checkDate)
                         context?.let { it1 ->
                             textView.background =
-                                ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background)
+                            (ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background))
                         }
                     else
-                        textView.setBackgroundColor(setColor(R.color.item_guide_stroke))
+                        textView.setBackgroundColor(setColor(R.color.module_color))
 
                     container.view.setOnClickListener {
                         viewModel.updatePlannerState(
@@ -162,7 +157,7 @@ class PlannerPlannerFragment :
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
-        binding.plannerPlannerCustomCalendar.scrollToMonth(currentMonth)
+        binding.plannerPlannerCustomCalendar.scrollToDate(viewModel.plannerState.value!!.checkDate)
     }
 
     private fun homeViewModelSetUp() {

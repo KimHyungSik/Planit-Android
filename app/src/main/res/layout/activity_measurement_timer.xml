@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/navy_blue_back_ground"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:id="@+id/measurement_study_title"
@@ -59,7 +60,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="144dp">
+                android:layout_height="wrap_content"
+                >
 
                 <TextView
                     android:id="@+id/measurement_time_title"
@@ -78,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="24dp"
                     android:text="@{viewmodel.measurementState.totalMeasurementTime}"
                     android:textColor="@color/text_color"
                     android:textSize="16sp"
@@ -100,19 +102,20 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="@color/navy_blue_back_ground"
                     app:cardCornerRadius="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent="0.41"
-                    app:layout_constraintTop_toBottomOf="@id/measurement_study_time">
+                    app:layout_constraintTop_toBottomOf="@id/measurement_study_new_time"
+                    >
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginVertical="14dp"
                         android:gravity="center"
                         android:text="@{`휴식은 모두 ` + viewmodel.measurementState.totalBrakeTime + `회 쉬었어요`}"
                         android:textColor="#6b6c85" />
@@ -149,7 +152,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/navy_blue_item_box"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="8dp"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -286,7 +290,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginBottom="40dp"
             >
 

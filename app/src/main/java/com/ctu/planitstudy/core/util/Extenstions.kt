@@ -80,7 +80,6 @@ fun longToTimerShortString(time: Long): String {
         if (s < 10)
             append(0)
         append(s)
-        append("초")
     }
     return string
 }

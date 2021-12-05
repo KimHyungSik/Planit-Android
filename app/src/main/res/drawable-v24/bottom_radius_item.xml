@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="@color/item_guide_stroke"/>
+        android:color="@color/module_color"/>
     <corners
         android:bottomRightRadius="8dp"
         android:bottomLeftRadius="8dp"/>

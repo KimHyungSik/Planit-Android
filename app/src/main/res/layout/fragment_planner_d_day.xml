@@ -38,7 +38,6 @@
         android:id="@+id/planner_d_day_nested_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:visibility="gone"
         >
 
@@ -52,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="20dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/sub_color"
                 app:cardCornerRadius="8dp">
@@ -78,8 +76,8 @@
 
                             <ImageView
                                 android:id="@+id/planner_d_day_representative_icon"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_gravity="center"/>
                         </com.google.android.material.card.MaterialCardView>
 
@@ -120,7 +118,9 @@
                             android:text="00.00.00"
                             android:textColor="@color/text_color"
                             android:textSize="12sp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            android:alpha="0.5"
+                            />
                     </LinearLayout>
 
                     <TextView
