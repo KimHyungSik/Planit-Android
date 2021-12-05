@@ -6,6 +6,7 @@
     <string name="empty_dialog_fragment">제목은 한 글자 이상 입력하세요</string>
     <string name="study_validated_title_dialog_fragment">해당 공부는 이미 존재합니다 제목을 수정해주세요</string>
     <string name="study_failed_endAt">종료일은 시작일보다\n이전일 수 없습니다</string>
+    <string name="study_failed_startAt">시작일은 종료일보다\n이전일 수 없습니다</string>
     <string name="terms_of_service">https://assets.planit-study.com/1.usage_agreements_required.pdf</string>
     <string name="personal_information_agreement_required">https://assets.planit-study.com/2.personal_information_agreement_required.pdf </string>
     <string name="personal_information_agreement_select">https://assets.planit-study.com/3.personal_information_agreement_select.pdf</string>

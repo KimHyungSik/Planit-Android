@@ -313,12 +313,24 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     }
 
     override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
-        if (viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt && DateConvter.dtoDateTOLong(
+        // 공부 종료일 서택일이 공부 시작일 보다 앞일 경우
+        if ((viewModel.studyState.value!!.kindDate == KindStudyDate.EndAt) && DateConvter.dtoDateTOLong(
                 "$year-${month + 1}-$dayOfMonth"
             ) < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
         ) {
             val arg = Bundle()
             arg.putString("title", getString(R.string.study_failed_endAt))
+            showDialogFragment(arg, SingleTitleCheckDialog())
+            return
+        }
+
+        // 공부 시작일 종료일 보다 뒤일경우
+        if ((viewModel.studyState.value!!.kindDate == KindStudyDate.StartAt) && DateConvter.dtoDateTOLong(
+                "$year-${month + 1}-$dayOfMonth"
+            ) > DateConvter.textDateToLongDate(viewModel.studyState.value!!.endAt)
+        ) {
+            val arg = Bundle()
+            arg.putString("title", getString(R.string.study_failed_startAt))
             showDialogFragment(arg, SingleTitleCheckDialog())
             return
         }

@@ -9,6 +9,7 @@ object DateConvter {
     val TAG = "DateConvter - 로그"
 
     private val calendar = Calendar.getInstance()
+    private val dateFormatDdayPoint = SimpleDateFormat("yy.MM.dd", Locale.KOREA)
     private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
     private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
 
@@ -35,6 +36,14 @@ object DateConvter {
             dateFormatText.format(System.currentTimeMillis()) + "(${
             Weekday.values()[calendar.get(Calendar.DAY_OF_WEEK)].weekKor
             })"
+        }
+    }
+    // yyyy-MM-dd 에서 yy.MM.dd일 로 변경
+    fun dtoDateToPointDate(date: String?): String {
+        return if (date != null) {
+            dateFormatDdayPoint.format(dateFormatDdayDto.parse(date))
+        } else {
+            dateFormatDdayPoint.format(System.currentTimeMillis())
         }
     }
 

@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
+import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.google.android.material.card.MaterialCardView
@@ -28,7 +29,7 @@ class DdayListRecyclerHolder(itemView: View, val inDdayListRecycler: InDdayListR
     fun bindWithView(dday: DdayDto) {
         titleText.text = dday.title
         dDayText.text = if (dday.dDay.toInt() >= 0) "D-${dday.dDay}" else "D+${Math.abs(dday.dDay)}"
-        dateText.text = dday.endAt
+        dateText.text = DateConvter.dtoDateToPointDate(dday.endAt)
         imageView.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dday.icon)].imge)
     }
 }

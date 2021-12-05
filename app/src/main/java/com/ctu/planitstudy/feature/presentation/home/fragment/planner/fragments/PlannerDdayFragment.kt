@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.databinding.FragmentPlannerDDayBinding
 import com.ctu.planitstudy.feature.presentation.dday.DdayScreen
@@ -41,7 +42,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding, HomeViewMod
                 with(binding) {
                     plannerDDayRepresentativeDDay.text = if (dDay.dDay.toInt() >= 0) "D-${dDay.dDay}" else "D+${Math.abs(dDay.dDay)}"
                     plannerDDayRepresentativeTitle.text = dDay.title
-                    plannerDDayRepresentativeDate.text = dDay.endAt
+                    plannerDDayRepresentativeDate.text = DateConvter.dtoDateToPointDate(dDay.endAt)
                     plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)
                     plannerDDayRepresentativeItemView.setOnClickListener {
                         val intent = Intent(activity, DdayScreen::class.java)
