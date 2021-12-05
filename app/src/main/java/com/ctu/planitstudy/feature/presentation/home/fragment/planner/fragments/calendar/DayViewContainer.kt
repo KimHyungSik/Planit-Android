@@ -6,4 +6,5 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 
 class DayViewContainer(view: View) : ViewContainer(view) {
     val textView = CalendarLayoutBinding.bind(view).plannerPlannerCustomCalendarDayText
+//    val imageView = CalendarLayoutBinding.bind(view).plannerPlannerCustomCalendarDayBackGround
 }
