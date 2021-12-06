@@ -89,7 +89,9 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="공부 제목을 입력해주세요"
+                        android:textColorHint="@color/enabled_confirm_btn"
                         android:inputType="text"
+                        android:textSize="16sp"
                         android:maxLength="16"
                         android:text="@={viewmodel.studyState.title}"
                         android:textCursorDrawable="@color/text_color" />

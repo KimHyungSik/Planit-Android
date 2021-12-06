@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
+
                 <TextView
                     android:id="@+id/dialog_title"
                     android:text="기기의 홈버튼을 이용해서\n앱을 나가면 타이머 측정이\n자동으로 멈추게 돼요."
@@ -27,11 +28,12 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="@color/text_color"
-                    android:lineSpacingExtra="9sp"
                     android:gravity="center_horizontal"
                     android:layout_marginTop="44dp"
                     android:layout_marginHorizontal="32dp"
+                    android:lineSpacingExtra="3sp"
                     />
+
                 <TextView
                     android:id="@+id/dialog_sub_title"
                     android:text="앱을 유지해주세요"
@@ -43,13 +45,15 @@
                     android:lineSpacingExtra="9sp"
                     android:gravity="center_horizontal"
                     android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="1dp"
                     />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginBottom="20dp"
                     >
                     <com.google.android.material.card.MaterialCardView
@@ -65,6 +69,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:textSize="14sp"
                             android:textColor="@color/text_color"
                             android:letterSpacing="-0.03"

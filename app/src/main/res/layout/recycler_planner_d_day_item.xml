@@ -30,8 +30,8 @@
 
                 <ImageView
                     android:id="@+id/planner_d_day_recycler_icon"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -72,7 +72,9 @@
                 android:text="00.00.00"
                 android:textColor="@color/text_color"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                android:alpha="0.5"
+                />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -11,6 +11,7 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.longToTimeKorString
+import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
@@ -73,11 +74,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
                                     if (dDay.dDay > 0) "D-${dDay.dDay}" else if (dDay.dDay == 0) "D-DAY" else "D+${
                                     Math.abs(dDay.dDay)
                                     }"
-                                if (dDay.dDay == 0)
+                                if (dDay.dDay == 0) {
                                     homeFragmentDDayCountBox.background = ContextCompat.getDrawable(
                                         CashStudyApp.instance,
                                         R.drawable.d_day_gradation
                                     )
+                                    homeFragmentDDayCount.setShadowLayer(4f, 0f, 2f, R.color.text_shadows_color)
+                                }
                                 homeFragmentDDayTitle.text = dDay.title
                                 homeFragmentDDayColumn.visibility = View.VISIBLE
                                 homeFragmentDDayColumn.setOnClickListener {
