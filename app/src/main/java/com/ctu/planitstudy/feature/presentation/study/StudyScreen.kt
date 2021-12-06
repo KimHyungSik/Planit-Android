@@ -38,7 +38,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     private val disposables = CompositeDisposable()
     private val calendarDialog = BottomSheetCalendarDialog()
     private val checkBoxList = ArrayList<CheckBox>()
-    private var study : StudyDto? = null
+    private var study: StudyDto? = null
 
     override fun setup() {
 
@@ -315,10 +315,11 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
 
     override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
 
-        if(study != null)
-            if(DateConvter.dtoDateTOLong(
+        if (study != null)
+            if (DateConvter.dtoDateTOLong(
                     "$year-${month + 1}-$dayOfMonth"
-                ) < DateConvter.dtoDateTOLong(study!!.startAt)){
+                ) < DateConvter.dtoDateTOLong(study!!.startAt)
+            ) {
                 val arg = Bundle()
                 arg.putString("title", getString(R.string.study_failed_edit))
                 showDialogFragment(arg, SingleTitleCheckDialog())

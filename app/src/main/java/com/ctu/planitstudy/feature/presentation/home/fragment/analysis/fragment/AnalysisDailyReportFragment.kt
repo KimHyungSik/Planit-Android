@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.analysis.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -16,11 +15,11 @@ import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialo
 import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.recycler.AchievementRateListRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.StringBuilder
 import java.time.LocalDate
 
 @AndroidEntryPoint
-class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBinding, AnalysisViewModel>(),
+class AnalysisDailyReportFragment :
+    BaseFragment<FragmentAnalysisDailyReportBinding, AnalysisViewModel>(),
     BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "AnalysisFragment - 로그"
@@ -61,7 +60,6 @@ class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBind
             if (it.studies.isNotEmpty()) {
                 listEmptyView(false)
 
-
                 val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
                 params.height = ((128 * it.studies.size).dp).coerceAtMost((304).dp)
                 binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
@@ -71,7 +69,7 @@ class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBind
                 var studyIsDone = 0
 
                 for (n in it.studies) {
-                    studyIsDone += if(n.isDone) 1 else 0
+                    studyIsDone += if (n.isDone) 1 else 0
                     tempTotalTime += n.recordedTime
                     if (mostStudy == null) mostStudy = n
                     else {
@@ -83,13 +81,13 @@ class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBind
                 mostStudyTitle = mostStudy!!.title
                 mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeShortString()
                 studyCounter = "$studyIsDone/${it.studies.size}"
-                val percent = ((studyIsDone/it.studies.size)*100).toInt()
+                val percent = ((studyIsDone / it.studies.size) * 100).toInt()
                 studyIsDonePercent = "$percent%"
                 binding.analysisFragmentStudyTimeLineProgress.max = it.studies.size
                 binding.analysisFragmentStudyTimeLineProgress.progress = studyIsDone
 
                 // 공부는 있지만 측정 시간이 없는 경우
-                if(tempTotalTime == 0){
+                if (tempTotalTime == 0) {
                     listEmptyView(true)
                     with(binding) {
                         achievementRateEmptyImg.visibility = View.GONE

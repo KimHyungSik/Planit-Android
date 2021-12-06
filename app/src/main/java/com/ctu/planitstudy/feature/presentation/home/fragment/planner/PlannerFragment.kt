@@ -11,7 +11,6 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentPlannerBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
-import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.AnalysisViewPager
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.PlannerViewPager
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup

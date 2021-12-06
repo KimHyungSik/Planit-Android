@@ -1,14 +1,10 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
@@ -113,7 +109,7 @@ class PlannerPlannerFragment :
                     if (day.date == viewModel.plannerState.value!!.checkDate)
                         context?.let { it1 ->
                             textView.background =
-                            (ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background))
+                                (ContextCompat.getDrawable(it1, R.drawable.subcolor_circle_background))
                         }
                     else
                         textView.setBackgroundColor(setColor(R.color.module_color))

@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
-import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn

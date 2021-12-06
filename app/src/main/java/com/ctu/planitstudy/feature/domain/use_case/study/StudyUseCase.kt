@@ -1,7 +1,5 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
-import com.ctu.planitstudy.feature.domain.repository.StudyRepository
-
 data class StudyUseCase(
     val addStudyUseCase: AddStudyUseCase,
     val studyValidatedTitleUseCase: StudyValidatedTitleUseCase,
