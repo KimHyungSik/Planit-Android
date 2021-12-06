@@ -78,6 +78,7 @@ class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBind
                         if (mostStudy.recordedTime < n.recordedTime) mostStudy = n
                     }
                 }
+
                 totalTime = "${tempTotalTime.toLong().longToTimeShortString()} 공부했어요"
                 mostStudyTitle = mostStudy!!.title
                 mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeShortString()
@@ -86,6 +87,19 @@ class AnalysisDailyReportFragment : BaseFragment<FragmentAnalysisDailyReportBind
                 studyIsDonePercent = "$percent%"
                 binding.analysisFragmentStudyTimeLineProgress.max = it.studies.size
                 binding.analysisFragmentStudyTimeLineProgress.progress = studyIsDone
+
+                // 공부는 있지만 측정 시간이 없는 경우
+                if(tempTotalTime == 0){
+                    listEmptyView(true)
+                    with(binding) {
+                        achievementRateEmptyImg.visibility = View.GONE
+                        analysisFragmentAchievementRateCheckTitle.visibility = View.VISIBLE
+                        analysisFragmentAchievementRateCheckColumn.visibility = View.VISIBLE
+                        analysisFragmentAchievementRateCheckImg.visibility = View.VISIBLE
+                        analysisFragmentTotalStudyTimeTitle.visibility = View.VISIBLE
+                    }
+                    totalTime = "타이머 측정 시간이 없습니다"
+                }
             } else {
                 listEmptyView(true)
                 totalTime = "타이머 측정 시간이 없습니다"
