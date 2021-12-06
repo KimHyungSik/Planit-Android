@@ -7,18 +7,36 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface StudyApi {
+
+    // 공부 추가
     @POST("/v1/study")
     suspend fun addStudy(@Body study: Study)
+
+    // 공부 추가(반복)
     @POST("/v1/study")
     suspend fun addStudy(@Body repeatedStudy: RepeatedStudy)
+
+    // 닉네임 중복 체크
     @GET("/v1/study/validate-title")
     suspend fun validateTitle(@Query("title") title: String)
+
+    // 공부 리스트 가져오기
     @GET("/v1/study/list/{date}")
     suspend fun getStudyList(@Path("date") date: String): StudyListDto
+
+    // 공부 수정
     @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
     suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body study: Study)
+
+    // 공부 수정(반복)
     @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
     suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body repeatedStudy: RepeatedStudy)
+
+    // 공부 상태 수정
+    @PATCH("/v1/study/modify-status/{studyId}")
+    suspend fun editStudyIsDone(@Path("studyId") studyId: String, @Query("isDone") isDone: Boolean)
+
+    // 공부 삭제
     @DELETE("/v1/study/{studyGroupId}")
     suspend fun deleteStudy(@Path("studyGroupId") studyGroupId: String): Response<Unit>
 }

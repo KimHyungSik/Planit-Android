@@ -17,5 +17,6 @@ class StudyRepositoryImp @Inject constructor(
     override suspend fun getStudyList(date: String): StudyListDto = studyApi.getStudyList(date)
     override suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study) = studyApi.editStudy(studyGroupId, studyScheduleId, study)
     override suspend fun editStudy(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy) = studyApi.editStudy(studyGroupId, studyScheduleId, repeatedStudy)
+    override suspend fun editStudyIsDone(studyId: String, isDone: Boolean) = studyApi.editStudyIsDone(studyId, isDone)
     override suspend fun deleteStudy(studyGroupId: String): Response<Unit> = studyApi.deleteStudy(studyGroupId)
 }
