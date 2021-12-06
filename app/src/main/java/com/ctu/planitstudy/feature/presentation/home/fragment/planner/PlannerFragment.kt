@@ -11,7 +11,7 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentPlannerBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
-import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.PlannerViewPager
+import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.AnalysisViewPager
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import io.reactivex.disposables.CompositeDisposable
@@ -35,7 +35,7 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
             plannerRadioButton.check(R.id.planner_radio_planner_button)
             plannerRadioPlannerButton.setTextColor(ContextCompat.getColor(CashStudyApp.instance, R.color.text_color))
             plannerViewPagerFragmentView.apply {
-                adapter = PlannerViewPager(requireActivity())
+                adapter = AnalysisViewPager(requireActivity())
                 currentItem = 0
             }
             plannerViewPagerFragmentView.registerOnPageChangeCallback(
