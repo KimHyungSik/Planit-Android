@@ -122,4 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         intent.putExtra("studyDto", studyListRecyclerAdapter.studyList.studies[position])
         moveIntent(intent)
     }
+
+    override fun onClickedCheckbox(position: Int) {
+    }
 }

@@ -14,7 +14,7 @@ import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 
-class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class StudyListRecyclerHolder(itemView: View, private val inTodoListRecycler: InStudyListRecycler) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     private val titleText = itemView.findViewById<TextView>(R.id.study_list_title_text)
     private val stateText = itemView.findViewById<TextView>(R.id.study_list_state_text)
@@ -23,6 +23,9 @@ class StudyListRecyclerHolder(itemView: View, val inTodoListRecycler: InStudyLis
 
     init {
         view.setOnClickListener(this)
+        checkBox.setOnClickListener {
+            inTodoListRecycler.onClickedCheckbox(bindingAdapterPosition)
+        }
     }
 
     override fun onClick(v: View?) {

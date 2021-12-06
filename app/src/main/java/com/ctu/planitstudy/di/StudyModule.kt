@@ -40,6 +40,10 @@ object StudyModule {
         EditStudyUseCase(studyRepository)
 
     @Provides
+    fun providerEditStudyIsDoneUseCase(studyRepository: StudyRepository): EditStudyIsDoneUseCase =
+        EditStudyIsDoneUseCase(studyRepository)
+
+    @Provides
     fun providerDeleteStudyUseCase(studyRepository: StudyRepository): DeleteStudyUseCase =
         DeleteStudyUseCase(studyRepository)
 
@@ -49,12 +53,14 @@ object StudyModule {
         getStudyListUseCase: GetStudyListUseCase,
         validatedTitleUseCase: StudyValidatedTitleUseCase,
         editStudyUseCase: EditStudyUseCase,
-        deleteStudyUseCase: DeleteStudyUseCase
+        deleteStudyUseCase: DeleteStudyUseCase,
+        editStudyIsDoneUseCase: EditStudyIsDoneUseCase
     ): StudyUseCase = StudyUseCase(
         addStudyUseCase = addStudyUseCase,
         getStudyListUseCase = getStudyListUseCase,
         studyValidatedTitleUseCase = validatedTitleUseCase,
         editStudyUseCase = editStudyUseCase,
-        deleteStudyUseCase = deleteStudyUseCase
+        deleteStudyUseCase = deleteStudyUseCase,
+        editStudyIsDoneUseCase = editStudyIsDoneUseCase
     )
 }
