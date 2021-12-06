@@ -9,7 +9,7 @@ object DateConvter {
     val TAG = "DateConvter - 로그"
 
     private val calendar = Calendar.getInstance()
-    private val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+    val dateFormatDdayDto = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
     private val dateFormatText = SimpleDateFormat("yyyy년MM월dd일", Locale.KOREA)
 
     fun dtoDateTOLong(date: String): Long {

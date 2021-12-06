@@ -1,10 +1,14 @@
 package com.ctu.planitstudy.core.util
 
+import android.content.res.Resources
 import androidx.core.content.ContextCompat
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
 import java.util.*
+
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
 fun String?.isJsonArray(): Boolean = this?.startsWith("[") == true && this.endsWith("]")
