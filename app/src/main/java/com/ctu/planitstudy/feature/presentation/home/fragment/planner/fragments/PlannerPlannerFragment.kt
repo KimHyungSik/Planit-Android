@@ -190,6 +190,7 @@ class PlannerPlannerFragment :
         moveIntent(intent)
     }
 
-    override fun onClickedCheckbox(position: Int) {
+    override fun onClickedCheckbox(position: Int, check: Boolean) {
+        homeViewModel.changeStudyIsDone(studyListRecyclerAdapter.studyList.studies[position].studyId.toString(), check)
     }
 }

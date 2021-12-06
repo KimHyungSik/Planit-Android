@@ -123,6 +123,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         moveIntent(intent)
     }
 
-    override fun onClickedCheckbox(position: Int) {
+    override fun onClickedCheckbox(position: Int, check: Boolean) {
     }
 }

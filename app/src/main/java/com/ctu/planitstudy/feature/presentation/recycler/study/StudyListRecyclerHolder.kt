@@ -23,8 +23,8 @@ class StudyListRecyclerHolder(itemView: View, private val inTodoListRecycler: In
 
     init {
         view.setOnClickListener(this)
-        checkBox.setOnClickListener {
-            inTodoListRecycler.onClickedCheckbox(bindingAdapterPosition)
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            inTodoListRecycler.onClickedCheckbox(bindingAdapterPosition, isChecked)
         }
     }
 
