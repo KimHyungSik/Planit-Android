@@ -19,7 +19,7 @@ class AchievementRateListRecyclerAdapter() : RecyclerView.Adapter<AchievementRat
 
     override fun onBindViewHolder(holder: AchievementRateListRecyclerHolder, position: Int) {
         holder.bindWithView(
-            studyDto =  this.studyList.studies[position],
+            studyDto = this.studyList.studies[position],
             top = position == 0,
             bottom = position == this.studyList.studies.size - 1
         )

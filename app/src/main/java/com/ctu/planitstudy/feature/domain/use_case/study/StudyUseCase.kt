@@ -5,5 +5,6 @@ data class StudyUseCase(
     val studyValidatedTitleUseCase: StudyValidatedTitleUseCase,
     val editStudyUseCase: EditStudyUseCase,
     val getStudyListUseCase: GetStudyListUseCase,
-    val deleteStudyUseCase: DeleteStudyUseCase
+    val deleteStudyUseCase: DeleteStudyUseCase,
+    val editStudyIsDoneUseCase: EditStudyIsDoneUseCase
 )

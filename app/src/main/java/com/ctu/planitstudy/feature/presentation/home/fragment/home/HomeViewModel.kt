@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
-import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val ddayListUseCase: GetDdayListUseCase,
-    private val getStudyListUseCase: GetStudyListUseCase
+    private val studyUseCase: StudyUseCase
 ) : BaseViewModel() {
 
     val TAG = "HomeViewModel - 로그"
@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun changeStudyDate(date: String) {
-        getStudyListUseCase(date).onEach {
+        studyUseCase.getStudyListUseCase(date).onEach {
             when (it) {
                 is Resource.Success -> {
                     _homeState.value = homeState.value!!.copy(
@@ -68,6 +68,23 @@ class HomeViewModel @Inject constructor(
                 is Resource.Error -> {
                     Log.d(TAG, "getStudyList: error ${it.message}")
                     loadingDismiss()
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun changeStudyIsDone(studyId: String, isDone: Boolean) {
+        studyUseCase.editStudyIsDoneUseCase(studyId, isDone).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    loadingDismiss()
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "changeStudyIsDone: error ${it.message}")
+                    loadingDismiss()
+                }
+                is Resource.Loading -> {
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)

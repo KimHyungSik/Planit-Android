@@ -12,5 +12,6 @@ interface StudyRepository {
     suspend fun getStudyList(date: String): StudyListDto
     suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study)
     suspend fun editStudy(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy)
+    suspend fun editStudyIsDone(studyId: String, isDone: Boolean)
     suspend fun deleteStudy(studyGroupId: String): Response<Unit>
 }

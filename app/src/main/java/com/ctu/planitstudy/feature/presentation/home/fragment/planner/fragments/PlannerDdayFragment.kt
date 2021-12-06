@@ -41,7 +41,7 @@ class PlannerDdayFragment : BaseFragment<FragmentPlannerDDayBinding, HomeViewMod
             .subscribe {
                 dDay ->
                 with(binding) {
-                    plannerDDayRepresentativeDDay.text = if (dDay.dDay >= 0) "D-${dDay.dDay}" else if(LocalDate.now().toString() == dDay.createdAt) "D+0"  else "D+${Math.abs(dDay.dDay)}"
+                    plannerDDayRepresentativeDDay.text = if (dDay.dDay >= 0) "D-${dDay.dDay}" else if (LocalDate.now().toString() == dDay.createdAt) "D+0" else "D+${Math.abs(dDay.dDay)}"
                     plannerDDayRepresentativeTitle.text = dDay.title
                     plannerDDayRepresentativeDate.text = DateConvter.dtoDateToPointDate(dDay.endAt)
                     plannerDDayRepresentativeIcon.setImageResource(DdayIconSet.DdayIconImg.values()[DdayIconSet().dDayIconList.indexOf(dDay.icon)].imge)

@@ -11,7 +11,6 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.longToTimeKorString
-import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentHomeBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycler
@@ -121,5 +120,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         val intent = Intent(activity, Screens.TimerScreenSh.activity)
         intent.putExtra("studyDto", studyListRecyclerAdapter.studyList.studies[position])
         moveIntent(intent)
+    }
+
+    override fun onClickedCheckbox(position: Int, check: Boolean) {
     }
 }
