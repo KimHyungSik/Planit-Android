@@ -7,6 +7,7 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.util.Screens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,6 +28,10 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         binding.rewardsFragmentMainRewardImg.startAnimation(
             rotateAnimation
         )
+
+        binding.rewardsFragmentPlanitPassColumn.setOnClickListener {
+            moveIntent(Screens.PlanitPassScreenSh.activity)
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(1000)

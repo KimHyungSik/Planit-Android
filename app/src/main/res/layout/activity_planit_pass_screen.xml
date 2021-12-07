@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.presentation.planitpass.PlanitPassScreen">
+    tools:context=".feature.presentation.planitpass.PlanitPassScreen"
+    android:background="@color/navy_blue_back_ground"
+    >
 
     <TextView
         android:id="@+id/planit_pass_title"

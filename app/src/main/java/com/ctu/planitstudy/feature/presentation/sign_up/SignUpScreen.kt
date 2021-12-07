@@ -8,6 +8,7 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivitySignUpScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
+import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.SignFragmentStateAdapter
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import dagger.hilt.android.AndroidEntryPoint
