@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
+import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
@@ -134,54 +135,68 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun sendSignUpUserData(receiverNameSkip: Boolean) {
+        userManager.userPolicyChange(OauthType.KakaoOauth)
         userManager.getUserInfo()
             .subscribe({ it ->
-                val signUpUser = SignUpUser(
-                    birth = liveData.value?.dateOfBirth!!,
-                    category = liveData.value?.category!!,
-                    email = it.data?.userEmail!!,
-                    marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
-                    personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                    name = liveData.value?.name!!,
-                    nickname = liveData.value?.nickname!!,
-                    sex = liveData.value?.gender!!
-                )
 
-                val signUpUserReceiver = SignUpUserReceiver(
-                    birth = liveData.value?.dateOfBirth!!,
-                    category = liveData.value?.category!!,
-                    email = it.data?.userEmail!!,
-                    marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
-                    personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                    name = liveData.value?.name!!,
-                    nickname = liveData.value?.nickname!!,
-                    receiverNickname = liveData.value?.receiverName!!,
-                    sex = liveData.value?.gender!!,
-                )
-                (
-                    if (receiverNameSkip)
-                        userAuthUseCase.userSignUp(signUpUserReceiver)
-                    else
-                        userAuthUseCase.userSignUp(signUpUser)
-                    )
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
-                    .subscribe({
-                        _signUpUserResponse.value = SignUpUserResponse(
-                            200,
-                            accessToken = it.accessToken,
-                            refreshToken = it.refreshToken
+                when (it) {
+                    is Resource.Success -> {
+                        val signUpUser = SignUpUser(
+                            birth = liveData.value?.dateOfBirth!!,
+                            category = liveData.value?.category!!,
+                            email = it.data!!.userEmail!!,
+                            marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                            personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                            name = liveData.value?.name!!,
+                            nickname = liveData.value?.nickname!!,
+                            sex = liveData.value?.gender!!
                         )
-                        CashStudyApp.prefs.accessToken = it.accessToken
-                        CashStudyApp.prefs.refreshToken = it.refreshToken
-                        _screens.value = Screens.HomeScreenSh
-                    }, {
-                        if (it is HttpException) {
-                            CashStudyApp.prefs.accessToken = ""
-                            CashStudyApp.prefs.refreshToken = ""
-                        }
-                    })
+
+                        val signUpUserReceiver = SignUpUserReceiver(
+                            birth = liveData.value?.dateOfBirth!!,
+                            category = liveData.value?.category!!,
+                            email = it.data?.userEmail!!,
+                            marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                            personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                            name = liveData.value?.name!!,
+                            nickname = liveData.value?.nickname!!,
+                            receiverNickname = liveData.value?.receiverName!!,
+                            sex = liveData.value?.gender!!,
+                        )
+                        (
+                                if (receiverNameSkip)
+                                    userAuthUseCase.userSignUp(signUpUserReceiver)
+                                else
+                                    userAuthUseCase.userSignUp(signUpUser)
+                                )
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
+                            .subscribe({
+                                _signUpUserResponse.value = SignUpUserResponse(
+                                    200,
+                                    accessToken = it.accessToken,
+                                    refreshToken = it.refreshToken
+                                )
+                                CashStudyApp.prefs.accessToken = it.accessToken
+                                CashStudyApp.prefs.refreshToken = it.refreshToken
+                                _screens.value = Screens.HomeScreenSh
+                            }, {
+                                if (it is HttpException) {
+                                    CashStudyApp.prefs.accessToken = ""
+                                    CashStudyApp.prefs.refreshToken = ""
+                                }
+                            })
+                        loadingDismiss()
+                    }
+                    is Resource.Error -> {
+                        Log.d(TAG, "sendSignUpUserData: ${it.message}")
+                        loadingDismiss()
+                    }
+                    is Resource.Loading -> {
+                        loadingShow()
+                    }
+                }
             }, {
                 _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
             }).isDisposed

@@ -26,9 +26,8 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding, SignUpV
                 .filter { it -> it != -1 }
                 .subscribe({
                     binding.signUpCategoryRadioGroupRight.clearCheck()
-                    var state = viewModel.liveData.value
-                    state = state!!.copy(category = findCategoryFromView(it)!!.category)
-                    viewModel.updateSignState(state!!)
+                    val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
+                    viewModel.updateSignState(state)
                 }, {})
         )
         disposables.add(
@@ -36,9 +35,8 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding, SignUpV
                 .filter { it -> it != -1 }
                 .subscribe({
                     binding.signUpCategoryRadioGroupLeft.clearCheck()
-                    var state = viewModel.liveData.value
-                    state = state!!.copy(category = findCategoryFromView(it)!!.category)
-                    viewModel.updateSignState(state!!)
+                    val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
+                    viewModel.updateSignState(state)
                 }, {})
         )
     }

@@ -75,8 +75,4 @@ class PlanitPassScreen :
         }
         binding.invalidateAll()
     }
-
-    fun backScreen() {
-        finish()
-    }
 }

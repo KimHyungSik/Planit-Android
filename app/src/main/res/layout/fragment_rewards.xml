@@ -9,7 +9,7 @@
             type="com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisFragment" />
         <variable
             name="viewmodel"
-            type="com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisFragment" />
+            type="com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

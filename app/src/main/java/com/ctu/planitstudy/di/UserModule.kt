@@ -16,15 +16,18 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
+    @Singleton
     @Provides
     fun provideKakaoOauthImp(): KakaoOauthImp =
         KakaoOauthImp()
 
+    @Singleton
     @Provides
     fun provideUserManager(
         kakaoOauthImp: KakaoOauthImp

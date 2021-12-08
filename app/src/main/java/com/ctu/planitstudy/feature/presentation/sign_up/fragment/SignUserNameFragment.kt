@@ -59,8 +59,11 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding, SignUpV
                     signUpNicknameErrorIcon.visibility = View.INVISIBLE
                     signUpNicknameErrorText.visibility = View.VISIBLE
                     signUpNicknameErrorText.text = "사용 가능한 닉네임 입니다."
+                    val state = viewModel.liveData.value!!.copy(
+                        nicknameCheck = true
+                    )
+                    viewModel.updateSignState(state)
                 } else {
-
                     signUpNicknameErrorText.visibility = View.VISIBLE
                     when (it) {
                         is Resource.Success -> {
@@ -75,6 +78,10 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding, SignUpV
                             signUpNicknameErrorIcon.visibility = View.INVISIBLE
                         }
                     }
+                    val state = viewModel.liveData.value!!.copy(
+                        nicknameCheck = false
+                    )
+                    viewModel.updateSignState(state)
                 }
             }
         })

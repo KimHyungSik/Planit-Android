@@ -26,8 +26,8 @@ class UserRepositoryImp @Inject constructor(
     override fun userLogin(loginUser: LoginUser): Flowable<JsonElement> = authApi.userLogin(loginUser)
     override fun userSignUp(signUpUser: SignUpUser): Flowable<JsonElement> = authApi.userSignUp(signUpUser)
     override fun userSignUp(signUpUser: SignUpUserReceiver): Flowable<JsonElement> = authApi.userSignUp(signUpUser)
-    override suspend fun userValidateNickName(nickname: String) = userApi.userValidateNickName(nickname)
-    override suspend fun userValidateNickName(nickname: String, previousNickname: String) = userApi.userValidateNickName(nickname, previousNickname)
+    override suspend fun userValidateNickName(nickname: String) = authApi.userValidateNickName(nickname)
+    override suspend fun userValidateNickName(nickname: String, previousNickname: String) = authApi.userValidateNickName(nickname, previousNickname)
     override suspend fun getUser(): UserInformationDto = userApi.getUser()
     override suspend fun editUser(editUser: EditUser): MessageDto = userApi.editUser(editUser)
 }
