@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CashStudy">
-
+        <activity android:name=".feature.presentation.planitpass.PlanitPassScreen"></activity>
         <activity android:name=".feature.presentation.terms_of_use.webview.TermsOfUse" />
         <activity android:name=".feature.presentation.edituser.EditUserScreen" />
         <activity android:name=".feature.presentation.splash.SplashScreen">

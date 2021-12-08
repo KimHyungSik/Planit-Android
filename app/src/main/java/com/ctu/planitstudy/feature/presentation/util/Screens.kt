@@ -5,6 +5,7 @@ import com.ctu.planitstudy.feature.presentation.edituser.EditUserScreen
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.login.LoginScreen
 import com.ctu.planitstudy.feature.presentation.measurement.MeasurementScreen
+import com.ctu.planitstudy.feature.presentation.planitpass.PlanitPassScreen
 import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
 import com.ctu.planitstudy.feature.presentation.study.StudyScreen
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgreesScreen
@@ -22,4 +23,5 @@ sealed class Screens(val activity: Class<*>) {
     object TimerScreenSh : Screens(TimerScreen::class.java)
     object MeasurementScreenSh : Screens(MeasurementScreen::class.java)
     object EditUserScreenSh : Screens(EditUserScreen::class.java)
+    object PlanitPassScreenSh : Screens(PlanitPassScreen::class.java)
 }

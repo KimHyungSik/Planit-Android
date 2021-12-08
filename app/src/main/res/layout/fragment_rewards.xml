@@ -4,12 +4,184 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.presentation.home.fragment.analysis.AnalysisFragment">
+    >
 
     <TextView
-        android:gravity="center"
+        android:id="@+id/rewards_fragment_title_text"
         android:text="리워드"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="58dp"
+        android:layout_marginStart="32dp"
+        android:textStyle="bold"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rewards_fragment_reward_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@color/module_color"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="24dp"
+        >
+        <TextView
+            android:text="리워드샵"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="@color/text_color"
+            android:layout_marginVertical="7dp"
+            android:layout_marginHorizontal="31dp"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/rewards_fragment_star_bg"
+        android:src="@drawable/star_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/rewards_fragment_main_reward_img"
+        android:src="@drawable/graphic_220_mainreward_on"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/rewards_fragment_explanation_title"
+        android:text="별을 탭하고\n포인트를 받으세요"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rewards_fragment_title_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="52dp"
+        android:layout_marginStart="32dp"
+        android:textSize="18sp"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/rewards_fragment_star_text"
+        android:text="별"
+        android:textSize="26sp"
+        android:textColor="@color/sub_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rewards_fragment_explanation_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="32dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/rewards_fragment_star_count_text"
+        android:text="0/0"
+        android:textSize="26sp"
+        android:textColor="@color/sub_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rewards_fragment_explanation_title"
+        app:layout_constraintLeft_toRightOf="@id/rewards_fragment_star_text"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="6dp"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:id="@+id/rewards_fragment_point_img"
+        android:src="@drawable/icon_32_pointlist"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rewards_fragment_planit_pass_column"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="17dp"
+        />
+
+    <TextView
+        android:id="@+id/rewards_fragment_point_text"
+        android:text="나의 포인트 0P"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/rewards_fragment_point_img"
+        app:layout_constraintTop_toTopOf="@id/rewards_fragment_point_img"
+        app:layout_constraintBottom_toBottomOf="@id/rewards_fragment_point_img"
+        android:layout_marginStart="6dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_color"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rewards_fragment_planit_pass_column"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/module_color"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginHorizontal="24dp"
+        android:clickable="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <ImageView
+                android:src="@drawable/ic_pass"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginVertical="28dp"
+                />
+            <TextView
+                android:text="플래닛 패스"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:layout_marginStart="8dp"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/rewards_fragment_planit_pass_count_text"
+                android:text="0"
+                android:background="@drawable/subcolor_circle_background"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginEnd="24dp"
+                />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

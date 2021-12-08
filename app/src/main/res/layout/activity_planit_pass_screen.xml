@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="activity"
+            type="com.ctu.planitstudy.feature.presentation.planitpass.PlanitPassScreen" />
+        <variable
+            name="viewmodel"
+            type="com.ctu.planitstudy.feature.presentation.planitpass.PlanitPassViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/navy_blue_back_ground"
+        tools:context=".feature.presentation.planitpass.PlanitPassScreen">
+
+        <TextView
+            android:id="@+id/planit_pass_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:text="플래닛 패스"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/planit_pass_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/planit_pass_title"
+            android:onClick="@{()->activity.backScreen()}"
+            />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/planit_pass_planit_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/planit_pass_planit_view_pager_indicator"
+            app:layout_constraintTop_toBottomOf="@id/planit_pass_title" />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/planit_pass_planit_view_pager_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="43dp"
+            android:splitMotionEvents="true"
+            app:dotsClickable="false"
+            app:dotsColor="@color/button_disabled"
+            app:dotsSize="9dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="1"
+            app:layout_constraintBottom_toTopOf="@id/planit_pass_plan_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:selectedDotColor="@color/sub_color" />
+
+        <ImageView
+            android:id="@+id/planit_pass_previous_planit_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/ic_baseline_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/planit_pass_obtain_star_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/planit_pass_plan_name"
+            android:onClick="@{()->activity.previousPass()}"
+            />
+
+        <TextView
+            android:id="@+id/planit_pass_plan_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@{activity.passTitle}"
+            android:textColor="@color/text_color"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/planit_pass_obtain_star_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/planit_pass_obtain_star_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="@{activity.passEarendStars}"
+            android:textColor="@color/sub_color2"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/planit_pass_confirm_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/planit_pass_next_planit_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_baseline_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/planit_pass_obtain_star_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/planit_pass_plan_name"
+            android:onClick="@{()->activity.nextPass()}"
+            />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/planit_pass_confirm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="40dp"
+            app:cardBackgroundColor="@color/sub_color"
+            app:cardCornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:clickable="true"
+            android:onClick="@{()->activity.backScreen()}"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="95dp"
+                android:layout_marginVertical="20dp"
+                android:gravity="center"
+                android:text="플래닛 선택완료"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
