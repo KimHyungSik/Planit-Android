@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -28,5 +29,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         binding.rewardsFragmentPlanitPassColumn.setOnClickListener {
             moveIntent(Screens.PlanitPassScreenSh.activity)
         }
+
+        binding.rewardsFragmentStarBg.startAnimation(RewardAnimation.getAniLeft())
+
     }
 }
