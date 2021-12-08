@@ -17,6 +17,18 @@ class PlanitFragmentStateAdapter(fragmentActivity: FragmentActivity) :
         FragmentChallengePlanit()
     )
 
+    val planitPassTitle = listOf<String>(
+        "안전 제일 플래닛",
+        "재미 유발 플래닛",
+        "도전 가득 플래닛"
+    )
+
+    val planitPassEarendStars = listOf<String>(
+        "10별 획득",
+        "5~15까지 별 랜덤 획득",
+        "1~20까지 별 랜덤 획득"
+    )
+
     override fun getItemCount(): Int = fragmentList.size
 
     override fun createFragment(position: Int): Fragment = fragmentList[position]
