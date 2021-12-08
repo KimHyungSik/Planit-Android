@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -23,7 +22,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override fun setInit() {
         super.setInit()
 
-        with(binding){
+        with(binding) {
             rewardsFragmentMainRewardImg.startAnimation(
                 rotateAnimation
             )
@@ -34,8 +33,5 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
             rewardsFragmentStarBg.startAnimation(RewardAnimation.getAniLeft())
         }
-
-
-
     }
 }

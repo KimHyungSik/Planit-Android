@@ -12,9 +12,9 @@ import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.FragmentAnalysisDailyReportBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
+import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.recycler.AchievementRateListRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisViewModel
 import java.time.LocalDate
 
 @AndroidEntryPoint

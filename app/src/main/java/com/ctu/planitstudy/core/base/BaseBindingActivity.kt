@@ -44,7 +44,7 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     open fun dismiss() {
         loading.dismiss()
     }
-    open fun backScreen(){
+    open fun backScreen() {
         finish()
     }
 

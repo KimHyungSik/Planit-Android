@@ -4,7 +4,7 @@ import android.view.animation.TranslateAnimation
 
 object RewardAnimation {
 
-    fun getAniLeft() : TranslateAnimation{
+    fun getAniLeft(): TranslateAnimation {
         val aniLeft = TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_PARENT,
             0f,
@@ -19,5 +19,4 @@ object RewardAnimation {
         aniLeft.duration = 100000
         return aniLeft
     }
-
 }
