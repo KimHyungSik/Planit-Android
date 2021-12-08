@@ -94,7 +94,6 @@ class AnalysisDailyReportFragment :
                         analysisFragmentAchievementRateCheckTitle.visibility = View.VISIBLE
                         analysisFragmentAchievementRateCheckColumn.visibility = View.VISIBLE
                         analysisFragmentAchievementRateCheckImg.visibility = View.VISIBLE
-                        analysisFragmentTotalStudyTimeTitle.visibility = View.VISIBLE
                     }
                     totalTime = "타이머 측정 시간이 없습니다"
                 }
@@ -138,7 +137,6 @@ class AnalysisDailyReportFragment :
                 analysisFragmentStudyTimeLineColumn.visibility = View.GONE
 
                 analysisFragmentStudyTimeLineTitle.visibility = View.GONE
-                analysisFragmentTotalStudyTimeTitle.visibility = View.GONE
                 analysisFragmentMostFocusedStudyTitle.visibility = View.GONE
                 analysisFragmentAchievementRateCheckTitle.visibility = View.GONE
 
@@ -151,7 +149,6 @@ class AnalysisDailyReportFragment :
                 analysisFragmentStudyTimeLineColumn.visibility = View.VISIBLE
 
                 analysisFragmentStudyTimeLineTitle.visibility = View.VISIBLE
-                analysisFragmentTotalStudyTimeTitle.visibility = View.VISIBLE
                 analysisFragmentMostFocusedStudyTitle.visibility = View.VISIBLE
                 analysisFragmentAchievementRateCheckTitle.visibility = View.VISIBLE
 
