@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.core.util.network
 
 import android.content.Intent
+import android.util.Log
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.login.LoginScreen
@@ -17,10 +18,13 @@ class TokenAuthenticator @Inject constructor(
     private val jwtTokenRefreshUseCase: JwtTokenRefreshUseCase
 ) :
     Authenticator {
+
+    val TAG = "TokenAuthenticator - 로그"
     val jwtRefreshTokenExpiration = JWTRefreshTokenExpiration()
 
     @DelicateCoroutinesApi
     override fun authenticate(route: Route?, response: Response): Request? {
+        Log.d(TAG, "authenticate: $response")
         if (response.code == 401) {
             if (CashStudyApp.prefs.refreshToken!!.isNotEmpty() && !jwtRefreshTokenExpiration()) {
                 runBlocking {

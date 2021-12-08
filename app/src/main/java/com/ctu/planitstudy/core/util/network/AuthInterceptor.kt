@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.core.util.network
 
 import android.content.Intent
+import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
@@ -35,6 +36,7 @@ class AuthInterceptor @Inject constructor(
 
         // 토큰 만료 검사
         if (accessTokenExpiration() && !jwtRefreshTokenExpiration()) runBlocking {
+            Log.d(TAG, "intercept: 토큰 만료 검사")
             getAccessToken()
             delay(800)
         }

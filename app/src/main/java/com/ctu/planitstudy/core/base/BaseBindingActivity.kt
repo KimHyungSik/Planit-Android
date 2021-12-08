@@ -44,6 +44,9 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     open fun dismiss() {
         loading.dismiss()
     }
+    open fun backScreen(){
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

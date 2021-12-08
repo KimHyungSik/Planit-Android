@@ -22,15 +22,20 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     override fun setInit() {
         super.setInit()
-        binding.rewardsFragmentMainRewardImg.startAnimation(
-            rotateAnimation
-        )
 
-        binding.rewardsFragmentPlanitPassColumn.setOnClickListener {
-            moveIntent(Screens.PlanitPassScreenSh.activity)
+        with(binding){
+            rewardsFragmentMainRewardImg.startAnimation(
+                rotateAnimation
+            )
+
+            rewardsFragmentPlanitPassColumn.setOnClickListener {
+                moveIntent(Screens.PlanitPassScreenSh.activity)
+            }
+
+            rewardsFragmentStarBg.startAnimation(RewardAnimation.getAniLeft())
         }
 
-        binding.rewardsFragmentStarBg.startAnimation(RewardAnimation.getAniLeft())
+
 
     }
 }
