@@ -17,7 +17,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -139,6 +139,5 @@ dependencies {
 
     implementation  'com.github.kizitonwose:CalendarView:1.0.4' // clander
     implementation 'me.tankery.lib:circularSeekBar:1.2.0'       // SeekBar
-
 
 }
