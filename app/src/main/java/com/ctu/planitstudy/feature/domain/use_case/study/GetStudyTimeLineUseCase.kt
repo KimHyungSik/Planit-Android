@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import kotlinx.coroutines.flow.Flow

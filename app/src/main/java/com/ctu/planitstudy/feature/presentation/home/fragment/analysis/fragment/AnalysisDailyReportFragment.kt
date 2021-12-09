@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.analysis.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -10,7 +9,6 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.dp
 import com.ctu.planitstudy.core.util.longToTimeKorString
-import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.FragmentAnalysisDailyReportBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
@@ -61,7 +59,6 @@ class AnalysisDailyReportFragment :
             currentDateText = DateConvter.dtoDateToTextDate(currentDate)
             if (it.studies.isNotEmpty()) {
                 listEmptyView(false)
-
 
                 var tempTotalTime: Int = 0
                 var mostStudy: StudyDto? = null

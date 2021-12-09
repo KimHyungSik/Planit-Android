@@ -7,10 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.util.longToTimeKorString
-import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.feature.data.remote.dto.study.Report
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 
 class AchievementRateListRecyclerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

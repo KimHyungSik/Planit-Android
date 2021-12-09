@@ -44,5 +44,4 @@ interface StudyApi {
     // 공부 삭제
     @DELETE("/v1/study/{studyGroupId}")
     suspend fun deleteStudy(@Path("studyGroupId") studyGroupId: String): Response<Unit>
-
 }

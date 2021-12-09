@@ -25,7 +25,7 @@ class AnalysisViewModel @Inject constructor(
     private val _studyDto = MutableLiveData<StudyListDto>(StudyListDto("", emptyList()))
     val studyDto: LiveData<StudyListDto> = _studyDto
 
-    private val _studyTimeLineDto = MutableLiveData<StudyTimeLineDto>( StudyTimeLineDto(0, emptyList(), 0))
+    private val _studyTimeLineDto = MutableLiveData<StudyTimeLineDto>(StudyTimeLineDto(0, emptyList(), 0))
     val studyTimeLineDto: LiveData<StudyTimeLineDto> = _studyTimeLineDto
 
     fun getStudyList(date: String = LocalDate.now().toString()) {

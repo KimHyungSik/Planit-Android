@@ -164,11 +164,11 @@ class SignUpViewModel @Inject constructor(
                             sex = liveData.value?.gender!!,
                         )
                         (
-                                if (receiverNameSkip)
-                                    userAuthUseCase.userSignUp(signUpUserReceiver)
-                                else
-                                    userAuthUseCase.userSignUp(signUpUser)
-                                )
+                            if (receiverNameSkip)
+                                userAuthUseCase.userSignUp(signUpUserReceiver)
+                            else
+                                userAuthUseCase.userSignUp(signUpUser)
+                            )
                             .subscribeOn(Schedulers.computation())
                             .observeOn(AndroidSchedulers.mainThread())
                             .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }

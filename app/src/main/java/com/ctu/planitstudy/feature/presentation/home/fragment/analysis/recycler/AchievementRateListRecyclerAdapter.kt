@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 
 class AchievementRateListRecyclerAdapter() : RecyclerView.Adapter<AchievementRateListRecyclerHolder>() {
