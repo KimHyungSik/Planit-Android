@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 
 class AchievementRateListRecyclerAdapter() : RecyclerView.Adapter<AchievementRateListRecyclerHolder>() {
 
-    var studyList = StudyListDto("", emptyList())
+    var studyTimeLine = StudyTimeLineDto(0, emptyList(), 0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementRateListRecyclerHolder =
         AchievementRateListRecyclerHolder(
@@ -19,15 +20,15 @@ class AchievementRateListRecyclerAdapter() : RecyclerView.Adapter<AchievementRat
 
     override fun onBindViewHolder(holder: AchievementRateListRecyclerHolder, position: Int) {
         holder.bindWithView(
-            studyDto = this.studyList.studies[position],
+            studyTimeLine = this.studyTimeLine.reports[position],
             top = position == 0,
-            bottom = position == this.studyList.studies.size - 1
+            bottom = position == this.studyTimeLine.reports.size - 1
         )
     }
 
-    override fun getItemCount(): Int = studyList.studies.size
+    override fun getItemCount(): Int = studyTimeLine.reports.size
 
-    fun submitList(studyList: StudyListDto) {
-        this.studyList = studyList
+    fun submitList(studyTimeLine: StudyTimeLineDto) {
+        this.studyTimeLine = studyTimeLine
     }
 }
