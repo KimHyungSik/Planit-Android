@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.dp
-import com.ctu.planitstudy.core.util.longToTimeShortString
+import com.ctu.planitstudy.core.util.longToTimeKorString
 import com.ctu.planitstudy.databinding.FragmentAnalysisDailyReportBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
@@ -60,10 +60,6 @@ class AnalysisDailyReportFragment :
             if (it.studies.isNotEmpty()) {
                 listEmptyView(false)
 
-                val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
-                params.height = ((128 * it.studies.size).dp).coerceAtMost((304).dp)
-                binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
-
                 var tempTotalTime: Int = 0
                 var mostStudy: StudyDto? = null
                 var studyIsDone = 0
@@ -77,9 +73,9 @@ class AnalysisDailyReportFragment :
                     }
                 }
 
-                totalTime = "${tempTotalTime.toLong().longToTimeShortString()} 공부했어요"
+                totalTime = "${tempTotalTime.toLong().longToTimeKorString()} 공부했어요"
                 mostStudyTitle = mostStudy!!.title
-                mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeShortString()
+                mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeKorString()
                 studyCounter = "$studyIsDone/${it.studies.size}"
                 val percent = ((studyIsDone / it.studies.size) * 100).toInt()
                 studyIsDonePercent = "$percent%"
@@ -102,15 +98,24 @@ class AnalysisDailyReportFragment :
                 totalTime = "타이머 측정 시간이 없습니다"
             }
             binding.invalidateAll()
+        })
+
+        viewModel.studyTimeLineDto.observe(this, {
+            val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
+            params.height = ((123 * it.totalStudies).dp).coerceAtMost((299).dp)
+            binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
+
             achievementRateListRecyclerAdapter.submitList(it)
             achievementRateListRecyclerAdapter.notifyDataSetChanged()
         })
 
         viewModel.getStudyList(currentDate)
+        viewModel.getStudyTimeLIne(currentDate)
     }
 
     override fun onConfirmedClick() {
         viewModel.getStudyList(currentDate)
+        viewModel.getStudyTimeLIne(currentDate)
     }
 
     override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {

@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.data.remote
 
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyListDto
+import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import retrofit2.Response
@@ -20,9 +21,13 @@ interface StudyApi {
     @GET("/v1/study/validate-title")
     suspend fun validateTitle(@Query("title") title: String)
 
-    // 공부 리스트 가져오기
+    // 공부 일자별 리스트 가져오기
     @GET("/v1/study/list/{date}")
     suspend fun getStudyList(@Path("date") date: String): StudyListDto
+
+    // 공부 일자별 타임라인 가져오기
+    @GET("/v1/study/daily-report/{date}")
+    suspend fun getStudyTimeLine(@Path("date") date: String): StudyTimeLineDto
 
     // 공부 수정
     @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")

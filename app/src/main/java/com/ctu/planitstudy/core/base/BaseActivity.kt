@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.ctu.planitstudy.feature.presentation.util.Screens
 
 open class BaseActivity :
     AppCompatActivity() {
@@ -24,6 +25,11 @@ open class BaseActivity :
     }
 
     open fun moveIntent(intent: Intent) {
+        startActivity(intent)
+    }
+
+    open fun moveIntent(screen: Screens) {
+        val intent = Intent(this, screen.activity)
         startActivity(intent)
     }
 

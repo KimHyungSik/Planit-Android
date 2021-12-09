@@ -7,6 +7,7 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 
 class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() {
@@ -23,6 +24,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         super.setInit()
 
         with(binding) {
+            activity = this@RewardsFragment
+            viewmodel = viewModel
+
             rewardsFragmentMainRewardImg.startAnimation(
                 rotateAnimation
             )
@@ -33,5 +37,11 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
             rewardsFragmentStarBg.startAnimation(RewardAnimation.getAniLeft())
         }
+    }
+
+    fun showReadyDialog() {
+        ReadyDialog().show(
+            parentFragmentManager, "ReadyDialog"
+        )
     }
 }
