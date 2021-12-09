@@ -36,6 +36,10 @@ object StudyModule {
         GetStudyListUseCase(studyRepository)
 
     @Provides
+    fun providerGetStudyTimeLineUseCase(studyRepository: StudyRepository): GetStudyTimeLineUseCase =
+        GetStudyTimeLineUseCase(studyRepository)
+
+    @Provides
     fun providerEditStudyUseCase(studyRepository: StudyRepository): EditStudyUseCase =
         EditStudyUseCase(studyRepository)
 
@@ -51,6 +55,7 @@ object StudyModule {
     fun providerStudyUseCase(
         addStudyUseCase: AddStudyUseCase,
         getStudyListUseCase: GetStudyListUseCase,
+        getStudyTimeLineUseCase: GetStudyTimeLineUseCase,
         validatedTitleUseCase: StudyValidatedTitleUseCase,
         editStudyUseCase: EditStudyUseCase,
         deleteStudyUseCase: DeleteStudyUseCase,
@@ -61,6 +66,7 @@ object StudyModule {
         studyValidatedTitleUseCase = validatedTitleUseCase,
         editStudyUseCase = editStudyUseCase,
         deleteStudyUseCase = deleteStudyUseCase,
-        editStudyIsDoneUseCase = editStudyIsDoneUseCase
+        editStudyIsDoneUseCase = editStudyIsDoneUseCase,
+        getStudyTimeLineUseCase = getStudyTimeLineUseCase
     )
 }
