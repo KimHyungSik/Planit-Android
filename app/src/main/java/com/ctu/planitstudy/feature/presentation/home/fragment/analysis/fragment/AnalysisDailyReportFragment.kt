@@ -104,8 +104,6 @@ class AnalysisDailyReportFragment :
         })
 
         viewModel.studyTimeLineDto.observe(this, {
-            Log.d(TAG, "setInit: $it")
-
             val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
             params.height = ((123 * it.totalStudies).dp).coerceAtMost((299).dp)
             binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params

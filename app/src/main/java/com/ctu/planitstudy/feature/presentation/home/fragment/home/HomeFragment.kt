@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         viewModel.homeState.observe(
             this,
             Observer {
-
+                totalTime = 0
                 for (n in it.studyListDto.studies)
                     totalTime += n.recordedTime
 
