@@ -10,7 +10,7 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class GetPlanetPassList @Inject constructor(
+class GetPlanetPassListUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
 
