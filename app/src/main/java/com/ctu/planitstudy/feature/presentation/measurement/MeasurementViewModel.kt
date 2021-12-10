@@ -56,7 +56,7 @@ class MeasurementViewModel @Inject constructor(
                     extraTime = recordedTime,
                     totalTime = measurementTime.toInt() + recordedTime,
                     totalBrakeTime = totalBrakeTime,
-                    totalStar = (measurementState.value!!.measurementTime / 500).toInt(),
+                    totalStar = (measurementState.value!!.measurementTime / 300).toInt(),
                     totalTicket = (measurementState.value!!.measurementTime / 3600).toInt(),
                     isDone = isDone
                 )
