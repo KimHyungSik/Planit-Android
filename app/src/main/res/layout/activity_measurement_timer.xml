@@ -93,9 +93,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="23dp"
                     android:text="@{`(+` + viewmodel.getMeasurementTime() + `)`}"
                     android:textColor="@color/sub_color"
+                    android:layout_marginTop="24dp"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@id/measurement_time_title"
                     app:layout_constraintTop_toTopOf="@id/measurement_study_time" />

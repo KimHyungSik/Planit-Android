@@ -53,7 +53,7 @@ class MeasurementViewModel @Inject constructor(
             with(measurementState.value!!) {
                 _measurementState.value = measurementState.value!!.copy(
                     totalMeasurementTime = (recordedTime.toLong() + measurementTime.toLong()).longToTimeKorString(),
-                    extraTime = recordedTime.toLong().longToTimeKorString(),
+                    extraTime = recordedTime,
                     totalTime = measurementTime.toInt() + recordedTime,
                     totalBrakeTime = totalBrakeTime,
                     totalStar = totalStar,
@@ -65,14 +65,29 @@ class MeasurementViewModel @Inject constructor(
     }
 
     fun recordMeasurementTimer(isDone: Boolean) {
-        val recordMeasurementTimer = RecordMeasurementTimer(
-            isDone = isDone,
-            star = measurementState.value!!.totalStar,
-            bonusTicket = measurementState.value!!.totalTicket,
-            rest = measurementState.value!!.totalBrakeTime,
-            recordedTime = measurementState.value!!.totalTime
-        )
 
+
+        val recordMeasurementTimer =
+            // 새로 측정한 경우
+            if (measurementState.value!!.extraTime == 0) RecordMeasurementTimer(
+                isDone = isDone,
+                star = measurementState.value!!.totalStar,
+                bonusTicket = measurementState.value!!.totalTicket,
+                rest = measurementState.value!!.totalBrakeTime,
+                recordedTime = measurementState.value!!.totalTime
+            )
+            // 이어서 측정한 경우
+            else
+                RecordMeasurementTimer(
+                    isDone = isDone,
+                    star = (measurementState.value!!.measurementTime / 500).toInt(),
+                    bonusTicket = (measurementState.value!!.measurementTime / 3600).toInt(),
+                    rest = measurementState.value!!.totalBrakeTime,
+                    recordedTime = measurementState.value!!.measurementTime.toInt()
+                )
+
+        Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
+        
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
             recordMeasurementTimer
@@ -85,7 +100,7 @@ class MeasurementViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "recordMeasurementTimer: Error")
+                    Log.d(TAG, "recordMeasurementTimer: Error ${it.message}")
                     loadingDismiss()
                 }
                 is Resource.Loading -> {

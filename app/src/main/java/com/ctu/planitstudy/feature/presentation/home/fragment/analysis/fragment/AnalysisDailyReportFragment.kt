@@ -105,7 +105,7 @@ class AnalysisDailyReportFragment :
 
         viewModel.studyTimeLineDto.observe(this, {
             val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
-            params.height = ((110 * it.totalStudies).dp).coerceAtMost((286).dp)
+            params.height = ((110 * it.reports.size).dp).coerceAtMost((286).dp)
             binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
 
             achievementRateListRecyclerAdapter.submitList(it)
