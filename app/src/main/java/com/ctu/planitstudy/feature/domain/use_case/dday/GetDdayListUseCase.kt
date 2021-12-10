@@ -41,7 +41,7 @@ class GetDdayListUseCase @Inject constructor(
     }
 
     fun sortedDdayList(ddayListDto: DdayListDto): DdayListDto {
-        val ddaySort = ddayListDto.ddays.sortedByDescending { dtoDateTOLong(it.endAt) }
+        val ddaySort = ddayListDto.ddays.sortedBy{ dtoDateTOLong(it.endAt) }
         return DdayListDto(ddaySort)
     }
 }
