@@ -6,7 +6,7 @@ import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 import javax.inject.Inject
 
 class RewardRepositoryImp @Inject constructor(
-   private val rewardApi: RewardApi
-) :RewardRepository{
-    override suspend fun getRewardPlanet() : PlanetsDto = rewardApi.getRewardPlanet()
+    private val rewardApi: RewardApi
+) : RewardRepository {
+    override suspend fun getRewardPlanet(): PlanetsDto = rewardApi.getRewardPlanet()
 }

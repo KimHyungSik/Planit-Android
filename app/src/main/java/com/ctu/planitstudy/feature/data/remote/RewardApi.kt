@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface RewardApi {
 
     @GET("/v1/reward/planet")
-    suspend fun getRewardPlanet() : PlanetsDto
+    suspend fun getRewardPlanet(): PlanetsDto
 }

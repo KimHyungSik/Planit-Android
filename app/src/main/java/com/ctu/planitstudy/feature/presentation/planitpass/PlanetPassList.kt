@@ -5,7 +5,7 @@ data class PlanetPassList(
 )
 
 data class PlanetPass(
-    val id : Int,
+    val id: Int,
     val name: String,
     val description: String
 )

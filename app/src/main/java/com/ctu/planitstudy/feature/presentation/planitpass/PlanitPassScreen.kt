@@ -1,12 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
-import android.graphics.Point
-import android.util.Log
-import android.view.Display
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
@@ -27,7 +23,7 @@ class PlanitPassScreen :
     var passEarendStars = ""
 
     val TAG = "PlanitPassScreen - 로그"
-    
+
     override fun setup() {
         binding.activity = this
         binding.viewmodel = viewModel
@@ -59,7 +55,6 @@ class PlanitPassScreen :
         viewModel.planetPassList.observe(this, {
             updatePassView()
         })
-
     }
 
     fun nextPass() {
@@ -91,7 +86,6 @@ class PlanitPassScreen :
                 passTitle = ""
                 passEarendStars = ""
             }
-
         }
         binding.invalidateAll()
     }

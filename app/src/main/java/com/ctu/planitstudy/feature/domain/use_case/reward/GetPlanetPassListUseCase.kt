@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.domain.use_case.reward
 
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetsDto
-import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +13,7 @@ class GetPlanetPassListUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
 
-    operator fun invoke() : Flow<Resource<PlanetsDto>> = flow {
+    operator fun invoke(): Flow<Resource<PlanetsDto>> = flow {
         try {
             emit(Resource.Loading<PlanetsDto>(null))
             val rewardPlant = rewardRepository.getRewardPlanet()

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.reward.GetPlanetPassListUseCase
@@ -48,5 +47,4 @@ class PlanitPassViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-
 }

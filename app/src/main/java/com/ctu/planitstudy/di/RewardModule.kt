@@ -15,16 +15,15 @@ import retrofit2.Retrofit
 object RewardModule {
 
     @Provides
-    fun providerRewardApi(retrofit: Retrofit) : RewardApi =
+    fun providerRewardApi(retrofit: Retrofit): RewardApi =
         retrofit
             .create(RewardApi::class.java)
 
-
     @Provides
-    fun providerRewardRepository(rewardApi: RewardApi) : RewardRepository =
+    fun providerRewardRepository(rewardApi: RewardApi): RewardRepository =
         RewardRepositoryImp(rewardApi)
 
     @Provides
-    fun providerGetPlanetPassListUseCase(rewardRepository: RewardRepository) : GetPlanetPassListUseCase =
+    fun providerGetPlanetPassListUseCase(rewardRepository: RewardRepository): GetPlanetPassListUseCase =
         GetPlanetPassListUseCase(rewardRepository)
 }

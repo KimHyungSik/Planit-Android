@@ -9,7 +9,6 @@ import com.ctu.planitstudy.databinding.FragmentPlanitPassTicketBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.planitpass.PlanitPassViewModel
 
-
 class FragmentChallengePlanit : BaseFragment<FragmentPlanitPassTicketBinding, PlanitPassViewModel>() {
     override val bindingInflater: (LayoutInflater) -> FragmentPlanitPassTicketBinding
         get() = FragmentPlanitPassTicketBinding::inflate
