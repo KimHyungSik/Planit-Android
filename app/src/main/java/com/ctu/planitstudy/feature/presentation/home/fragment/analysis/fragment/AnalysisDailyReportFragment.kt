@@ -1,6 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.analysis.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -39,6 +41,7 @@ class AnalysisDailyReportFragment :
     var studyIsDonePercent = "0%"
     private val calendarDialog = BottomSheetCalendarDialog()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun setInit() {
         super.setInit()
         achievementRateListRecyclerAdapter = AchievementRateListRecyclerAdapter()
@@ -102,7 +105,7 @@ class AnalysisDailyReportFragment :
 
         viewModel.studyTimeLineDto.observe(this, {
             val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
-            params.height = ((123 * it.totalStudies).dp).coerceAtMost((299).dp)
+            params.height = ((110 * it.reports.size).dp).coerceAtMost((286).dp)
             binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
 
             achievementRateListRecyclerAdapter.submitList(it)

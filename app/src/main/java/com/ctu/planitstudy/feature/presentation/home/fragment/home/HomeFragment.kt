@@ -57,13 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
                     totalTime += n.recordedTime
 
                 if (totalTime == 0) {
-                    studyTimeTitle = "공부를 응원합니다!"
+                    studyTimeTitle = "의 공부를 응원합니다!"
                 } else {
                     studyTimeTitle = "공부했어요"
                     totalString = totalTime.toLong().longToTimeKorString()
                 }
 
                 binding.invalidateAll()
+
                 if (it.dDayList != null) {
                     it.dDayList.ddays.toObservable()
                         .filter { it.isRepresentative }
@@ -90,6 +91,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
                             }
                         }
                 }
+
                 with(binding) {
                     if (it.studyListDto.studies.isEmpty()) {
                         homeFragmentStudyEmptyImg.visibility = View.VISIBLE
@@ -99,6 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
                         homeTodoRecyclerView.visibility = View.VISIBLE
                     }
                 }
+
                 studyListRecyclerAdapter.submitList(
                     it.studyListDto,
                     StudyListMode.HomeStudyListMode

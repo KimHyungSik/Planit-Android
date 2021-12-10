@@ -1,5 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
+import android.graphics.Point
+import android.util.Log
+import android.view.Display
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -17,23 +20,24 @@ class PlanitPassScreen :
     private val plaintFragmentStateAdapter = PlanitFragmentStateAdapter(this@PlanitPassScreen)
     var passTitle = plaintFragmentStateAdapter.planitPassTitle.first()
     var passEarendStars = plaintFragmentStateAdapter.planitPassEarendStars.first()
+
+    val TAG = "PlanitPassScreen - 로그"
+    
     override fun setup() {
         binding.activity = this
         binding.viewmodel = viewModel
 
         with(binding.planitPassPlanitViewPager) {
-            val pageMarginPx =
-                resources.getDimensionPixelOffset(R.dimen.viewpager_current_item_horizontal_margin)
-            val pagerWidth = resources.getDimensionPixelOffset(R.dimen.viewpager_next_item_visible)
-            val offsetPx = pageMarginPx + pagerWidth
 
             apply {
                 adapter = plaintFragmentStateAdapter
                 currentItem = 0
             }
+
             offscreenPageLimit = 2
+            clipToPadding = false
+
             setPageTransformer { page, position ->
-                page.translationX = position * -offsetPx
                 page.scaleY = 1 - (0.25f * abs(position))
             }
 

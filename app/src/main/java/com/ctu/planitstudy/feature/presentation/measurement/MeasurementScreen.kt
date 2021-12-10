@@ -39,6 +39,10 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding, M
             measurementState.observe(this@MeasurementScreen, {
                 with(binding) {
                     invalidateAll()
+                    if(it.extraTime == 0){
+                        measurementStudyNewTime.visibility = View.VISIBLE
+                    }
+
                     // 체크 유무 확인
                     if (it.studyDto!!.isDone) {
                         measurementStudyConfirm.visibility = View.VISIBLE
