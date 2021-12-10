@@ -20,7 +20,6 @@ class AchievementRateListRecyclerHolder(itemView: View) : RecyclerView.ViewHolde
 
     @SuppressLint("ResourceAsColor")
     fun bindWithView(studyTimeLine: Report, top: Boolean, bottom: Boolean) {
-        Log.d(TAG, "bindWithView: $studyTimeLine")
         title.text = studyTimeLine.title
         time.text = studyTimeLine.recordedTime.toLong().longToTimeKorString()
 
