@@ -60,13 +60,15 @@
 
         <ImageView
             android:id="@+id/rewards_fragment_star_bg"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/mainreward_star_bg_on"
+            android:scaleType="fitCenter"
+            app:layout_constraintWidth_percent="0.6"
             />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -80,6 +82,8 @@
             app:lottie_rawRes="@raw/reward_bg_lottie"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintWidth_percent="0.6"
             />
 
         <com.airbnb.lottie.LottieAnimationView
