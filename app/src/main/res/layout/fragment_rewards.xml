@@ -60,13 +60,27 @@
 
         <ImageView
             android:id="@+id/rewards_fragment_star_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/star_bg"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/mainreward_star_bg_on"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/rewards_fragment_star_bg_lottie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/reward_bg_lottie"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/rewards_fragment_main_reward_lottie"
@@ -76,7 +90,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_rawRes="@raw/reward_star_lottie"
+            app:lottie_rawRes="@raw/reward_ready_lottie"
             android:onClick="@{()->activity.touchRewardStar()}"
             />
 

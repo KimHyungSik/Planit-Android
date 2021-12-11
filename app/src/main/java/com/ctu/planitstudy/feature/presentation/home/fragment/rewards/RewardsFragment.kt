@@ -1,9 +1,11 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.animation.ValueAnimator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.activityViewModels
+import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
@@ -22,6 +24,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     private var isAnimated = false
 
+    private val lottieMaxFrame = 214
     override fun setInit() {
         super.setInit()
 
@@ -32,16 +35,25 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             rewardsFragmentPlanitPassColumn.setOnClickListener {
                 moveIntent(Screens.PlanitPassScreenSh.activity)
             }
+
+            with(rewardsFragmentMainRewardLottie){
+                repeatCount = LottieDrawable.INFINITE
+                playAnimation()
+            }
         }
     }
 
     fun touchRewardStar() {
         if (!isAnimated) {
+            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
             binding.rewardsFragmentMainRewardLottie.playAnimation()
+
             isAnimated = true
             CoroutineScope(Dispatchers.Main).launch {
                 delay(binding.rewardsFragmentMainRewardLottie.duration)
                 isAnimated = false
+                binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
+                binding.rewardsFragmentMainRewardLottie.playAnimation()
             }
         }
     }
