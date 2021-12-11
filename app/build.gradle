@@ -140,4 +140,8 @@ dependencies {
     implementation  'com.github.kizitonwose:CalendarView:1.0.4' // clander
     implementation 'me.tankery.lib:circularSeekBar:1.2.0'       // SeekBar
 
+
+    // lottie
+    implementation 'com.airbnb.android:lottie:4.2.2'
+
 }
