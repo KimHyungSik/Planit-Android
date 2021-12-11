@@ -2,24 +2,24 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <layer-list>
-            <item>
+            <item android:width="48dp" android:height="48dp">
                 <shape android:shape="rectangle">
                     <corners android:radius="8dp" />
                     <solid android:color="@color/sub_color" />
                 </shape>
             </item>
-            <item android:drawable="@drawable/icon_32_meteor"/>
+            <item android:width="32dp" android:height="32dp" android:gravity="center" android:drawable="@drawable/icon_32_meteor"/>
         </layer-list>
     </item>
     <item android:state_checked="false">
         <layer-list>
-            <item>
+            <item android:width="48dp" android:height="48dp">
                 <shape android:shape="rectangle">
                     <corners android:radius="8dp" />
                     <solid android:color="@color/item_guide_stroke" />
                 </shape>
             </item>
-            <item android:drawable="@drawable/icon_32_meteor"/>
+            <item android:width="32dp" android:height="32dp" android:gravity="center" android:drawable="@drawable/icon_32_meteor"/>
         </layer-list>
     </item>
 </selector>

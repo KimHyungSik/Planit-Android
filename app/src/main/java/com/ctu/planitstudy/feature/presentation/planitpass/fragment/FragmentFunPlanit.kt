@@ -10,8 +10,10 @@ import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.planitpass.PlanitPassViewModel
 
 class FragmentFunPlanit : BaseFragment<FragmentPlanitPassTicketBinding, PlanitPassViewModel>() {
+
     override val bindingInflater: (LayoutInflater) -> FragmentPlanitPassTicketBinding
         get() = FragmentPlanitPassTicketBinding::inflate
+
     override val viewModel: PlanitPassViewModel by activityViewModels<PlanitPassViewModel>()
 
     override fun setInit() {

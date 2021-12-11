@@ -2,10 +2,12 @@ package com.ctu.planitstudy.feature.presentation.sign_up
 
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
+import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.ActivitySignUpScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.SignFragmentStateAdapter
@@ -48,21 +50,26 @@ class SignUpScreen :
             this,
             Observer {
                 if (it) {
-                    binding.signUpBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.white))
+                    with(binding.signUpBtn) {
+                        setCardBackgroundColor(setColor(R.color.white))
                         isClickable = true
+                        setOnClickListener {
+                            viewModel.checkSignUpUserData()
+                        }
                     }
-                    binding.signUpConfirmBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.white))
+                    with(binding.signUpConfirmBtn) {
+                        setCardBackgroundColor(setColor(R.color.white))
                         isClickable = true
                     }
                 } else {
-                    binding.signUpBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.button_disabled))
-                        isClickable = false
+                    with(binding.signUpBtn) {
+                        setCardBackgroundColor(setColor(R.color.button_disabled))
+                        setOnClickListener {
+                            Toast.makeText(this@SignUpScreen, "빈칸을 채워 주세요", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    binding.signUpConfirmBtn.run {
-                        setCardBackgroundColor(resources.getColor(R.color.button_disabled))
+                    with(binding.signUpConfirmBtn) {
+                        setCardBackgroundColor(setColor(R.color.button_disabled))
                         isClickable = false
                     }
                 }

@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding, MeasurementViewModel>() {
+
+    val TAG = "MeasurementScreen - 로그"
 
     override val bindingInflater: (LayoutInflater) -> ActivityMeasurementTimerBinding
         get() = ActivityMeasurementTimerBinding::inflate
@@ -30,16 +33,18 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding, M
                     studyDto = intent.getParcelableExtra<StudyDto>("studyDto"),
                     measurementTime = intent.getLongExtra("time", 0),
                     totalBrakeTime = intent.getIntExtra("brakeTime", 0),
-                    totalStar = intent.getIntExtra("totalStar", 0),
-                    totalTicket = intent.getIntExtra("totalTicket", 0),
+                    totalStar = 0,
+                    totalTicket = 0,
                 )
             )
+
+            Log.d(TAG, "viewModelSetUp: ${viewModel.measurementState.value}")
             getExistingMeasurementTime()
 
             measurementState.observe(this@MeasurementScreen, {
                 with(binding) {
                     invalidateAll()
-                    if(it.extraTime == 0){
+                    if (it.extraTime == 0) {
                         measurementStudyNewTime.visibility = View.VISIBLE
                     }
 

@@ -1,28 +1,29 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
-import android.graphics.Point
-import android.util.Log
-import android.view.Display
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
+@AndroidEntryPoint
 class PlanitPassScreen :
     BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>() {
+
     override val bindingInflater: (LayoutInflater) -> ActivityPlanitPassScreenBinding
         get() = ActivityPlanitPassScreenBinding::inflate
+
     override val viewModel: PlanitPassViewModel by viewModels()
+
     private val plaintFragmentStateAdapter = PlanitFragmentStateAdapter(this@PlanitPassScreen)
-    var passTitle = plaintFragmentStateAdapter.planitPassTitle.first()
-    var passEarendStars = plaintFragmentStateAdapter.planitPassEarendStars.first()
+    var passTitle = ""
+    var passEarendStars = ""
 
     val TAG = "PlanitPassScreen - 로그"
-    
+
     override fun setup() {
         binding.activity = this
         binding.viewmodel = viewModel
@@ -50,6 +51,10 @@ class PlanitPassScreen :
             )
         }
         binding.planitPassPlanitViewPagerIndicator.setViewPager2(binding.planitPassPlanitViewPager)
+
+        viewModel.planetPassList.observe(this, {
+            updatePassView()
+        })
     }
 
     fun nextPass() {
@@ -72,10 +77,15 @@ class PlanitPassScreen :
 
     private fun updatePassView() {
         with(binding.planitPassPlanitViewPager) {
-            passTitle =
-                plaintFragmentStateAdapter.planitPassTitle[currentItem]
-            passEarendStars =
-                plaintFragmentStateAdapter.planitPassEarendStars[currentItem]
+            viewModel.planetPassList.value?.let {
+                passTitle =
+                    it.PlanetPassList[currentItem].name
+                passEarendStars =
+                    it.PlanetPassList[currentItem].description
+            } ?: {
+                passTitle = ""
+                passEarendStars = ""
+            }
         }
         binding.invalidateAll()
     }

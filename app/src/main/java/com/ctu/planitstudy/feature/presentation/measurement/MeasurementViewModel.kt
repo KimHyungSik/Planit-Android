@@ -56,8 +56,8 @@ class MeasurementViewModel @Inject constructor(
                     extraTime = recordedTime,
                     totalTime = measurementTime.toInt() + recordedTime,
                     totalBrakeTime = totalBrakeTime,
-                    totalStar = totalStar,
-                    totalTicket = totalTicket,
+                    totalStar = (measurementState.value!!.measurementTime / 300).toInt(),
+                    totalTicket = (measurementState.value!!.measurementTime / 3600).toInt(),
                     isDone = isDone
                 )
             }
@@ -65,7 +65,6 @@ class MeasurementViewModel @Inject constructor(
     }
 
     fun recordMeasurementTimer(isDone: Boolean) {
-
 
         val recordMeasurementTimer =
             // 새로 측정한 경우
@@ -80,14 +79,14 @@ class MeasurementViewModel @Inject constructor(
             else
                 RecordMeasurementTimer(
                     isDone = isDone,
-                    star = (measurementState.value!!.measurementTime / 500).toInt(),
-                    bonusTicket = (measurementState.value!!.measurementTime / 3600).toInt(),
+                    star = measurementState.value!!.totalStar,
+                    bonusTicket = measurementState.value!!.totalTicket,
                     rest = measurementState.value!!.totalBrakeTime,
                     recordedTime = measurementState.value!!.measurementTime.toInt()
                 )
 
         Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
-        
+
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
             recordMeasurementTimer
