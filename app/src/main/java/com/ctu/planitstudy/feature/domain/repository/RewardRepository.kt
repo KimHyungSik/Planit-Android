@@ -1,7 +1,7 @@
 package com.ctu.planitstudy.feature.domain.repository
 
-import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetsDto
+import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 
 interface RewardRepository {
-    suspend fun getRewardPlanet(): PlanetsDto
+    suspend fun getRewardPlanet(): PlanetListDto
 }

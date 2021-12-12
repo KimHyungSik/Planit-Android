@@ -1,7 +1,8 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
+import android.util.Log
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetsDto
+import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,18 +14,21 @@ class GetPlanetPassListUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<PlanetsDto>> = flow {
+    val TAG = "GetPlanetPassListUseCase - 로그"
+    
+    operator fun invoke(): Flow<Resource<PlanetListDto>> = flow {
         try {
-            emit(Resource.Loading<PlanetsDto>(null))
+            emit(Resource.Loading<PlanetListDto>(null))
             val rewardPlant = rewardRepository.getRewardPlanet()
+            Log.d(TAG, "invoke: $rewardPlant")
             emit(Resource.Success(rewardPlant))
         } catch (e: NullPointerException) {
-            emit(Resource.Error<PlanetsDto>(message = "NullPointerException" + e.message))
+            emit(Resource.Error<PlanetListDto>(message = "NullPointerException" + e.message))
         } catch (e: Exception) {
-            emit(Resource.Error<PlanetsDto>(message = "Exception" + e.message))
+            emit(Resource.Error<PlanetListDto>(message = "Exception" + e.message))
             if (e is HttpException) {
                 emit(
-                    Resource.Error<PlanetsDto>(
+                    Resource.Error<PlanetListDto>(
                         message = JSONObject(
                             e.response()!!.errorBody()!!.string()
                         ).toString()
@@ -32,7 +36,7 @@ class GetPlanetPassListUseCase @Inject constructor(
                 )
             }
         } catch (e: Throwable) {
-            emit(Resource.Error<PlanetsDto>(message = "Throwable" + e.message))
+            emit(Resource.Error<PlanetListDto>(message = "Throwable" + e.message))
         }
     }
 }

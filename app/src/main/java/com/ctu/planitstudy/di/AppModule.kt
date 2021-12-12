@@ -31,8 +31,8 @@ object AppModule {
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
             // 로그 확인용 인터럽트
-//            .addInterceptor(LogginInterceptor.loggingInterceptor)
-//            .addNetworkInterceptor(LogginInterceptor.interceptor)
+            .addInterceptor(LogginInterceptor.loggingInterceptor)
+            .addNetworkInterceptor(LogginInterceptor.interceptor)
             .authenticator(tokenAuthenticator)
             .build()
 
