@@ -110,11 +110,6 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding, EditUs
                 }, {
                     Log.d(TAG, "setup: editUserNicknameText com")
                 }),
-            // 이름 텍스트 변경
-            RxTextView.textChanges(binding.editUserNameText)
-                .subscribe {
-                    viewModel.updateUserName(it.toString())
-                },
             // 카테고리 선택 라디오 버튼
             RxRadioGroup.checkedChanges(binding.editUserCategoryRadioGroupRight)
                 .filter { it != -1 }
