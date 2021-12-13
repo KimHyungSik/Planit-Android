@@ -1,9 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
-import android.animation.ValueAnimator
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
@@ -15,7 +14,7 @@ class GetPlanetPassListUseCase @Inject constructor(
 ) {
 
     val TAG = "GetPlanetPassListUseCase - 로그"
-    
+
     operator fun invoke(): Flow<Resource<PlanetListDto>> = flow {
         try {
             emit(Resource.Loading<PlanetListDto>(null))

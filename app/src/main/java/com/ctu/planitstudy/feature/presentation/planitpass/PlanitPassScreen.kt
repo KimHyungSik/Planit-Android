@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
+import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -88,5 +89,11 @@ class PlanitPassScreen :
             }
         }
         binding.invalidateAll()
+    }
+
+    fun showReadyDialog() {
+        ReadyDialog().show(
+            supportFragmentManager, "ReadyDialog"
+        )
     }
 }

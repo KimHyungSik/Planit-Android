@@ -36,5 +36,4 @@ class RewardViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-
 }

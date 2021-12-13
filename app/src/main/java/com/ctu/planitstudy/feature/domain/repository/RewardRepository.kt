@@ -8,5 +8,4 @@ interface RewardRepository {
     suspend fun getReward(): RewardDto
     suspend fun convertStarToPoint(): RewardDto
     suspend fun convertPlanetPassToPoint(planetId: String): RewardDto
-
 }

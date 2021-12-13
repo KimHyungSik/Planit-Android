@@ -1,8 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
-import android.util.Log
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +11,7 @@ import javax.inject.Inject
 
 class ConvertStarToPointUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
-){
+) {
     operator fun invoke(): Flow<Resource<RewardDto>> = flow {
         try {
             emit(Resource.Loading<RewardDto>(null))

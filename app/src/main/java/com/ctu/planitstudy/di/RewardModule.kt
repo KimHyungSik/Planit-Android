@@ -45,7 +45,7 @@ object RewardModule {
         getRewardUseCase: GetRewardUseCase,
         convertStarToPointUseCase: ConvertStarToPointUseCase,
         convertPlanitPassToPointUseCase: ConvertPlanitPassToPointUseCase
-    ) : RewardUseCase =
+    ): RewardUseCase =
         RewardUseCase(
             getRewardUseCase = getRewardUseCase,
             getPlanetPassListUseCase = getPlanetPassListUseCase,
