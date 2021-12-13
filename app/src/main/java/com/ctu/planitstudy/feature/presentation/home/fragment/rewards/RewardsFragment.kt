@@ -12,8 +12,10 @@ import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
+@AndroidEntryPoint
 class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() {
 
     val TAG = "RewardsFragment - 로그"
@@ -40,6 +42,11 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 repeatCount = LottieDrawable.INFINITE
                 playAnimation()
             }
+        }
+        with(viewModel){
+            rewardDto.observe(this@RewardsFragment, {
+                binding.invalidateAll()
+            })
         }
     }
 
