@@ -12,6 +12,9 @@ import javax.inject.Inject
 class GetRewardUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
+
+    suspend fun get() = rewardRepository.getReward()
+
     operator fun invoke(): Flow<Resource<RewardDto>> = flow {
         try {
             emit(Resource.Loading<RewardDto>(null))

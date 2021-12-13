@@ -14,11 +14,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
-    val rewardUseCase: RewardUseCase
+    private val rewardUseCase: RewardUseCase
 ) : BaseViewModel() {
 
     private val _rewardDto = MutableLiveData<RewardDto>(RewardDto(0, 0, 0))
     val rewardDto: LiveData<RewardDto> = _rewardDto
+
+    init {
+        getReward()
+    }
 
     fun getReward() {
         rewardUseCase.getRewardUseCase().onEach {
