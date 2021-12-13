@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.data.remote
 
+import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
@@ -26,6 +27,7 @@ interface UserAuthApi {
     fun userSignUp(
         @Body signUpUser: SignUpUserReceiver
     ): Flowable<JsonElement>
+
     @GET("/v1/user/validate-nickname")
     suspend fun userValidateNickName(@Query("nickname") nickname: String)
 

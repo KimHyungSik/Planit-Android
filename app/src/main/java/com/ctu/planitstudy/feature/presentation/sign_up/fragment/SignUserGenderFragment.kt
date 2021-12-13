@@ -33,11 +33,16 @@ class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding, Sig
                         R.id.sign_up_gender_female ->
                             state = viewModel.liveData.value!!.copy(gender = "FEMALE")
                     }
+                    viewModel.isSkip = false
                     viewModel.updateSignState(state)
                 }, {
                     Log.e(TAG, "setInit: $it",)
                 })
         )
+
+        binding.signUpSkipEnterUser.setOnClickListener {
+            viewModel.skipSignUpFragment()
+        }
     }
 
     override fun onDestroy() {

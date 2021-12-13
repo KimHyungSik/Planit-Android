@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.data.repository
 
 import com.ctu.planitstudy.feature.data.remote.UserApi
 import com.ctu.planitstudy.feature.data.remote.UserAuthApi
+import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.data.remote.dto.util.MessageDto
 import com.ctu.planitstudy.feature.domain.model.user.EditUser

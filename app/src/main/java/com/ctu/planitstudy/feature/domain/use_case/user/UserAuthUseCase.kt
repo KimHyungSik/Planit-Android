@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.user
 
+import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
