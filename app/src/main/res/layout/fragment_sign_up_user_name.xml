@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="11dp"
         app:cardBackgroundColor="@color/navy_blue_item_box"
+        android:visibility="gone"
         >
 
         <EditText
