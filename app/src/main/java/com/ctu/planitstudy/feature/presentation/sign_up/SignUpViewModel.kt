@@ -59,7 +59,7 @@ class SignUpViewModel @Inject constructor(
 
     var currentFragmentPage = 0
     var maxFragmentPage = 0
-    var isSkip:Boolean = false
+    var isSkip: Boolean = false
 
     var termsOfUseAgrees: TermsOfUseAgrees = TermsOfUseAgrees(
         personalInformationAgree = false,
@@ -136,11 +136,11 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun changeSignUpFragment(signUpFragments: SignUpFragments){
+    fun changeSignUpFragment(signUpFragments: SignUpFragments) {
         _signUpFragments.value = signUpFragments
     }
 
-    fun skipSignUpFragment(){
+    fun skipSignUpFragment() {
         isSkip = true
         currentFragmentPage = SignUpFragments.Category.page
         _signUpFragments.value = SignUpFragments.Category
@@ -176,11 +176,11 @@ class SignUpViewModel @Inject constructor(
                             sex = if (isSkip) null else liveData.value?.gender!!,
                         )
                         (
-                                if (receiverNameSkip)
-                                    userAuthUseCase.userSignUp(signUpUserReceiver)
-                                else
-                                    userAuthUseCase.userSignUp(signUpUser)
-                                )
+                            if (receiverNameSkip)
+                                userAuthUseCase.userSignUp(signUpUserReceiver)
+                            else
+                                userAuthUseCase.userSignUp(signUpUser)
+                            )
                             .subscribeOn(Schedulers.computation())
                             .observeOn(AndroidSchedulers.mainThread())
                             .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
@@ -200,9 +200,9 @@ class SignUpViewModel @Inject constructor(
                                     Log.d(
                                         TAG,
                                         "sendSignUpUserData: Error ${
-                                            JSONObject(
-                                                it.response()!!.errorBody()!!.string()
-                                            )
+                                        JSONObject(
+                                            it.response()!!.errorBody()!!.string()
+                                        )
                                         }"
                                     )
                                     CashStudyApp.prefs.accessToken = ""
@@ -225,9 +225,9 @@ class SignUpViewModel @Inject constructor(
                     Log.d(
                         TAG,
                         "sendSignUpUserData: Error ${
-                            JSONObject(
-                                it.response()!!.errorBody()!!.string()
-                            )
+                        JSONObject(
+                            it.response()!!.errorBody()!!.string()
+                        )
                         }"
                     )
                 }

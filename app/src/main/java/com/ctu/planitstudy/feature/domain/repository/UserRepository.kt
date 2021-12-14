@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.domain.repository
 
-import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.data.remote.dto.util.MessageDto
 import com.ctu.planitstudy.feature.domain.model.user.EditUser

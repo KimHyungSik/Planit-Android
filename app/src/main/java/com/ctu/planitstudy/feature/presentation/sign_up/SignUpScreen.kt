@@ -107,7 +107,6 @@ class SignUpScreen :
         }
     }
 
-    fun skipUserEnterUserInformation(){
-
+    fun skipUserEnterUserInformation() {
     }
 }

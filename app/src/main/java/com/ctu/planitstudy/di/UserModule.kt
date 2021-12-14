@@ -2,7 +2,6 @@ package com.ctu.planitstudy.di
 
 import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
-import com.ctu.planitstudy.core.util.network.NullStringToEmptyAdapterFactory
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
 import com.ctu.planitstudy.feature.data.remote.UserApi
@@ -10,7 +9,6 @@ import com.ctu.planitstudy.feature.data.remote.UserAuthApi
 import com.ctu.planitstudy.feature.data.repository.UserRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import com.ctu.planitstudy.feature.domain.use_case.user.*
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
