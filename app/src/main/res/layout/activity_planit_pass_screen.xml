@@ -124,7 +124,7 @@
             app:cardCornerRadius="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:clickable="true"
-            android:onClick="@{()->activity.backScreen()}"
+            android:onClick="@{()->activity.showReadyDialog()}"
             >
 
             <TextView

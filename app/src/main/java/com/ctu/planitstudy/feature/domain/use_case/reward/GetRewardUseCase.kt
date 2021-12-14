@@ -1,7 +1,8 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
+import android.util.Log
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
+import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -9,24 +10,27 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class GetPlanetPassListUseCase @Inject constructor(
+class GetRewardUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
 
-    val TAG = "GetPlanetPassListUseCase - 로그"
+    val TAG = "GetRewardUseCase - 로그"
 
-    operator fun invoke(): Flow<Resource<PlanetListDto>> = flow {
+    suspend fun get() = rewardRepository.getReward()
+
+    operator fun invoke(): Flow<Resource<RewardDto>> = flow {
         try {
-            emit(Resource.Loading<PlanetListDto>(null))
-            val rewardPlant = rewardRepository.getRewardPlanet()
-            emit(Resource.Success(rewardPlant))
+            emit(Resource.Loading<RewardDto>(null))
+            val reward = rewardRepository.getReward()
+            Log.d(TAG, "invoke: $reward")
+            emit(Resource.Success(reward))
         } catch (e: NullPointerException) {
-            emit(Resource.Error<PlanetListDto>(message = "NullPointerException" + e.message))
+            emit(Resource.Error<RewardDto>(message = "NullPointerException" + e.message))
         } catch (e: Exception) {
-            emit(Resource.Error<PlanetListDto>(message = "Exception" + e.message))
+            emit(Resource.Error<RewardDto>(message = "Exception" + e.message))
             if (e is HttpException) {
                 emit(
-                    Resource.Error<PlanetListDto>(
+                    Resource.Error<RewardDto>(
                         message = JSONObject(
                             e.response()!!.errorBody()!!.string()
                         ).toString()
@@ -34,7 +38,7 @@ class GetPlanetPassListUseCase @Inject constructor(
                 )
             }
         } catch (e: Throwable) {
-            emit(Resource.Error<PlanetListDto>(message = "Throwable" + e.message))
+            emit(Resource.Error<RewardDto>(message = "Throwable" + e.message))
         }
     }
 }

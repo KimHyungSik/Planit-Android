@@ -10,9 +10,9 @@ data class SignUpUser(
     @SerializedName("nickname")
     val nickname: String,
     @SerializedName("sex")
-    val sex: String,
+    val sex: String?,
     @SerializedName("birth")
-    val birth: String,
+    val birth: String?,
     @SerializedName("category")
     val category: String,
     @SerializedName("personalInformationAgree")
@@ -29,9 +29,9 @@ data class SignUpUserReceiver(
     @SerializedName("nickname")
     val nickname: String,
     @SerializedName("sex")
-    val sex: String,
+    val sex: String?,
     @SerializedName("birth")
-    val birth: String,
+    val birth: String?,
     @SerializedName("category")
     val category: String,
     @SerializedName("personalInformationAgree")

@@ -47,8 +47,12 @@ class SignUserDateOfBirthFragment : BaseFragment<FragmentSignUpUserDateofbirthBi
                             dateFormat = it.dateFormat
                         )
                     )
+                    viewModel.isSkip = false
                 }
         )
+        binding.signUpSkipEnterUser.setOnClickListener {
+            viewModel.skipSignUpFragment()
+        }
     }
 
     data class TextWatcher(

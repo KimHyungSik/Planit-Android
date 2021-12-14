@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserInformationDto(
     @SerializedName("birth")
-    val birth: String,
+    val birth: String?,
     @SerializedName("category")
     val category: String,
     @SerializedName("email")
@@ -19,5 +19,5 @@ data class UserInformationDto(
     @SerializedName("nickname")
     val nickname: String,
     @SerializedName("sex")
-    val sex: String
+    val sex: String?
 ) : Parcelable

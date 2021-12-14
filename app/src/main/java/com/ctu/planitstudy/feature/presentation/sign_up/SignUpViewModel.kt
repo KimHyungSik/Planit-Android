@@ -23,6 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.json.JSONObject
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -58,6 +59,7 @@ class SignUpViewModel @Inject constructor(
 
     var currentFragmentPage = 0
     var maxFragmentPage = 0
+    var isSkip: Boolean = false
 
     var termsOfUseAgrees: TermsOfUseAgrees = TermsOfUseAgrees(
         personalInformationAgree = false,
@@ -76,9 +78,9 @@ class SignUpViewModel @Inject constructor(
         // 현재 회원가입 상태 별로 화면 전환 검사
         liveData.observeForever { signUpState ->
             var pageCount = 0
-            pageCount += if (signUpState.nameCheck && signUpState.nicknameCheck) 1 else 0
-            pageCount += if (signUpState.gender.isNotBlank()) 1 else 0
-            pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat) 1 else 0
+            pageCount += if (signUpState.nicknameCheck) 1 else 0
+            pageCount += if (signUpState.gender.isNotBlank() || isSkip) 1 else 0
+            pageCount += if (signUpState.dateOfBirth.isNotBlank() && signUpState.dateFormat || isSkip) 1 else 0
             pageCount += if (signUpState.category.isNotBlank()) 1 else 0
             pageCount += if (signUpState.receiverName.isNotBlank()) 1 else 0
             _activityState.value = currentFragmentPage < pageCount
@@ -134,6 +136,16 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    fun changeSignUpFragment(signUpFragments: SignUpFragments) {
+        _signUpFragments.value = signUpFragments
+    }
+
+    fun skipSignUpFragment() {
+        isSkip = true
+        currentFragmentPage = SignUpFragments.Category.page
+        _signUpFragments.value = SignUpFragments.Category
+    }
+
     fun sendSignUpUserData(receiverNameSkip: Boolean) {
         userManager.userPolicyChange(OauthType.KakaoOauth)
         userManager.getUserInfo()
@@ -142,26 +154,26 @@ class SignUpViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         val signUpUser = SignUpUser(
-                            birth = liveData.value?.dateOfBirth!!,
+                            birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
                             category = liveData.value?.category!!,
                             email = it.data!!.userEmail!!,
                             marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                             personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                            name = liveData.value?.name!!,
+                            name = liveData.value?.nickname!!,
                             nickname = liveData.value?.nickname!!,
-                            sex = liveData.value?.gender!!
+                            sex = if (isSkip) null else liveData.value?.gender!!
                         )
 
                         val signUpUserReceiver = SignUpUserReceiver(
-                            birth = liveData.value?.dateOfBirth!!,
+                            birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
                             category = liveData.value?.category!!,
                             email = it.data?.userEmail!!,
                             marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                             personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                            name = liveData.value?.name!!,
+                            name = liveData.value?.nickname!!,
                             nickname = liveData.value?.nickname!!,
                             receiverNickname = liveData.value?.receiverName!!,
-                            sex = liveData.value?.gender!!,
+                            sex = if (isSkip) null else liveData.value?.gender!!,
                         )
                         (
                             if (receiverNameSkip)
@@ -173,6 +185,7 @@ class SignUpViewModel @Inject constructor(
                             .observeOn(AndroidSchedulers.mainThread())
                             .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
                             .subscribe({
+                                Log.d(TAG, "sendSignUpUserData: $it")
                                 _signUpUserResponse.value = SignUpUserResponse(
                                     200,
                                     accessToken = it.accessToken,
@@ -182,7 +195,16 @@ class SignUpViewModel @Inject constructor(
                                 CashStudyApp.prefs.refreshToken = it.refreshToken
                                 _screens.value = Screens.HomeScreenSh
                             }, {
+                                Log.d(TAG, "sendSignUpUserData: error ${it.message}")
                                 if (it is HttpException) {
+                                    Log.d(
+                                        TAG,
+                                        "sendSignUpUserData: Error ${
+                                        JSONObject(
+                                            it.response()!!.errorBody()!!.string()
+                                        )
+                                        }"
+                                    )
                                     CashStudyApp.prefs.accessToken = ""
                                     CashStudyApp.prefs.refreshToken = ""
                                 }
@@ -198,6 +220,17 @@ class SignUpViewModel @Inject constructor(
                     }
                 }
             }, {
+
+                if (it is HttpException) {
+                    Log.d(
+                        TAG,
+                        "sendSignUpUserData: Error ${
+                        JSONObject(
+                            it.response()!!.errorBody()!!.string()
+                        )
+                        }"
+                    )
+                }
                 _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
             }).isDisposed
     }

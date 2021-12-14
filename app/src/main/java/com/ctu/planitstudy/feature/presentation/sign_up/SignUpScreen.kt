@@ -106,4 +106,7 @@ class SignUpScreen :
             super.onBackPressed()
         }
     }
+
+    fun skipUserEnterUserInformation() {
+    }
 }

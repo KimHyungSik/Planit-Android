@@ -27,12 +27,14 @@ class PlanitPassViewModel @Inject constructor(
     }
 
     private fun getPlanetPass() {
-        getPlanetPassList().onEach {
+        getPlanetPassList().onEach { it ->
             when (it) {
                 is Resource.Success -> {
                     val newPlanetList = mutableListOf<PlanetPass>()
-                    for (n in it.data!!.planets)
-                        newPlanetList.add(PlanetPass(n.planetId, n.name, n.description))
+                    it.data!!.planets.let { plaent ->
+                        for (n in plaent)
+                            newPlanetList.add(PlanetPass(n.planetId, n.name, n.description))
+                    }
 
                     _planetPassList.value = PlanetPassList(newPlanetList)
                     loadingDismiss()

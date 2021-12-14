@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.data.data_source.user.componets
 
 import android.content.Context
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.data_source.user.OauthUserPolicy
 import com.ctu.planitstudy.feature.domain.model.user.User
@@ -45,8 +44,6 @@ class KakaoOauthImp() : OauthUserPolicy {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { user ->
-                Log.d(TAG, "getUserInfo: $user")
-                Log.d(TAG, "getUserInfo: ${ user.kakaoAccount!!.email!!}")
                 Resource.Success(
                     User(
                         user.id.toString(),
