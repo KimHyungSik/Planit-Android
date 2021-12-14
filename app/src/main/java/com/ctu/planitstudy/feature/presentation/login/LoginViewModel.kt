@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
                                 .subscribe({ it ->
                                     when (it) {
                                         is Resource.Success -> {
-                                            userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail + "test99"))
+                                            userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
                                                 .subscribeOn(Schedulers.computation())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }

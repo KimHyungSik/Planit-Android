@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
+import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
@@ -13,12 +14,15 @@ class GetRewardUseCase @Inject constructor(
     private val rewardRepository: RewardRepository
 ) {
 
+    val TAG = "GetRewardUseCase - 로그"
+
     suspend fun get() = rewardRepository.getReward()
 
     operator fun invoke(): Flow<Resource<RewardDto>> = flow {
         try {
             emit(Resource.Loading<RewardDto>(null))
             val reward = rewardRepository.getReward()
+            Log.d(TAG, "invoke: $reward")
             emit(Resource.Success(reward))
         } catch (e: NullPointerException) {
             emit(Resource.Error<RewardDto>(message = "NullPointerException" + e.message))

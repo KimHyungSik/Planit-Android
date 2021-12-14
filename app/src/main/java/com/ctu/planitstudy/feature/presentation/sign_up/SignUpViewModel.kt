@@ -156,7 +156,7 @@ class SignUpViewModel @Inject constructor(
                         val signUpUser = SignUpUser(
                             birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
                             category = liveData.value?.category!!,
-                            email = it.data!!.userEmail!! + "test99",
+                            email = it.data!!.userEmail!!,
                             marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
                             personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
                             name = liveData.value?.nickname!!,

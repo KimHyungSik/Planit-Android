@@ -29,6 +29,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override fun setInit() {
         super.setInit()
 
+        viewModel.getReward()
+
         with(binding) {
             activity = this@RewardsFragment
             viewmodel = viewModel
@@ -57,12 +59,18 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                         else R.color.sub_color
                     )
                 )
+                binding.rewardsFragmentStarText.setTextColor(
+                    setColor(
+                        if (it.star == 0) R.color.guide_text
+                        else R.color.sub_color
+                    )
+                )
             })
         }
     }
 
     fun touchRewardStar() {
-        if (!isAnimated) {
+        if (!isAnimated && viewModel.rewardDto.value!!.star >= 50) {
             binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
             binding.rewardsFragmentMainRewardLottie.playAnimation()
 

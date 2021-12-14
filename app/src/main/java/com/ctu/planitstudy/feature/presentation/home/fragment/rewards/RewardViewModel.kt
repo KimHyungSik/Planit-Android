@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -17,25 +18,24 @@ class RewardViewModel @Inject constructor(
     private val rewardUseCase: RewardUseCase
 ) : BaseViewModel() {
 
+    val TAG = "RewardViewModel - 로그"
+
     private val _rewardDto = MutableLiveData<RewardDto>(RewardDto(0, 0, 0))
     val rewardDto: LiveData<RewardDto> = _rewardDto
-
-    init {
-        getReward()
-    }
 
     fun getReward() {
         rewardUseCase.getRewardUseCase().onEach {
             when (it) {
                 is Resource.Success -> {
                     _rewardDto.value = it.data!!
-                    loadingShow()
+                    loadingDismiss()
                 }
                 is Resource.Error -> {
+                    Log.d(TAG, "getReward: error ${it.message}")
                     loadingDismiss()
                 }
                 is Resource.Loading -> {
-                    loadingDismiss()
+                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
