@@ -16,6 +16,6 @@ class FragmentSafePlanit : BaseFragment<FragmentPlanitPassTicketBinding, PlanitP
 
     override fun setInit() {
         super.setInit()
-        binding.planitPassTicketImg.setImageDrawable(ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.icon_32_star))
+        binding.planitPassTicketImg.setImageDrawable(ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.icon_pass_safe_planet))
     }
 }

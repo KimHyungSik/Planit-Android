@@ -18,6 +18,6 @@ class FragmentFunPlanit : BaseFragment<FragmentPlanitPassTicketBinding, PlanitPa
 
     override fun setInit() {
         super.setInit()
-        binding.planitPassTicketImg.setImageDrawable(ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.ic_fullmoon))
+        binding.planitPassTicketImg.setImageDrawable(ContextCompat.getDrawable(CashStudyApp.instance, R.drawable.icon_pass_funny_planet))
     }
 }
