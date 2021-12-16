@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -116,6 +117,13 @@ class PlanitPassScreen :
             }
         }
         binding.invalidateAll()
+    }
+
+    override fun backScreen() {
+        val intent = Intent()
+        intent.putExtra("reward", viewModel.rewardDto)
+        setResult(0, intent)
+        finish()
     }
 
     fun showReadyDialog() {

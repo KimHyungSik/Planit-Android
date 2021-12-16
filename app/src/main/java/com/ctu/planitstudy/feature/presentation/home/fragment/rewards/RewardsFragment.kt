@@ -1,13 +1,11 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
@@ -15,6 +13,7 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
+import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
@@ -28,6 +27,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
+
 @AndroidEntryPoint
 class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() {
 
@@ -40,6 +40,12 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     private var isAnimated = false
     private var mInterstitialAd: InterstitialAd? = null
 
+    val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
+    ) { activityResult ->
+        viewModel.updateRewardDto(activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0,0,0))
+    }
+
     override fun setInit() {
         super.setInit()
         viewModel.getReward()
@@ -49,6 +55,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             activity = this@RewardsFragment
             viewmodel = viewModel
 
+            // 플래닛 패스
             rewardsFragmentPlanitPassColumn.setOnClickListener {
                 if(viewModel.rewardDto.value!!.planetPass == 0){
                     val arg = Bundle()
@@ -57,7 +64,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 }else {
                     val intent = Intent(context, Screens.PlanitPassScreenSh.activity)
                     intent.putExtra("reward", viewModel.rewardDto.value)
-                    moveIntent(intent)
+                    requestActivity.launch(intent)
                 }
             }
 
@@ -99,17 +106,21 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     private fun loadAds(){
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(context,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.message)
-                mInterstitialAd = null
-            }
+        InterstitialAd.load(
+            context,
+            "ca-app-pub-3940256099942544/1033173712",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(TAG, adError?.message)
+                    mInterstitialAd = null
+                }
 
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mInterstitialAd = interstitialAd
-            }
-        })
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+                }
+            })
     }
 
     private fun callBackAds(){
