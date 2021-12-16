@@ -49,7 +49,6 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override fun setInit() {
         super.setInit()
         viewModel.getReward()
-        Log.d(TAG, "setInit: $viewModel")
 
         with(binding) {
             activity = this@RewardsFragment
@@ -102,6 +101,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 showDialogFragment(arg, SingleTitleCheckDialog())
             })
         }
+        loadAds()
     }
 
     private fun loadAds(){
@@ -119,18 +119,26 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     Log.d(TAG, "Ad was loaded.")
                     mInterstitialAd = interstitialAd
+                    callBackAds()
                 }
             })
     }
 
     private fun callBackAds(){
         mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdImpression() {
+                super.onAdImpression()
+                Log.d(TAG, "onAdImpression: ")
+            }
+
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "Ad was dismissed.")
+                loadAds()
                 binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
                 binding.rewardsFragmentMainRewardLottie.playAnimation()
 
                 CoroutineScope(Dispatchers.Main).launch {
+                    viewModel.convertStarToPoint()
                     delay(binding.rewardsFragmentMainRewardLottie.duration)
                     isAnimated = false
                     binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
@@ -151,25 +159,13 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     fun touchRewardStar() {
         if (!isAnimated && viewModel.rewardDto.value!!.star >= 50) {
-//            if (mInterstitialAd != null) {
-//                mInterstitialAd?.show(activity)
-//                isAnimated = true
-//            } else {
-//                Log.d("TAG", "The interstitial ad wasn't ready yet.")
-//            }
-            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
-            binding.rewardsFragmentMainRewardLottie.playAnimation()
-            isAnimated = true
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(binding.rewardsFragmentMainRewardLottie.duration)
-                isAnimated = false
-                binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                binding.rewardsFragmentMainRewardLottie.playAnimation()
-                viewModel.convertStarToPoint()
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(activity)
+                isAnimated = true
+            } else {
+                Log.d(TAG, "The interstitial ad wasn't ready yet.")
             }
         }
-//        loadAds()
-
     }
 
     fun showReadyDialog() {
