@@ -69,7 +69,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
             with(rewardsFragmentMainRewardLottie) {
                 repeatCount = LottieDrawable.INFINITE
-                playAnimation()
+                if(viewModel.rewardDto.value!!.star >= 50)
+                    playAnimation()
             }
         }
         with(viewModel) {
@@ -142,7 +143,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     delay(binding.rewardsFragmentMainRewardLottie.duration)
                     isAnimated = false
                     binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                    binding.rewardsFragmentMainRewardLottie.playAnimation()
+                    if(viewModel.rewardDto.value!!.star >= 50)
+                        binding.rewardsFragmentMainRewardLottie.playAnimation()
                 }
             }
 
