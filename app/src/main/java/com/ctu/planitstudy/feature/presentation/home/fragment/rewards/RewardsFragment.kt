@@ -70,12 +70,17 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
             with(rewardsFragmentMainRewardLottie) {
                 repeatCount = LottieDrawable.INFINITE
-                playAnimation()
+                if(viewModel.rewardDto.value!!.star >= 50)
+                    playAnimation()
             }
         }
+
         with(viewModel) {
             rewardDto.observe(this@RewardsFragment, {
                 binding.invalidateAll()
+
+                if(viewModel.rewardDto.value!!.star >= 50)
+                    binding.rewardsFragmentMainRewardLottie.playAnimation()
 
                 binding.rewardsFragmentPlanitPassCountText.background = ContextCompat.getDrawable(
                     CashStudyApp.instance,
@@ -95,7 +100,6 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     )
                 )
             })
-
             newPoint.observe(this@RewardsFragment, {
                 val arg = Bundle()
                 arg.putString("title", "${it}포인트를 획득하였습니다")
@@ -134,7 +138,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     delay(binding.rewardsFragmentMainRewardLottie.duration)
                     isAnimated = false
                     binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                    binding.rewardsFragmentMainRewardLottie.playAnimation()
+                    if(viewModel.rewardDto.value!!.star >= 50)
+                        binding.rewardsFragmentMainRewardLottie.playAnimation()
                 }
             }
 
@@ -164,7 +169,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 delay(binding.rewardsFragmentMainRewardLottie.duration)
                 isAnimated = false
                 binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                binding.rewardsFragmentMainRewardLottie.playAnimation()
+                if(viewModel.rewardDto.value!!.star >= 50)
+                    binding.rewardsFragmentMainRewardLottie.playAnimation()
                 viewModel.convertStarToPoint()
             }
         }
