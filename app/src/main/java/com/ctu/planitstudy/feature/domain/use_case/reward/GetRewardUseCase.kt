@@ -22,7 +22,6 @@ class GetRewardUseCase @Inject constructor(
         try {
             emit(Resource.Loading<RewardDto>(null))
             val reward = rewardRepository.getReward()
-            Log.d(TAG, "invoke: $reward")
             emit(Resource.Success(reward))
         } catch (e: NullPointerException) {
             emit(Resource.Error<RewardDto>(message = "NullPointerException" + e.message))
