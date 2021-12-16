@@ -1,8 +1,13 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
@@ -37,8 +42,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     override fun setInit() {
         super.setInit()
-
         viewModel.getReward()
+        Log.d(TAG, "setInit: $viewModel")
 
         with(binding) {
             activity = this@RewardsFragment
@@ -47,12 +52,12 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             rewardsFragmentPlanitPassColumn.setOnClickListener {
                 if(viewModel.rewardDto.value!!.planetPass == 0){
                     val arg = Bundle()
-                    val dialog = SingleTitleCheckDialog()
                     arg.putString("title", getString(R.string.empty_planet_pass_ticket))
-                    dialog.arguments = arg
-                    dialog.show(parentFragmentManager, "titleDialog")
+                    showDialogFragment(arg, SingleTitleCheckDialog())
                 }else {
-                    moveIntent(Screens.PlanitPassScreenSh.activity)
+                    val intent = Intent(context, Screens.PlanitPassScreenSh.activity)
+                    intent.putExtra("reward", viewModel.rewardDto.value)
+                    moveIntent(intent)
                 }
             }
 
@@ -82,6 +87,12 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                         else R.color.sub_color
                     )
                 )
+            })
+
+            newPoint.observe(this@RewardsFragment, {
+                val arg = Bundle()
+                arg.putString("title", "${it}포인트를 획득하였습니다")
+                showDialogFragment(arg, SingleTitleCheckDialog())
             })
         }
     }
@@ -129,14 +140,24 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     fun touchRewardStar() {
         if (!isAnimated && viewModel.rewardDto.value!!.star >= 50) {
-            if (mInterstitialAd != null) {
-                mInterstitialAd?.show(activity)
-                isAnimated = true
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+//            if (mInterstitialAd != null) {
+//                mInterstitialAd?.show(activity)
+//                isAnimated = true
+//            } else {
+//                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+//            }
+            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
+            binding.rewardsFragmentMainRewardLottie.playAnimation()
+            isAnimated = true
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(binding.rewardsFragmentMainRewardLottie.duration)
+                isAnimated = false
+                binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
+                binding.rewardsFragmentMainRewardLottie.playAnimation()
+                viewModel.convertStarToPoint()
             }
         }
-        loadAds()
+//        loadAds()
 
     }
 
