@@ -107,7 +107,9 @@
                             android:lineSpacingExtra="12sp"
                             android:textColor="@color/text_color"
                             android:textSize="22sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_marginStart="4dp"
+                            />
                     </LinearLayout>
 
 
@@ -223,7 +225,6 @@
                 android:layout_height="190dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="20dp"
-                android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:visibility="gone"
                 app:cardBackgroundColor="@android:color/transparent"
@@ -231,7 +232,6 @@
                 app:cardElevation="0dp"
                 app:strokeColor="@color/item_guide_stroke"
                 app:strokeWidth="1dp"
-                android:onClick="@{()->activity.addStudyScreen()}"
                 >
 
                 <include

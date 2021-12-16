@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.sign_up.fragment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -10,7 +9,8 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.disposables.CompositeDisposable
 
-class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBinding, SignUpViewModel>() {
+class SignUpUserReceiverName :
+    BaseFragment<FragmentSignUpUserReceiverNameBinding, SignUpViewModel>() {
 
     val TAG = "ReceiverName - 로그"
 
@@ -34,16 +34,11 @@ class SignUpUserReceiverName : BaseFragment<FragmentSignUpUserReceiverNameBindin
                 }, {})
         )
 
-        viewModel.signUpUserResponse.observe(this, {
-            Log.d(TAG, "setInit: $it")
-            when (it.responseCode) {
-                404 -> {
-                    binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
-                    binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
-                    binding.signUpReceiverNameErrorText.text = "추천인이 존재 하지 않습니다."
-                }
-                409 -> {
-                }
+        viewModel.failReceiverNickname.observe(this, {
+            if (it) {
+                binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
+                binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
+                binding.signUpReceiverNameErrorText.text = "추천인이 존재 하지 않습니다."
             }
         })
     }

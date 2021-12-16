@@ -35,8 +35,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/rewards_fragment_reward_shop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="115dp"
+            android:layout_height="36dp"
             android:layout_marginTop="54dp"
             android:layout_marginEnd="24dp"
             android:clickable="true"
@@ -47,7 +47,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/text_color"
             app:strokeWidth="1dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -55,7 +54,9 @@
                 android:layout_marginVertical="7dp"
                 android:text="리워드샵"
                 android:textColor="@color/text_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:gravity="center"
+                />
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView

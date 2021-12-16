@@ -82,7 +82,7 @@
         android:id="@+id/sign_up_receiver_name_error_text"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="닉네임 형식이 올바르지 않습니다.."
+        android:text="닉네임 형식이 올바르지 않습니다."
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:textStyle="normal"
