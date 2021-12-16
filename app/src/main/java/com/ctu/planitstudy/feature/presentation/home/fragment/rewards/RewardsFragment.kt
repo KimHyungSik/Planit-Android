@@ -77,6 +77,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             rewardDto.observe(this@RewardsFragment, {
                 binding.invalidateAll()
 
+                if(viewModel.rewardDto.value!!.star >= 50)
+                    binding.rewardsFragmentMainRewardLottie.playAnimation()
+
                 binding.rewardsFragmentPlanitPassCountText.background = ContextCompat.getDrawable(
                     CashStudyApp.instance,
                     if (it.planetPass == 0) R.drawable.gray_circle_background
