@@ -110,8 +110,6 @@ fun longToTimerKorString(time: Long): String {
             append("분")
         }
 
-        if (s < 10)
-            append(0)
         append(s)
         append("초")
     }

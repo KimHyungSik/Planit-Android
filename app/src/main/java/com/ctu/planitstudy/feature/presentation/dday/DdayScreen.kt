@@ -25,7 +25,8 @@ import io.reactivex.disposables.CompositeDisposable
 @AndroidEntryPoint
 @SuppressLint("SimpleDateFormat")
 class DdayScreen :
-    BaseBindingActivity<ActivityDdayScreenBinding, DdayViewModel>(), BottomSheetCalendarDialog.BottomSheetCalendar {
+    BaseBindingActivity<ActivityDdayScreenBinding, DdayViewModel>(),
+    BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "DdayScreen - 로그"
 
@@ -37,6 +38,7 @@ class DdayScreen :
 
     private val ddayIconSet = DdayIconSet()
     private var representativeSwitchOnesCheck = false
+    private var exitRepresentativeSwitchOnesCheck = false
     private val calendarDialog = BottomSheetCalendarDialog()
     private val deleteDialog = DeleteCheckDialog()
 
@@ -48,6 +50,7 @@ class DdayScreen :
             binding.dDayDeletBtn.visibility = View.INVISIBLE
             setUpView()
         } else {
+            exitRepresentativeSwitchOnesCheck = true
             setUpViewWithDday(dDay)
         }
 
@@ -71,9 +74,9 @@ class DdayScreen :
                         viewmodel!!.dDayUpdate(
                             viewmodel!!.dDayState.value!!.copy(
                                 icon = ddayIconSet.dDayIconList[
-                                    ddayIconSet.dDayIconListId.indexOf(
-                                        it
-                                    )
+                                        ddayIconSet.dDayIconListId.indexOf(
+                                            it
+                                        )
                                 ]
                             )
                         )
@@ -102,9 +105,9 @@ class DdayScreen :
             dDayTitle.text = "디데이 편집하기"
             dDayCustomIcon.check(
                 DdayIconSet.DdayIcon.values()[
-                    DdayIconSet().dDayIconList.indexOf(
-                        dDay.icon
-                    )
+                        DdayIconSet().dDayIconList.indexOf(
+                            dDay.icon
+                        )
                 ].radio
             )
             dDayConfirmedBtnText.text = "저장하기"
@@ -127,10 +130,14 @@ class DdayScreen :
         viewModel.dDayState.observe(this, {
             Log.d(TAG, "viewModelSet: dDayState $it")
             if (it.representative && !representativeSwitchOnesCheck) {
-                RepresentativeCheckDialog().show(
-                    supportFragmentManager, "RepresentativeCheckDialog"
-                )
-                representativeSwitchOnesCheck = true
+                if (exitRepresentativeSwitchOnesCheck)
+                    exitRepresentativeSwitchOnesCheck = false
+                else {
+                    RepresentativeCheckDialog().show(
+                        supportFragmentManager, "RepresentativeCheckDialog"
+                    )
+                    representativeSwitchOnesCheck = true
+                }
             }
             binding.dDayRepresentativeSwitch.isChecked = it.representative
         })
