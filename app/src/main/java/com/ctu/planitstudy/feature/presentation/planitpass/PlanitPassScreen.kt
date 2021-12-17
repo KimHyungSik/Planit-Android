@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -126,9 +127,14 @@ class PlanitPassScreen :
         finish()
     }
 
-    fun showReadyDialog() {
-        ReadyDialog().show(
-            supportFragmentManager, "ReadyDialog"
-        )
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            val intent = Intent()
+            intent.putExtra("reward", viewModel.rewardDto)
+            setResult(0, intent)
+            finish()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
