@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
@@ -16,6 +17,7 @@ import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.home.fragment.rewards.RewardViewModel
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
+import com.google.android.gms.ads.rewarded.RewardedAd
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
@@ -31,13 +33,14 @@ class PlanitPassScreen :
     private val plaintFragmentStateAdapter = PlanitFragmentStateAdapter(this@PlanitPassScreen)
     var passTitle = ""
     var passEarendStars = ""
-
+    private lateinit var rewardedAd: RewardedAd
     val TAG = "PlanitPassScreen - 로그"
 
 
     override fun setup() {
         binding.activity = this
         binding.viewmodel = viewModel
+
 
         viewModel.rewardDto = intent.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
 
@@ -126,9 +129,13 @@ class PlanitPassScreen :
         finish()
     }
 
-    fun showReadyDialog() {
-        ReadyDialog().show(
-            supportFragmentManager, "ReadyDialog"
-        )
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            val intent = Intent()
+            intent.putExtra("reward", viewModel.rewardDto)
+            setResult(0, intent)
+            finish()
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
