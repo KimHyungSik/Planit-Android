@@ -7,6 +7,11 @@ import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -46,6 +51,27 @@ class DdayUseCaseTest {
         runBlocking {
             ddayToInsert.forEach {
                 ddayRepository.addDday(it)
+            }
+        }
+    }
+
+    @Test
+    fun getDdayListUseCase(){
+        println("getDdayListUseCase")
+        runBlocking {
+            launch {
+                ddayUseCase.getDdayListUseCase().collect { it ->
+                    val result = it.data!!.ddays
+                    println("result = $result")
+                    for (n in 0..result.size - 2) {
+                        if (result[n].endAt != result[n + 1].endAt)
+                            assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isGreaterThan(
+                                DateConvter.dtoDateTOLong(
+                                    result[n + 1].endAt
+                                )
+                            )
+                    }
+                }
             }
         }
     }
