@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -52,8 +51,7 @@ class SignUpViewModel @Inject constructor(
     val signUpUserResponse: LiveData<SignUpUserResponse> = _signUpUserResponse
 
     private val _failReceiverNickname = MutableLiveData<Boolean>(false)
-    val failReceiverNickname : LiveData<Boolean> = _failReceiverNickname
-
+    val failReceiverNickname: LiveData<Boolean> = _failReceiverNickname
 
     private val _validateNickName =
         MutableLiveData<Resource<Boolean>>(Resource.Error(data = false, message = "init"))
@@ -210,7 +208,7 @@ class SignUpViewModel @Inject constructor(
                                         )
                                         }"
                                     )
-                                    if(it.code() == 404)
+                                    if (it.code() == 404)
                                         _failReceiverNickname.value = true
                                     CashStudyApp.prefs.accessToken = ""
                                     CashStudyApp.prefs.refreshToken = ""

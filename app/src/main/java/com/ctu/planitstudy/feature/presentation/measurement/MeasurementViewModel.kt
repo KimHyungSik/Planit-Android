@@ -85,7 +85,6 @@ class MeasurementViewModel @Inject constructor(
                     recordedTime = measurementState.value!!.measurementTime.toInt()
                 )
 
-        Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
 
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
