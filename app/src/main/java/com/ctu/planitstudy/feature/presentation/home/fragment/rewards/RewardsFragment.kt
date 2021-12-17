@@ -138,17 +138,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "Ad was dismissed.")
                 loadAds()
-                binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
-                binding.rewardsFragmentMainRewardLottie.playAnimation()
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    viewModel.convertStarToPoint()
-                    delay(binding.rewardsFragmentMainRewardLottie.duration)
-                    isAnimated = false
-                    binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                    if(viewModel.rewardDto.value!!.star >= 50)
-                        binding.rewardsFragmentMainRewardLottie.playAnimation()
-                }
+                getPoint()
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
@@ -169,7 +159,22 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 isAnimated = true
             } else {
                 Log.d(TAG, "The interstitial ad wasn't ready yet.")
+                getPoint()
             }
+        }
+    }
+
+    fun getPoint(){
+        binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
+        binding.rewardsFragmentMainRewardLottie.playAnimation()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.convertStarToPoint()
+            delay(binding.rewardsFragmentMainRewardLottie.duration)
+            isAnimated = false
+            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
+            if(viewModel.rewardDto.value!!.star >= 50)
+                binding.rewardsFragmentMainRewardLottie.playAnimation()
         }
     }
 
