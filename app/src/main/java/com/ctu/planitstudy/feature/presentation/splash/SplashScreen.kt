@@ -10,10 +10,12 @@ import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.util.Screens
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScreenViewModel>() {
     override val bindingInflater: (LayoutInflater) -> ActivitySplashScreenBinding
         get() = ActivitySplashScreenBinding::inflate
@@ -25,8 +27,9 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
             .subscribe {
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
-                        if (!JWTRefreshTokenExpiration().invoke())
-                            moveIntentAllClear(Screens.HomeScreenSh.activity)
+                        if (!JWTRefreshTokenExpiration().invoke()){
+                            viewModel.getToken()
+                        }
                         else
                             moveIntentAllClear(Screens.LoginScreenSh.activity)
                     else
@@ -35,6 +38,13 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
                     moveIntentAllClear(Screens.LoginScreenSh.activity)
             }
             .isDisposed
+
+        viewModel.tokenChek.observe(this, {
+            if(it)
+                moveIntentAllClear(Screens.HomeScreenSh.activity)
+            else
+                moveIntentAllClear(Screens.LoginScreenSh.activity)
+        })
     }
 
     override val viewModel: SplashScreenViewModel by viewModels()
