@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -10,6 +11,7 @@ import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -36,7 +38,15 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             viewmodel = viewModel
 
             rewardsFragmentPlanitPassColumn.setOnClickListener {
-                moveIntent(Screens.PlanitPassScreenSh.activity)
+                if (viewModel.rewardDto.value!!.planetPass == 0) {
+                    val arg = Bundle()
+                    val dialog = SingleTitleCheckDialog()
+                    arg.putString("title", getString(R.string.empty_planet_pass_ticket))
+                    dialog.arguments = arg
+                    dialog.show(parentFragmentManager, "titleDialog")
+                } else {
+                    moveIntent(Screens.PlanitPassScreenSh.activity)
+                }
             }
 
             with(rewardsFragmentMainRewardLottie) {

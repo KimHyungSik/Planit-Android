@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
                     totalTime += n.recordedTime
 
                 if (totalTime == 0) {
-                    studyTimeTitle = "의 공부를 응원합니다!"
+                    studyTimeTitle = "공부를 응원합니다!"
                 } else {
                     studyTimeTitle = "공부했어요"
                     totalString = totalTime.toLong().longToTimeKorString()

@@ -5,11 +5,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import com.ctu.planitstudy.databinding.DialogFragmentLoadingBinding
 
 class LoadingDialog(context: Context) : Dialog(context) {
 
+    val TAG = "LoadingDialog - 로그"
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(DialogFragmentLoadingBinding.inflate(layoutInflater).root)

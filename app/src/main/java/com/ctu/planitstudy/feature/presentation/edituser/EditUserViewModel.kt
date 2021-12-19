@@ -45,8 +45,7 @@ class EditUserViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "checkNickNameValidate: ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()
