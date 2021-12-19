@@ -1,10 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.splash
 
-import android.os.Build
 import android.util.Base64.*
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
@@ -45,6 +43,4 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
                 moveIntentAllClear(Screens.LoginScreenSh.activity)
         })
     }
-
-
 }
