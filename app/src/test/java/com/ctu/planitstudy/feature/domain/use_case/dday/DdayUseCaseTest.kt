@@ -8,6 +8,7 @@ import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.common.truth.Truth.assertThat
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -18,10 +19,11 @@ import org.junit.Test
 import java.util.*
 
 class DdayUseCaseTest {
-    lateinit var ddayUseCase: DdayUseCase
-    lateinit var ddayRepository: DdayRepository
-    lateinit var ddayIconSet: DdayIconSet
-    lateinit var random: Random
+    private lateinit var ddayUseCase: DdayUseCase
+    private lateinit var ddayRepository: FakeDdayRepository
+    private lateinit var ddayIconSet: DdayIconSet
+    private lateinit var random: Random
+    private val ddayToInsert = mutableListOf<Dday>()
 
     @Before
     fun setUp() {
@@ -34,7 +36,7 @@ class DdayUseCaseTest {
             getDdayListUseCase = GetDdayListUseCase(ddayRepository),
             modifiedDdayUseCase = ModifiedDdayUseCase(ddayRepository)
         )
-        val ddayToInsert = mutableListOf<Dday>()
+
         ('가'..'차').forEachIndexed { index, c ->
             ddayToInsert.add(
                 Dday(
@@ -56,7 +58,7 @@ class DdayUseCaseTest {
     }
 
     @Test
-    fun `get dday list use case test`() = runBlocking {
+    fun `디데이 리스트 조회 및 정렬 테스트`() = runBlocking {
         ddayUseCase.getDdayListUseCase().test {
             val loading = awaitItem()
             val ddayListDto = awaitItem().data!!
@@ -69,6 +71,46 @@ class DdayUseCaseTest {
                         )
                     )
             }
+
+            assertEquals(ddayToInsert.size, result.size)
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `디데이 리스트 추가 테스트`() = runBlocking{
+        val newDday = Dday(
+            title = "새로운 디데이",
+            endAt = DateCalculation().getCurrentDateString(null),
+            icon = ddayIconSet.dDayIconList[random.nextInt(ddayIconSet.dDayIconList.size - 1)],
+            isRepresentative = false
+        )
+        ddayToInsert.add(newDday)
+        ddayUseCase.addDayUseCase(newDday).test {
+            assertEquals(ddayToInsert.size, ddayRepository.ddays.size)
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `디데이 수정 테스트`() = runBlocking{
+        val newDday = Dday(
+            title = "새로운 디데이",
+            endAt = DateCalculation().getCurrentDateString(null),
+            icon = ddayIconSet.dDayIconList[random.nextInt(ddayIconSet.dDayIconList.size - 1)],
+            isRepresentative = false
+        )
+        ddayUseCase.modifiedDdayUseCase(newDday, 0).test {
+            assertEquals(newDday, ddayRepository.ddays[0])
+            cancelAndConsumeRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `디데이 삭제 테스트`() = runBlocking {
+        ddayUseCase.deleteDdayUseCase(0).test {
+            assertEquals(ddayToInsert.size - 1, ddayRepository.ddays.size
+            )
             cancelAndConsumeRemainingEvents()
         }
     }
