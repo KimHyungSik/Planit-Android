@@ -19,18 +19,17 @@ import java.util.concurrent.TimeUnit
 class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScreenViewModel>() {
     override val bindingInflater: (LayoutInflater) -> ActivitySplashScreenBinding
         get() = ActivitySplashScreenBinding::inflate
+    override val viewModel: SplashScreenViewModel by viewModels()
 
-    @RequiresApi(Build.VERSION_CODES.P)
     override fun setup() {
         Completable.complete()
             .delay(1500, TimeUnit.MILLISECONDS)
             .subscribe {
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
-                        if (!JWTRefreshTokenExpiration().invoke()){
+                        if (!JWTRefreshTokenExpiration().invoke()) {
                             viewModel.getToken()
-                        }
-                        else
+                        } else
                             moveIntentAllClear(Screens.LoginScreenSh.activity)
                     else
                         moveIntentAllClear(Screens.LoginScreenSh.activity)
@@ -40,12 +39,12 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
             .isDisposed
 
         viewModel.tokenChek.observe(this, {
-            if(it)
+            if (it)
                 moveIntentAllClear(Screens.HomeScreenSh.activity)
             else
                 moveIntentAllClear(Screens.LoginScreenSh.activity)
         })
     }
 
-    override val viewModel: SplashScreenViewModel by viewModels()
+
 }

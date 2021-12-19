@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -45,8 +44,7 @@ class HomeViewModel @Inject constructor(
                         loadingShow()
                     }
                     is Resource.Error -> {
-                        Log.d(TAG, "initSet: ${it.message}")
-                        loadingDismiss()
+                        loadingErrorDismiss()
                     }
                 }
             }.launchIn(this)
@@ -66,8 +64,7 @@ class HomeViewModel @Inject constructor(
                     loadingShow()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "getStudyList: error ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
             }
         }.launchIn(viewModelScope)
@@ -80,8 +77,7 @@ class HomeViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "changeStudyIsDone: error ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()

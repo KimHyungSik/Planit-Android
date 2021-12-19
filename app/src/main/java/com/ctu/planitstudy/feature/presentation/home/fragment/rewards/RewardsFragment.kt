@@ -38,13 +38,13 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             viewmodel = viewModel
 
             rewardsFragmentPlanitPassColumn.setOnClickListener {
-                if(viewModel.rewardDto.value!!.planetPass == 0){
+                if (viewModel.rewardDto.value!!.planetPass == 0) {
                     val arg = Bundle()
                     val dialog = SingleTitleCheckDialog()
                     arg.putString("title", getString(R.string.empty_planet_pass_ticket))
                     dialog.arguments = arg
                     dialog.show(parentFragmentManager, "titleDialog")
-                }else {
+                } else {
                     moveIntent(Screens.PlanitPassScreenSh.activity)
                 }
             }

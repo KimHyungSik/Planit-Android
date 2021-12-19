@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
-import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -18,9 +18,9 @@ class SplashScreenViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _tokenChek = MutableLiveData<Boolean>()
-    val tokenChek : LiveData<Boolean> = _tokenChek
+    val tokenChek: LiveData<Boolean> = _tokenChek
 
-
+    @DelicateCoroutinesApi
     fun getToken() {
         jwtTokenRefreshUseCase().onEach {
             when (it) {
@@ -30,7 +30,7 @@ class SplashScreenViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _tokenChek.value = false
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()

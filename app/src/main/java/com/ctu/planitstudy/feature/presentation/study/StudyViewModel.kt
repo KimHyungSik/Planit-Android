@@ -173,13 +173,13 @@ class StudyViewModel @Inject constructor(
                         when (it) {
                             is Resource.Success -> {
                                 _studyDialogState.value = StudyDialogState(addStudy = true)
-                                _loading.value = false
+                                loadingDismiss()
                             }
                             is Resource.Loading -> {
-                                _loading.value = true
+                                loadingShow()
                             }
                             is Resource.Error -> {
-                                Log.d(TAG, "studyConfirmed: ${it.message}")
+                                loadingErrorDismiss()
                             }
                         }
                     }.launchIn(this)
@@ -203,8 +203,7 @@ class StudyViewModel @Inject constructor(
                                 loadingShow()
                             }
                             is Resource.Error -> {
-                                Log.d(TAG, "studyConfirmed: ${it.message}")
-                                loadingDismiss()
+                                loadingErrorDismiss()
                             }
                         }
                     }.launchIn(this)
@@ -229,7 +228,7 @@ class StudyViewModel @Inject constructor(
                     loadingShow()
                 }
                 is Resource.Error -> {
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
             }
         }.launchIn(viewModelScope)
