@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.dday
 
+import app.cash.turbine.test
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
@@ -7,6 +8,10 @@ import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -51,15 +56,20 @@ class DdayUseCaseTest {
     }
 
     @Test
-    fun getDdayListUseCaseSortTest() = runBlocking {
-        val result = ddayUseCase.getDdayListUseCase.sortedDdayList(ddayRepository.getDdayList()).ddays
-        for (n in 0..result.size - 2) {
-            if (result[n].endAt != result[n + 1].endAt)
-                assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isLessThan(
-                    DateConvter.dtoDateTOLong(
-                        result[n + 1].endAt
+    fun `get dday list use case test`() = runBlocking {
+        ddayUseCase.getDdayListUseCase().test {
+            val loading = awaitItem()
+            val ddayListDto = awaitItem().data!!
+            val result = ddayListDto.ddays
+            for (n in 0..result.size - 2) {
+                if (result[n].endAt != result[n + 1].endAt)
+                    assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isLessThan(
+                        DateConvter.dtoDateTOLong(
+                            result[n + 1].endAt
+                        )
                     )
-                )
+            }
+            cancelAndConsumeRemainingEvents()
         }
     }
 }
