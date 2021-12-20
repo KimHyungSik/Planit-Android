@@ -8,7 +8,7 @@ import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.common.truth.Truth.assertThat
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
