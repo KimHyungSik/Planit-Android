@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -41,8 +40,7 @@ class MyViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "getUserInformation: ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
             }
         }.launchIn(viewModelScope)

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -40,8 +39,7 @@ class PlanitPassViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "getPlanetPass: Error ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()

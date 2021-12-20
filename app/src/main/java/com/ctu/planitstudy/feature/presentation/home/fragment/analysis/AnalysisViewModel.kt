@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.analysis
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -36,8 +35,7 @@ class AnalysisViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "getStudyList: error ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()
@@ -53,8 +51,7 @@ class AnalysisViewModel @Inject constructor(
                     _studyTimeLineDto.value = it.data!!
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "getStudyList: error ${it.message}")
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()

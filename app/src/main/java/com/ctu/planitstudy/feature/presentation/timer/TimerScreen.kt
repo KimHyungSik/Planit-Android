@@ -17,6 +17,7 @@ import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerBreakTimeDialo
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStartDialog
 import com.ctu.planitstudy.feature.presentation.timer.dialog.TimerStopDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
+import com.google.android.gms.ads.AdRequest
 
 class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding, TimerViewModel>() {
 
@@ -38,6 +39,9 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding, TimerViewMod
         study = intent.getParcelableExtra("studyDto")
 
         viewModel.setStudyDto(study!!)
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
         // 화면 자동 꺼짐 방지
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

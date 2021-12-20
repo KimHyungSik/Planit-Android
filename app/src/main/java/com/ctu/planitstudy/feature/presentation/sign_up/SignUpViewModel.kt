@@ -217,7 +217,7 @@ class SignUpViewModel @Inject constructor(
                         loadingDismiss()
                     }
                     is Resource.Error -> {
-                        loadingDismiss()
+                        loadingErrorDismiss()
                     }
                     is Resource.Loading -> {
                         loadingShow()
