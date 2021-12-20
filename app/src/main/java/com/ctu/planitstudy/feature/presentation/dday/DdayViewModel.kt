@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.dday
 
-import android.util.Log
 import android.widget.CompoundButton
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -70,7 +69,7 @@ class DdayViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    loadingDismiss()
+                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
@@ -94,8 +93,7 @@ class DdayViewModel @Inject constructor(
                         loadingDismiss()
                     }
                     is Resource.Error -> {
-                        Log.d(TAG, "dDayDelete: ${it.message}")
-                        loadingDismiss()
+                        loadingErrorDismiss()
                     }
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
@@ -113,7 +111,6 @@ class DdayViewModel @Inject constructor(
                         loadingDismiss()
                     }
                     is Resource.Error -> {
-                        Log.d(TAG, "dDayDelete: ${it.message}")
                         loadingDismiss()
                     }
                     is Resource.Loading -> {

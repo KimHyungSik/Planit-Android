@@ -8,7 +8,7 @@ import retrofit2.Response
 
 class FakeDdayRepository : DdayRepository {
 
-    private val ddays = mutableListOf<Dday>()
+    val ddays = mutableListOf<Dday>()
     private val ddayListDto = mutableListOf<DdayDto>()
     private val fakeDdayDto = DdayDto(1, "", false, "", "", "", 1)
 
@@ -36,6 +36,7 @@ class FakeDdayRepository : DdayRepository {
     }
 
     override suspend fun modifiedDday(dday: Dday, dDayId: Int): DdayDto {
+        ddays.set(0, dday)
         return fakeDdayDto
     }
 

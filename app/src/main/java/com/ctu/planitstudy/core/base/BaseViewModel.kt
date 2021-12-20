@@ -3,23 +3,31 @@ package com.ctu.planitstudy.core.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.*
 
 abstract class BaseViewModel : ViewModel() {
 
-    val _loading = MutableLiveData<Boolean?>(null)
-    val loading: LiveData<Boolean?> = _loading
+    private val _loading = MutableLiveData<LoadingState?>(null)
+    val loading: LiveData<LoadingState?> = _loading
 
     open fun loadingShow() {
         if (loading.value == null)
-            _loading.value = true
-        if (!loading.value!!)
-            _loading.value = true
+            _loading.value = LoadingState.Show
+        if (loading.value != LoadingState.Show)
+            _loading.value = LoadingState.Show
     }
 
     open fun loadingDismiss() {
         if (loading.value == null)
-            _loading.value = false
-        if (loading.value!!)
-            _loading.value = false
+            _loading.value = LoadingState.Dismiss
+        if (loading.value == LoadingState.Show)
+            _loading.value = LoadingState.Dismiss
+    }
+
+    open fun loadingErrorDismiss() {
+        if (loading.value == null)
+            _loading.value = LoadingState.ErrorDismiss
+        if (loading.value == LoadingState.Show)
+            _loading.value = LoadingState.ErrorDismiss
     }
 }

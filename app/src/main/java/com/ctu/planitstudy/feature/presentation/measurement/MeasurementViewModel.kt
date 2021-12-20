@@ -31,14 +31,13 @@ class MeasurementViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         setViewDataWithTimerData(it.data!!)
-                        _loading.value = false
+                        loadingDismiss()
                     }
                     is Resource.Loading -> {
-                        _loading.value = true
+                        loadingShow()
                     }
                     is Resource.Error -> {
-                        Log.d(TAG, "getExistingMeasurementTime Error: ${it.message}")
-                        _loading.value = false
+                        loadingErrorDismiss()
                     }
                 }
             }.launchIn(viewModelScope)

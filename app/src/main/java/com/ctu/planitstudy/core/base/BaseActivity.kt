@@ -16,7 +16,7 @@ open class BaseActivity :
     }
 
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
+        ActivityResultContracts.StartActivityForResult() // StartActivityForResult 처리를 담당
     ) { activityResult -> resultActivity(activityResult) }
 
     open fun moveIntent(activity: Class<*>) {
