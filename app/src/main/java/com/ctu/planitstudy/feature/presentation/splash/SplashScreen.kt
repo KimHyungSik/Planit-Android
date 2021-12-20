@@ -54,11 +54,9 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
 
                 }
             }
-            Log.d(TAG, "setup: ")
             if (CashStudyApp.prefs.refreshToken != null)
                 if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
                     if (!JWTRefreshTokenExpiration().invoke()) {
-                        Log.d(TAG, "setup: JWTRefreshTokenExpiration")
                         viewModel.getToken()
                     } else
                         moveIntentAllClear(Screens.LoginScreenSh.activity)
