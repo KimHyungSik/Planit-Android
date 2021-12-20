@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.core.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
@@ -25,7 +24,7 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
         loading = LoadingDialog(this)
         viewModel.loading.observe(this, {
             if (it != null)
-                when(it){
+                when (it) {
                     is LoadingState.Show -> showLoading()
                     is LoadingState.Dismiss -> dismiss()
                     is LoadingState.ErrorDismiss -> dismiss()

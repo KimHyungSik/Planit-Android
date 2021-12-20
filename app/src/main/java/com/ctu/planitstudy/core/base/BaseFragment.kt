@@ -29,7 +29,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         loading = LoadingDialog(requireContext())
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it != null)
-                when(it){
+                when (it) {
                     is LoadingState.Show -> showLoading()
                     is LoadingState.Dismiss -> dismiss()
                     is LoadingState.ErrorDismiss -> dismiss()
