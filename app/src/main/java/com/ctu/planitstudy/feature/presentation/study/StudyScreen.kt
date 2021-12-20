@@ -38,6 +38,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     private val disposables = CompositeDisposable()
     private val calendarDialog = BottomSheetCalendarDialog()
     private val checkBoxList = ArrayList<CheckBox>()
+    // 공부 수정이라면 not null
     private var study: StudyDto? = null
 
     override fun setup() {
@@ -142,6 +143,11 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
 
             if (it.validatedTitle) {
                 arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
+                showDialogFragment(arg, SingleTitleCheckDialog())
+            }
+
+            if(it.editError){
+                arg.putString("title", getString(R.string.study_edit_error))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 

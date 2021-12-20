@@ -156,7 +156,12 @@ class StudyViewModel @Inject constructor(
             // 데이터 수정
             if (studyState.value!!.studyGroupId != null) {
                 try {
-                    Log.d(TAG, "studyConfirmed: ${studyState.value!!.studyScheduleId!!}")
+                    // 데이터 수정일이 현재 인경우
+                        if (DateConvter.textDateToLongDate(studyState.value!!.startAt) <= DateConvter.dtoDateTOLong(DateCalculation().getCurrentDateString(null))) {
+                        _studyDialogState.value = StudyDialogState(editError = true)
+                        return@launch
+                    }
+
                     if (studyState.value!!.repeat)
                         studyUseCase.editStudyUseCase(
                             studyState.value!!.studyGroupId!!,
