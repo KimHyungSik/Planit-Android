@@ -1,15 +1,11 @@
 package com.ctu.planitstudy.feature.domain.use_case.study
 
 import app.cash.turbine.test
-import com.ctu.planitstudy.core.util.date_util.DateCalculation
-import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.feature.data.repository.FakeStudyRepository
-import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 
@@ -33,7 +29,6 @@ class StudyUseCaseTest {
             editStudyIsDoneUseCase = EditStudyIsDoneUseCase(studyRepository)
         )
 
-
         ('a'..'h').forEachIndexed { index, c ->
             study.add(
                 Study(
@@ -47,23 +42,23 @@ class StudyUseCaseTest {
                 RepeatedStudy(
                     title = c.toString(),
                     startAt = index.toString(),
-                    endAt = (index+1).toString(),
+                    endAt = (index + 1).toString(),
                     repeatedDays = arrayListOf<String>()
                 )
             )
         }
         runBlocking {
             study.forEach {
-                studyUseCase.addStudyUseCase(it).test {  cancelAndConsumeRemainingEvents() }
+                studyUseCase.addStudyUseCase(it).test { cancelAndConsumeRemainingEvents() }
             }
             repeatedStudy.forEach {
-                studyUseCase.addStudyUseCase(it).test {  cancelAndConsumeRemainingEvents() }
+                studyUseCase.addStudyUseCase(it).test { cancelAndConsumeRemainingEvents() }
             }
         }
     }
 
     @Test
-    fun `공부리스트 조회 테스트`() = runBlocking{
+    fun `공부리스트 조회 테스트`() = runBlocking {
         studyUseCase.getStudyListUseCase("0000-00-00").test {
             val loading = awaitItem()
             val result = awaitItem().data!!
@@ -73,7 +68,7 @@ class StudyUseCaseTest {
     }
 
     @Test
-    fun `공부 수정 테스트`() = runBlocking{
+    fun `공부 수정 테스트`() = runBlocking {
         val newStudy = Study(
             title = "새 공부",
             startAt = "0000-00-00"
@@ -81,7 +76,7 @@ class StudyUseCaseTest {
         study.add(newStudy)
 
         studyUseCase.addStudyUseCase(newStudy).test { cancelAndConsumeRemainingEvents() }
-        studyUseCase.getStudyListUseCase("0000-00-00").test{
+        studyUseCase.getStudyListUseCase("0000-00-00").test {
             awaitItem()
             val result = awaitItem().data!!
             assertEquals(study.size + repeatedStudy.size, result.studies.size)

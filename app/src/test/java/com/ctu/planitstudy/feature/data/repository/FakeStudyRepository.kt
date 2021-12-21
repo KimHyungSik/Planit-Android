@@ -124,6 +124,4 @@ class FakeStudyRepository : StudyRepository {
         fakeStudyDtoList.removeAt(studyGroupId.toInt())
         return Response.success(null)
     }
-
-
 }

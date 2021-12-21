@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +16,7 @@ class HomeScreen :
     override val bindingInflater: (LayoutInflater) -> ActivityHomeScreenBinding
         get() = ActivityHomeScreenBinding::inflate
 
+    @SuppressLint("ResourceType")
     override fun setup() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment

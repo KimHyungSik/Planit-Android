@@ -6,13 +6,8 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter
 import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
-import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -78,7 +73,7 @@ class DdayUseCaseTest {
     }
 
     @Test
-    fun `디데이 리스트 추가 테스트`() = runBlocking{
+    fun `디데이 리스트 추가 테스트`() = runBlocking {
         val newDday = Dday(
             title = "새로운 디데이",
             endAt = DateCalculation().getCurrentDateString(null),
@@ -93,7 +88,7 @@ class DdayUseCaseTest {
     }
 
     @Test
-    fun `디데이 수정 테스트`() = runBlocking{
+    fun `디데이 수정 테스트`() = runBlocking {
         val newDday = Dday(
             title = "새로운 디데이",
             endAt = DateCalculation().getCurrentDateString(null),
@@ -109,7 +104,8 @@ class DdayUseCaseTest {
     @Test
     fun `디데이 삭제 테스트`() = runBlocking {
         ddayUseCase.deleteDdayUseCase(0).test {
-            assertEquals(ddayToInsert.size - 1, ddayRepository.ddays.size
+            assertEquals(
+                ddayToInsert.size - 1, ddayRepository.ddays.size
             )
             cancelAndConsumeRemainingEvents()
         }
