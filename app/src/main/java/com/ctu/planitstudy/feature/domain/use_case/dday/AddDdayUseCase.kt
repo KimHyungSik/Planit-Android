@@ -5,6 +5,7 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
+import com.ctu.planitstudy.feature.domain.use_case.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
@@ -13,30 +14,8 @@ import javax.inject.Inject
 
 class AddDdayUseCase @Inject constructor(
     private val ddayRepository: DdayRepository
-) {
+) : BaseUseCase<DdayDto>() {
 
     val TAG = "AddDdayUseCase - 로그"
-    operator fun invoke(dday: Dday): Flow<Resource<DdayDto>> = flow {
-        try {
-            emit(Resource.Loading<DdayDto>(null))
-            val dDay = ddayRepository.addDday(dday)
-            emit(Resource.Success(dDay))
-        } catch (e: Throwable) {
-            Log.d(TAG, "invoke: ${e.message}}")
-            emit(
-                Resource.Error<DdayDto>(
-                    message = e.localizedMessage
-                )
-            )
-            if (e is HttpException) {
-                emit(
-                    Resource.Error<DdayDto>(
-                        message = JSONObject(
-                            e.response()!!.errorBody()!!.string()
-                        ).toString()
-                    )
-                )
-            }
-        }
-    }
+    operator fun invoke(dday: Dday): Flow<Resource<DdayDto>> = useCase { ddayRepository.addDday(dday) }
 }
