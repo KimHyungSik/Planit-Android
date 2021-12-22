@@ -48,7 +48,8 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        viewModel.loadingDismiss()
         _binding = null
+        super.onDestroy()
     }
 }

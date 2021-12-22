@@ -48,6 +48,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         super.setInit()
         binding.viewmodel = viewModel
         binding.activity = this
+
+        viewModel.initSet()
         viewModel.changeStudyDate(DateCalculation().getCurrentDateString(0))
         viewModel.homeState.observe(
             this,

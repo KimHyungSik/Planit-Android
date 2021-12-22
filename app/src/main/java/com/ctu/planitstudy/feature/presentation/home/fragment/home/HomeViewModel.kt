@@ -22,15 +22,10 @@ class HomeViewModel @Inject constructor(
 
     val TAG = "HomeViewModel - 로그"
 
-    private val _homeState = MutableLiveData<HomeState>()
+    private val _homeState = MutableLiveData<HomeState>(HomeState())
     val homeState: LiveData<HomeState> = _homeState
 
-    init {
-        _homeState.value = HomeState()
-        initSet()
-    }
-
-    private fun initSet() {
+    fun initSet() {
         viewModelScope.launch {
             ddayListUseCase().onEach {
                 when (it) {
