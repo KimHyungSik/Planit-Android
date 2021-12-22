@@ -30,6 +30,9 @@ jobs:
       - name: Grant Permissions to gradlew
         run: chmod +x gradlew
 
+      - name: Unit test
+        run: ./gradlew test
+
       - name: Ktlint
         run: ./gradlew ktlint
         
