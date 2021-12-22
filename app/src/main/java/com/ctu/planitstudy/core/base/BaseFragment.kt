@@ -27,14 +27,17 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         loading = LoadingDialog(requireContext())
-        viewModel.loading.observe(viewLifecycleOwner, {
-            if (it != null)
-                when (it) {
-                    is LoadingState.Show -> showLoading()
-                    is LoadingState.Dismiss -> dismiss()
-                    is LoadingState.ErrorDismiss -> dismiss()
-                }
-        })
+        viewModel.loading.observe(
+            viewLifecycleOwner,
+            {
+                if (it != null)
+                    when (it) {
+                        is LoadingState.Show -> showLoading()
+                        is LoadingState.Dismiss -> dismiss()
+                        is LoadingState.ErrorDismiss -> dismiss()
+                    }
+            }
+        )
         setInit()
         return binding.root
     }

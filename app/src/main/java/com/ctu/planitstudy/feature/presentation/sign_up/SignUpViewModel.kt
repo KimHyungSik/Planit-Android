@@ -152,90 +152,96 @@ class SignUpViewModel @Inject constructor(
     fun sendSignUpUserData(receiverNameSkip: Boolean) {
         userManager.userPolicyChange(OauthType.KakaoOauth)
         userManager.getUserInfo()
-            .subscribe({ it ->
+            .subscribe(
+                { it ->
 
-                when (it) {
-                    is Resource.Success -> {
-                        val signUpUser = SignUpUser(
-                            birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
-                            category = liveData.value?.category!!,
-                            email = it.data!!.userEmail!!,
-                            marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
-                            personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                            name = liveData.value?.nickname!!,
-                            nickname = liveData.value?.nickname!!,
-                            sex = if (isSkip) null else liveData.value?.gender!!
-                        )
-
-                        val signUpUserReceiver = SignUpUserReceiver(
-                            birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
-                            category = liveData.value?.category!!,
-                            email = it.data?.userEmail!!,
-                            marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
-                            personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
-                            name = liveData.value?.nickname!!,
-                            nickname = liveData.value?.nickname!!,
-                            receiverNickname = liveData.value?.receiverName!!,
-                            sex = if (isSkip) null else liveData.value?.gender!!,
-                        )
-                        (
-                            if (receiverNameSkip)
-                                userAuthUseCase.userSignUp(signUpUserReceiver)
-                            else
-                                userAuthUseCase.userSignUp(signUpUser)
+                    when (it) {
+                        is Resource.Success -> {
+                            val signUpUser = SignUpUser(
+                                birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
+                                category = liveData.value?.category!!,
+                                email = it.data!!.userEmail!!,
+                                marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                                personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                                name = liveData.value?.nickname!!,
+                                nickname = liveData.value?.nickname!!,
+                                sex = if (isSkip) null else liveData.value?.gender!!
                             )
-                            .subscribeOn(Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
-                            .subscribe({
-                                Log.d(TAG, "sendSignUpUserData: $it")
-                                _signUpUserResponse.value = SignUpUserResponse(
-                                    200,
-                                    accessToken = it.accessToken,
-                                    refreshToken = it.refreshToken
-                                )
-                                CashStudyApp.prefs.accessToken = it.accessToken
-                                CashStudyApp.prefs.refreshToken = it.refreshToken
-                                _screens.value = Screens.HomeScreenSh
-                            }, {
-                                Log.d(TAG, "sendSignUpUserData: error ${it.message}")
-                                if (it is HttpException) {
-                                    Log.d(
-                                        TAG,
-                                        "sendSignUpUserData: Error ${
-                                        JSONObject(
-                                            it.response()!!.errorBody()!!.string()
-                                        )
-                                        }"
-                                    )
-                                    if (it.code() == 404)
-                                        _failReceiverNickname.value = true
-                                    CashStudyApp.prefs.accessToken = ""
-                                    CashStudyApp.prefs.refreshToken = ""
-                                }
-                            })
-                        loadingDismiss()
-                    }
-                    is Resource.Error -> {
-                        loadingErrorDismiss()
-                    }
-                    is Resource.Loading -> {
-                        loadingShow()
-                    }
-                }
-            }, {
 
-                if (it is HttpException) {
-                    Log.d(
-                        TAG,
-                        "sendSignUpUserData: Error ${
-                        JSONObject(
-                            it.response()!!.errorBody()!!.string()
+                            val signUpUserReceiver = SignUpUserReceiver(
+                                birth = if (isSkip) null else liveData.value?.dateOfBirth!!,
+                                category = liveData.value?.category!!,
+                                email = it.data?.userEmail!!,
+                                marketingInformationAgree = termsOfUseAgrees.marketingInformationAgree,
+                                personalInformationAgree = termsOfUseAgrees.personalInformationAgree,
+                                name = liveData.value?.nickname!!,
+                                nickname = liveData.value?.nickname!!,
+                                receiverNickname = liveData.value?.receiverName!!,
+                                sex = if (isSkip) null else liveData.value?.gender!!,
+                            )
+                            (
+                                if (receiverNameSkip)
+                                    userAuthUseCase.userSignUp(signUpUserReceiver)
+                                else
+                                    userAuthUseCase.userSignUp(signUpUser)
+                                )
+                                .subscribeOn(Schedulers.computation())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
+                                .subscribe(
+                                    {
+                                        Log.d(TAG, "sendSignUpUserData: $it")
+                                        _signUpUserResponse.value = SignUpUserResponse(
+                                            200,
+                                            accessToken = it.accessToken,
+                                            refreshToken = it.refreshToken
+                                        )
+                                        CashStudyApp.prefs.accessToken = it.accessToken
+                                        CashStudyApp.prefs.refreshToken = it.refreshToken
+                                        _screens.value = Screens.HomeScreenSh
+                                    },
+                                    {
+                                        Log.d(TAG, "sendSignUpUserData: error ${it.message}")
+                                        if (it is HttpException) {
+                                            Log.d(
+                                                TAG,
+                                                "sendSignUpUserData: Error ${
+                                                JSONObject(
+                                                    it.response()!!.errorBody()!!.string()
+                                                )
+                                                }"
+                                            )
+                                            if (it.code() == 404)
+                                                _failReceiverNickname.value = true
+                                            CashStudyApp.prefs.accessToken = ""
+                                            CashStudyApp.prefs.refreshToken = ""
+                                        }
+                                    }
+                                )
+                            loadingDismiss()
+                        }
+                        is Resource.Error -> {
+                            loadingErrorDismiss()
+                        }
+                        is Resource.Loading -> {
+                            loadingShow()
+                        }
+                    }
+                },
+                {
+
+                    if (it is HttpException) {
+                        Log.d(
+                            TAG,
+                            "sendSignUpUserData: Error ${
+                            JSONObject(
+                                it.response()!!.errorBody()!!.string()
+                            )
+                            }"
                         )
-                        }"
-                    )
+                    }
+                    _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
                 }
-                _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
-            }).isDisposed
+            ).isDisposed
     }
 }

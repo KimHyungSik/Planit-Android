@@ -53,9 +53,12 @@ class PlanitPassScreen :
         }
         binding.planitPassPlanitViewPagerIndicator.setViewPager2(binding.planitPassPlanitViewPager)
 
-        viewModel.planetPassList.observe(this, {
-            updatePassView()
-        })
+        viewModel.planetPassList.observe(
+            this,
+            {
+                updatePassView()
+            }
+        )
     }
 
     fun nextPass() {

@@ -14,13 +14,13 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScreenViewModel>() {
@@ -59,12 +59,15 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
             else
                 moveIntentAllClear(Screens.LoginScreenSh.activity)
         }
-        viewModel.tokenChek.observe(this, {
-            if (it)
-                moveIntentAllClear(Screens.HomeScreenSh.activity)
-            else
-                moveIntentAllClear(Screens.LoginScreenSh.activity)
-        })
+        viewModel.tokenChek.observe(
+            this,
+            {
+                if (it)
+                    moveIntentAllClear(Screens.HomeScreenSh.activity)
+                else
+                    moveIntentAllClear(Screens.LoginScreenSh.activity)
+            }
+        )
     }
 
     suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {

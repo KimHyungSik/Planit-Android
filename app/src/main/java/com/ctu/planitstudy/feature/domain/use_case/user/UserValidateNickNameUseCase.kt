@@ -3,10 +3,10 @@ package com.ctu.planitstudy.feature.domain.use_case.user
 import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import javax.inject.Inject
 
 class UserValidateNickNameUseCase @Inject constructor(
     private val userRepository: UserRepository

@@ -157,23 +157,29 @@ class PlannerPlannerFragment :
     }
 
     private fun homeViewModelSetUp() {
-        homeViewModel.homeState.observe(this, {
+        homeViewModel.homeState.observe(
+            this,
+            {
 
-            if (it.studyListDto.studies.isEmpty()) {
-                binding.studyFragmentEmptyImg.visibility = View.VISIBLE
-                binding.plannerPlannerStudyList.visibility = View.GONE
-            } else {
-                binding.studyFragmentEmptyImg.visibility = View.GONE
-                binding.plannerPlannerStudyList.visibility = View.VISIBLE
+                if (it.studyListDto.studies.isEmpty()) {
+                    binding.studyFragmentEmptyImg.visibility = View.VISIBLE
+                    binding.plannerPlannerStudyList.visibility = View.GONE
+                } else {
+                    binding.studyFragmentEmptyImg.visibility = View.GONE
+                    binding.plannerPlannerStudyList.visibility = View.VISIBLE
+                }
+
+                studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
+                studyListRecyclerAdapter.notifyDataSetChanged()
             }
+        )
 
-            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
-            studyListRecyclerAdapter.notifyDataSetChanged()
-        })
-
-        viewModel.plannerState.observe(this, {
-            homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-        })
+        viewModel.plannerState.observe(
+            this,
+            {
+                homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+            }
+        )
     }
 
     fun addStudyScreen() {

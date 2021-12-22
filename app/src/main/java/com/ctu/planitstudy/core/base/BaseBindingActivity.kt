@@ -22,14 +22,17 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(requireNotNull(_binding).root)
         loading = LoadingDialog(this)
-        viewModel.loading.observe(this, {
-            if (it != null)
-                when (it) {
-                    is LoadingState.Show -> showLoading()
-                    is LoadingState.Dismiss -> dismiss()
-                    is LoadingState.ErrorDismiss -> dismiss()
-                }
-        })
+        viewModel.loading.observe(
+            this,
+            {
+                if (it != null)
+                    when (it) {
+                        is LoadingState.Show -> showLoading()
+                        is LoadingState.Dismiss -> dismiss()
+                        is LoadingState.ErrorDismiss -> dismiss()
+                    }
+            }
+        )
         setup()
     }
 

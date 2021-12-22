@@ -76,15 +76,21 @@ class SignUpScreen :
             }
         )
 
-        viewModel.signUpFragments.observe(this, {
-            setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
-            binding.signUpViewpager.currentItem = it.page
-        })
+        viewModel.signUpFragments.observe(
+            this,
+            {
+                setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
+                binding.signUpViewpager.currentItem = it.page
+            }
+        )
 
-        viewModel.screens.observe(this, {
-            if (it != null)
-                moveIntentAllClear(it.activity)
-        })
+        viewModel.screens.observe(
+            this,
+            {
+                if (it != null)
+                    moveIntentAllClear(it.activity)
+            }
+        )
     }
 
     private fun setReceiverUi(state: Boolean) {

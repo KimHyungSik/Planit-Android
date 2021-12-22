@@ -78,49 +78,55 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding, TimerViewMod
             activity = this@TimerScreen
         }
 
-        viewModel.timerState.observe(this, {
-            binding.timerCircularBar.progress = it.time.toFloat()
-            binding.invalidateAll()
-        })
+        viewModel.timerState.observe(
+            this,
+            {
+                binding.timerCircularBar.progress = it.time.toFloat()
+                binding.invalidateAll()
+            }
+        )
 
-        viewModel.timerCycle.observe(this, {
-            when (it) {
-                TimerCycle.TimeFlow -> {
-                    timerStartAndStop(true)
-                    timerBtn(true)
-                }
-                TimerCycle.TimeStop -> {
-                    timerStartAndStop(false)
-                    val intent = Intent(this, Screens.MeasurementScreenSh.activity)
-                    intent.putExtra("studyDto", study)
-                    intent.putExtra("time", viewModel.timerState.value!!.time)
-                    intent.putExtra("totalStar", viewModel.timerState.value!!.star)
-                    intent.putExtra("totalTicket", viewModel.timerState.value!!.ticket)
-                    intent.putExtra("brakeTime", viewModel.timerState.value!!.breakTime)
-                    moveIntent(intent)
-                    timerBtn(false)
-                }
-                TimerCycle.TimePause -> {
-                    timerStartAndStop(false)
-                    showStopDialog()
-                    timerBtn(false)
-                }
-                TimerCycle.TimerExited -> {
-                    finish()
-                }
-                TimerCycle.TimeBreak -> {
-                    timerStartAndStop(false)
-                    timerBreakTimeDialog.show(
-                        supportFragmentManager, "TimerBreakTimeDialog"
-                    )
-                    timerBtn(false)
-                }
-                TimerCycle.TimeReady -> {
-                    timerStartAndStop(false)
-                    timerBtn(false)
+        viewModel.timerCycle.observe(
+            this,
+            {
+                when (it) {
+                    TimerCycle.TimeFlow -> {
+                        timerStartAndStop(true)
+                        timerBtn(true)
+                    }
+                    TimerCycle.TimeStop -> {
+                        timerStartAndStop(false)
+                        val intent = Intent(this, Screens.MeasurementScreenSh.activity)
+                        intent.putExtra("studyDto", study)
+                        intent.putExtra("time", viewModel.timerState.value!!.time)
+                        intent.putExtra("totalStar", viewModel.timerState.value!!.star)
+                        intent.putExtra("totalTicket", viewModel.timerState.value!!.ticket)
+                        intent.putExtra("brakeTime", viewModel.timerState.value!!.breakTime)
+                        moveIntent(intent)
+                        timerBtn(false)
+                    }
+                    TimerCycle.TimePause -> {
+                        timerStartAndStop(false)
+                        showStopDialog()
+                        timerBtn(false)
+                    }
+                    TimerCycle.TimerExited -> {
+                        finish()
+                    }
+                    TimerCycle.TimeBreak -> {
+                        timerStartAndStop(false)
+                        timerBreakTimeDialog.show(
+                            supportFragmentManager, "TimerBreakTimeDialog"
+                        )
+                        timerBtn(false)
+                    }
+                    TimerCycle.TimeReady -> {
+                        timerStartAndStop(false)
+                        timerBtn(false)
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun timerBtn(start: Boolean) {

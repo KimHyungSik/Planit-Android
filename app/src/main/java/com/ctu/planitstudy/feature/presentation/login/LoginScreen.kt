@@ -21,17 +21,20 @@ class LoginScreen :
 
         binding.viewmodel = viewModel
 
-        viewModel.loginState.observe(this, {
-            when (it) {
-                is LoginState.Loading -> {
-                }
-                is LoginState.Login -> {
-                    if (it.state) {
-                        moveIntentAllClear(HomeScreenSh.activity)
-                    } else
-                        moveIntentAllClear(TermsOfUseAgreesScreenSh.activity)
+        viewModel.loginState.observe(
+            this,
+            {
+                when (it) {
+                    is LoginState.Loading -> {
+                    }
+                    is LoginState.Login -> {
+                        if (it.state) {
+                            moveIntentAllClear(HomeScreenSh.activity)
+                        } else
+                            moveIntentAllClear(TermsOfUseAgreesScreenSh.activity)
+                    }
                 }
             }
-        })
+        )
     }
 }

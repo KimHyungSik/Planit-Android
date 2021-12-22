@@ -6,8 +6,8 @@ import com.ctu.planitstudy.core.util.date_util.DateConvter.dtoDateTOLong
 import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.ctu.planitstudy.feature.domain.use_case.BaseUseCase
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class GetDdayListUseCase @Inject constructor(
     private val ddayRepository: DdayRepository

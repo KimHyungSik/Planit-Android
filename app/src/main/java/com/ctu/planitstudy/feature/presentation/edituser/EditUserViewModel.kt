@@ -10,9 +10,9 @@ import com.ctu.planitstudy.core.util.enums.findCategoryFromView
 import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
 @HiltViewModel
 class EditUserViewModel @Inject constructor(

@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
-import java.util.*
+import java.util.Locale
 
 val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
@@ -43,7 +43,7 @@ fun longToTimerString(time: Long): String {
     val m = currentTime / 60
     currentTime %= 60
     val s = currentTime
-    val string = buildString {
+    return buildString {
         if (h < 10)
             append(0)
         append(h)
@@ -56,7 +56,6 @@ fun longToTimerString(time: Long): String {
             append(0)
         append(s)
     }
-    return string
 }
 
 fun longToTimerShortString(time: Long): String {

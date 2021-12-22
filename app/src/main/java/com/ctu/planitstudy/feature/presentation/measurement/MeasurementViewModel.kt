@@ -11,9 +11,9 @@ import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.use_case.timer.TimerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
 @HiltViewModel
 class MeasurementViewModel @Inject constructor(

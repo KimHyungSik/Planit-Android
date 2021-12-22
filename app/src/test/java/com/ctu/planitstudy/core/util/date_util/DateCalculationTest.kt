@@ -2,10 +2,10 @@ package com.ctu.planitstudy.core.util.date_util
 
 import com.ctu.planitstudy.core.util.enums.Weekday
 import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 
 class DateCalculationTest : TestCase() {
     private lateinit var dateCalculation: DateCalculation
