@@ -146,7 +146,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }
 
-            if(it.editError){
+            if (it.editError) {
                 arg.putString("title", getString(R.string.study_edit_error))
                 showDialogFragment(arg, SingleTitleCheckDialog())
             }

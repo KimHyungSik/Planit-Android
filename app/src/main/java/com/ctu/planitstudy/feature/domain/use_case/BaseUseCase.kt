@@ -1,15 +1,13 @@
 package com.ctu.planitstudy.feature.domain.use_case
 
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayListDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 import retrofit2.HttpException
-import kotlin.reflect.KSuspendFunction0
 
-abstract class BaseUseCase<T: Any> {
-    fun  useCase(arg: suspend () -> T): Flow<Resource<T>> = flow{
+abstract class BaseUseCase<T : Any> {
+    fun useCase(arg: suspend () -> T): Flow<Resource<T>> = flow {
         try {
             emit(Resource.Loading<T>(null))
             val result = arg()
@@ -33,7 +31,7 @@ abstract class BaseUseCase<T: Any> {
         }
     }
 
-    open fun modified(result: T): T{
+    open fun modified(result: T): T {
         return result
     }
 }

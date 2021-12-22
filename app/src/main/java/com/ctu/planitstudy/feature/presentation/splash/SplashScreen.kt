@@ -1,10 +1,8 @@
 package com.ctu.planitstudy.feature.presentation.splash
 
 import android.util.Base64.*
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import coil.request.Disposable
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
@@ -16,13 +14,10 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -44,14 +39,13 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
             val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
             when (appUpdateInfo.updateAvailability()) {
                 UpdateAvailability.UPDATE_AVAILABLE -> {
-                    //업데이트 가능한 상태
+                    // 업데이트 가능한 상태
                     appUpdateManager.startUpdateFlowForResult(
                         appUpdateInfo,
                         AppUpdateType.IMMEDIATE,
                         this@SplashScreen,
                         REQUEST_CODE_UPDATE
                     )
-
                 }
             }
             if (CashStudyApp.prefs.refreshToken != null)
@@ -64,7 +58,6 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
                     moveIntentAllClear(Screens.LoginScreenSh.activity)
             else
                 moveIntentAllClear(Screens.LoginScreenSh.activity)
-
         }
         viewModel.tokenChek.observe(this, {
             if (it)

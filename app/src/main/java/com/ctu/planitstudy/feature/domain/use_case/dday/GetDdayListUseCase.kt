@@ -13,7 +13,7 @@ class GetDdayListUseCase @Inject constructor(
     private val ddayRepository: DdayRepository
 ) : BaseUseCase<DdayListDto>() {
 
-    operator fun invoke(): Flow<Resource<DdayListDto>> = useCase{ddayRepository.getDdayList()}
+    operator fun invoke(): Flow<Resource<DdayListDto>> = useCase { ddayRepository.getDdayList() }
 
     private fun sortedDdayList(ddayListDto: DdayListDto): DdayListDto {
         val ddaySort = ddayListDto.ddays.sortedBy { dtoDateTOLong(it.endAt) }

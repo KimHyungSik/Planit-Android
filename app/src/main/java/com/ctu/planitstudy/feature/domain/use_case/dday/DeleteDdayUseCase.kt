@@ -1,18 +1,15 @@
 package com.ctu.planitstudy.feature.domain.use_case.dday
 
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
 import com.ctu.planitstudy.feature.domain.use_case.BaseUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class DeleteDdayUseCase @Inject constructor(
     private val ddayRepository: DdayRepository
-): BaseUseCase<Unit>(){
+) : BaseUseCase<Unit>() {
 
     val TAG = "DeleteUseCase - 로그"
-    operator fun invoke(ddayId: Int): Flow<Resource<Unit>> = useCase {  ddayRepository.deleteDday(ddayId) }
+    operator fun invoke(ddayId: Int): Flow<Resource<Unit>> = useCase { ddayRepository.deleteDday(ddayId) }
 }

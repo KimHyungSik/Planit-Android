@@ -6,8 +6,6 @@ import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
 import com.ctu.planitstudy.feature.domain.use_case.BaseUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class AddStudyUseCase @Inject constructor(
@@ -15,5 +13,5 @@ class AddStudyUseCase @Inject constructor(
 ) : BaseUseCase<Unit>() {
     operator fun invoke(study: Study): Flow<Resource<Unit>> = useCase { studyRepository.addStudy(study) }
 
-    operator fun invoke(repeatedStudy: RepeatedStudy): Flow<Resource<Unit>> = useCase {  studyRepository.addStudy(repeatedStudy) }
+    operator fun invoke(repeatedStudy: RepeatedStudy): Flow<Resource<Unit>> = useCase { studyRepository.addStudy(repeatedStudy) }
 }
