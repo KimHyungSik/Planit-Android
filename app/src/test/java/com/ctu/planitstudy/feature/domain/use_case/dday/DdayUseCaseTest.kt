@@ -60,7 +60,7 @@ class DdayUseCaseTest {
             val result = ddayListDto.ddays
             for (n in 0..result.size - 2) {
                 if (result[n].endAt != result[n + 1].endAt)
-                    assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isGreaterThan(
+                    assertThat(DateConvter.dtoDateTOLong(result[n].endAt)).isLessThan(
                         DateConvter.dtoDateTOLong(
                             result[n + 1].endAt
                         )
