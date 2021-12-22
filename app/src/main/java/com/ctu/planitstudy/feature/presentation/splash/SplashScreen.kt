@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.splash
 
-import android.util.Base64.*
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
@@ -14,13 +13,12 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 @AndroidEntryPoint
 class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScreenViewModel>() {

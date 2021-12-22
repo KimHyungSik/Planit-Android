@@ -5,7 +5,6 @@ import android.util.Log
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.login.LoginScreen
-import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -13,6 +12,7 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import javax.inject.Inject
 
 class TokenAuthenticator @Inject constructor(
     private val jwtTokenRefreshUseCase: JwtTokenRefreshUseCase

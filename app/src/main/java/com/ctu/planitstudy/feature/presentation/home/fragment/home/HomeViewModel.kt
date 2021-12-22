@@ -8,11 +8,10 @@ import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(

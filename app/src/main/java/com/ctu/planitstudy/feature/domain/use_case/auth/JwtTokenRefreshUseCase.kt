@@ -6,12 +6,12 @@ import com.ctu.planitstudy.feature.domain.model.RefreshToken
 import com.ctu.planitstudy.feature.domain.repository.AuthRepository
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver.Companion.TAG
-import java.lang.Exception
-import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import java.lang.Exception
+import javax.inject.Inject
 
 class JwtTokenRefreshUseCase @Inject constructor(
     private val authRepository: AuthRepository

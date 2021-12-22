@@ -6,8 +6,8 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyTimeLineDto
 import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
-import javax.inject.Inject
 import retrofit2.Response
+import javax.inject.Inject
 
 class StudyRepositoryImp @Inject constructor(
     private val studyApi: StudyApi

@@ -12,11 +12,11 @@ import com.ctu.planitstudy.feature.domain.model.study.RepeatedStudy
 import com.ctu.planitstudy.feature.domain.model.study.Study
 import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class StudyViewModel @Inject constructor(

@@ -7,11 +7,11 @@ import com.ctu.planitstudy.core.util.enums.DdayIconSet
 import com.ctu.planitstudy.feature.data.repository.FakeDdayRepository
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.google.common.truth.Truth.assertThat
-import java.util.*
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import java.util.Random
 
 class DdayUseCaseTest {
     private lateinit var ddayUseCase: DdayUseCase

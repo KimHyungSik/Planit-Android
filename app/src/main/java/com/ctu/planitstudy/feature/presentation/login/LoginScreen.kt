@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityLoginScreenBinding
-import com.ctu.planitstudy.feature.presentation.util.Screens.*
+import com.ctu.planitstudy.feature.presentation.util.Screens.HomeScreenSh
+import com.ctu.planitstudy.feature.presentation.util.Screens.TermsOfUseAgreesScreenSh
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

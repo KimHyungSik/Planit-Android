@@ -14,7 +14,10 @@ import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() {

@@ -11,10 +11,9 @@ import com.ctu.planitstudy.feature.data.remote.dto.Dday.DdayDto
 import com.ctu.planitstudy.feature.domain.model.Dday
 import com.ctu.planitstudy.feature.domain.use_case.dday.DdayUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @HiltViewModel
 class DdayViewModel @Inject constructor(

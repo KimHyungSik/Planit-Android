@@ -7,10 +7,10 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(

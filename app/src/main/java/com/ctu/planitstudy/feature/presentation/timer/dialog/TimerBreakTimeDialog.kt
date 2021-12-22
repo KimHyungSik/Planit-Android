@@ -13,10 +13,10 @@ import com.ctu.planitstudy.core.util.longToTimeShortString
 import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
-import java.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Timer
 
 class TimerBreakTimeDialog : DialogFragment() {
 

@@ -4,11 +4,11 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.util.MessageDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 import retrofit2.HttpException
+import javax.inject.Inject
 
 class RecordMeasurementTimerUseCase @Inject constructor(
     private val timerRepository: TimerRepository

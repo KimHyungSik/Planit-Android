@@ -22,7 +22,6 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint

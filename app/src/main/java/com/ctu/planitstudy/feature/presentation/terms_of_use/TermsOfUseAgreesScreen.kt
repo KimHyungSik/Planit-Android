@@ -11,7 +11,6 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import io.reactivex.disposables.CompositeDisposable
-import java.util.*
 
 class TermsOfUseAgreesScreen :
     BaseBindingActivity<ActivityTermsOfUseScreenBinding, TermsOfUseAgreeViewModel>() {
