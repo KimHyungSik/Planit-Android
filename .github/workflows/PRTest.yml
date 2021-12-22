@@ -34,18 +34,19 @@ jobs:
         run: ./gradlew test
 
       - name: Test Success
-          if: success()
-          uses: actions/github-script@0.2.0
-          with:
-            github-token: ${{ github.token }}
-            script: |
-              const pull_number = "${{github.event.number}}"
-              await github.pulls.createReview({
-                ...context.repo,
-                pull_number,
-                body: "테스트 모두 통과!",
-                event: "APPROVE"
-              })
+        if: success()
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pull_number = "${{github.event.number}}"
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "테스트 모두 통과!",
+              event: "APPROVE"
+            })
+
       - name: Test Fail
         if: failure()
         uses: actions/github-script@0.2.0
@@ -76,16 +77,16 @@ jobs:
                 body: "이쁜 코드군요..!",
                 event: "APPROVE"
               })
-          - name: Lint Fail
-            if: failure()
-            uses: actions/github-script@0.2.0
-            with:
-              github-token: ${{ github.token }}
-              script: |
-                const pull_number = "${{github.event.number}}"
-                await github.pulls.createReview({
-                  ...context.repo,
-                  pull_number,
-                  body: "lint 정도는 하고 올립시다~",
-                  event: "REQUEST_CHANGES"
-                })
+      - name: Lint Fail
+        if: failure()
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pull_number = "${{github.event.number}}"
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "lint 정도는 하고 올립시다~",
+              event: "REQUEST_CHANGES"
+            })
