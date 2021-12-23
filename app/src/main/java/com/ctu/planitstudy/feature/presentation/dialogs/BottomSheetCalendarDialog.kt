@@ -12,7 +12,6 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBottomSheetFragment
 import com.ctu.planitstudy.databinding.DialogBottomCalendarBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.*
 
 class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBinding>() {
 

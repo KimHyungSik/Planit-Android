@@ -19,15 +19,17 @@ import com.ctu.planitstudy.feature.presentation.recycler.study.InStudyListRecycl
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListMode
 import com.ctu.planitstudy.feature.presentation.recycler.study.StudyListRecyclerAdapter
 import com.ctu.planitstudy.feature.presentation.util.Screens
-import com.kizitonwose.calendarview.model.*
+import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.CalendarMonth
+import com.kizitonwose.calendarview.model.DayOwner
+import com.kizitonwose.calendarview.model.InDateStyle
+import com.kizitonwose.calendarview.model.OutDateStyle
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.utils.Size
-import com.kizitonwose.calendarview.utils.yearMonth
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class PlannerPlannerFragment :
     BaseFragment<FragmentPlannerPlannerBinding, PlannerPlannerViewModel>(), InStudyListRecycler {
@@ -157,23 +159,29 @@ class PlannerPlannerFragment :
     }
 
     private fun homeViewModelSetUp() {
-        homeViewModel.homeState.observe(this, {
+        homeViewModel.homeState.observe(
+            this,
+            {
 
-            if (it.studyListDto.studies.isEmpty()) {
-                binding.studyFragmentEmptyImg.visibility = View.VISIBLE
-                binding.plannerPlannerStudyList.visibility = View.GONE
-            } else {
-                binding.studyFragmentEmptyImg.visibility = View.GONE
-                binding.plannerPlannerStudyList.visibility = View.VISIBLE
+                if (it.studyListDto.studies.isEmpty()) {
+                    binding.studyFragmentEmptyImg.visibility = View.VISIBLE
+                    binding.plannerPlannerStudyList.visibility = View.GONE
+                } else {
+                    binding.studyFragmentEmptyImg.visibility = View.GONE
+                    binding.plannerPlannerStudyList.visibility = View.VISIBLE
+                }
+
+                studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
+                studyListRecyclerAdapter.notifyDataSetChanged()
             }
+        )
 
-            studyListRecyclerAdapter.submitList(it.studyListDto, StudyListMode.PlannerStudyListMode)
-            studyListRecyclerAdapter.notifyDataSetChanged()
-        })
-
-        viewModel.plannerState.observe(this, {
-            homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-        })
+        viewModel.plannerState.observe(
+            this,
+            {
+                homeViewModel.changeStudyDate(it.checkDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+            }
+        )
     }
 
     fun addStudyScreen() {

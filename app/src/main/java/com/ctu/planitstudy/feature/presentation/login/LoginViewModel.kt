@@ -44,31 +44,37 @@ class LoginViewModel @Inject constructor(
                         is Resource.Success -> {
                             loginState.postValue(LoginState.Loading(true))
                             userManager.getUserInfo()
-                                .subscribe({ it ->
-                                    when (it) {
-                                        is Resource.Success -> {
-                                            userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
-                                                .subscribeOn(Schedulers.computation())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }
-                                                .subscribe({
-                                                    CashStudyApp.prefs.accessToken = it.accessToken
-                                                    CashStudyApp.prefs.refreshToken =
-                                                        it.refreshToken
-                                                    loginState.postValue(LoginState.Login(it.result))
-                                                }, {
-                                                    Log.d(
-                                                        TAG,
-                                                        "login: userAuthUseCase : ${it.message}"
+                                .subscribe(
+                                    { it ->
+                                        when (it) {
+                                            is Resource.Success -> {
+                                                userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
+                                                    .subscribeOn(Schedulers.computation())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .map { JsonConverter.jsonToLoginDto(it.asJsonObject) }
+                                                    .subscribe(
+                                                        {
+                                                            CashStudyApp.prefs.accessToken = it.accessToken
+                                                            CashStudyApp.prefs.refreshToken =
+                                                                it.refreshToken
+                                                            loginState.postValue(LoginState.Login(it.result))
+                                                        },
+                                                        {
+                                                            Log.d(
+                                                                TAG,
+                                                                "login: userAuthUseCase : ${it.message}"
+                                                            )
+                                                        }
                                                     )
-                                                })
+                                            }
+                                            is Resource.Error -> {
+                                                Log.e(TAG, "login: getUserInfo:${it.data}")
+                                            }
                                         }
-                                        is Resource.Error -> {
-                                            Log.e(TAG, "login: getUserInfo:${it.data}")
-                                        }
+                                    },
+                                    {
                                     }
-                                }, {
-                                })
+                                )
                         }
                         is Resource.Error -> {
                             loginState.postValue(LoginState.Loading(false))

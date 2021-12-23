@@ -3,7 +3,6 @@ package com.ctu.planitstudy.core.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
 
 abstract class BaseViewModel : ViewModel() {
 

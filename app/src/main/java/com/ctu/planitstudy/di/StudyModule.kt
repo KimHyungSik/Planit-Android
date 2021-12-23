@@ -3,7 +3,14 @@ package com.ctu.planitstudy.di
 import com.ctu.planitstudy.feature.data.remote.StudyApi
 import com.ctu.planitstudy.feature.data.repository.StudyRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.StudyRepository
-import com.ctu.planitstudy.feature.domain.use_case.study.*
+import com.ctu.planitstudy.feature.domain.use_case.study.AddStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.DeleteStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.EditStudyIsDoneUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.EditStudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.GetStudyTimeLineUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyUseCase
+import com.ctu.planitstudy.feature.domain.use_case.study.StudyValidatedTitleUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,7 +2,9 @@ package com.ctu.planitstudy.core.util.date_util
 
 import com.ctu.planitstudy.core.util.enums.Weekday
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import kotlin.collections.ArrayList
 import kotlin.math.min
 

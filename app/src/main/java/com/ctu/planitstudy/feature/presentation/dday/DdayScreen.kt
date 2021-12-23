@@ -121,40 +121,49 @@ class DdayScreen :
     }
 
     private fun viewModelSet() {
-        viewModel.dDayNetworkState.observe(this, {
-            Log.d(TAG, "viewModelSet: dDayNetworkState $it")
-            if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
-        })
+        viewModel.dDayNetworkState.observe(
+            this,
+            {
+                Log.d(TAG, "viewModelSet: dDayNetworkState $it")
+                if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
+            }
+        )
 
         // 디데이 데이터 관리
-        viewModel.dDayState.observe(this, {
-            Log.d(TAG, "viewModelSet: dDayState $it")
-            if (it.representative && !representativeSwitchOnesCheck) {
-                if (exitRepresentativeSwitchOnesCheck)
-                    exitRepresentativeSwitchOnesCheck = false
-                else {
-                    RepresentativeCheckDialog().show(
-                        supportFragmentManager, "RepresentativeCheckDialog"
-                    )
-                    representativeSwitchOnesCheck = true
+        viewModel.dDayState.observe(
+            this,
+            {
+                Log.d(TAG, "viewModelSet: dDayState $it")
+                if (it.representative && !representativeSwitchOnesCheck) {
+                    if (exitRepresentativeSwitchOnesCheck)
+                        exitRepresentativeSwitchOnesCheck = false
+                    else {
+                        RepresentativeCheckDialog().show(
+                            supportFragmentManager, "RepresentativeCheckDialog"
+                        )
+                        representativeSwitchOnesCheck = true
+                    }
                 }
+                binding.dDayRepresentativeSwitch.isChecked = it.representative
             }
-            binding.dDayRepresentativeSwitch.isChecked = it.representative
-        })
+        )
 
         // 팝업 상태 관리
-        viewModel.dDayDialogState.observe(this, {
-            val arg = Bundle()
-            Log.d(TAG, "viewModelSet: dDayDialogState $it")
-            if (it.deleteDialog)
-                deleteDialog.show(
-                    supportFragmentManager, "DeleteCheckDialog"
-                )
-            if (it.emptyTitleDialog) {
-                arg.putString("title", getString(R.string.empty_dialog_fragment))
-                showDialogFragment(arg, SingleTitleCheckDialog())
+        viewModel.dDayDialogState.observe(
+            this,
+            {
+                val arg = Bundle()
+                Log.d(TAG, "viewModelSet: dDayDialogState $it")
+                if (it.deleteDialog)
+                    deleteDialog.show(
+                        supportFragmentManager, "DeleteCheckDialog"
+                    )
+                if (it.emptyTitleDialog) {
+                    arg.putString("title", getString(R.string.empty_dialog_fragment))
+                    showDialogFragment(arg, SingleTitleCheckDialog())
+                }
             }
-        })
+        )
     }
 
     private fun showCalendar(time: Long) {

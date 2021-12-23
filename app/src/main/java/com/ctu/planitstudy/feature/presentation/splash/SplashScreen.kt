@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.splash
 
-import android.util.Base64.*
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.core.base.BaseBindingActivity
@@ -17,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -59,12 +57,15 @@ class SplashScreen : BaseBindingActivity<ActivitySplashScreenBinding, SplashScre
             else
                 moveIntentAllClear(Screens.LoginScreenSh.activity)
         }
-        viewModel.tokenChek.observe(this, {
-            if (it)
-                moveIntentAllClear(Screens.HomeScreenSh.activity)
-            else
-                moveIntentAllClear(Screens.LoginScreenSh.activity)
-        })
+        viewModel.tokenChek.observe(
+            this,
+            {
+                if (it)
+                    moveIntentAllClear(Screens.HomeScreenSh.activity)
+                else
+                    moveIntentAllClear(Screens.LoginScreenSh.activity)
+            }
+        )
     }
 
     suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {

@@ -14,7 +14,10 @@ import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() {
@@ -55,27 +58,30 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             }
         }
         with(viewModel) {
-            rewardDto.observe(this@RewardsFragment, {
-                binding.invalidateAll()
+            rewardDto.observe(
+                this@RewardsFragment,
+                {
+                    binding.invalidateAll()
 
-                binding.rewardsFragmentPlanitPassCountText.background = ContextCompat.getDrawable(
-                    CashStudyApp.instance,
-                    if (it.planetPass == 0) R.drawable.gray_circle_background
-                    else R.drawable.subcolor_circle_background
-                )
-                binding.rewardsFragmentStarCountText.setTextColor(
-                    setColor(
-                        if (it.star == 0) R.color.guide_text
-                        else R.color.sub_color
+                    binding.rewardsFragmentPlanitPassCountText.background = ContextCompat.getDrawable(
+                        CashStudyApp.instance,
+                        if (it.planetPass == 0) R.drawable.gray_circle_background
+                        else R.drawable.subcolor_circle_background
                     )
-                )
-                binding.rewardsFragmentStarText.setTextColor(
-                    setColor(
-                        if (it.star == 0) R.color.guide_text
-                        else R.color.sub_color
+                    binding.rewardsFragmentStarCountText.setTextColor(
+                        setColor(
+                            if (it.star == 0) R.color.guide_text
+                            else R.color.sub_color
+                        )
                     )
-                )
-            })
+                    binding.rewardsFragmentStarText.setTextColor(
+                        setColor(
+                            if (it.star == 0) R.color.guide_text
+                            else R.color.sub_color
+                        )
+                    )
+                }
+            )
         }
     }
 

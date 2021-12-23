@@ -32,13 +32,19 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
             }
         }
         with(viewModel) {
-            userInformationDto.observe(this@MyFragment, {
-                binding.invalidateAll()
-            })
-            logout.observe(this@MyFragment, {
-                if (it)
-                    logout()
-            })
+            userInformationDto.observe(
+                this@MyFragment,
+                {
+                    binding.invalidateAll()
+                }
+            )
+            logout.observe(
+                this@MyFragment,
+                {
+                    if (it)
+                        logout()
+                }
+            )
         }
     }
 

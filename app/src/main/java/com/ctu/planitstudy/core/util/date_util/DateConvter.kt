@@ -2,7 +2,8 @@ package com.ctu.planitstudy.core.util.date_util
 
 import com.ctu.planitstudy.core.util.enums.Weekday
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 object DateConvter {
 

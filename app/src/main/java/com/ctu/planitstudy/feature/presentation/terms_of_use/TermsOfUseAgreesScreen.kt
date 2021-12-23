@@ -11,7 +11,6 @@ import com.ctu.planitstudy.feature.presentation.sign_up.SignUpScreen
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import io.reactivex.disposables.CompositeDisposable
-import java.util.*
 
 class TermsOfUseAgreesScreen :
     BaseBindingActivity<ActivityTermsOfUseScreenBinding, TermsOfUseAgreeViewModel>() {
@@ -27,14 +26,17 @@ class TermsOfUseAgreesScreen :
 
         disposables.add(
             RxCompoundButton.checkedChanges(binding.termsOfUseAllCheckBox)
-                .subscribe({
-                    with(binding.termsOfUseItems) {
-                        termsOfUseAcceptUseRequired.isChecked = it
-                        termsOfUsePersonalInformationRequired.isChecked = it
-                        termsOfUsePersonalInformationOptional.isChecked = it
-                        termsOfUseMarketingOptional.isChecked = it
-                    }
-                }, {})
+                .subscribe(
+                    {
+                        with(binding.termsOfUseItems) {
+                            termsOfUseAcceptUseRequired.isChecked = it
+                            termsOfUsePersonalInformationRequired.isChecked = it
+                            termsOfUsePersonalInformationOptional.isChecked = it
+                            termsOfUseMarketingOptional.isChecked = it
+                        }
+                    },
+                    {}
+                )
         )
 
         agreeCounter(binding.termsOfUseItems.termsOfUseAcceptUseRequired)
@@ -58,19 +60,22 @@ class TermsOfUseAgreesScreen :
 
     private fun agreeCounter(view: CheckBox) {
         disposables.add(
-            RxCompoundButton.checkedChanges(view).subscribe({
+            RxCompoundButton.checkedChanges(view).subscribe(
+                {
 
-                if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked)
-                    binding.termsOfUseCheckBtn.run {
-                        setCardBackgroundColor(getColor(R.color.text_color))
-                        isClickable = true
-                    }
-                else
-                    binding.termsOfUseCheckBtn.run {
-                        setCardBackgroundColor(getColor(R.color.button_disabled))
-                        isClickable = false
-                    }
-            }, {})
+                    if (binding.termsOfUseItems.termsOfUseAcceptUseRequired.isChecked && binding.termsOfUseItems.termsOfUsePersonalInformationRequired.isChecked)
+                        binding.termsOfUseCheckBtn.run {
+                            setCardBackgroundColor(getColor(R.color.text_color))
+                            isClickable = true
+                        }
+                    else
+                        binding.termsOfUseCheckBtn.run {
+                            setCardBackgroundColor(getColor(R.color.button_disabled))
+                            isClickable = false
+                        }
+                },
+                {}
+            )
         )
     }
 

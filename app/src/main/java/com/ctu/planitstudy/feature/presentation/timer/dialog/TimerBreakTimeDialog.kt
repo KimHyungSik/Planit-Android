@@ -16,7 +16,7 @@ import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Timer
 
 class TimerBreakTimeDialog : DialogFragment() {
 

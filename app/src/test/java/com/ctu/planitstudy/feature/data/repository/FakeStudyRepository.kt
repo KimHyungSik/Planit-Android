@@ -11,9 +11,9 @@ import retrofit2.Response
 
 class FakeStudyRepository : StudyRepository {
 
-    val studies = mutableListOf<Study>()
-    val repeatedStudies = mutableListOf<RepeatedStudy>()
-    var fakeStudyDtoList = mutableListOf<StudyDto>()
+    private val studies = mutableListOf<Study>()
+    private val repeatedStudies = mutableListOf<RepeatedStudy>()
+    private var fakeStudyDtoList = mutableListOf<StudyDto>()
     val report = mutableListOf<Report>()
 
     override suspend fun addStudy(study: Study) {

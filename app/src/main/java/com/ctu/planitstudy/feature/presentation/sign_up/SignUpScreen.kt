@@ -13,7 +13,6 @@ import com.ctu.planitstudy.feature.presentation.sign_up.fragment.SignUpFragments
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.SignFragmentStateAdapter
 import com.ctu.planitstudy.feature.presentation.terms_of_use.TermsOfUseAgrees
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class SignUpScreen :
@@ -76,15 +75,21 @@ class SignUpScreen :
             }
         )
 
-        viewModel.signUpFragments.observe(this, {
-            setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
-            binding.signUpViewpager.currentItem = it.page
-        })
+        viewModel.signUpFragments.observe(
+            this,
+            {
+                setReceiverUi(viewModel.signUpFragments.value == SignUpFragments.ReceiverName)
+                binding.signUpViewpager.currentItem = it.page
+            }
+        )
 
-        viewModel.screens.observe(this, {
-            if (it != null)
-                moveIntentAllClear(it.activity)
-        })
+        viewModel.screens.observe(
+            this,
+            {
+                if (it != null)
+                    moveIntentAllClear(it.activity)
+            }
+        )
     }
 
     private fun setReceiverUi(state: Boolean) {

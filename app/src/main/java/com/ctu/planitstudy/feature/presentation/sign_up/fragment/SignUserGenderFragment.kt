@@ -25,19 +25,22 @@ class SignUserGenderFragment : BaseFragment<FragmentSignUpUserGenderBinding, Sig
 
         disposables.add(
             RxRadioGroup.checkedChanges(binding.signUpGenderRadioGroup)
-                .subscribe({
-                    var state = viewModel.liveData.value!!.copy()
-                    when (it) {
-                        R.id.sign_up_gender_male ->
-                            state = viewModel.liveData.value!!.copy(gender = "MALE")
-                        R.id.sign_up_gender_female ->
-                            state = viewModel.liveData.value!!.copy(gender = "FEMALE")
+                .subscribe(
+                    {
+                        var state = viewModel.liveData.value!!.copy()
+                        when (it) {
+                            R.id.sign_up_gender_male ->
+                                state = viewModel.liveData.value!!.copy(gender = "MALE")
+                            R.id.sign_up_gender_female ->
+                                state = viewModel.liveData.value!!.copy(gender = "FEMALE")
+                        }
+                        viewModel.isSkip = false
+                        viewModel.updateSignState(state)
+                    },
+                    {
+                        Log.e(TAG, "setInit: $it",)
                     }
-                    viewModel.isSkip = false
-                    viewModel.updateSignState(state)
-                }, {
-                    Log.e(TAG, "setInit: $it",)
-                })
+                )
         )
 
         binding.signUpSkipEnterUser.setOnClickListener {

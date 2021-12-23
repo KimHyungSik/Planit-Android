@@ -3,7 +3,11 @@ package com.ctu.planitstudy.di
 import com.ctu.planitstudy.feature.data.remote.DdayApi
 import com.ctu.planitstudy.feature.data.repository.DdayRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.DdayRepository
-import com.ctu.planitstudy.feature.domain.use_case.dday.*
+import com.ctu.planitstudy.feature.domain.use_case.dday.AddDdayUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.DdayUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.DeleteDdayUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.GetDdayListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.dday.ModifiedDdayUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
