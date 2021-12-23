@@ -10,8 +10,8 @@ import org.junit.Before
 import org.junit.Test
 
 class StudyUseCaseTest {
-    lateinit var studyUseCase: StudyUseCase
-    lateinit var studyRepository: FakeStudyRepository
+    private lateinit var studyUseCase: StudyUseCase
+    private lateinit var studyRepository: FakeStudyRepository
 
     private val study = mutableListOf<Study>()
     private val repeatedStudy = mutableListOf<RepeatedStudy>()
