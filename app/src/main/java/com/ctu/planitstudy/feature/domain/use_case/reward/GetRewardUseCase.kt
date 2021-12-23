@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.domain.use_case.reward
 
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository

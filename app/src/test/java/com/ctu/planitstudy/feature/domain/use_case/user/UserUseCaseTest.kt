@@ -28,7 +28,7 @@ class UserUseCaseTest {
     }
 
     @Test
-    fun `유저 닉네임 중복 체크 테스트`() = runBlocking{
+    fun `유저 닉네임 중복 체크 테스트`() = runBlocking {
         userUseCase.validateNickNameUseCase(userInformationDto.nickname).test {
             awaitItem()
             awaitItem()
@@ -44,7 +44,7 @@ class UserUseCaseTest {
     }
 
     @Test
-    fun `유저 조회 테스트`() = runBlocking{
+    fun `유저 조회 테스트`() = runBlocking {
         userUseCase.getUserUseCase().test {
             awaitItem()
             val result = awaitItem().data

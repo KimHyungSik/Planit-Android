@@ -5,7 +5,7 @@ import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
 
-class FakeRewardRepository: RewardRepository {
+class FakeRewardRepository : RewardRepository {
 
     val planetDto = mutableListOf<PlanetDto>()
     private var reward = RewardDto(star = 150, point = 0, planetPass = 3)

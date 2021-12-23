@@ -13,8 +13,8 @@ class FakeTimerRepository : TimerRepository {
         studyId: String,
         recordMeasurementTimer: RecordMeasurementTimer
     ): MessageDto {
-        with(recordMeasurementTimer){
-            timerMeasurementDto = timerMeasurementDto.copy(bonusTicket =  this.bonusTicket, isDone = this.isDone, recordedTime = this.recordedTime, rest = this.rest, star = this.star)
+        with(recordMeasurementTimer) {
+            timerMeasurementDto = timerMeasurementDto.copy(bonusTicket = this.bonusTicket, isDone = this.isDone, recordedTime = this.recordedTime, rest = this.rest, star = this.star)
         }
         return MessageDto("success")
     }
