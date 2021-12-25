@@ -5,14 +5,11 @@ import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import com.ctu.planitstudy.feature.domain.use_case.BaseUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import org.json.JSONObject
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class GetUserUseCase @Inject constructor(
     private val userApiRepository: UserRepository
-) : BaseUseCase<UserInformationDto>(){
+) : BaseUseCase<UserInformationDto>() {
 
     val TAG = "GetUserUseCase - 로그"
 
