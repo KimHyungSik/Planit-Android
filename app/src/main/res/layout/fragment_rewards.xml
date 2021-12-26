@@ -172,7 +172,9 @@
             android:clickable="true"
             app:cardBackgroundColor="@color/module_color"
             app:cardCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{()->activity.clickPanitPass()}"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
