@@ -27,7 +27,7 @@ class GoogleAdmob {
         context: Context,
         adId : String,
         onFailedLoad: (() -> Unit)? = null,
-        onAdLoaded: (() -> Unit)? = null,
+        onAdLoadedFun: (() -> Unit)? = null,
         ){
         InterstitialAd.load(context,adId, adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -40,10 +40,10 @@ class GoogleAdmob {
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
                 Log.d(TAG, "Ad was loaded.")
-                if (onAdLoaded != null) {
-                    onAdLoaded()
-                }
                 mInterstitialAd = interstitialAd
+                if (onAdLoadedFun != null) {
+                    onAdLoadedFun()
+                }
             }
         })
     }

@@ -83,7 +83,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_rawRes="@raw/reward_bg_lottie"
             app:lottie_loop="true"
-            app:lottie_autoPlay="true"
             android:scaleType="fitCenter"
             app:layout_constraintWidth_percent="0.6"
             />

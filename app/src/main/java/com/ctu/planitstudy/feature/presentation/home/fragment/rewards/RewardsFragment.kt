@@ -31,13 +31,15 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override val viewModel: RewardViewModel by activityViewModels<RewardViewModel>()
 
     private var isAnimated = false
-    private val lottieMaxFrame = 214
     private val googleAdmob = GoogleAdmob()
 
     override fun setInit() {
         super.setInit()
 
-        viewModel.getReward()
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.getReward()gi
+            googleLoad()
+        }
 
         with(binding) {
             activity = this@RewardsFragment
@@ -55,6 +57,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 {
                     binding.invalidateAll()
 
+                    if (it.star >= 50)
+                        binding.rewardsFragmentMainRewardLottie.playAnimation()
+
                     binding.rewardsFragmentPlanitPassCountText.background =
                         ContextCompat.getDrawable(
                             CashStudyApp.instance,
@@ -63,34 +68,27 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                         )
                     binding.rewardsFragmentStarCountText.setTextColor(
                         setColor(
-                            if (it.star == 0) R.color.guide_text
+                            if (it.star < 50) R.color.guide_text
                             else R.color.sub_color
                         )
                     )
                     binding.rewardsFragmentStarText.setTextColor(
                         setColor(
-                            if (it.star == 0) R.color.guide_text
+                            if (it.star < 50) R.color.guide_text
                             else R.color.sub_color
                         )
                     )
                 }
             )
+            newPoint.observe(this@RewardsFragment, {
+                if(it != null) {
+                    val arg = Bundle()
+                    arg.putString("title", "${it}포인트를 획득하였습니다")
+                    showDialogFragment(arg, SingleTitleCheckDialog())
+                }
+            })
         }
 
-        googleAdmob.InterstitialAdLoad(
-             context = requireContext(),
-             adId = REWAARDED_ADVERTISING_ID,
-            )
-
-        googleAdmob.InterstitialAdCallback(
-            onAdDismissed = {
-                getPoint()
-                googleAdmob.InterstitialAdLoad(
-                    context = requireContext(),
-                    adId = REWAARDED_ADVERTISING_ID,
-                )
-            }
-        )
     }
 
     fun touchRewardStar() {
@@ -99,22 +97,23 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 googleAdmob.InterstitialAdShow(
                     activity = requireActivity(),
                     onFailedLoad = {
+                        googleLoad()
                         getPoint()
                     })
-                isAnimated = true
             } else {
                 getPoint()
             }
         }
     }
 
-    fun getPoint() {
+    private fun getPoint() {
+        isAnimated = true
         binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
         binding.rewardsFragmentMainRewardLottie.playAnimation()
 
         CoroutineScope(Dispatchers.Main).launch {
-            viewModel.convertStarToPoint()
             delay(binding.rewardsFragmentMainRewardLottie.duration)
+            viewModel.convertStarToPoint()
             isAnimated = false
             binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
             if (viewModel.rewardDto.value!!.star >= 50)
@@ -132,6 +131,26 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         } else {
             moveIntent(Screens.PlanitPassScreenSh.activity)
         }
+    }
+
+    private fun googleLoad() {
+        viewModel.loadingShow()
+        googleAdmob.InterstitialAdLoad(
+            requireContext(),
+            REWAARDED_ADVERTISING_ID,
+            onAdLoadedFun = {
+                googleAdmob.InterstitialAdCallback(
+                    onAdDismissed = {
+                        googleLoad()
+                        getPoint()
+                    }
+                )
+                viewModel.loadingDismiss()
+            },
+            onFailedLoad = {
+                viewModel.loadingDismiss()
+            }
+        )
     }
 
     fun showReadyDialog() {
