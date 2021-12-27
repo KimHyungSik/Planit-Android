@@ -40,7 +40,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
     ) { activityResult ->
-        viewModel.updateRewardDto(activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0,0,0))
+        viewModel.updateRewardDto(activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0))
     }
 
     override fun setInit() {
@@ -90,15 +90,17 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     )
                 }
             )
-            newPoint.observe(this@RewardsFragment, {
-                if(it != null) {
-                    val arg = Bundle()
-                    arg.putString("title", "${it}포인트를 획득하였습니다")
-                    showDialogFragment(arg, SingleTitleCheckDialog())
+            newPoint.observe(
+                this@RewardsFragment,
+                {
+                    if (it != null) {
+                        val arg = Bundle()
+                        arg.putString("title", "${it}포인트를 획득하였습니다")
+                        showDialogFragment(arg, SingleTitleCheckDialog())
+                    }
                 }
-            })
+            )
         }
-
     }
 
     fun touchRewardStar() {
@@ -109,7 +111,8 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     onFailedLoad = {
                         googleLoad()
                         getPoint()
-                    })
+                    }
+                )
             } else {
                 getPoint()
             }

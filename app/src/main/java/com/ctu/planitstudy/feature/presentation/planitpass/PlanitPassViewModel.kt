@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
-import com.ctu.planitstudy.feature.domain.use_case.reward.GetPlanetPassListUseCase
 import com.ctu.planitstudy.feature.domain.use_case.reward.RewardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -23,7 +22,7 @@ class PlanitPassViewModel @Inject constructor(
     private val _planetPassList = MutableLiveData<PlanetPassList>()
     val planetPassList: LiveData<PlanetPassList> = _planetPassList
 
-    var rewardDto = RewardDto(0,0,0)
+    var rewardDto = RewardDto(0, 0, 0)
     private val _newPoint = MutableLiveData<Int>()
     val newPoint: LiveData<Int> = _newPoint
 
@@ -58,7 +57,7 @@ class PlanitPassViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     val getPoint = it.data!!.star - rewardDto.star
-                    rewardDto= it.data!!
+                    rewardDto = it.data!!
                     _newPoint.value = getPoint
                     loadingDismiss()
                 }
@@ -71,5 +70,4 @@ class PlanitPassViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-
 }

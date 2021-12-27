@@ -23,9 +23,9 @@ class RewardViewModel @Inject constructor(
     val rewardDto: LiveData<RewardDto> = _rewardDto
 
     private val _newPoint = MutableLiveData<Int?>(null)
-    val newPoint : LiveData<Int?> = _newPoint
+    val newPoint: LiveData<Int?> = _newPoint
 
-    fun updateRewardDto(rewardDto: RewardDto){
+    fun updateRewardDto(rewardDto: RewardDto) {
         _rewardDto.value = rewardDto
     }
 

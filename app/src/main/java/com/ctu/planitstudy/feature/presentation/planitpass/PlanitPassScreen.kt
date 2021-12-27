@@ -69,11 +69,14 @@ class PlanitPassScreen :
             }
         )
 
-        viewModel.newPoint.observe(this, {
-            val arg = Bundle()
-            arg.putString("title", "${it}별를 획득하였습니다")
-            showDialogFragment(arg, SingleTitleCheckDialog())
-        })
+        viewModel.newPoint.observe(
+            this,
+            {
+                val arg = Bundle()
+                arg.putString("title", "${it}별를 획득하였습니다")
+                showDialogFragment(arg, SingleTitleCheckDialog())
+            }
+        )
 
         googleLoad()
     }
@@ -141,16 +144,15 @@ class PlanitPassScreen :
             if (googleAdmob.getInterstitialAd() != null) {
                 googleAdmob.InterstitialAdShow(
                     this,
-                    onFailedLoad = {convertPoint()}
+                    onFailedLoad = { convertPoint() }
                 )
-
-            }else{
+            } else {
                 convertPoint()
             }
         }
     }
 
-    fun convertPoint(){
+    fun convertPoint() {
         viewModel.convertPassToPoint(viewModel.planetPassList.value!!.PlanetPassList[binding.planitPassPlanitViewPager.currentItem].id)
     }
 
@@ -162,7 +164,7 @@ class PlanitPassScreen :
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             backScreen()
             return true
         }

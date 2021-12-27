@@ -25,35 +25,38 @@ class GoogleAdmob {
 
     fun InterstitialAdLoad(
         context: Context,
-        adId : String,
+        adId: String,
         onFailedLoad: (() -> Unit)? = null,
         onAdLoadedFun: (() -> Unit)? = null,
-        ){
-        InterstitialAd.load(context,adId, adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.message)
-                if (onFailedLoad != null) {
-                    onFailedLoad()
+    ) {
+        InterstitialAd.load(
+            context, adId, adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(TAG, adError?.message)
+                    if (onFailedLoad != null) {
+                        onFailedLoad()
+                    }
+                    mInterstitialAd = null
                 }
-                mInterstitialAd = null
-            }
 
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mInterstitialAd = interstitialAd
-                if (onAdLoadedFun != null) {
-                    onAdLoadedFun()
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+                    if (onAdLoadedFun != null) {
+                        onAdLoadedFun()
+                    }
                 }
             }
-        })
+        )
     }
 
     fun InterstitialAdCallback(
-        onAdDismissed: (()->Unit)? = null,
-        onAdFailedShow: (()->Unit)? = null,
-        onAdShowed: (()->Unit)? = null
-    ){
-        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+        onAdDismissed: (() -> Unit)? = null,
+        onAdFailedShow: (() -> Unit)? = null,
+        onAdShowed: (() -> Unit)? = null
+    ) {
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "Ad was dismissed.")
                 if (onAdDismissed != null) {
@@ -81,14 +84,13 @@ class GoogleAdmob {
     fun InterstitialAdShow(
         activity: Activity,
         onFailedLoad: (() -> Unit)? = null
-        ){
+    ) {
         if (mInterstitialAd != null) {
             mInterstitialAd?.show(activity)
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.")
-            if(onFailedLoad != null)
+            if (onFailedLoad != null)
                 onFailedLoad()
         }
     }
-
 }
