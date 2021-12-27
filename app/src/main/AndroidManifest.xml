@@ -16,7 +16,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-8059978824937636~9661446641"/>
 
         <activity android:name=".feature.presentation.planitpass.PlanitPassScreen" />
         <activity android:name=".feature.presentation.terms_of_use.webview.TermsOfUse" />

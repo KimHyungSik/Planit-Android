@@ -124,7 +124,7 @@
             app:cardCornerRadius="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:clickable="true"
-            android:onClick="@{()->activity.showReadyDialog()}"
+            android:onClick="@{()->activity.convertPassToPoint()}"
             >
 
             <TextView

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
@@ -86,6 +87,11 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     open fun moveIntent(intent: Intent) {
         startActivity(intent)
+    }
+
+    open fun showDialogFragment(arg: Bundle, fragment: DialogFragment) {
+        fragment.arguments = arg
+        fragment.show(parentFragmentManager, "dialog")
     }
 
     open fun moveIntentAllClear(activity: Class<*>) {

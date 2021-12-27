@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
-import com.ctu.planitstudy.feature.domain.use_case.reward.GetPlanetPassListUseCase
+import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
+import com.ctu.planitstudy.feature.domain.use_case.reward.RewardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlanitPassViewModel @Inject constructor(
-    private val getPlanetPassList: GetPlanetPassListUseCase
+    private val rewardUseCase: RewardUseCase
 ) : BaseViewModel() {
 
     val TAG = "PlanitPassViewModel - 로그"
@@ -21,12 +22,16 @@ class PlanitPassViewModel @Inject constructor(
     private val _planetPassList = MutableLiveData<PlanetPassList>()
     val planetPassList: LiveData<PlanetPassList> = _planetPassList
 
+    var rewardDto = RewardDto(0, 0, 0)
+    private val _newPoint = MutableLiveData<Int>()
+    val newPoint: LiveData<Int> = _newPoint
+
     init {
         getPlanetPass()
     }
 
     private fun getPlanetPass() {
-        getPlanetPassList().onEach { it ->
+        rewardUseCase.getPlanetPassListUseCase().onEach { it ->
             when (it) {
                 is Resource.Success -> {
                     val newPlanetList = mutableListOf<PlanetPass>()
@@ -40,6 +45,24 @@ class PlanitPassViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     loadingErrorDismiss()
+                }
+                is Resource.Loading -> {
+                    loadingShow()
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+    fun convertPassToPoint(pass: Int) {
+        rewardUseCase.convertPlanitPassToPointUseCase(pass).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    val getPoint = it.data!!.star - rewardDto.star
+                    rewardDto = it.data!!
+                    _newPoint.value = getPoint
+                    loadingDismiss()
+                }
+                is Resource.Error -> {
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()
