@@ -1,11 +1,18 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
+import android.content.Intent
+import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.core.base.BaseBindingActivity
+import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
+import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
+import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
+import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -23,12 +30,14 @@ class PlanitPassScreen :
     var passTitle = ""
     var passEarendStars = ""
 
+    private val googleAdmob = GoogleAdmob()
+
     val TAG = "PlanitPassScreen - 로그"
 
     override fun setup() {
         binding.activity = this
         binding.viewmodel = viewModel
-
+        viewModel.rewardDto = intent.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
         with(binding.planitPassPlanitViewPager) {
 
             apply {
@@ -59,6 +68,14 @@ class PlanitPassScreen :
                 updatePassView()
             }
         )
+
+        viewModel.newPoint.observe(this, {
+            val arg = Bundle()
+            arg.putString("title", "${it}별를 획득하였습니다")
+            showDialogFragment(arg, SingleTitleCheckDialog())
+        })
+
+        googleLoad()
     }
 
     fun nextPass() {
@@ -92,6 +109,64 @@ class PlanitPassScreen :
             }
         }
         binding.invalidateAll()
+    }
+
+    private fun googleLoad() {
+        viewModel.loadingShow()
+        googleAdmob.InterstitialAdLoad(
+            this,
+            CoreData.REWAARDED_ADVERTISING_ID,
+            onAdLoadedFun = {
+                googleAdmob.InterstitialAdCallback(
+                    onAdDismissed = {
+                        googleLoad()
+                        convertPoint()
+                    }
+                )
+                viewModel.loadingDismiss()
+            },
+            onFailedLoad = {
+                viewModel.loadingDismiss()
+            }
+        )
+    }
+
+    fun convertPassToPoint() {
+
+        if (viewModel.rewardDto.planetPass == 0) {
+            val arg = Bundle()
+            arg.putString("title", "보유중인 플래닛 패스가 없습니다.")
+            showDialogFragment(arg, SingleTitleCheckDialog())
+        } else {
+            if (googleAdmob.getInterstitialAd() != null) {
+                googleAdmob.InterstitialAdShow(
+                    this,
+                    onFailedLoad = {convertPoint()}
+                )
+
+            }else{
+                convertPoint()
+            }
+        }
+    }
+
+    fun convertPoint(){
+        viewModel.convertPassToPoint(viewModel.planetPassList.value!!.PlanetPassList[binding.planitPassPlanitViewPager.currentItem].id)
+    }
+
+    override fun backScreen() {
+        val intent = Intent()
+        intent.putExtra("reward", viewModel.rewardDto)
+        setResult(0, intent)
+        finish()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            backScreen()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     fun showReadyDialog() {

@@ -1,16 +1,20 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
-import com.ctu.planitstudy.core.util.CoreData.REWAARDED_ADVERTISING_ID
+import com.ctu.planitstudy.core.util.CoreData.FULL_PAGE_ADVERTISING_ID
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
+import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
@@ -33,11 +37,17 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     private var isAnimated = false
     private val googleAdmob = GoogleAdmob()
 
+    val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
+    ) { activityResult ->
+        viewModel.updateRewardDto(activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0,0,0))
+    }
+
     override fun setInit() {
         super.setInit()
 
         CoroutineScope(Dispatchers.Main).launch {
-            viewModel.getReward()gi
+            viewModel.getReward()
             googleLoad()
         }
 
@@ -129,7 +139,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
             dialog.arguments = arg
             dialog.show(parentFragmentManager, "titleDialog")
         } else {
-            moveIntent(Screens.PlanitPassScreenSh.activity)
+            val intent = Intent(context, Screens.PlanitPassScreenSh.activity)
+            intent.putExtra("reward", viewModel.rewardDto.value)
+            requestActivity.launch(intent)
         }
     }
 
@@ -137,7 +149,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
             requireContext(),
-            REWAARDED_ADVERTISING_ID,
+            FULL_PAGE_ADVERTISING_ID,
             onAdLoadedFun = {
                 googleAdmob.InterstitialAdCallback(
                     onAdDismissed = {
