@@ -6,4 +6,5 @@ object CoreData {
     val ACCESSTOKEN = "accessToken"
     val REFRESHTOKEN = "refreshToken"
     public val PREFERENCES_NAME = "PlanitStudy"
+    val REWAARDED_ADVERTISING_ID = "ca-app-pub-8059978824937636/7835021786"
 }

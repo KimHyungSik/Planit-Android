@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.CoreData.REWAARDED_ADVERTISING_ID
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
@@ -54,11 +55,12 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 {
                     binding.invalidateAll()
 
-                    binding.rewardsFragmentPlanitPassCountText.background = ContextCompat.getDrawable(
-                        CashStudyApp.instance,
-                        if (it.planetPass == 0) R.drawable.gray_circle_background
-                        else R.drawable.subcolor_circle_background
-                    )
+                    binding.rewardsFragmentPlanitPassCountText.background =
+                        ContextCompat.getDrawable(
+                            CashStudyApp.instance,
+                            if (it.planetPass == 0) R.drawable.gray_circle_background
+                            else R.drawable.subcolor_circle_background
+                        )
                     binding.rewardsFragmentStarCountText.setTextColor(
                         setColor(
                             if (it.star == 0) R.color.guide_text
@@ -74,24 +76,53 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                 }
             )
         }
+
+        googleAdmob.InterstitialAdLoad(
+             context = requireContext(),
+             adId = REWAARDED_ADVERTISING_ID,
+            )
+
+        googleAdmob.InterstitialAdCallback(
+            onAdDismissed = {
+                getPoint()
+                googleAdmob.InterstitialAdLoad(
+                    context = requireContext(),
+                    adId = REWAARDED_ADVERTISING_ID,
+                )
+            }
+        )
     }
 
     fun touchRewardStar() {
         if (!isAnimated && viewModel.rewardDto.value!!.star >= 50) {
-            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
-            binding.rewardsFragmentMainRewardLottie.playAnimation()
-
-            isAnimated = true
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(binding.rewardsFragmentMainRewardLottie.duration)
-                isAnimated = false
-                binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
-                binding.rewardsFragmentMainRewardLottie.playAnimation()
+            if (googleAdmob.getInterstitialAd() != null) {
+                googleAdmob.InterstitialAdShow(
+                    activity = requireActivity(),
+                    onFailedLoad = {
+                        getPoint()
+                    })
+                isAnimated = true
+            } else {
+                getPoint()
             }
         }
     }
 
-    fun clickPanitPass(){
+    fun getPoint() {
+        binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
+        binding.rewardsFragmentMainRewardLottie.playAnimation()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.convertStarToPoint()
+            delay(binding.rewardsFragmentMainRewardLottie.duration)
+            isAnimated = false
+            binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_ready_lottie)
+            if (viewModel.rewardDto.value!!.star >= 50)
+                binding.rewardsFragmentMainRewardLottie.playAnimation()
+        }
+    }
+
+    fun clickPanitPass() {
         if (viewModel.rewardDto.value!!.planetPass == 0) {
             val arg = Bundle()
             val dialog = SingleTitleCheckDialog()

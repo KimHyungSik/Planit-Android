@@ -22,6 +22,13 @@ class RewardViewModel @Inject constructor(
     private val _rewardDto = MutableLiveData<RewardDto>(RewardDto(0, 0, 0))
     val rewardDto: LiveData<RewardDto> = _rewardDto
 
+    private val _newPoint = MutableLiveData<Int>()
+    val newPoint : LiveData<Int> = _newPoint
+
+    fun updateRewardDto(rewardDto: RewardDto){
+        _rewardDto.value = rewardDto
+    }
+
     fun getReward() {
         rewardUseCase.getRewardUseCase().onEach {
             when (it) {
@@ -31,6 +38,24 @@ class RewardViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     loadingErrorDismiss()
+                }
+                is Resource.Loading -> {
+                    loadingShow()
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+    fun convertStarToPoint() {
+        rewardUseCase.convertStarToPointUseCase().onEach {
+            when (it) {
+                is Resource.Success -> {
+                    val getPoint = it.data!!.point - rewardDto.value!!.point
+                    _newPoint.value = getPoint
+                    _rewardDto.value = it.data!!
+                    loadingDismiss()
+                }
+                is Resource.Error -> {
+                    loadingDismiss()
                 }
                 is Resource.Loading -> {
                     loadingShow()

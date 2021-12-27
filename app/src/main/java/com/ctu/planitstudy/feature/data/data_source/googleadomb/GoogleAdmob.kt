@@ -18,11 +18,12 @@ class GoogleAdmob {
     private var adRequest: AdRequest? = null
 
     init {
-        var adRequest = AdRequest.Builder().build()
         adRequest = AdRequest.Builder().build()
     }
 
-    private fun InterstitialAdLoad(
+    fun getInterstitialAd() = mInterstitialAd
+
+    fun InterstitialAdLoad(
         context: Context,
         adId : String,
         onFailedLoad: (() -> Unit)? = null,
@@ -47,7 +48,7 @@ class GoogleAdmob {
         })
     }
 
-    private fun InterstitialAdCallback(
+    fun InterstitialAdCallback(
         onAdDismissed: (()->Unit)? = null,
         onAdFailedShow: (()->Unit)? = null,
         onAdShowed: (()->Unit)? = null
@@ -77,9 +78,9 @@ class GoogleAdmob {
         }
     }
 
-    private fun InterstitialAdSHow(
+    fun InterstitialAdShow(
         activity: Activity,
-        onFailedLoad: (() -> Unit)?
+        onFailedLoad: (() -> Unit)? = null
         ){
         if (mInterstitialAd != null) {
             mInterstitialAd?.show(activity)
