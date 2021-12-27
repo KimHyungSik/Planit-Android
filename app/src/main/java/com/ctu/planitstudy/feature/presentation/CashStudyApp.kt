@@ -11,7 +11,6 @@ import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.HiltAndroidApp
-import java.util.Arrays
 
 @HiltAndroidApp
 class CashStudyApp : Application() {
@@ -27,7 +26,6 @@ class CashStudyApp : Application() {
         instance = this
         KakaoSdk.init(this, getString(R.string.kakao_app_key))
         MobileAds.initialize(this) {}
-        MobileAds.setRequestConfiguration(RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("39983EF468F0E30E4CE1CBF8C6262BE2")).build())
 
         AppCenter.start(
             this, "c5544aad-6922-44df-9ce2-27f6911cebbb",
