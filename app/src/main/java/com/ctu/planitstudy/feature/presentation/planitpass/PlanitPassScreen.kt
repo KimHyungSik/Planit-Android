@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.planitpass
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
@@ -15,11 +16,15 @@ import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import java.lang.Math.abs
+import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
 class PlanitPassScreen :
-    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>() {
+    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>(),
+    CoroutineScope
+{
 
     override val bindingInflater: (LayoutInflater) -> ActivityPlanitPassScreenBinding
         get() = ActivityPlanitPassScreenBinding::inflate
@@ -32,9 +37,15 @@ class PlanitPassScreen :
 
     private val googleAdmob = GoogleAdmob()
 
+
+    lateinit var job: Job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
     val TAG = "PlanitPassScreen - 로그"
 
     override fun setup() {
+        job = Job()
         binding.activity = this
         binding.viewmodel = viewModel
         viewModel.rewardDto = intent.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
@@ -79,6 +90,7 @@ class PlanitPassScreen :
         )
 
         googleLoad()
+
     }
 
     fun nextPass() {
@@ -120,13 +132,15 @@ class PlanitPassScreen :
             this,
             CoreData.REWAARDED_ADVERTISING_ID,
             onAdLoadedFun = {
+                Log.d(TAG, "googleLoad: ")
+                viewModel.loadingDismiss()
                 googleAdmob.InterstitialAdCallback(
                     onAdDismissed = {
                         googleLoad()
                         convertPoint()
+
                     }
                 )
-                viewModel.loadingDismiss()
             },
             onFailedLoad = {
                 viewModel.loadingDismiss()
@@ -169,6 +183,11 @@ class PlanitPassScreen :
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
     fun showReadyDialog() {

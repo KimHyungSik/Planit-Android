@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
+import com.ctu.planitstudy.feature.data.remote.dto.reward.PlanetListDto
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.use_case.reward.RewardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +27,20 @@ class PlanitPassViewModel @Inject constructor(
     private val _newPoint = MutableLiveData<Int>()
     val newPoint: LiveData<Int> = _newPoint
 
+//    suspend fun getPlanetPass() = rewardUseCase.getPlanetPassListUseCase.getRewardPlanet()
+
     init {
         getPlanetPass()
+    }
+
+    fun setUpPlanetPass(planetListDto: PlanetListDto) {
+        val newPlanetList = mutableListOf<PlanetPass>()
+        planetListDto.planets.let { plaent ->
+            for (n in plaent)
+                newPlanetList.add(PlanetPass(n.planetId, n.name, n.description))
+        }
+
+        _planetPassList.value = PlanetPassList(newPlanetList)
     }
 
     private fun getPlanetPass() {
@@ -41,17 +54,15 @@ class PlanitPassViewModel @Inject constructor(
                     }
 
                     _planetPassList.value = PlanetPassList(newPlanetList)
-                    loadingDismiss()
                 }
                 is Resource.Error -> {
-                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
-                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
     }
+
     fun convertPassToPoint(pass: Int) {
         rewardUseCase.convertPlanitPassToPointUseCase(pass).onEach {
             when (it) {
