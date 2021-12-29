@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,16 +41,15 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
     ) { activityResult ->
-        viewModel.updateRewardDto(activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0))
+        viewModel.updateRewardDto(
+            activityResult.data?.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
+        )
     }
 
     override fun setInit() {
         super.setInit()
-
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.getReward()
-            googleLoad()
-        }
+        viewModel.getReward()
+        googleLoad()
 
         with(binding) {
             activity = this@RewardsFragment
@@ -149,11 +149,13 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     }
 
     private fun googleLoad() {
+        Log.d(TAG, "googleLoad: init")
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
             requireContext(),
             FULL_PAGE_ADVERTISING_ID,
             onAdLoadedFun = {
+                Log.d(TAG, "googleLoad: done")
                 googleAdmob.InterstitialAdCallback(
                     onAdDismissed = {
                         googleLoad()

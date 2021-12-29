@@ -5,7 +5,6 @@ import android.content.Context
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.util.PreferencesManager
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
 import com.kakao.sdk.common.KakaoSdk
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics

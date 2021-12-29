@@ -2,6 +2,7 @@ package com.ctu.planitstudy.feature.presentation.planitpass
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
@@ -120,13 +121,14 @@ class PlanitPassScreen :
             this,
             CoreData.REWAARDED_ADVERTISING_ID,
             onAdLoadedFun = {
+                Log.d(TAG, "googleLoad: ")
+                viewModel.loadingDismiss()
                 googleAdmob.InterstitialAdCallback(
                     onAdDismissed = {
                         googleLoad()
                         convertPoint()
                     }
                 )
-                viewModel.loadingDismiss()
             },
             onFailedLoad = {
                 viewModel.loadingDismiss()

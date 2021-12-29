@@ -34,13 +34,10 @@ class RewardViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _rewardDto.value = it.data!!
-                    loadingDismiss()
                 }
                 is Resource.Error -> {
-                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
-                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)

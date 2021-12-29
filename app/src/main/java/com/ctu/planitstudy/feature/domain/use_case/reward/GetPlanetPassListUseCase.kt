@@ -13,5 +13,7 @@ class GetPlanetPassListUseCase @Inject constructor(
 
     val TAG = "GetPlanetPassListUseCase - 로그"
 
+    suspend fun getRewardPlanet() = rewardRepository.getRewardPlanet()
+
     operator fun invoke(): Flow<Resource<PlanetListDto>> = useCase { rewardRepository.getRewardPlanet() }
 }
