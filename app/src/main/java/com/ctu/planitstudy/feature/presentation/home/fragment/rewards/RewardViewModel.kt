@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -34,13 +35,10 @@ class RewardViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     _rewardDto.value = it.data!!
-                    loadingDismiss()
                 }
                 is Resource.Error -> {
-                    loadingErrorDismiss()
                 }
                 is Resource.Loading -> {
-                    loadingShow()
                 }
             }
         }.launchIn(viewModelScope)
