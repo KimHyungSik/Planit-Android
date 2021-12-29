@@ -16,15 +16,11 @@ import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 import java.lang.Math.abs
-import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
 class PlanitPassScreen :
-    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>(),
-    CoroutineScope
-{
+    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityPlanitPassScreenBinding
         get() = ActivityPlanitPassScreenBinding::inflate
@@ -37,15 +33,9 @@ class PlanitPassScreen :
 
     private val googleAdmob = GoogleAdmob()
 
-
-    lateinit var job: Job
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
     val TAG = "PlanitPassScreen - 로그"
 
     override fun setup() {
-        job = Job()
         binding.activity = this
         binding.viewmodel = viewModel
         viewModel.rewardDto = intent.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
@@ -90,7 +80,6 @@ class PlanitPassScreen :
         )
 
         googleLoad()
-
     }
 
     fun nextPass() {
@@ -138,7 +127,6 @@ class PlanitPassScreen :
                     onAdDismissed = {
                         googleLoad()
                         convertPoint()
-
                     }
                 )
             },
@@ -183,11 +171,6 @@ class PlanitPassScreen :
             return true
         }
         return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onDestroy() {
-        job.cancel()
-        super.onDestroy()
     }
 
     fun showReadyDialog() {
