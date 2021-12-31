@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/analysis_fragment_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="60dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/item_guide_stroke"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/analysis_fragment_empt_text"
+                android:text="통계 서비스를\n준비하고 있어요!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="@color/module_color"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                />
+            <ImageView
+                android:src="@drawable/graphic_graph"
+                android:layout_width="265dp"
+                android:layout_height="116dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toBottomOf="@id/analysis_fragment_empt_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="48dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
