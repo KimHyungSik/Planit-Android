@@ -45,5 +45,4 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
-
 </resources>
