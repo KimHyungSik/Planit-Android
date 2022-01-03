@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.analysis
 
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -40,23 +39,22 @@ class AnalysisFragment : BaseFragment<FragmentAnalysisBinding, AnalysisViewModel
         )
     }
 
-    fun toggleButtonChanged(checked: Boolean){
-        with(binding){
+    fun toggleButtonChanged(checked: Boolean) {
+        with(binding) {
             analysisFragmentDailyToggle.setCardBackgroundColor(
                 setColor(
-                    if(checked) R.color.module_color else R.color.sub_color
+                    if (checked) R.color.module_color else R.color.sub_color
                 )
             )
             analysisFragmentAnalysisToggle.setCardBackgroundColor(
                 setColor(
-                    if(checked) R.color.sub_color else R.color.module_color
+                    if (checked) R.color.sub_color else R.color.module_color
                 )
             )
-            if(!checked && analysisFragmentViewPager.currentItem != 0)
+            if (!checked && analysisFragmentViewPager.currentItem != 0)
                 analysisFragmentViewPager.currentItem = 0
-            if(checked && analysisFragmentViewPager.currentItem != 1)
+            if (checked && analysisFragmentViewPager.currentItem != 1)
                 analysisFragmentViewPager.currentItem = 1
-
         }
     }
 }

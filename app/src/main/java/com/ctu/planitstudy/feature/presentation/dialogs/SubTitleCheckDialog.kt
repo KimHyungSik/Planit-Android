@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.ctu.planitstudy.databinding.DialogFragmentSubtitleBinding
 
-
 class SubTitleCheckDialog : DialogFragment() {
 
     val TAG = "Representative - 로그"
@@ -60,7 +59,7 @@ class SubTitleCheckDialog : DialogFragment() {
         }
 
         val parentActivity: Activity? = activity
-        if(parentActivity is DialogInterface.OnDismissListener){
+        if (parentActivity is DialogInterface.OnDismissListener) {
             (parentActivity as DialogInterface.OnDismissListener?)!!.onDismiss(dialog)
         }
         super.onDismiss(dialog)

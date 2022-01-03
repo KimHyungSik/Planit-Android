@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
 
 class SingleTitleCheckDialog : DialogFragment() {
 
