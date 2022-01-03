@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.analysis
 
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -10,6 +9,7 @@ import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentAnalysisBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.AnalysisViewPager
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class AnalysisFragment : BaseFragment<FragmentAnalysisBinding, AnalysisViewModel>() {
 
@@ -31,32 +31,38 @@ class AnalysisFragment : BaseFragment<FragmentAnalysisBinding, AnalysisViewModel
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    if (position == 0)
+                    if (position == 0) {
                         toggleButtonChanged(false)
-                    else
+                    } else {
                         toggleButtonChanged(true)
+                    }
                 }
             }
         )
     }
 
-    fun toggleButtonChanged(checked: Boolean){
-        with(binding){
+    fun toggleButtonChanged(checked: Boolean) {
+        with(binding) {
             analysisFragmentDailyToggle.setCardBackgroundColor(
                 setColor(
-                    if(checked) R.color.module_color else R.color.sub_color
+                    if (checked) { R.color.module_color } else { R.color.sub_color }
                 )
             )
             analysisFragmentAnalysisToggle.setCardBackgroundColor(
                 setColor(
-                    if(checked) R.color.sub_color else R.color.module_color
+                    if (checked) {
+                        R.color.sub_color
+                    } else {
+                        R.color.module_color
+                    }
                 )
             )
-            if(!checked && analysisFragmentViewPager.currentItem != 0)
+            if (!checked && analysisFragmentViewPager.currentItem != 0) {
                 analysisFragmentViewPager.currentItem = 0
-            if(checked && analysisFragmentViewPager.currentItem != 1)
+            }
+            if (checked && analysisFragmentViewPager.currentItem != 1) {
                 analysisFragmentViewPager.currentItem = 1
-
+            }
         }
     }
 }
