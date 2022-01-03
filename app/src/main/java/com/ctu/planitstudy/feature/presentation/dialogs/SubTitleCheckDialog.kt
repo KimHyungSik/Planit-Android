@@ -1,18 +1,21 @@
 package com.ctu.planitstudy.feature.presentation.dialogs
 
+import android.app.Activity
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDdayBinding
-import com.ctu.planitstudy.feature.presentation.dday.DdayViewModel
+import androidx.fragment.app.Fragment
+import com.ctu.planitstudy.databinding.DialogFragmentSubtitleBinding
 
-class SingleTitleCheckDialog : DialogFragment() {
+
+class SubTitleCheckDialog : DialogFragment() {
 
     val TAG = "Representative - 로그"
 
@@ -21,15 +24,14 @@ class SingleTitleCheckDialog : DialogFragment() {
         isCancelable = false
     }
 
-    private lateinit var binding: DialogFragmentSingleTitleDdayBinding
-    private val viewModel: DdayViewModel by activityViewModels()
+    private lateinit var binding: DialogFragmentSubtitleBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogFragmentSingleTitleDdayBinding.inflate(inflater, container, false)
+        binding = DialogFragmentSubtitleBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
@@ -38,10 +40,29 @@ class SingleTitleCheckDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
-            binding.dialogTitle.text = requireArguments().getString("title")
+            binding.subtitleDialogTitle.text = requireArguments().getString("title", "")
+            binding.subtitleDialogSubTitle.text = requireArguments().getString("subTitle", "")
+            binding.subtitleConfirmedButtonText.text = requireArguments().getString(
+                "buttonText",
+                "확인"
+            )
         }
-        binding.dDayEmptyTitleCheckConfirmed.setOnClickListener {
+        binding.subtitleConfirmedBtn.setOnClickListener {
             this.dismiss()
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        val parentFragment: Fragment? = parentFragment
+        Log.d(TAG, "onDismiss: $parentFragment")
+        if (parentFragment is DialogInterface.OnDismissListener) {
+            (parentFragment as DialogInterface.OnDismissListener?)!!.onDismiss(dialog)
+        }
+
+        val parentActivity: Activity? = activity
+        if(parentActivity is DialogInterface.OnDismissListener){
+            (parentActivity as DialogInterface.OnDismissListener?)!!.onDismiss(dialog)
+        }
+        super.onDismiss(dialog)
     }
 }

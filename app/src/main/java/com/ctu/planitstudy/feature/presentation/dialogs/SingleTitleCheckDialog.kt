@@ -22,7 +22,6 @@ class SingleTitleCheckDialog : DialogFragment() {
     }
 
     private lateinit var binding: DialogFragmentSingleTitleDdayBinding
-    private val viewModel: DdayViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

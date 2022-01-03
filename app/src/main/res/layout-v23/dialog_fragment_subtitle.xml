@@ -20,7 +20,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:text="준비중입니다"
+                    android:id="@+id/subtitle_dialog_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -32,7 +32,7 @@
                     android:layout_marginHorizontal="32dp"
                     />
                 <TextView
-                    android:text="더 나은 서비스를 제공하겠습니다 :)"
+                    android:id="@+id/subtitle_dialog_sub_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="normal"
@@ -53,7 +53,7 @@
                     >
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/ready_check_confirmed"
+                        android:id="@+id/subtitle_confirmed_btn"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         app:cardCornerRadius="23dp"
@@ -63,6 +63,7 @@
                         android:clickable="true"
                         >
                         <TextView
+                            android:id="@+id/subtitle_confirmed_button_text"
                             android:text="확인"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
