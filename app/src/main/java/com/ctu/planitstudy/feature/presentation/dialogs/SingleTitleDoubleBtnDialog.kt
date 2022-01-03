@@ -13,7 +13,6 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.ctu.planitstudy.databinding.DialogFragmentSingleTitleDoubleButtonBinding
-import com.ctu.planitstudy.databinding.DialogFragmentSubtitleBinding
 
 class SingleTitleDoubleBtnDialog : DialogFragment() {
 
