@@ -3,11 +3,12 @@ package com.ctu.planitstudy.feature.data.data_source.googleadomb
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import com.ctu.planitstudy.core.util.CoreData.FULL_PAGE_ADVERTISING_ID
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
@@ -33,7 +34,7 @@ class GoogleAdmob private constructor(
         adRequest = AdRequest.Builder().build()
     }
 
-    fun getInterstitialAd(): Boolean = when(adType){
+    fun getInterstitialAd(): Boolean = when (adType) {
         GoogleAdType.FullPage -> mInterstitialAd != null
         GoogleAdType.Rewarded -> rewardAd != null
     }
@@ -79,25 +80,27 @@ class GoogleAdmob private constructor(
                 )
             }
             GoogleAdType.Rewarded -> {
-                RewardedAd.load(context, adId, adRequest, object: RewardedAdLoadCallback(){
-                    override fun onAdLoaded(rewardAd: RewardedAd) {
-                        if (onAdLoadedFun != null) {
-                            onAdLoadedFun()
+                RewardedAd.load(
+                    context, adId, adRequest,
+                    object : RewardedAdLoadCallback() {
+                        override fun onAdLoaded(rewardAd: RewardedAd) {
+                            if (onAdLoadedFun != null) {
+                                onAdLoadedFun()
+                            }
+                            this@GoogleAdmob.rewardAd = rewardAd
                         }
-                        this@GoogleAdmob.rewardAd = rewardAd
-                    }
 
-                    override fun onAdFailedToLoad(p0: LoadAdError) {
-                        if (onFailedLoad != null) {
-                            onFailedLoad()
+                        override fun onAdFailedToLoad(p0: LoadAdError) {
+                            if (onFailedLoad != null) {
+                                onFailedLoad()
+                            }
+                            this@GoogleAdmob.rewardAd = null
                         }
-                        this@GoogleAdmob.rewardAd = null
                     }
-                })
+                )
                 this@GoogleAdmob.rewardAd
             }
         }
-
     }
 
     fun InterstitialAdCallback(
@@ -158,11 +161,11 @@ class GoogleAdmob private constructor(
         onFailedLoad: (() -> Unit)? = null,
         onShowed: (() -> Unit)? = null
     ) {
-        when(adType){
+        when (adType) {
             GoogleAdType.FullPage -> {
                 if (mInterstitialAd != null) {
                     mInterstitialAd?.show(activity)
-                    if(onShowed != null)
+                    if (onShowed != null)
                         onShowed()
                 } else {
                     if (onFailedLoad != null)
@@ -186,6 +189,5 @@ class GoogleAdmob private constructor(
                 }
             }
         }
-       
     }
 }

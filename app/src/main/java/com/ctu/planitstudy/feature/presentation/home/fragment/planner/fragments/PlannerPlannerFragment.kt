@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.planner.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -82,8 +81,6 @@ class PlannerPlannerFragment :
                 layoutManager = LinearLayoutManager(context)
                 adapter = studyListRecyclerAdapter
             }
-
-
         }
 
         binding.plannerPlannerCustomCalendar.apply {

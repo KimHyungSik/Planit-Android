@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateConvter
@@ -16,7 +15,6 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
 import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.analysis.recycler.AchievementRateListRecyclerAdapter
-import com.ctu.planitstudy.feature.presentation.home.fragment.planner.PlannerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 

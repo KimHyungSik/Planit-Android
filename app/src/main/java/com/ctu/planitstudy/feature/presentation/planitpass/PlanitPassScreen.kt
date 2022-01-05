@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.core.base.BaseBindingActivity
-import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob

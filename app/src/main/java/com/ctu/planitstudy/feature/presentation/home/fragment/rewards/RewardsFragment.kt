@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
-import com.ctu.planitstudy.core.util.CoreData.FULL_PAGE_ADVERTISING_ID
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
@@ -37,7 +36,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override val viewModel: RewardViewModel by activityViewModels<RewardViewModel>()
 
     private var isAnimated = false
-    private lateinit var googleAdmob : GoogleAdmob
+    private lateinit var googleAdmob: GoogleAdmob
 
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
