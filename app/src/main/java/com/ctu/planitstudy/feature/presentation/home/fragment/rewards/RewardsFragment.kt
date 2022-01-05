@@ -36,7 +36,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override val viewModel: RewardViewModel by activityViewModels<RewardViewModel>()
 
     private var isAnimated = false
-    private val googleAdmob = GoogleAdmob()
+    private lateinit var googleAdmob : GoogleAdmob
 
     val requestActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult() // ◀ StartActivityForResult 처리를 담당
