@@ -9,6 +9,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected lateinit var binding: VB
@@ -16,6 +21,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     abstract val viewModel: VM
 
     lateinit var loading: LoadingDialog
+    var loadingState: Boolean = false
+    val loadingJob = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +62,20 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 
     open fun showLoading() {
+        loadingJob.cancel()
+        loadingState = true
         loading.show()
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(3000)
+            if (loadingState) {
+                dismiss()
+            }
+        }
     }
 
     open fun dismiss() {
         loading.dismiss()
+        loadingState = false
     }
 
     open fun setUpViews() {}
