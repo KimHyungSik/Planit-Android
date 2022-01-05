@@ -14,6 +14,7 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.CoreData.FULL_PAGE_ADVERTISING_ID
 import com.ctu.planitstudy.core.util.setColor
 import com.ctu.planitstudy.databinding.FragmentRewardsBinding
+import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
@@ -48,6 +49,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     override fun setInit() {
         super.setInit()
+
+        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.FullPage).build(requireContext())
+
         viewModel.getReward()
         googleLoad()
 
@@ -105,7 +109,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
 
     fun touchRewardStar() {
         if (!isAnimated && viewModel.rewardDto.value!!.star >= 50) {
-            if (googleAdmob.getInterstitialAd() != null) {
+            if (googleAdmob.getInterstitialAd()) {
                 googleAdmob.InterstitialAdShow(
                     activity = requireActivity(),
                     onFailedLoad = {
@@ -114,6 +118,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
                     }
                 )
             } else {
+                googleLoad()
                 getPoint()
             }
         }
@@ -152,8 +157,6 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         Log.d(TAG, "googleLoad: init")
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
-            requireContext(),
-            FULL_PAGE_ADVERTISING_ID,
             onAdLoadedFun = {
                 Log.d(TAG, "googleLoad: done")
                 googleAdmob.InterstitialAdCallback(

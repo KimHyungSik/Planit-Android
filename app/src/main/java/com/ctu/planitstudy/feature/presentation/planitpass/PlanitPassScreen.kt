@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
+import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
@@ -31,7 +32,7 @@ class PlanitPassScreen :
     var passTitle = ""
     var passEarendStars = ""
 
-    private val googleAdmob = GoogleAdmob()
+    private lateinit var googleAdmob: GoogleAdmob
 
     val TAG = "PlanitPassScreen - 로그"
 
@@ -39,6 +40,9 @@ class PlanitPassScreen :
         binding.activity = this
         binding.viewmodel = viewModel
         viewModel.rewardDto = intent.getParcelableExtra<RewardDto>("reward") ?: RewardDto(0, 0, 0)
+
+        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.Rewarded).build(this)
+
         with(binding.planitPassPlanitViewPager) {
 
             apply {
@@ -118,17 +122,10 @@ class PlanitPassScreen :
     private fun googleLoad() {
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
-            this,
-            CoreData.REWAARDED_ADVERTISING_ID,
             onAdLoadedFun = {
                 Log.d(TAG, "googleLoad: ")
                 viewModel.loadingDismiss()
-                googleAdmob.InterstitialAdCallback(
-                    onAdDismissed = {
-                        googleLoad()
-                        convertPoint()
-                    }
-                )
+                googleAdmob.InterstitialAdCallback()
             },
             onFailedLoad = {
                 viewModel.loadingDismiss()
@@ -143,9 +140,13 @@ class PlanitPassScreen :
             arg.putString("title", "보유중인 플래닛 패스가 없습니다.")
             showDialogFragment(arg, SingleTitleCheckDialog())
         } else {
-            if (googleAdmob.getInterstitialAd() != null) {
+            if (googleAdmob.getInterstitialAd()) {
                 googleAdmob.InterstitialAdShow(
                     this,
+                    onShowed = {
+                        googleLoad()
+                        convertPoint()
+                    },
                     onFailedLoad = { convertPoint() }
                 )
             } else {
