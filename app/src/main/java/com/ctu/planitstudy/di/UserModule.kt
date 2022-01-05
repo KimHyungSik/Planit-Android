@@ -8,7 +8,11 @@ import com.ctu.planitstudy.feature.data.remote.UserApi
 import com.ctu.planitstudy.feature.data.remote.UserAuthApi
 import com.ctu.planitstudy.feature.data.repository.UserRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
-import com.ctu.planitstudy.feature.domain.use_case.user.*
+import com.ctu.planitstudy.feature.domain.use_case.user.EditUserUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.GetUserUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserValidateNickNameUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

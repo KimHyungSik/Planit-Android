@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.core.util.longToTimeString
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
-import java.util.*
+import java.util.Timer
 
 class TimerViewModel :
     BaseViewModel() {

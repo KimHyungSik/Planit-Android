@@ -12,7 +12,6 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBottomSheetFragment
 import com.ctu.planitstudy.databinding.DialogBottomCalendarBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.util.*
 
 class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBinding>() {
 
@@ -31,11 +30,6 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
         this.bottomSheetCalendar = bottomSheetCalendar
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isCancelable = false
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), R.style.NewDialog)
         return dialog
@@ -49,6 +43,8 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
         super.onCreateView(inflater, container, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog?.setCanceledOnTouchOutside(true)
+        dialog?.setCancelable(true)
         currentDate = arguments?.getLong("date")
         return binding.root
     }

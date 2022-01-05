@@ -24,20 +24,26 @@ class SignUserCategory : BaseFragment<FragmentSignUpUserCategoryBinding, SignUpV
         disposables.add(
             RxRadioGroup.checkedChanges(binding.signUpCategoryRadioGroupLeft)
                 .filter { it -> it != -1 }
-                .subscribe({
-                    binding.signUpCategoryRadioGroupRight.clearCheck()
-                    val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
-                    viewModel.updateSignState(state)
-                }, {})
+                .subscribe(
+                    {
+                        binding.signUpCategoryRadioGroupRight.clearCheck()
+                        val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
+                        viewModel.updateSignState(state)
+                    },
+                    {}
+                )
         )
         disposables.add(
             RxRadioGroup.checkedChanges(binding.signUpCategoryRadioGroupRight)
                 .filter { it -> it != -1 }
-                .subscribe({
-                    binding.signUpCategoryRadioGroupLeft.clearCheck()
-                    val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
-                    viewModel.updateSignState(state)
-                }, {})
+                .subscribe(
+                    {
+                        binding.signUpCategoryRadioGroupLeft.clearCheck()
+                        val state = viewModel.liveData.value!!.copy(category = findCategoryFromView(it)!!.category)
+                        viewModel.updateSignState(state)
+                    },
+                    {}
+                )
         )
     }
 

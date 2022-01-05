@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.date_util.DateConvter
@@ -28,7 +28,7 @@ class AnalysisDailyReportFragment :
     override val bindingInflater: (LayoutInflater) -> FragmentAnalysisDailyReportBinding
         get() = FragmentAnalysisDailyReportBinding::inflate
 
-    override val viewModel: AnalysisViewModel by viewModels()
+    override val viewModel: AnalysisViewModel by activityViewModels<AnalysisViewModel>()
 
     private lateinit var achievementRateListRecyclerAdapter: AchievementRateListRecyclerAdapter
     private var currentDate = LocalDate.now().toString()
@@ -56,60 +56,66 @@ class AnalysisDailyReportFragment :
                 showCalendar(DateConvter.dtoDateTOLong(currentDate))
             }
         }
-        viewModel.studyDto.observe(this, {
+        viewModel.studyDto.observe(
+            this,
+            {
 
-            currentDateText = DateConvter.dtoDateToTextDate(currentDate)
-            if (it.studies.isNotEmpty()) {
-                listEmptyView(false)
+                currentDateText = DateConvter.dtoDateToTextDate(currentDate)
+                if (it.studies.isNotEmpty()) {
+                    listEmptyView(false)
 
-                var tempTotalTime: Int = 0
-                var mostStudy: StudyDto? = null
-                var studyIsDone = 0
+                    var tempTotalTime: Int = 0
+                    var mostStudy: StudyDto? = null
+                    var studyIsDone = 0
 
-                for (n in it.studies) {
-                    studyIsDone += if (n.isDone) 1 else 0
-                    tempTotalTime += n.recordedTime
-                    if (mostStudy == null) mostStudy = n
-                    else {
-                        if (mostStudy.recordedTime < n.recordedTime) mostStudy = n
+                    for (n in it.studies) {
+                        studyIsDone += if (n.isDone) 1 else 0
+                        tempTotalTime += n.recordedTime
+                        if (mostStudy == null) mostStudy = n
+                        else {
+                            if (mostStudy.recordedTime < n.recordedTime) mostStudy = n
+                        }
                     }
-                }
 
-                totalTime = "${tempTotalTime.toLong().longToTimeKorString()} 공부했어요"
-                mostStudyTitle = mostStudy!!.title
-                mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeKorString()
-                studyCounter = "$studyIsDone/${it.studies.size}"
-                val percent = ((studyIsDone / it.studies.size) * 100).toInt()
-                studyIsDonePercent = "$percent%"
-                binding.analysisFragmentStudyTimeLineProgress.max = it.studies.size
-                binding.analysisFragmentStudyTimeLineProgress.progress = studyIsDone
+                    totalTime = "${tempTotalTime.toLong().longToTimeKorString()} 공부했어요"
+                    mostStudyTitle = mostStudy!!.title
+                    mostStudyTime = mostStudy!!.recordedTime.toLong().longToTimeKorString()
+                    studyCounter = "$studyIsDone/${it.studies.size}"
+                    val percent = ((studyIsDone / it.studies.size) * 100).toInt()
+                    studyIsDonePercent = "$percent%"
+                    binding.analysisFragmentStudyTimeLineProgress.max = it.studies.size
+                    binding.analysisFragmentStudyTimeLineProgress.progress = studyIsDone
 
-                // 공부는 있지만 측정 시간이 없는 경우
-                if (tempTotalTime == 0) {
+                    // 공부는 있지만 측정 시간이 없는 경우
+                    if (tempTotalTime == 0) {
+                        listEmptyView(true)
+                        with(binding) {
+                            achievementRateEmptyImg.visibility = View.GONE
+                            analysisFragmentAchievementRateCheckTitle.visibility = View.VISIBLE
+                            analysisFragmentAchievementRateCheckColumn.visibility = View.VISIBLE
+                            analysisFragmentAchievementRateCheckImg.visibility = View.VISIBLE
+                        }
+                        totalTime = "타이머 측정 시간이 없습니다"
+                    }
+                } else {
                     listEmptyView(true)
-                    with(binding) {
-                        achievementRateEmptyImg.visibility = View.GONE
-                        analysisFragmentAchievementRateCheckTitle.visibility = View.VISIBLE
-                        analysisFragmentAchievementRateCheckColumn.visibility = View.VISIBLE
-                        analysisFragmentAchievementRateCheckImg.visibility = View.VISIBLE
-                    }
                     totalTime = "타이머 측정 시간이 없습니다"
                 }
-            } else {
-                listEmptyView(true)
-                totalTime = "타이머 측정 시간이 없습니다"
+                binding.invalidateAll()
             }
-            binding.invalidateAll()
-        })
+        )
 
-        viewModel.studyTimeLineDto.observe(this, {
-            val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
-            params.height = ((110 * it.reports.size).dp).coerceAtMost((286).dp)
-            binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
+        viewModel.studyTimeLineDto.observe(
+            this,
+            {
+                val params = binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams
+                params.height = ((110 * it.reports.size).dp).coerceAtMost((286).dp)
+                binding.analysisFragmentStudyTimeLineRecyclerView.layoutParams = params
 
-            achievementRateListRecyclerAdapter.submitList(it)
-            achievementRateListRecyclerAdapter.notifyDataSetChanged()
-        })
+                achievementRateListRecyclerAdapter.submitList(it)
+                achievementRateListRecyclerAdapter.notifyDataSetChanged()
+            }
+        )
 
         viewModel.getStudyList(currentDate)
         viewModel.getStudyTimeLIne(currentDate)

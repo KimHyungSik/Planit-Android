@@ -3,7 +3,11 @@ package com.ctu.planitstudy.di
 import com.ctu.planitstudy.feature.data.remote.RewardApi
 import com.ctu.planitstudy.feature.data.repository.RewardRepositoryImp
 import com.ctu.planitstudy.feature.domain.repository.RewardRepository
-import com.ctu.planitstudy.feature.domain.use_case.reward.*
+import com.ctu.planitstudy.feature.domain.use_case.reward.ConvertPlanitPassToPointUseCase
+import com.ctu.planitstudy.feature.domain.use_case.reward.ConvertStarToPointUseCase
+import com.ctu.planitstudy.feature.domain.use_case.reward.GetPlanetPassListUseCase
+import com.ctu.planitstudy.feature.domain.use_case.reward.GetRewardUseCase
+import com.ctu.planitstudy.feature.domain.use_case.reward.RewardUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -6,7 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ctu.planitstudy.feature.presentation.planitpass.fragment.FragmentChallengePlanit
 import com.ctu.planitstudy.feature.presentation.planitpass.fragment.FragmentFunPlanit
 import com.ctu.planitstudy.feature.presentation.planitpass.fragment.FragmentSafePlanit
-import com.ctu.planitstudy.feature.presentation.sign_up.fragment.*
 
 class PlanitFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {

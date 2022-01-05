@@ -22,7 +22,6 @@ import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
@@ -116,48 +115,54 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
         }
 
         viewModel.apply {
-            studyState.observe(this@StudyScreen, {
-                // 매일을 제외한 모든 날을 선택시 매일 을 활성화
-                // 나머지 요일을 비활성화
-                if (listsEqual(
-                        it.activationWeek, it.week
-                    )
-                ) {
-                    viewModel.clearCheckWeek()
-                    viewModel.changeCheckWeek(Weekday.All.ordinal, true)
+            studyState.observe(
+                this@StudyScreen,
+                {
+                    // 매일을 제외한 모든 날을 선택시 매일 을 활성화
+                    // 나머지 요일을 비활성화
+                    if (listsEqual(
+                            it.activationWeek, it.week
+                        )
+                    ) {
+                        viewModel.clearCheckWeek()
+                        viewModel.changeCheckWeek(Weekday.All.ordinal, true)
+                    }
+                    checkBoxList.forEachIndexed { index, checkbox ->
+                        checkbox.isChecked = it.week.contains(Weekday.values()[index])
+                    }
                 }
-                checkBoxList.forEachIndexed { index, checkbox ->
-                    checkbox.isChecked = it.week.contains(Weekday.values()[index])
-                }
-            })
+            )
         }
 
         // 팝업 상태 관리
-        viewModel.studyDialogState.observe(this, {
-            val arg = Bundle()
+        viewModel.studyDialogState.observe(
+            this,
+            {
+                val arg = Bundle()
 
-            if (it.emptyTitleDialog) {
-                arg.putString("title", getString(R.string.empty_dialog_fragment))
-                showDialogFragment(arg, SingleTitleCheckDialog())
+                if (it.emptyTitleDialog) {
+                    arg.putString("title", getString(R.string.empty_dialog_fragment))
+                    showDialogFragment(arg, SingleTitleCheckDialog())
+                }
+
+                if (it.validatedTitle) {
+                    arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
+                    showDialogFragment(arg, SingleTitleCheckDialog())
+                }
+
+                if (it.editError) {
+                    arg.putString("title", getString(R.string.study_edit_error))
+                    showDialogFragment(arg, SingleTitleCheckDialog())
+                }
+
+                if (it.addStudy || it.exitStudy)
+                    moveIntentAllClear(Screens.HomeScreenSh.activity)
+
+                if (it.deleteDialog) {
+                    showDialogFragment(arg, DeleteCheckStudy())
+                }
             }
-
-            if (it.validatedTitle) {
-                arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
-                showDialogFragment(arg, SingleTitleCheckDialog())
-            }
-
-            if(it.editError){
-                arg.putString("title", getString(R.string.study_edit_error))
-                showDialogFragment(arg, SingleTitleCheckDialog())
-            }
-
-            if (it.addStudy || it.exitStudy)
-                moveIntentAllClear(Screens.HomeScreenSh.activity)
-
-            if (it.deleteDialog) {
-                showDialogFragment(arg, DeleteCheckStudy())
-            }
-        })
+        )
 
         disposables.addAll(
             RxTextView.textChanges(binding.studyEditTitle)

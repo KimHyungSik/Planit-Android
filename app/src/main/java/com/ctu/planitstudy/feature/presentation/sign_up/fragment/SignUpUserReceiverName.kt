@@ -26,21 +26,27 @@ class SignUpUserReceiverName :
 
         disposables.add(
             RxTextView.textChanges(binding.signUpReceiverNameEditText)
-                .subscribe({
-                    val state = viewModel.liveData.value!!.copy(
-                        receiverName = it.toString()
-                    )
-                    viewModel.updateSignState(state)
-                }, {})
+                .subscribe(
+                    {
+                        val state = viewModel.liveData.value!!.copy(
+                            receiverName = it.toString()
+                        )
+                        viewModel.updateSignState(state)
+                    },
+                    {}
+                )
         )
 
-        viewModel.failReceiverNickname.observe(this, {
-            if (it) {
-                binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
-                binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
-                binding.signUpReceiverNameErrorText.text = "추천인이 존재 하지 않습니다."
+        viewModel.failReceiverNickname.observe(
+            this,
+            {
+                if (it) {
+                    binding.signUpReceiverNameErrorIcon.visibility = View.VISIBLE
+                    binding.signUpReceiverNameErrorText.visibility = View.VISIBLE
+                    binding.signUpReceiverNameErrorText.text = "추천인이 존재 하지 않습니다."
+                }
             }
-        })
+        )
     }
 
     override fun onDestroy() {
