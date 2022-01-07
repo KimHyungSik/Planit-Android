@@ -166,7 +166,6 @@ class TimerScreen : BaseBindingActivity<ActivityTimerScreenBinding, TimerViewMod
             showStopDialog()
             return false
         }
-
         return super.onKeyDown(keyCode, event)
     }
 }

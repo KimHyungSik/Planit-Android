@@ -52,20 +52,9 @@ class SplashScreen :
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             // 네트워크가 연결될 때 호출됩니다.
-            val appUpdateManager = AppUpdateManagerFactory.create(CashStudyApp.instance)
+
             CoroutineScope(Dispatchers.Main).launch {
-                val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
-                when (appUpdateInfo.updateAvailability()) {
-                    UpdateAvailability.UPDATE_AVAILABLE -> {
-                        // 업데이트 가능한 상태
-                        appUpdateManager.startUpdateFlowForResult(
-                            appUpdateInfo,
-                            AppUpdateType.IMMEDIATE,
-                            this@SplashScreen,
-                            REQUEST_CODE_UPDATE
-                        )
-                    }
-                }
+
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
                         if (!JWTRefreshTokenExpiration().invoke()) {
@@ -81,7 +70,6 @@ class SplashScreen :
     }
 
     override fun setup() {
-        Log.d(TAG, "setup: $this")
         cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val builder = NetworkRequest.Builder()
         cm2.registerNetworkCallback(
