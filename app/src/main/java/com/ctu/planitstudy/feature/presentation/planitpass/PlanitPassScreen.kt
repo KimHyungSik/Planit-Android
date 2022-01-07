@@ -20,7 +20,8 @@ import java.lang.Math.abs
 
 @AndroidEntryPoint
 class PlanitPassScreen :
-    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>() {
+    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>()
+{
 
     override val bindingInflater: (LayoutInflater) -> ActivityPlanitPassScreenBinding
         get() = ActivityPlanitPassScreenBinding::inflate
@@ -154,7 +155,7 @@ class PlanitPassScreen :
         }
     }
 
-    fun convertPoint() {
+    private fun convertPoint() {
         viewModel.convertPassToPoint(viewModel.planetPassList.value!!.PlanetPassList[binding.planitPassPlanitViewPager.currentItem].id)
     }
 

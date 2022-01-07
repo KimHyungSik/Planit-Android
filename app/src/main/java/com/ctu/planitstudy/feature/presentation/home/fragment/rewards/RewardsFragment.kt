@@ -49,7 +49,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override fun setInit() {
         super.setInit()
 
-        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.FullPage).build(requireContext())
+        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.Rewarded).build(requireContext())
 
         viewModel.getReward()
         googleLoad()
