@@ -6,8 +6,6 @@ import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
-import com.google.gson.JsonElement
-import io.reactivex.Flowable
 import javax.inject.Inject
 
 class UserAuthUseCase @Inject constructor(

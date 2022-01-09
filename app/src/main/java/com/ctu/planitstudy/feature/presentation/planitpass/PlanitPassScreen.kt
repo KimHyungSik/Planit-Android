@@ -20,8 +20,7 @@ import java.lang.Math.abs
 
 @AndroidEntryPoint
 class PlanitPassScreen :
-    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>()
-{
+    BaseBindingActivity<ActivityPlanitPassScreenBinding, PlanitPassViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityPlanitPassScreenBinding
         get() = ActivityPlanitPassScreenBinding::inflate

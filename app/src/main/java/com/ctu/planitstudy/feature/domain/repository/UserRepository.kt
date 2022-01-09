@@ -8,8 +8,6 @@ import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
-import com.google.gson.JsonElement
-import io.reactivex.Flowable
 
 interface UserRepository {
     suspend fun userLogin(loginUser: LoginUser): LoginDto

@@ -8,16 +8,13 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
-import com.ctu.planitstudy.feature.data.remote.dto.JsonConverter
 import com.ctu.planitstudy.feature.data.remote.dto.LoginDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,7 +52,7 @@ class LoginViewModel @Inject constructor(
                                                 viewModelScope.launch {
                                                     val login: LoginDto =
                                                         userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
-                                                    if(login.result)
+                                                    if (login.result)
                                                         with(login) {
                                                             CashStudyApp.prefs.accessToken =
                                                                 this.accessToken
