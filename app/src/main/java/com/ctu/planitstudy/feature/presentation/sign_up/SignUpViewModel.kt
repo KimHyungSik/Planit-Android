@@ -23,6 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -179,46 +180,31 @@ class SignUpViewModel @Inject constructor(
                                 receiverNickname = liveData.value?.receiverName!!,
                                 sex = if (isSkip) null else liveData.value?.gender!!,
                             )
-                            (
-                                if (receiverNameSkip)
-                                    userAuthUseCase.userSignUp(signUpUserReceiver)
-                                else
-                                    userAuthUseCase.userSignUp(signUpUser)
-                                )
-                                .subscribeOn(Schedulers.computation())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map { JsonConverter.jsonToSignUpUserDto(it.asJsonObject) }
-                                .subscribe(
-                                    {
-                                        Log.d(TAG, "sendSignUpUserData: $it")
+                            viewModelScope.launch {
+                                try {
+                                    val signUp = (
+                                            if (receiverNameSkip)
+                                                userAuthUseCase.userSignUp(signUpUserReceiver)
+                                            else
+                                                userAuthUseCase.userSignUp(signUpUser)
+                                            )
+                                    with(signUp) {
                                         _signUpUserResponse.value = SignUpUserResponse(
                                             200,
-                                            accessToken = it.accessToken,
-                                            refreshToken = it.refreshToken
+                                            accessToken = this.accessToken,
+                                            refreshToken = this.refreshToken
                                         )
-                                        CashStudyApp.prefs.accessToken = it.accessToken
-                                        CashStudyApp.prefs.refreshToken = it.refreshToken
+                                        CashStudyApp.prefs.accessToken = this.accessToken
+                                        CashStudyApp.prefs.refreshToken = this.refreshToken
                                         _screens.value = Screens.HomeScreenSh
-                                    },
-                                    {
-                                        Log.d(TAG, "sendSignUpUserData: error ${it.message}")
-                                        if (it is HttpException) {
-                                            Log.d(
-                                                TAG,
-                                                "sendSignUpUserData: Error ${
-                                                JSONObject(
-                                                    it.response()!!.errorBody()!!.string()
-                                                )
-                                                }"
-                                            )
-                                            if (it.code() == 404)
-                                                _failReceiverNickname.value = true
-                                            CashStudyApp.prefs.accessToken = ""
-                                            CashStudyApp.prefs.refreshToken = ""
-                                        }
                                     }
-                                )
-                            loadingDismiss()
+                                } catch (e: Exception) {
+                                    _failReceiverNickname.value = true
+                                    CashStudyApp.prefs.accessToken = ""
+                                    CashStudyApp.prefs.refreshToken = ""
+                                }
+                                loadingDismiss()
+                            }
                         }
                         is Resource.Error -> {
                             loadingErrorDismiss()

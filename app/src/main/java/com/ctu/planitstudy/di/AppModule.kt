@@ -2,6 +2,7 @@ package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.core.util.network.AuthInterceptor
+import com.ctu.planitstudy.core.util.network.LogginInterceptor
 import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
 import com.ctu.planitstudy.core.util.network.TokenAuthenticator
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
