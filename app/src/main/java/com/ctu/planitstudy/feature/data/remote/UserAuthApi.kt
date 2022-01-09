@@ -1,35 +1,31 @@
 package com.ctu.planitstudy.feature.data.remote
 
+import com.ctu.planitstudy.feature.data.remote.dto.LoginDto
+import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
-import com.google.gson.JsonElement
-import io.reactivex.Flowable
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface UserAuthApi {
 
-    @Headers("Content-Type: application/json")
     @POST("/v1/auth/login")
-    fun userLogin(
+    suspend fun userLogin(
         @Body loginUser: LoginUser
-    ): Flowable<JsonElement>
+    ): LoginDto
 
-    @Headers("Content-Type: application/json")
     @POST("/v1/user")
-    fun userSignUp(
+    suspend fun userSignUp(
         @Body signUpUser: SignUpUser
-    ): Flowable<JsonElement>
+    ): SignUpUserDto
 
-    @Headers("Content-Type: application/json")
     @POST("/v1/user")
-    fun userSignUp(
+    suspend fun userSignUp(
         @Body signUpUser: SignUpUserReceiver
-    ): Flowable<JsonElement>
+    ): SignUpUserDto
 
     @GET("/v1/user/validate-nickname")
     suspend fun userValidateNickName(@Query("nickname") nickname: String)

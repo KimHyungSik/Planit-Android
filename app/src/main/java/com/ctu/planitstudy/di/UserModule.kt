@@ -39,6 +39,7 @@ object UserModule {
         UserManager(
             kakaoOauth = kakaoOauthImp
         )
+
     @Provides
     fun provideUserAuthApi(): UserAuthApi =
         Retrofit.Builder()

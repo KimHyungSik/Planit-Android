@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
@@ -17,9 +16,6 @@ import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.dialogs.SubTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -52,20 +48,9 @@ class SplashScreen :
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
             // 네트워크가 연결될 때 호출됩니다.
-            val appUpdateManager = AppUpdateManagerFactory.create(CashStudyApp.instance)
+
             CoroutineScope(Dispatchers.Main).launch {
-                val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
-                when (appUpdateInfo.updateAvailability()) {
-                    UpdateAvailability.UPDATE_AVAILABLE -> {
-                        // 업데이트 가능한 상태
-                        appUpdateManager.startUpdateFlowForResult(
-                            appUpdateInfo,
-                            AppUpdateType.IMMEDIATE,
-                            this@SplashScreen,
-                            REQUEST_CODE_UPDATE
-                        )
-                    }
-                }
+
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
                         if (!JWTRefreshTokenExpiration().invoke()) {
@@ -81,7 +66,6 @@ class SplashScreen :
     }
 
     override fun setup() {
-        Log.d(TAG, "setup: $this")
         cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val builder = NetworkRequest.Builder()
         cm2.registerNetworkCallback(

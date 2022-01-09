@@ -154,7 +154,7 @@ class PlanitPassScreen :
         }
     }
 
-    fun convertPoint() {
+    private fun convertPoint() {
         viewModel.convertPassToPoint(viewModel.planetPassList.value!!.PlanetPassList[binding.planitPassPlanitViewPager.currentItem].id)
     }
 
