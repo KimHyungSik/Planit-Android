@@ -63,7 +63,6 @@ class GoogleAdmob private constructor(
                     context, adId, adRequest,
                     object : InterstitialAdLoadCallback() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(TAG, adError?.message)
                             if (onFailedLoad != null) {
                                 onFailedLoad()
                             }
@@ -177,9 +176,8 @@ class GoogleAdmob private constructor(
                     rewardAd?.show(
                         activity
                     ) {
-                        var rewardAmount = it.amount
-                        var rewardType = it.type
-                        Log.d(TAG, "InterstitialAdShow: $rewardAmount, $rewardType")
+                        val rewardAmount = it.amount
+                        val rewardType = it.type
                         if (onShowed != null)
                             onShowed()
                     }
