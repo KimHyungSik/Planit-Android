@@ -8,4 +8,5 @@ object CoreData {
     const val PREFERENCES_NAME = "PlanitStudy"
     const val FULL_PAGE_ADVERTISING_ID = "ca-app-pub-8059978824937636/7835021786"
     const val REWAARDED_ADVERTISING_ID = "ca-app-pub-8059978824937636/9073683897"
+    const val APP_VERSION = "0.1.0.dev"
 }
