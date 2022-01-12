@@ -12,7 +12,6 @@ import retrofit2.http.*
 
 interface UserAuthApi {
 
-    @Headers("version: $APP_VERSION")
     @POST("/v1/auth/login/")
     suspend fun userLogin(
         @Body loginUser: LoginUser
