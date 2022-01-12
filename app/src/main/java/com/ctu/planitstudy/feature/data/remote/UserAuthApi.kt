@@ -1,14 +1,14 @@
 package com.ctu.planitstudy.feature.data.remote
 
-import android.provider.Settings.Global.getString
-import com.ctu.planitstudy.R
-import com.ctu.planitstudy.core.util.CoreData.APP_VERSION
 import com.ctu.planitstudy.feature.data.remote.dto.LoginDto
 import com.ctu.planitstudy.feature.data.remote.dto.SignUpUserDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UserAuthApi {
 
