@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object TimerModule {
 
     @Provides
-    fun provideTimerApi(okHttpClient: OkHttpClient): TimerApi =
+    fun provideTimerApi(@AuthOkhttpClient okHttpClient: OkHttpClient): TimerApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
             .client(okHttpClient)

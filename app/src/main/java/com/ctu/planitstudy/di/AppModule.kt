@@ -2,6 +2,8 @@ package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.CoreData
 import com.ctu.planitstudy.core.util.network.*
+import com.ctu.planitstudy.di.AuthOkhttpClient
+import com.ctu.planitstudy.di.NonAuthOkhttpClient
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,20 +24,31 @@ object AppModule {
     fun providerTokenAuthenticator(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase): TokenAuthenticator =
         TokenAuthenticator(jwtTokenRefreshUseCase)
 
-    @Provides
     @Singleton
-    fun providerOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator): OkHttpClient =
+    @Provides
+    @AuthOkhttpClient
+    fun providerAuthOkhttpClient(jwtTokenRefreshUseCase: JwtTokenRefreshUseCase, tokenAuthenticator: TokenAuthenticator): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
             // 로그 확인용 인터럽트
-            .addInterceptor(LogginInterceptor.loggingInterceptor)
-            .addNetworkInterceptor(LogginInterceptor.interceptor)
+//            .addInterceptor(LogginInterceptor.loggingInterceptor)
+//            .addNetworkInterceptor(LogginInterceptor.interceptor)
             .authenticator(tokenAuthenticator)
             .build()
 
     @Provides
+    @NonAuthOkhttpClient
+    fun providerNonAuthOkhttpClient(): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(AppVersionInterceptor())
+            // 로그 확인용 인터럽트
+//            .addInterceptor(LogginInterceptor.loggingInterceptor)
+//            .addNetworkInterceptor(LogginInterceptor.interceptor)
+            .build()
+
+    @Provides
     @Singleton
-    fun providerRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    fun providerRetrofit(@AuthOkhttpClient okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(CoreData.BASE_SERVER_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())

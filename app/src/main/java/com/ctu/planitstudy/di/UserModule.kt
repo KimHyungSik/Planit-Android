@@ -17,6 +17,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,12 +27,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object UserModule {
 
-    @Singleton
     @Provides
     fun provideKakaoOauthImp(): KakaoOauthImp =
         KakaoOauthImp()
 
-    @Singleton
     @Provides
     fun provideUserManager(
         kakaoOauthImp: KakaoOauthImp
@@ -41,9 +40,10 @@ object UserModule {
         )
 
     @Provides
-    fun provideUserAuthApi(): UserAuthApi =
+    fun provideUserAuthApi(@NonAuthOkhttpClient okhttpClient: OkHttpClient): UserAuthApi =
         Retrofit.Builder()
             .baseUrl(CoreData.BASE_SERVER_URL)
+            .client(okhttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(NullOnEmptyConverterFactory().nullOnEmptyConverterFactory)
