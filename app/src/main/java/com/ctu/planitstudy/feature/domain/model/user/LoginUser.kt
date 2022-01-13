@@ -4,5 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginUser(
     @SerializedName("email")
-    val email: String
+    val email: String,
+    @SerializedName("device")
+    val device: String = "ANDROID"
 )

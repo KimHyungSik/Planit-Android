@@ -18,7 +18,9 @@ data class SignUpUser(
     @SerializedName("personalInformationAgree")
     val personalInformationAgree: Boolean,
     @SerializedName("marketingInformationAgree")
-    val marketingInformationAgree: Boolean
+    val marketingInformationAgree: Boolean,
+    @SerializedName("device")
+    val device: String = "ANDROID"
 )
 
 data class SignUpUserReceiver(
@@ -39,5 +41,7 @@ data class SignUpUserReceiver(
     @SerializedName("marketingInformationAgree")
     val marketingInformationAgree: Boolean,
     @SerializedName("receiverNickname")
-    val receiverNickname: String
+    val receiverNickname: String,
+    @SerializedName("device")
+    val device: String = "ANDROID"
 )
