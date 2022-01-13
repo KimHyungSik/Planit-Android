@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.util.CoreData.APP_VERSION
 import com.ctu.planitstudy.core.util.EmailUtils
 import com.ctu.planitstudy.databinding.FragmentMyBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
@@ -19,6 +20,8 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
 
     override val bindingInflater: (LayoutInflater) -> FragmentMyBinding
         get() = FragmentMyBinding::inflate
+
+    val version = APP_VERSION
 
     override fun setInit() {
         super.setInit()

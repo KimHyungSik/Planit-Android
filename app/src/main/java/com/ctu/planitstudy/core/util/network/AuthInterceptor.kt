@@ -3,6 +3,7 @@ package com.ctu.planitstudy.core.util.network
 import android.content.Intent
 import android.util.Log
 import com.ctu.core.util.Resource
+import com.ctu.planitstudy.core.util.CoreData.APP_VERSION
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.login.LoginScreen
@@ -52,6 +53,10 @@ class AuthInterceptor @Inject constructor(
                 .addHeader(
                     "Authorization",
                     "Bearer " + CashStudyApp.prefs.accessToken ?: ""
+                )
+                .addHeader(
+                    "version",
+                    APP_VERSION
                 )
                 .build()
 

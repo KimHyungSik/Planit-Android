@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.rewards
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -49,7 +48,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     override fun setInit() {
         super.setInit()
 
-        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.Rewarded).build(requireContext())
+        googleAdmob = GoogleAdmob.Builder().googleAdType(GoogleAdType.FullPage).build(requireContext())
 
         viewModel.getReward()
         googleLoad()
@@ -153,11 +152,9 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
     }
 
     private fun googleLoad() {
-        Log.d(TAG, "googleLoad: init")
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
             onAdLoadedFun = {
-                Log.d(TAG, "googleLoad: done")
                 googleAdmob.InterstitialAdCallback(
                     onAdDismissed = {
                         googleLoad()
