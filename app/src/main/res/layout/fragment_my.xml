@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:paddingVertical="26dp"
-                android:onClick="@{()->activity.termsOfService()}"
+                android:onClick="@{()->activity.showTermsOfServiceDetail()}"
                 >
 
                 <TextView
