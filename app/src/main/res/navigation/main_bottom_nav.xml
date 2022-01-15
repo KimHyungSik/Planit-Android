@@ -37,7 +37,7 @@
         android:label="RewardsFragment"/>
     <fragment
         android:id="@+id/termsOfServiceDetail"
-        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetail"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment"
         android:label="fragment_terms_of_service_detail"
         tools:layout="@layout/fragment_terms_of_service_detail" />
 
