@@ -1,11 +1,11 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.ctu.planitstudy.databinding.FragmentTermsOfServiceDetailBinding
 import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
@@ -14,7 +14,7 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofserviced
 
 class TermsOfServiceDetailFragment : Fragment() {
 
-    companion object{
+    companion object {
         val TITLE = "서비스 이용약관"
     }
 
@@ -32,9 +32,9 @@ class TermsOfServiceDetailFragment : Fragment() {
         TermsOfServiceList("탈퇴하기", ""),
     )
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTermsOfServiceDetailBinding.inflate(inflater, container, false)
@@ -46,7 +46,7 @@ class TermsOfServiceDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding.termsOfServiceRecyclerView){
+        with(binding.termsOfServiceRecyclerView) {
             adapter = termsOfServiceAdapter
         }
 
@@ -62,22 +62,21 @@ class TermsOfServiceDetailFragment : Fragment() {
             ToolBarHelper.hideToolbar(act)
         }
         bottomNavController(true)
-
     }
 
-    fun showToolbar(){
+    fun showToolbar() {
         (activity as AppCompatActivity)?.let { act ->
             ToolBarHelper.showToolbarWithBackButton(
                 act,
                 TITLE,
-                buttonListener = {findNavController().popBackStack()}
+                buttonListener = { findNavController().popBackStack() }
             )
         }
     }
 
-    fun bottomNavController(visible : Boolean){
+    fun bottomNavController(visible: Boolean) {
         activity?.let { act ->
-            if(act is HomeScreen){
+            if (act is HomeScreen) {
                 act.visibleBottomNav(visible)
             }
         }

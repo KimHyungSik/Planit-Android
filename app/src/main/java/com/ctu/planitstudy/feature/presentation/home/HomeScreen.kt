@@ -10,7 +10,6 @@ import androidx.navigation.ui.NavigationUI
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityHomeScreenBinding
-import com.ctu.planitstudy.feature.data.remote.dto.user.UserInformationDto
 import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +18,6 @@ class HomeScreen :
     BaseBindingActivity<ActivityHomeScreenBinding, HomeScreenViewModel>() {
     override val bindingInflater: (LayoutInflater) -> ActivityHomeScreenBinding
         get() = ActivityHomeScreenBinding::inflate
-
 
     private val _bottomNavVisible = MutableLiveData<Boolean>()
     val bottomNavVisible: LiveData<Boolean> = _bottomNavVisible
@@ -41,7 +39,7 @@ class HomeScreen :
         binding.lifecycleOwner = this
     }
 
-    fun visibleBottomNav(visible : Boolean){
+    fun visibleBottomNav(visible: Boolean) {
         _bottomNavVisible.value = visible
     }
 

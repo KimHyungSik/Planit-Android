@@ -10,10 +10,10 @@ import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofserviced
 
 class TermsOfServiceAdapter : RecyclerView.Adapter<TermsOfServiceAdapter.TermsOfServiceHolder>() {
 
-    private var termsOfServiceList : MutableList<TermsOfServiceList> = ArrayList()
+    private var termsOfServiceList: MutableList<TermsOfServiceList> = ArrayList()
 
-    inner class TermsOfServiceHolder(private val binding: ItemTermOfServiceBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(termsOfServiceList : TermsOfServiceList){
+    inner class TermsOfServiceHolder(private val binding: ItemTermOfServiceBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(termsOfServiceList: TermsOfServiceList) {
             binding.item = termsOfServiceList
         }
     }
@@ -37,7 +37,7 @@ class TermsOfServiceAdapter : RecyclerView.Adapter<TermsOfServiceAdapter.TermsOf
         return termsOfServiceList.size
     }
 
-    fun setList(termsOfServiceList: List<TermsOfServiceList>){
+    fun setList(termsOfServiceList: List<TermsOfServiceList>) {
         this.termsOfServiceList = termsOfServiceList.toMutableList()
         notifyDataSetChanged()
     }

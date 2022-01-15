@@ -79,7 +79,7 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
         moveIntent(Screens.TermsOfUseSh.activity)
     }
 
-    fun showTermsOfServiceDetail(){
+    fun showTermsOfServiceDetail() {
         findNavController().navigate(R.id.action_myFragment_to_termsOfServiceDetail)
     }
 }
