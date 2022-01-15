@@ -140,7 +140,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:paddingVertical="26dp"
-                android:onClick="@{()->activity.termsOfService()}"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="앱 리뷰 남기기"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/module_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:paddingVertical="26dp"
+                android:onClick="@{()->activity.showTermsOfServiceDetail()}"
                 >
 
                 <TextView

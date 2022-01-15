@@ -3,6 +3,8 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.my
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.core.util.CoreData.APP_VERSION
 import com.ctu.planitstudy.core.util.EmailUtils
@@ -75,5 +77,9 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
 
     fun termsOfService() {
         moveIntent(Screens.TermsOfUseSh.activity)
+    }
+
+    fun showTermsOfServiceDetail() {
+        findNavController().navigate(R.id.action_myFragment_to_termsOfServiceDetail)
     }
 }

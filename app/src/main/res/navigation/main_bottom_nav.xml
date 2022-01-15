@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_bottom_nav"
     app:startDestination="@id/homeFragment"
     >
@@ -19,7 +20,11 @@
     <fragment
         android:id="@+id/myFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.MyFragment"
-        android:label="MyFragment"/>
+        android:label="MyFragment">
+        <action
+            android:id="@+id/action_myFragment_to_termsOfServiceDetail"
+            app:destination="@id/termsOfServiceDetail" />
+    </fragment>
 
     <fragment
         android:id="@+id/plannerFragment"
@@ -30,5 +35,10 @@
         android:id="@+id/rewardsFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.rewards.RewardsFragment"
         android:label="RewardsFragment"/>
+    <fragment
+        android:id="@+id/termsOfServiceDetail"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment"
+        android:label="fragment_terms_of_service_detail"
+        tools:layout="@layout/fragment_terms_of_service_detail" />
 
 </navigation>
