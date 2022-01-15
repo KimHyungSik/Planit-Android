@@ -5,12 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.ctu.planitstudy.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.ctu.planitstudy.databinding.FragmentTermsOfServiceDetailBinding
+import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
+import com.ctu.planitstudy.feature.presentation.home.HomeScreen
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.adapter.TermsOfServiceAdapter
 
 class TermsOfServiceDetailFragment : Fragment() {
+
+    companion object{
+        val TITLE = "서비스 이용약관"
+    }
 
     private var _binding: FragmentTermsOfServiceDetailBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +39,7 @@ class TermsOfServiceDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentTermsOfServiceDetailBinding.inflate(inflater, container, false)
         val view = binding.root
+        showToolbar()
         return view
     }
 
@@ -42,11 +49,37 @@ class TermsOfServiceDetailFragment : Fragment() {
         with(binding.termsOfServiceRecyclerView){
             adapter = termsOfServiceAdapter
         }
+
         termsOfServiceAdapter.setList(termsOfServiceList)
+
+        bottomNavController(false)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        (activity as AppCompatActivity)?.let { act ->
+            ToolBarHelper.hideToolbar(act)
+        }
+        bottomNavController(true)
+
+    }
+
+    fun showToolbar(){
+        (activity as AppCompatActivity)?.let { act ->
+            ToolBarHelper.showToolbarWithBackButton(
+                act,
+                TITLE,
+                buttonListener = {findNavController().popBackStack()}
+            )
+        }
+    }
+
+    fun bottomNavController(visible : Boolean){
+        activity?.let { act ->
+            if(act is HomeScreen){
+                act.visibleBottomNav(visible)
+            }
+        }
     }
 }
