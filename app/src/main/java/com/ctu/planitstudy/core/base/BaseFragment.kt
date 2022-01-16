@@ -16,13 +16,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
-    protected lateinit var binding: VB
+
+    private var _binding: ViewBinding? = null
+    protected val binding: VB
+        get() = _binding as VB
     abstract val bindingInflater: (LayoutInflater) -> VB
     abstract val viewModel: VM
 
     lateinit var loading: LoadingDialog
     var loadingState: Boolean = false
-    val loadingJob = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +64,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 
     open fun showLoading() {
-        loadingJob.cancel()
         loadingState = true
         loading.show()
         CoroutineScope(Dispatchers.Default).launch {
@@ -88,7 +89,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     // fragment 최초 설정
     private fun init() {
-        binding = bindingInflater.invoke(layoutInflater)
+        _binding = bindingInflater.invoke(layoutInflater)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onDestroyView() {
