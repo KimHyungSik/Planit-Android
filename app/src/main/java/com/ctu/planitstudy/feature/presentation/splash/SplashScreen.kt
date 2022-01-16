@@ -49,7 +49,7 @@ class SplashScreen :
         override fun onAvailable(network: Network) {
             // 네트워크가 연결될 때 호출됩니다.
 
-            CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.Main + mainJob).launch {
 
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
@@ -87,7 +87,7 @@ class SplashScreen :
     }
 
     private fun showNetworkErrorDialog() {
-        CoroutineScope(Dispatchers.Main + networkCheckJob).launch {
+        CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
             val arg = Bundle()
             arg.putString("title", getString(R.string.network_error_title))

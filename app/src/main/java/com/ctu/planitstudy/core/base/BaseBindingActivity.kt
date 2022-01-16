@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
+import kotlinx.coroutines.Job
 
 abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : BaseActivity() {
+
+    open val mainJob = Job()
 
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater) -> VB
@@ -51,8 +54,9 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         viewModel.loadingDismiss()
         _binding = null
-        super.onDestroy()
+        mainJob.cancel()
     }
 }
