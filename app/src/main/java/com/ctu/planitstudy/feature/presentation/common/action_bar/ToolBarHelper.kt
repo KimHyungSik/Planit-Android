@@ -28,7 +28,7 @@ class ToolBarHelper {
                 title?.let { actionBar.setTitle(title) }
                 titleResId?.let { actionBar.setTitle(titleResId) }
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back)
-                actionBar.setDisplayHomeAsUpEnabled(false)
+                actionBar.setDisplayHomeAsUpEnabled(true)
                 buttonListener?.let { listener ->
                     activity.findViewById<MaterialToolbar>(R.id.toolbar_layout)
                         .setNavigationOnClickListener {
