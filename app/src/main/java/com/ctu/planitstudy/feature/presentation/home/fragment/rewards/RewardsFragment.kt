@@ -127,7 +127,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         binding.rewardsFragmentMainRewardLottie.setAnimation(R.raw.reward_star_lottie)
         binding.rewardsFragmentMainRewardLottie.playAnimation()
 
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.Main + mainJob).launch {
             delay(binding.rewardsFragmentMainRewardLottie.duration)
             viewModel.convertStarToPoint()
             isAnimated = false

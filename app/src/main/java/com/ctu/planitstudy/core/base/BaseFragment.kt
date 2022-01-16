@@ -26,6 +26,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     lateinit var loading: LoadingDialog
     var loadingState: Boolean = false
 
+    open val mainJob = Job()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
@@ -66,7 +68,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     open fun showLoading() {
         loadingState = true
         loading.show()
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.Default + mainJob).launch {
             delay(3000)
             if (loadingState) {
                 dismiss()
@@ -95,6 +97,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        dismiss()
+        mainJob.cancel()
     }
 
     override fun onDestroyView() {

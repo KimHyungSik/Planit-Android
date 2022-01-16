@@ -94,7 +94,7 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding, EditUs
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe(
                     {
-                        CoroutineScope(Dispatchers.Main).launch {
+                        CoroutineScope(Dispatchers.Main + mainJob).launch {
                             with(binding.editUserNicknameErrorText) {
                                 text = ""
                                 if (!it.toString().isValidText()) {
