@@ -6,20 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.ctu.planitstudy.R
+import com.ctu.planitstudy.core.base.BaseFragment
+import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.databinding.FragmentWithdrawalBinding
 import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class WithdrawalFragment : Fragment() {
+@AndroidEntryPoint
+class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalViewModel>() {
+
+    override val bindingInflater: (LayoutInflater) -> FragmentWithdrawalBinding
+        get() = FragmentWithdrawalBinding::inflate
+    override val viewModel by activityViewModels<WithdrawalViewModel>()
 
     companion object{
         const val TITLE = "탈퇴하기"
     }
 
-    private var _binding: FragmentWithdrawalBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +36,17 @@ class WithdrawalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWithdrawalBinding.inflate(inflater, container, false)
         showToolbar()
+
+        binding.vm = viewModel
+        binding.lifecycleOwner = this
+
+        viewModel.getReward()
+
         return binding.root
     }
 
-    fun showToolbar() {
+    private fun showToolbar() {
         (activity as AppCompatActivity)?.let { act ->
             ToolBarHelper.showToolbarWithBackButton(
                 act,
@@ -44,9 +56,8 @@ class WithdrawalFragment : Fragment() {
         }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
     }
+
 }

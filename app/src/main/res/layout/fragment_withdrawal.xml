@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".feature.presentation.home.fragment.my.withdrawal.WithdrawalFragment"
+    >
+
+    <data>
+        <variable
+            name="vm"
+            type="com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal.WithdrawalViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.presentation.home.fragment.my.withdrawal.WithdrawalFragment"
+
     android:background="@color/navy_blue_back_ground">
 
     <TextView
@@ -58,7 +69,7 @@
                 android:layout_marginVertical="27dp"
                 />
             <TextView
-                android:text="0P"
+                android:text="@{vm.rewardDto.point + `P`}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,3 +100,4 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
