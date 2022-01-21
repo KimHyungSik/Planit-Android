@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeScreen :
     BaseBindingActivity<ActivityHomeScreenBinding, HomeScreenViewModel>() {
+    override val viewModel: HomeScreenViewModel by viewModels()
     override val bindingInflater: (LayoutInflater) -> ActivityHomeScreenBinding
         get() = ActivityHomeScreenBinding::inflate
 
@@ -43,5 +44,5 @@ class HomeScreen :
         _bottomNavVisible.value = visible
     }
 
-    override val viewModel: HomeScreenViewModel by viewModels()
+
 }

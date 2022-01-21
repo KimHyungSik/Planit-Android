@@ -2,6 +2,8 @@ package com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,7 +33,7 @@ class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalV
         get() = FragmentWithdrawalBinding::inflate
     override val viewModel by activityViewModels<WithdrawalViewModel>()
 
-    companion object{
+    companion object {
         const val TITLE = "탈퇴하기"
         val TAG = "WithdrawalFragment - 로그"
     }
@@ -55,12 +57,12 @@ class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalV
 
         viewModel.getReward()
 
-        viewModel.deleteState.observe(viewLifecycleOwner){
+        viewModel.deleteState.observe(viewLifecycleOwner) {
             Log.d(TAG, "onCreateView: $it")
-            if(it){
+            if (it) {
                 CashStudyApp.prefs.refreshToken = ""
                 CashStudyApp.prefs.accessToken = ""
-                moveIntentAllClear(Screens.LoginScreenSh.activity)
+                moveIntentAffinity(Screens.LoginScreenSh.activity)
             }
         }
 
@@ -77,7 +79,7 @@ class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalV
         }
     }
 
-    fun showWithdrawalDialog(){
+    fun showWithdrawalDialog() {
         val arg = Bundle()
         arg.putString(DialogText.TITLE, getString(R.string.withdrawal_dialog))
         arg.putString(DialogText.RIGHT_BTN_TEXT, "예")
@@ -85,9 +87,6 @@ class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalV
         showDialogFragment(arg, dialog)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
     override fun onLeftBtn() {
     }

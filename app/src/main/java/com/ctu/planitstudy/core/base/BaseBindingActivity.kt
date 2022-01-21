@@ -14,17 +14,18 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     abstract val bindingInflater: (LayoutInflater) -> VB
     abstract val viewModel: VM
 
-    @Suppress("UNCHECKED_CAST")
     protected val binding: VB
-        get() = _binding as VB
+        get() = _binding!! as VB
 
-    lateinit var loading: LoadingDialog
+    private val loadingDialog: LoadingDialog by lazy {
+        LoadingDialog(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = bindingInflater.invoke(layoutInflater)
         setContentView(requireNotNull(_binding).root)
-        loading = LoadingDialog(this)
+
         viewModel.loading.observe(
             this,
             {
@@ -43,11 +44,11 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
     abstract fun setup()
 
     open fun showLoading() {
-        loading.show()
+        loadingDialog.show()
     }
 
     open fun dismiss() {
-        loading.dismiss()
+        loadingDialog.dismiss()
     }
     open fun backScreen() {
         finish()
@@ -55,8 +56,8 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.loadingDismiss()
         _binding = null
         mainJob.cancel()
+
     }
 }
