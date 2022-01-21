@@ -38,15 +38,15 @@ interface StudyApi {
 
     // 공부 수정
     @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
-    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body study: Study)
+    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body study: Study): Response<Unit>
 
     // 공부 수정(반복)
     @PUT("/v1/study/{studyGroupId}/{studyScheduleId}")
-    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body repeatedStudy: RepeatedStudy)
+    suspend fun editStudy(@Path("studyGroupId") studyGroupId: String, @Path("studyScheduleId") studyScheduleId: String, @Body repeatedStudy: RepeatedStudy): Response<Unit>
 
     // 공부 상태 수정
     @PATCH("/v1/study/modify-status/{studyId}")
-    suspend fun editStudyIsDone(@Path("studyId") studyId: String, @Query("isDone") isDone: Boolean)
+    suspend fun editStudyIsDone(@Path("studyId") studyId: String, @Query("isDone") isDone: Boolean): Response<Unit>
 
     // 공부 삭제
     @DELETE("/v1/study/{studyGroupId}")

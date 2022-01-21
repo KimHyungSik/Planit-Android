@@ -8,6 +8,7 @@ import com.ctu.planitstudy.feature.domain.model.user.EditUser
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
+import retrofit2.Response
 
 interface UserRepository {
     suspend fun userLogin(loginUser: LoginUser): LoginDto
@@ -17,4 +18,5 @@ interface UserRepository {
     suspend fun userValidateNickName(nickname: String, previousNickname: String)
     suspend fun getUser(): UserInformationDto
     suspend fun editUser(editUser: EditUser): MessageDto
+    suspend fun deleteUser(): Response<Unit>
 }

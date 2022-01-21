@@ -31,7 +31,9 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="16dp"
+            >
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/dialog_single_title_double_btn_check_cancel"
@@ -45,14 +47,16 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/single_title_double_btn_left_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="4sp"
-                    android:text="취소"
                     android:textColor="#888888"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text="취소"
+                    />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -64,14 +68,16 @@
                 app:cardCornerRadius="23dp">
 
                 <TextView
+                    android:id="@+id/single_title_double_btn_right_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="4sp"
-                    android:text="멈춤"
                     android:textColor="#050626"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text="멈춤"
+                    />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </LinearLayout>

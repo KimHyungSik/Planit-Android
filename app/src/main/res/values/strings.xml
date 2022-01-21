@@ -17,4 +17,5 @@
     <string name="personal_information_agreement_required">https://assets.planit-study.com/2.personal_information_agreement_required.pdf </string>
     <string name="personal_information_agreement_select">https://assets.planit-study.com/3.personal_information_agreement_select.pdf</string>
     <string name="alert_agreement_select">https://assets.planit-study.com/4.alert_agreement_select.pdf </string>
+    <string name="withdrawal_dialog">정말로 탈퇴하시겠습니까?</string>
 </resources>

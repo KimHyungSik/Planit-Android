@@ -23,7 +23,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     abstract val bindingInflater: (LayoutInflater) -> VB
     abstract val viewModel: VM
 
-    lateinit var loading: LoadingDialog
+    private val loadingDialog: LoadingDialog by lazy{
+        LoadingDialog(requireContext())
+    }
     var loadingState: Boolean = false
 
     open val mainJob = Job()
@@ -38,7 +40,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loading = LoadingDialog(requireContext())
         viewModel.loading.observe(
             viewLifecycleOwner,
             {
@@ -67,7 +68,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     open fun showLoading() {
         loadingState = true
-        loading.show()
+        loadingDialog.show()
         CoroutineScope(Dispatchers.Default + mainJob).launch {
             delay(3000)
             if (loadingState) {
@@ -77,7 +78,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     }
 
     open fun dismiss() {
-        loading.dismiss()
+        loadingDialog.dismiss()
         loadingState = false
     }
 
@@ -98,11 +99,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         super.onDestroy()
         _binding = null
         dismiss()
-        mainJob.cancel()
+
     }
 
     override fun onDestroyView() {
         viewModel.loadingDismiss()
+        mainJob.cancel()
         super.onDestroyView()
     }
 
@@ -117,7 +119,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     open fun showDialogFragment(arg: Bundle, fragment: DialogFragment) {
         fragment.arguments = arg
-        fragment.show(parentFragmentManager, "dialog")
+        fragment.show(childFragmentManager, "dialog")
     }
 
     open fun moveIntentAllClear(activity: Class<*>) {
@@ -133,5 +135,26 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
             Intent.FLAG_ACTIVITY_CLEAR_TASK or
             Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    open fun moveIntentAffinity(intent: Intent){
+        activity?.let{ act ->
+            act.finishAffinity()
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+    }
+
+    open fun moveIntentAffinity(acti: Class<*>){
+        val intent = Intent(getActivity(), acti)
+        activity?.let{ act ->
+            act.finishAffinity()
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
     }
 }

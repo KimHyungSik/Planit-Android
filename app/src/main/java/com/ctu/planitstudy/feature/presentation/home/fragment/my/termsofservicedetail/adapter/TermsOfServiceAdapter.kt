@@ -8,13 +8,14 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.databinding.ItemTermOfServiceBinding
 import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceList
 
-class TermsOfServiceAdapter : RecyclerView.Adapter<TermsOfServiceAdapter.TermsOfServiceHolder>() {
+class TermsOfServiceAdapter(val clickTermsOfService: (Int) -> Unit?) : RecyclerView.Adapter<TermsOfServiceAdapter.TermsOfServiceHolder>() {
 
     private var termsOfServiceList: MutableList<TermsOfServiceList> = ArrayList()
 
     inner class TermsOfServiceHolder(private val binding: ItemTermOfServiceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(termsOfServiceList: TermsOfServiceList) {
             binding.item = termsOfServiceList
+            binding.root.setOnClickListener { clickTermsOfService(layoutPosition) }
         }
     }
 

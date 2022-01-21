@@ -1,12 +1,14 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.ctu.planitstudy.R
 import com.ctu.planitstudy.databinding.FragmentTermsOfServiceDetailBinding
 import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
@@ -16,12 +18,13 @@ class TermsOfServiceDetailFragment : Fragment() {
 
     companion object {
         val TITLE = "서비스 이용약관"
+        val TAG = "TermsOfServiceDetailFragment - 로그"
     }
 
     private var _binding: FragmentTermsOfServiceDetailBinding? = null
     private val binding get() = _binding!!
     private val termsOfServiceAdapter: TermsOfServiceAdapter by lazy {
-        TermsOfServiceAdapter()
+        TermsOfServiceAdapter(){ ar -> clickTermsOfService(ar)}
     }
 
     private val termsOfServiceList = listOf<TermsOfServiceList>(
@@ -79,6 +82,12 @@ class TermsOfServiceDetailFragment : Fragment() {
             if (act is HomeScreen) {
                 act.visibleBottomNav(visible)
             }
+        }
+    }
+
+    private fun clickTermsOfService(item : Int){
+        if(item == termsOfServiceList.size - 1){
+            findNavController().navigate(R.id.action_termsOfServiceDetail_to_withdrawalFragment)
         }
     }
 }

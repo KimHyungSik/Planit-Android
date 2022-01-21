@@ -39,6 +39,15 @@
         android:id="@+id/termsOfServiceDetail"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment"
         android:label="fragment_terms_of_service_detail"
-        tools:layout="@layout/fragment_terms_of_service_detail" />
+        tools:layout="@layout/fragment_terms_of_service_detail" >
+        <action
+            android:id="@+id/action_termsOfServiceDetail_to_withdrawalFragment"
+            app:destination="@id/withdrawalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawalFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal.WithdrawalFragment"
+        android:label="fragment_withdrawal"
+        tools:layout="@layout/fragment_withdrawal" />
 
 </navigation>

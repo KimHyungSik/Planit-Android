@@ -11,6 +11,7 @@ import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
+import retrofit2.Response
 import javax.inject.Inject
 
 class UserRepositoryImp @Inject constructor(
@@ -30,4 +31,5 @@ class UserRepositoryImp @Inject constructor(
     override suspend fun userValidateNickName(nickname: String, previousNickname: String) = authApi.userValidateNickName(nickname, previousNickname)
     override suspend fun getUser(): UserInformationDto = userApi.getUser()
     override suspend fun editUser(editUser: EditUser): MessageDto = userApi.editUser(editUser)
+    override suspend fun deleteUser(): Response<Unit> = userApi.deleteUser()
 }

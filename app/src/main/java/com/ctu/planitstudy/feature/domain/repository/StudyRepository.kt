@@ -12,8 +12,8 @@ interface StudyRepository {
     suspend fun validateTitle(title: String)
     suspend fun getStudyList(date: String): StudyListDto
     suspend fun getStudyTimeLine(date: String): StudyTimeLineDto
-    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study)
-    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy)
-    suspend fun editStudyIsDone(studyId: String, isDone: Boolean)
+    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study): Response<Unit>
+    suspend fun editStudy(studyGroupId: String, studyScheduleId: String, repeatedStudy: RepeatedStudy): Response<Unit>
+    suspend fun editStudyIsDone(studyId: String, isDone: Boolean): Response<Unit>
     suspend fun deleteStudy(studyGroupId: String): Response<Unit>
 }
