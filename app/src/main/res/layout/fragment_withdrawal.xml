@@ -9,6 +9,9 @@
         <variable
             name="vm"
             type="com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal.WithdrawalViewModel" />
+        <variable
+            name="act"
+            type="com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal.WithdrawalFragment" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,6 +100,7 @@
         android:textStyle="bold"
         android:paddingVertical="20dp"
         style="@style/Button.Primary"
+        android:onClick="@{()->act.showWithdrawalDialog()}"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

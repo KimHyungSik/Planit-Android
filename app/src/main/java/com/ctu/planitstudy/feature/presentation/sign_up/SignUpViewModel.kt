@@ -180,11 +180,11 @@ class SignUpViewModel @Inject constructor(
                             viewModelScope.launch {
                                 try {
                                     val signUp = (
-                                        if (receiverNameSkip)
-                                            userAuthUseCase.userSignUp(signUpUserReceiver)
-                                        else
-                                            userAuthUseCase.userSignUp(signUpUser)
-                                        )
+                                            if (receiverNameSkip)
+                                                userAuthUseCase.userSignUp(signUpUserReceiver)
+                                            else
+                                                userAuthUseCase.userSignUp(signUpUser)
+                                            )
                                     with(signUp) {
                                         _signUpUserResponse.value = SignUpUserResponse(
                                             200,
@@ -217,13 +217,14 @@ class SignUpViewModel @Inject constructor(
                         Log.d(
                             TAG,
                             "sendSignUpUserData: Error ${
-                            JSONObject(
-                                it.response()!!.errorBody()!!.string()
-                            )
+                                JSONObject(
+                                    it.response()!!.errorBody()!!.string()
+                                )
                             }"
                         )
                     }
-                    _signUpUserResponse.value = SignUpUserResponse(accessToken = "", refreshToken = "")
+                    _signUpUserResponse.value =
+                        SignUpUserResponse(accessToken = "", refreshToken = "")
                 }
             ).isDisposed
     }

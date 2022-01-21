@@ -30,4 +30,5 @@ class UserRepositoryImp @Inject constructor(
     override suspend fun userValidateNickName(nickname: String, previousNickname: String) = authApi.userValidateNickName(nickname, previousNickname)
     override suspend fun getUser(): UserInformationDto = userApi.getUser()
     override suspend fun editUser(editUser: EditUser): MessageDto = userApi.editUser(editUser)
+    override suspend fun deleteUser(): Unit = userApi.deleteUser()
 }

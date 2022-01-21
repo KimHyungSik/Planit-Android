@@ -17,4 +17,5 @@ interface UserRepository {
     suspend fun userValidateNickName(nickname: String, previousNickname: String)
     suspend fun getUser(): UserInformationDto
     suspend fun editUser(editUser: EditUser): MessageDto
+    suspend fun deleteUser() : Unit
 }

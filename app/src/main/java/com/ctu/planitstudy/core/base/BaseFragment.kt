@@ -117,7 +117,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     open fun showDialogFragment(arg: Bundle, fragment: DialogFragment) {
         fragment.arguments = arg
-        fragment.show(parentFragmentManager, "dialog")
+        fragment.show(childFragmentManager, "dialog")
     }
 
     open fun moveIntentAllClear(activity: Class<*>) {

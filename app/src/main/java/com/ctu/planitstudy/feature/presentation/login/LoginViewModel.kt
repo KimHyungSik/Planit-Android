@@ -60,6 +60,8 @@ class LoginViewModel @Inject constructor(
                                                                 this.refreshToken
                                                             loginState.postValue(LoginState.Login(this.result))
                                                         }
+                                                    else
+                                                        loginState.postValue(LoginState.Login(login.result))
                                                 }
                                             }
                                             is Resource.Error -> {

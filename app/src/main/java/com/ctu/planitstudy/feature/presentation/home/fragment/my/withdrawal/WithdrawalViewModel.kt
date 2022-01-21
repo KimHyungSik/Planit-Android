@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,8 @@ import com.ctu.core.util.Resource
 import com.ctu.planitstudy.core.base.BaseViewModel
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.domain.use_case.reward.RewardUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.DeleteUserUseCase
+import com.ctu.planitstudy.feature.domain.use_case.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -15,11 +18,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawalViewModel @Inject constructor(
-    private val rewardUseCase: RewardUseCase
+    private val rewardUseCase: RewardUseCase,
+    private val userUseCase: UserUseCase
 ) : BaseViewModel() {
+
+    companion object{
+        val TAG = "WithdrawalViewModel - 로그"
+    }
 
     private val _rewardDto = MutableLiveData<RewardDto>()
     val rewardDto : LiveData<RewardDto> = _rewardDto
+
+    private val _deleteState = MutableLiveData<Boolean>()
+    val deleteState : LiveData<Boolean> = _deleteState
+
 
     fun getReward() {
         rewardUseCase.getRewardUseCase().onEach {
@@ -28,6 +40,23 @@ class WithdrawalViewModel @Inject constructor(
                     _rewardDto.value = it.data!!
                 }
                 is Resource.Error -> {
+                }
+                is Resource.Loading -> {
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun deleteUser(){
+        userUseCase.deleteUserUseCase().onEach {
+            Log.d(TAG, "deleteUser: ${it.message}")
+            Log.d(TAG, "deleteUser: ${it.data}")
+            when (it) {
+                is Resource.Success -> {
+                    _deleteState.value = true
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "deleteUser: Error ${it.message}")
                 }
                 is Resource.Loading -> {
                 }
