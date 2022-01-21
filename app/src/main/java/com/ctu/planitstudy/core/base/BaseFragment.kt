@@ -40,6 +40,15 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setOnStart()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.loading.observe(
             viewLifecycleOwner,
             {
@@ -52,15 +61,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
             }
         )
         setInit()
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setOnStart()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpViews()
         observeData()
         super.onViewCreated(view, savedInstanceState)
@@ -99,7 +99,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         super.onDestroy()
         _binding = null
         dismiss()
-
     }
 
     override fun onDestroyView() {
