@@ -72,7 +72,6 @@ class EditUserViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "editUser: ${it.message}")
                     loadingDismiss()
                 }
                 is Resource.Loading -> {

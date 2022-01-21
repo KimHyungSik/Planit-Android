@@ -49,14 +49,11 @@ class WithdrawalViewModel @Inject constructor(
 
     fun deleteUser(){
         userUseCase.deleteUserUseCase().onEach {
-            Log.d(TAG, "deleteUser: ${it.message}")
-            Log.d(TAG, "deleteUser: ${it.data}")
             when (it) {
                 is Resource.Success -> {
                     _deleteState.value = true
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "deleteUser: Error ${it.message}")
                 }
                 is Resource.Loading -> {
                 }

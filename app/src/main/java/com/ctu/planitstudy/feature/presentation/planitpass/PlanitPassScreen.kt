@@ -122,7 +122,6 @@ class PlanitPassScreen :
         viewModel.loadingShow()
         googleAdmob.InterstitialAdLoad(
             onAdLoadedFun = {
-                Log.d(TAG, "googleLoad: ")
                 viewModel.loadingDismiss()
                 googleAdmob.InterstitialAdCallback()
             },

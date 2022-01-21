@@ -53,7 +53,6 @@ class SubTitleCheckDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         val parentFragment: Fragment? = parentFragment
-        Log.d(TAG, "onDismiss: $parentFragment")
         if (parentFragment is DialogInterface.OnDismissListener) {
             (parentFragment as DialogInterface.OnDismissListener?)!!.onDismiss(dialog)
         }

@@ -58,7 +58,6 @@ class WithdrawalFragment() : BaseFragment<FragmentWithdrawalBinding, WithdrawalV
         viewModel.getReward()
 
         viewModel.deleteState.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onCreateView: $it")
             if (it) {
                 CashStudyApp.prefs.refreshToken = ""
                 CashStudyApp.prefs.accessToken = ""

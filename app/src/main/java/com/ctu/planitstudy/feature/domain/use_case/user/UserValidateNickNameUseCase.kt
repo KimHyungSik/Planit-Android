@@ -23,7 +23,6 @@ class UserValidateNickNameUseCase @Inject constructor(
                 userRepository.userValidateNickName(nickname, previousNickname)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
-            Log.d(TAG, "invoke: $e")
             if (e.code() == 409)
                 emit(Resource.Success(false))
             else

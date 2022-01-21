@@ -38,7 +38,6 @@ class MeasurementScreen : BaseBindingActivity<ActivityMeasurementTimerBinding, M
                 )
             )
 
-            Log.d(TAG, "viewModelSetUp: ${viewModel.measurementState.value}")
             getExistingMeasurementTime()
 
             measurementState.observe(

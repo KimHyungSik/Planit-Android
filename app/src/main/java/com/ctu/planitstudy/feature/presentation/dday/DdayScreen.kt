@@ -42,6 +42,7 @@ class DdayScreen :
     private val calendarDialog = BottomSheetCalendarDialog()
     private val deleteDialog = DeleteCheckDialog()
 
+    @SuppressLint("SetTextI18n")
     override fun setup() {
         val dDay = intent.getParcelableExtra<DdayDto>("dDay")
 
@@ -124,7 +125,6 @@ class DdayScreen :
         viewModel.dDayNetworkState.observe(
             this,
             {
-                Log.d(TAG, "viewModelSet: dDayNetworkState $it")
                 if (it.deleteDay || it.modifiedDay || it.addDday) moveIntentAllClear(Screens.HomeScreenSh.activity)
             }
         )
@@ -133,7 +133,6 @@ class DdayScreen :
         viewModel.dDayState.observe(
             this,
             {
-                Log.d(TAG, "viewModelSet: dDayState $it")
                 if (it.representative && !representativeSwitchOnesCheck) {
                     if (exitRepresentativeSwitchOnesCheck)
                         exitRepresentativeSwitchOnesCheck = false
@@ -153,7 +152,6 @@ class DdayScreen :
             this,
             {
                 val arg = Bundle()
-                Log.d(TAG, "viewModelSet: dDayDialogState $it")
                 if (it.deleteDialog)
                     deleteDialog.show(
                         supportFragmentManager, "DeleteCheckDialog"
@@ -184,8 +182,8 @@ class DdayScreen :
     }
 
     override fun onChangeDate(year: Int, month: Int, dayOfMonth: Int) {
-        viewModel!!.dDayUpdate(
-            viewModel!!.dDayState.value!!.copy(
+        viewModel.dDayUpdate(
+            viewModel.dDayState.value!!.copy(
                 date = DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth")
             )
         )

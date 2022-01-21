@@ -65,7 +65,6 @@ class LoginViewModel @Inject constructor(
                                                 }
                                             }
                                             is Resource.Error -> {
-                                                Log.e(TAG, "login: getUserInfo:${it.data}")
                                             }
                                         }
                                     },
@@ -75,12 +74,10 @@ class LoginViewModel @Inject constructor(
                         }
                         is Resource.Error -> {
                             loginState.postValue(LoginState.Loading(false))
-                            Log.d(TAG, "login: Error: ${resource.message}")
                         }
                     }
                 },
                 { error ->
-                    Log.d(TAG, "login: error ${error.message}")
                 }
             ).addTo(disposables)
     }

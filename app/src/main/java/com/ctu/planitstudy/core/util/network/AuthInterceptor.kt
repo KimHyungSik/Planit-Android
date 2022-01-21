@@ -41,7 +41,6 @@ class AuthInterceptor @Inject constructor(
 
         // 토큰 만료 검사
         if (accessTokenExpiration() && !jwtRefreshTokenExpiration()) runBlocking {
-            Log.d(TAG, "intercept: 토큰 만료 검사")
             getAccessToken()
             delay(800)
         }
