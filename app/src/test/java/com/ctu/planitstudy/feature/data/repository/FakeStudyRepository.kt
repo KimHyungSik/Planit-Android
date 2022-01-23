@@ -80,7 +80,7 @@ class FakeStudyRepository : StudyRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study) {
+    override suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study) : Response<Unit> {
         fakeStudyDtoList[studyGroupId.toInt()] = StudyDto(
             endAt = study.startAt,
             isDone = false,
@@ -93,13 +93,14 @@ class FakeStudyRepository : StudyRepository {
             studyScheduleId = studyScheduleId.toInt(),
             title = study.title
         )
+        return Response.success(null)
     }
 
     override suspend fun editStudy(
         studyGroupId: String,
         studyScheduleId: String,
         repeatedStudy: RepeatedStudy
-    ) {
+    ) : Response<Unit> {
         fakeStudyDtoList[studyGroupId.toInt()] = StudyDto(
             endAt = repeatedStudy.startAt,
             isDone = false,
@@ -112,12 +113,14 @@ class FakeStudyRepository : StudyRepository {
             studyScheduleId = studyScheduleId.toInt(),
             title = repeatedStudy.title
         )
+        return Response.success(null)
     }
 
-    override suspend fun editStudyIsDone(studyId: String, isDone: Boolean) {
+    override suspend fun editStudyIsDone(studyId: String, isDone: Boolean)  : Response<Unit> {
         fakeStudyDtoList[studyId.toInt()] = fakeStudyDtoList[studyId.toInt()].copy(
             isDone = isDone
         )
+        return Response.success(null)
     }
 
     override suspend fun deleteStudy(studyGroupId: String): Response<Unit> {
