@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,8 +20,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -177,11 +174,11 @@ class SignUpViewModel @Inject constructor(
                             viewModelScope.launch {
                                 try {
                                     val signUp = (
-                                            if (receiverNameSkip)
-                                                userAuthUseCase.userSignUp(signUpUserReceiver)
-                                            else
-                                                userAuthUseCase.userSignUp(signUpUser)
-                                            )
+                                        if (receiverNameSkip)
+                                            userAuthUseCase.userSignUp(signUpUserReceiver)
+                                        else
+                                            userAuthUseCase.userSignUp(signUpUser)
+                                        )
                                     with(signUp) {
                                         _signUpUserResponse.value = SignUpUserResponse(
                                             200,

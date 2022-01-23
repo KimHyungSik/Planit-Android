@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
@@ -36,7 +35,7 @@ class LoginViewModel @Inject constructor(
         userManager.userPolicyChange(oauthType)
     }
 
-    fun kakaoLogin(context: Context){
+    fun kakaoLogin(context: Context) {
         login(context, OauthType.KakaoOauth)
     }
 

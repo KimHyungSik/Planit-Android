@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.study
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -243,7 +242,7 @@ class StudyViewModel @Inject constructor(
         is KindStudyDate.SingleDate -> {
             studyState.value!!.singleAt
         }
-        else ->{
+        else -> {
             studyState.value!!.startAt
         }
     }

@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.data.remote.dto
 
 import android.os.Parcelable
-import com.ctu.planitstudy.feature.domain.model.user.SignUpUserResponse
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

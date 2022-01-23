@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.edituser
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
