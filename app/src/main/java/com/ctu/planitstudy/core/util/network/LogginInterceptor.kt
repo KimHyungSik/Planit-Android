@@ -55,7 +55,7 @@ object LogginInterceptor {
                 Log.d(TAG, "intercept: code : ${response.code}")
                 Log.d(TAG, "intercept: protocol : ${response.protocol}")
                 response.body.let{
-                    Log.d(TAG, "intercept: ${JSONObject(response.peekBody(2048).string())}")
+                    Log.d(TAG, "intercept: ${JSONObject(response.peekBody(2048).string())}\n\n")
                 }
 
 
