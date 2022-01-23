@@ -1,5 +1,7 @@
 package com.ctu.planitstudy.feature.data.data_source.user
 
-sealed class OauthType(val oauthType: String) {
-    object KakaoOauth : OauthType("Kakao Oauth")
+import com.ctu.planitstudy.feature.data.data_source.user.componets.KakaoOauthImp
+
+sealed class OauthType(val oauthUserPolicy: OauthUserPolicy) {
+    object KakaoOauth : OauthType(KakaoOauthImp())
 }

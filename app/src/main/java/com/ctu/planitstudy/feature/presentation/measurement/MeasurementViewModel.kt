@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.measurement
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -84,8 +83,6 @@ class MeasurementViewModel @Inject constructor(
                     recordedTime = measurementState.value!!.measurementTime.toInt()
                 )
 
-        Log.d(TAG, "recordMeasurementTimer: $recordMeasurementTimer")
-
         timerUseCase.recordMeasurementTimerUseCase(
             measurementState.value!!.studyDto!!.studyId.toString(),
             recordMeasurementTimer
@@ -98,7 +95,6 @@ class MeasurementViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "recordMeasurementTimer: Error ${it.message}")
                     loadingDismiss()
                 }
                 is Resource.Loading -> {

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.sign_up
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,8 +20,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -89,16 +86,13 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun validateNickNameCheck() {
-        Log.d(TAG, "validateNickNameCheck: ")
         userValidateNickNameUseCase(liveData.value?.nickname!!).onEach { result ->
             _validateNickName.value = result
             when (result) {
                 is Resource.Success -> {
-                    Log.d(TAG, "validateNickNameCheck: success ${result.data}")
                     _activityState.value = result.data!!
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "validateNickNameCheck: error ${result.message}")
                 }
                 is Resource.Loading -> {
                     _activityState.value = false
@@ -180,11 +174,11 @@ class SignUpViewModel @Inject constructor(
                             viewModelScope.launch {
                                 try {
                                     val signUp = (
-                                            if (receiverNameSkip)
-                                                userAuthUseCase.userSignUp(signUpUserReceiver)
-                                            else
-                                                userAuthUseCase.userSignUp(signUpUser)
-                                            )
+                                        if (receiverNameSkip)
+                                            userAuthUseCase.userSignUp(signUpUserReceiver)
+                                        else
+                                            userAuthUseCase.userSignUp(signUpUser)
+                                        )
                                     with(signUp) {
                                         _signUpUserResponse.value = SignUpUserResponse(
                                             200,
@@ -212,17 +206,6 @@ class SignUpViewModel @Inject constructor(
                     }
                 },
                 {
-
-                    if (it is HttpException) {
-                        Log.d(
-                            TAG,
-                            "sendSignUpUserData: Error ${
-                                JSONObject(
-                                    it.response()!!.errorBody()!!.string()
-                                )
-                            }"
-                        )
-                    }
                     _signUpUserResponse.value =
                         SignUpUserResponse(accessToken = "", refreshToken = "")
                 }

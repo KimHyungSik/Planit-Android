@@ -146,7 +146,10 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
                 }
 
                 if (it.validatedTitle) {
-                    arg.putString("title", getString(R.string.study_validated_title_dialog_fragment))
+                    arg.putString(
+                        "title",
+                        getString(R.string.study_validated_title_dialog_fragment)
+                    )
                     showDialogFragment(arg, SingleTitleCheckDialog())
                 }
 
@@ -359,9 +362,8 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
             return
         }
 
-        viewModel!!.studyDateUpdate(
-            DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth"),
-            viewModel.studyState.value!!.kindDate
+        viewModel.studyDateUpdate(
+            DateConvter.dtoDateToTextDate("$year-${month + 1}-$dayOfMonth")
         )
         binding.studyAllDay.isChecked = false
         viewModel.clearCheckWeek()

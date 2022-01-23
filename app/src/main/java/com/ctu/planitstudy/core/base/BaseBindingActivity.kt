@@ -58,6 +58,5 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
         super.onDestroy()
         _binding = null
         mainJob.cancel()
-
     }
 }

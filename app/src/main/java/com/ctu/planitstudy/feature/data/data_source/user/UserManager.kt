@@ -14,9 +14,7 @@ class UserManager(
     private var userPolicy: OauthUserPolicy? = null
 
     fun userPolicyChange(oauthType: OauthType) {
-        when (oauthType) {
-            is OauthType.KakaoOauth -> userPolicy = kakaoOauth
-        }
+        userPolicy = oauthType.oauthUserPolicy
     }
 
     fun userLogin(context: Context): Single<Resource<String>> = userPolicy!!.login(context)

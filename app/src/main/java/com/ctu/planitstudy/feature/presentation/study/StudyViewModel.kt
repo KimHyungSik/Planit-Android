@@ -84,8 +84,8 @@ class StudyViewModel @Inject constructor(
         _studyState.value = studyState
     }
 
-    fun studyDateUpdate(date: String, kindStudyDate: KindStudyDate) {
-        _studyState.value = when (kindStudyDate) {
+    fun studyDateUpdate(date: String) {
+        _studyState.value = when (studyState.value!!.kindDate) {
             is KindStudyDate.SingleDate -> {
                 studyState.value!!.copy(singleAt = date)
             }
@@ -156,7 +156,7 @@ class StudyViewModel @Inject constructor(
             if (studyState.value!!.studyGroupId != null) {
                 try {
                     // 데이터 수정일이 현재 인경우
-                    if (DateConvter.textDateToLongDate(studyState.value!!.startAt) <= DateConvter.dtoDateTOLong(DateCalculation().getCurrentDateString(null))) {
+                    if (DateConvter.textDateToLongDate(getStartAt()) <= DateConvter.dtoDateTOLong(DateCalculation().getCurrentDateString(null))) {
                         _studyDialogState.value = StudyDialogState(editError = true)
                         return@launch
                     }
@@ -236,5 +236,14 @@ class StudyViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun getStartAt() = when (studyState.value!!.kindDate) {
+        is KindStudyDate.SingleDate -> {
+            studyState.value!!.singleAt
+        }
+        else -> {
+            studyState.value!!.startAt
+        }
     }
 }

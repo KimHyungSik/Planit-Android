@@ -19,5 +19,4 @@ interface UserApi {
 
     @DELETE("/v1/user")
     suspend fun deleteUser(): Response<Unit>
-
 }

@@ -43,6 +43,4 @@ class HomeScreen :
     fun visibleBottomNav(visible: Boolean) {
         _bottomNavVisible.value = visible
     }
-
-
 }

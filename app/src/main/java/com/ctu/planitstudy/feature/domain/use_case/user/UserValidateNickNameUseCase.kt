@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.domain.use_case.user
 
-import android.util.Log
 import com.ctu.core.util.Resource
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +22,6 @@ class UserValidateNickNameUseCase @Inject constructor(
                 userRepository.userValidateNickName(nickname, previousNickname)
             emit(Resource.Success(true))
         } catch (e: HttpException) {
-            Log.d(TAG, "invoke: $e")
             if (e.code() == 409)
                 emit(Resource.Success(false))
             else

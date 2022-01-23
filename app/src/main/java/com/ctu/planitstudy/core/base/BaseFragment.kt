@@ -23,7 +23,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     abstract val bindingInflater: (LayoutInflater) -> VB
     abstract val viewModel: VM
 
-    private val loadingDialog: LoadingDialog by lazy{
+    private val loadingDialog: LoadingDialog by lazy {
         LoadingDialog(requireContext())
     }
     var loadingState: Boolean = false
@@ -40,6 +40,15 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setOnStart()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.loading.observe(
             viewLifecycleOwner,
             {
@@ -52,15 +61,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
             }
         )
         setInit()
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setOnStart()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpViews()
         observeData()
         super.onViewCreated(view, savedInstanceState)
@@ -99,7 +99,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         super.onDestroy()
         _binding = null
         dismiss()
-
     }
 
     override fun onDestroyView() {
@@ -137,23 +136,23 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         startActivity(intent)
     }
 
-    open fun moveIntentAffinity(intent: Intent){
-        activity?.let{ act ->
+    open fun moveIntentAffinity(intent: Intent) {
+        activity?.let { act ->
             act.finishAffinity()
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
     }
 
-    open fun moveIntentAffinity(acti: Class<*>){
+    open fun moveIntentAffinity(acti: Class<*>) {
         val intent = Intent(getActivity(), acti)
-        activity?.let{ act ->
+        activity?.let { act ->
             act.finishAffinity()
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
     }

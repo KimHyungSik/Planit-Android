@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.edituser
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
@@ -111,10 +110,8 @@ class EditUserScreen : BaseBindingActivity<ActivityEditUserScreenBinding, EditUs
                         }
                     },
                     {
-                        Log.d(TAG, "setup: editUserNicknameText error ${it.message}")
                     },
                     {
-                        Log.d(TAG, "setup: editUserNicknameText com")
                     }
                 ),
             // 카테고리 선택 라디오 버튼

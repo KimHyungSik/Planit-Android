@@ -9,6 +9,7 @@ import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
+import retrofit2.Response
 
 class FakeUserRepository : UserRepository {
 
@@ -17,8 +18,8 @@ class FakeUserRepository : UserRepository {
 
     override suspend fun userLogin(loginUser: LoginUser): LoginDto = LoginDto(true, "", "")
 
-    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = SignUpUserDto("", "")
-    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = SignUpUserDto("", "")
+    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = SignUpUserDto(0, "",  "", "", "", "", "", "", "")
+    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = SignUpUserDto(0, "",  "", "", "", "", "", "", "")
 
     override suspend fun userValidateNickName(nickname: String) {
         validateNickName = userInformationDto.nickname == nickname
@@ -33,5 +34,9 @@ class FakeUserRepository : UserRepository {
     override suspend fun editUser(editUser: EditUser): MessageDto {
         userInformationDto = userInformationDto.copy(category = editUser.category, name = editUser.name, nickname = editUser.nickname)
         return MessageDto("success")
+    }
+
+    override suspend fun deleteUser(): Response<Unit> {
+        return Response.success(null)
     }
 }

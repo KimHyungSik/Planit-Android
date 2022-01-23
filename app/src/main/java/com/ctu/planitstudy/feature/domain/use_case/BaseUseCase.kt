@@ -11,7 +11,7 @@ abstract class BaseUseCase<T : Any?> {
         try {
             emit(Resource.Loading<T>(null))
             val result = arg()
-            val finalResult = result?.let{
+            val finalResult = result?.let {
                 modified(result)
             } ?: result
             emit(Resource.Success(finalResult))

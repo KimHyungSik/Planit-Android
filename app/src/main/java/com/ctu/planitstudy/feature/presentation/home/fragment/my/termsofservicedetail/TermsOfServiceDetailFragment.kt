@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ class TermsOfServiceDetailFragment : Fragment() {
     private var _binding: FragmentTermsOfServiceDetailBinding? = null
     private val binding get() = _binding!!
     private val termsOfServiceAdapter: TermsOfServiceAdapter by lazy {
-        TermsOfServiceAdapter(){ ar -> clickTermsOfService(ar)}
+        TermsOfServiceAdapter() { ar -> clickTermsOfService(ar) }
     }
 
     private val termsOfServiceList = listOf<TermsOfServiceList>(
@@ -85,8 +84,8 @@ class TermsOfServiceDetailFragment : Fragment() {
         }
     }
 
-    private fun clickTermsOfService(item : Int){
-        if(item == termsOfServiceList.size - 1){
+    private fun clickTermsOfService(item: Int) {
+        if (item == termsOfServiceList.size - 1) {
             findNavController().navigate(R.id.action_termsOfServiceDetail_to_withdrawalFragment)
         }
     }

@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.presentation.edituser
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -72,7 +71,6 @@ class EditUserViewModel @Inject constructor(
                     loadingDismiss()
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "editUser: ${it.message}")
                     loadingDismiss()
                 }
                 is Resource.Loading -> {

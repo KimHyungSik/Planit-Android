@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
@@ -36,8 +35,12 @@ class LoginViewModel @Inject constructor(
         userManager.userPolicyChange(oauthType)
     }
 
-    fun login(context: Context) {
-        changeUserPolicy(OauthType.KakaoOauth)
+    fun kakaoLogin(context: Context) {
+        login(context, OauthType.KakaoOauth)
+    }
+
+    private fun login(context: Context, oauthType: OauthType) {
+        changeUserPolicy(oauthType)
         userManager.userLogin(context)
             .subscribe(
                 { resource ->
@@ -65,7 +68,6 @@ class LoginViewModel @Inject constructor(
                                                 }
                                             }
                                             is Resource.Error -> {
-                                                Log.e(TAG, "login: getUserInfo:${it.data}")
                                             }
                                         }
                                     },
@@ -75,12 +77,10 @@ class LoginViewModel @Inject constructor(
                         }
                         is Resource.Error -> {
                             loginState.postValue(LoginState.Loading(false))
-                            Log.d(TAG, "login: Error: ${resource.message}")
                         }
                     }
                 },
                 { error ->
-                    Log.d(TAG, "login: error ${error.message}")
                 }
             ).addTo(disposables)
     }
