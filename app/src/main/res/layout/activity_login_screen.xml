@@ -8,9 +8,7 @@
             name="viewmodel"
             type="com.ctu.planitstudy.feature.presentation.login.LoginViewModel" />
 
-        <variable
-            name="kakaoLogin"
-            type="com.ctu.planitstudy.feature.data.data_source.user.OauthType.KakaoOauth" />
+        <import type="com.ctu.planitstudy.feature.data.data_source.user.OauthType.KakaoOauth"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="66dp"
             android:background="@color/navy_blue_back_ground"
-            android:onClick="@{()->viewmodel.login(context)}"
+            android:onClick="@{()->viewmodel.kakaoLogin(context)}"
             android:paddingHorizontal="32dp"
             android:scaleType="fitCenter"
             android:src="@drawable/kakao_login_large_wide"

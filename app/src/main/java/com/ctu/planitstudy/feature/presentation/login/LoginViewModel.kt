@@ -36,8 +36,12 @@ class LoginViewModel @Inject constructor(
         userManager.userPolicyChange(oauthType)
     }
 
-    fun login(context: Context) {
-        changeUserPolicy(OauthType.KakaoOauth)
+    fun kakaoLogin(context: Context){
+        login(context, OauthType.KakaoOauth)
+    }
+
+    private fun login(context: Context, oauthType: OauthType) {
+        changeUserPolicy(oauthType)
         userManager.userLogin(context)
             .subscribe(
                 { resource ->
