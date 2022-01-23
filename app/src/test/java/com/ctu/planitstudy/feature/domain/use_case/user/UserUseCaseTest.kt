@@ -23,7 +23,8 @@ class UserUseCaseTest {
         userUseCase = UserUseCase(
             getUserUseCase = GetUserUseCase(userRepository),
             editUserUseCase = EditUserUseCase(userRepository),
-            validateNickNameUseCase = UserValidateNickNameUseCase(userRepository)
+            validateNickNameUseCase = UserValidateNickNameUseCase(userRepository),
+            deleteUserUseCase = DeleteUserUseCase(userRepository)
         )
     }
 
