@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "850294422741",
-    "project_id": "planit-study",
-    "storage_bucket": "planit-study.appspot.com"
+    "project_number": "292104934457",
+    "project_id": "planit-37aea",
+    "storage_bucket": "planit-37aea.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:850294422741:android:b0df119438f31a0d49b65c",
+        "mobilesdk_app_id": "1:292104934457:android:f1d89464385ec5403529e8",
         "android_client_info": {
           "package_name": "com.ctu.planitstudy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "850294422741-tngd708afqg0brr02ef5ttjobgtcefi6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ctu.planitstudy",
-            "certificate_hash": "e146a77c9aacc4e2f507f54e5cb907b41a1826d8"
-          }
-        },
-        {
-          "client_id": "850294422741-ms8q8oh4na7n7g6k8bfelflhr92ndp0k.apps.googleusercontent.com",
+          "client_id": "292104934457-hq87pss9vaupd1mg2r3ph7t6id9kt899.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDem5LAIjz8LxNqHZin-KOh5yTLVRummuo"
+          "current_key": "AIzaSyCYMryC9qB7fol280ivVRwUdY64UFevFKI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "850294422741-ms8q8oh4na7n7g6k8bfelflhr92ndp0k.apps.googleusercontent.com",
+              "client_id": "292104934457-hq87pss9vaupd1mg2r3ph7t6id9kt899.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

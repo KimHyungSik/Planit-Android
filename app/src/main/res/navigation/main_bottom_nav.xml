@@ -10,17 +10,22 @@
         android:id="@+id/homeFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeFragment"
         android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"
         />
 
     <fragment
         android:id="@+id/analysisFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.analysis.AnalysisFragment"
-        android:label="AnalysisFragment"/>
+        android:label="AnalysisFragment"
+        tools:layout="@layout/fragment_analysis"
+        />
 
     <fragment
         android:id="@+id/myFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.MyFragment"
-        android:label="MyFragment">
+        android:label="MyFragment"
+        tools:layout="@layout/fragment_my"
+        >
         <action
             android:id="@+id/action_myFragment_to_termsOfServiceDetail"
             app:destination="@id/termsOfServiceDetail" />
@@ -29,12 +34,20 @@
     <fragment
         android:id="@+id/plannerFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.planner.PlannerFragment"
-        android:label="PlannerFragment"/>
+        android:label="PlannerFragment"
+        tools:layout="@layout/fragment_planner"
+        />
 
     <fragment
         android:id="@+id/rewardsFragment"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.rewards.RewardsFragment"
-        android:label="RewardsFragment"/>
+        android:label="RewardsFragment"
+        tools:layout="@layout/fragment_rewards"
+        >
+        <action
+            android:id="@+id/action_rewardsFragment_to_rewardShopFragment"
+            app:destination="@id/rewardShopFragment" />
+    </fragment>
     <fragment
         android:id="@+id/termsOfServiceDetail"
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment"
@@ -49,5 +62,11 @@
         android:name="com.ctu.planitstudy.feature.presentation.home.fragment.my.withdrawal.WithdrawalFragment"
         android:label="fragment_withdrawal"
         tools:layout="@layout/fragment_withdrawal" />
+    <fragment
+        android:id="@+id/rewardShopFragment"
+        android:name="com.ctu.planitstudy.feature.presentation.home.fragment.rewards.rewardshop.list.RewardShopFragment"
+        android:label="RewardShopFragment"
+        tools:layout="@layout/fragment_reward_shop_list"
+        />
 
 </navigation>

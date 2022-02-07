@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -169,9 +170,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         )
     }
 
-    fun showReadyDialog() {
-        ReadyDialog().show(
-            parentFragmentManager, "ReadyDialog"
-        )
+    fun navRewardShop() {
+        findNavController().navigate(R.id.action_rewardsFragment_to_rewardShopFragment)
     }
 }
