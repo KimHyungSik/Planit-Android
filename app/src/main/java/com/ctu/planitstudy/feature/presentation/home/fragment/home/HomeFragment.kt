@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -113,7 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), InStudy
         )
 
         binding.homeFragmentEmptyRepresentative.setOnClickListener {
-            moveIntent(Screens.DdayScreenSh.activity)
+            findNavController().navigate(R.id.plannerFragment)
         }
     }
 

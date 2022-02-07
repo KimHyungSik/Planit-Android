@@ -25,7 +25,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
 
     private val disposables = CompositeDisposable()
 
-    private val homeViewModel by activityViewModels<HomeViewModel>()
     override val viewModel: PlannerViewModel by activityViewModels<PlannerViewModel>()
 
     @SuppressLint("ResourceAsColor")
@@ -37,6 +36,7 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
             plannerViewPagerFragmentView.apply {
                 adapter = PlannerViewPager(requireActivity())
                 currentItem = 0
+                isUserInputEnabled = false
             }
             plannerViewPagerFragmentView.registerOnPageChangeCallback(
                 object : ViewPager2.OnPageChangeCallback() {
@@ -86,9 +86,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
         }
     }
 
-    override fun setInit() {
-        super.setInit()
-    }
 
     override fun onDestroy() {
         disposables.clear()

@@ -30,21 +30,20 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
         this.bottomSheetCalendar = bottomSheetCalendar
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = BottomSheetDialog(requireContext(), R.style.NewDialog)
-        return dialog
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         super.onCreateView(inflater, container, savedInstanceState)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.setCanceledOnTouchOutside(true)
-        dialog?.setCancelable(true)
+        dialog?.let {
+            it.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            it.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            it.setCanceledOnTouchOutside(true)
+            it.setCancelable(true)
+
+        }
+
         currentDate = arguments?.getLong("date")
         return binding.root
     }
