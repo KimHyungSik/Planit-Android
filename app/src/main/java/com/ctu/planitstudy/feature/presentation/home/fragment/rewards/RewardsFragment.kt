@@ -17,7 +17,6 @@ import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
-import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,8 @@
 package com.ctu.planitstudy.core.base
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,7 @@ abstract class BaseBottomSheetFragment<VB : ViewBinding> : BottomSheetDialogFrag
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setUpViews()
         observeData()
         super.onViewCreated(view, savedInstanceState)
@@ -48,10 +51,6 @@ abstract class BaseBottomSheetFragment<VB : ViewBinding> : BottomSheetDialogFrag
     // fragment 최초 설정
     private fun init() {
         binding = bindingInflater.invoke(layoutInflater)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     open fun moveIntent(activity: Class<*>) {

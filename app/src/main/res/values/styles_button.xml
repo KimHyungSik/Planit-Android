@@ -9,8 +9,19 @@
         <item name="cornerRadius">40dp</item>
         <item name="backgroundTint">@color/sub_color</item>
     </style>
-    <style name="Animation.WindowSlideUpDown.Fragment" parent="Animation.AppCompat.Dialog">
+
+    <style name="CustomBottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="Animation.AppCompat.Dialog">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
+
 </resources>

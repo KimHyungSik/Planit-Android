@@ -3,7 +3,6 @@ package com.ctu.planitstudy.feature.presentation.timer.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import com.ctu.planitstudy.databinding.DialogFragmentTimerStopCheckBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
-import java.lang.StringBuilder
 
 class TimerStopDialog : DialogFragment() {
 
@@ -40,7 +38,7 @@ class TimerStopDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.studyTimerStopDialogSubTitle.text = buildString{
+        binding.studyTimerStopDialogSubTitle.text = buildString {
             append("보너스 티켓까지 앞으로\n")
             viewModel.timerState.value?.let {
                 append((3660 - it.time) / 60)

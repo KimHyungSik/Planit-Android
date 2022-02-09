@@ -1,9 +1,9 @@
 package com.ctu.planitstudy.feature.presentation.dialogs
 
-import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,6 @@ import android.view.Window
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBottomSheetFragment
 import com.ctu.planitstudy.databinding.DialogBottomCalendarBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBinding>() {
 
@@ -34,16 +33,10 @@ class BottomSheetCalendarDialog : BaseBottomSheetFragment<DialogBottomCalendarBi
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        dialog?.let {
-            it.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            it.window?.requestFeature(Window.FEATURE_NO_TITLE)
-            it.setCanceledOnTouchOutside(true)
-            it.setCancelable(true)
-
-        }
-
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         currentDate = arguments?.getLong("date")
         return binding.root
     }

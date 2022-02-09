@@ -22,7 +22,7 @@ class ToolBarHelper {
             }
         }
 
-        fun showToolbarWithBackButton(activity: AppCompatActivity, title: String? = null, titleResId: Int? = null, buttonListener: (() -> Unit)? = null, toolBarLayout : Int? = null) {
+        fun showToolbarWithBackButton(activity: AppCompatActivity, title: String? = null, titleResId: Int? = null, buttonListener: (() -> Unit)? = null, toolBarLayout: Int? = null) {
             activity.supportActionBar?.let { actionBar ->
                 actionBar.show()
                 title?.let { actionBar.setTitle(title) }

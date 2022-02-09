@@ -18,8 +18,8 @@ class FakeUserRepository : UserRepository {
 
     override suspend fun userLogin(loginUser: LoginUser): LoginDto = LoginDto(true, "", "")
 
-    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = SignUpUserDto(0, "",  "", "", "", "", "", "", "")
-    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = SignUpUserDto(0, "",  "", "", "", "", "", "", "")
+    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = SignUpUserDto(0, "", "", "", "", "", "", "", "")
+    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = SignUpUserDto(0, "", "", "", "", "", "", "", "")
 
     override suspend fun userValidateNickName(nickname: String) {
         validateNickName = userInformationDto.nickname == nickname

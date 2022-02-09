@@ -8,14 +8,13 @@ import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentRewardShopListBinding
 import com.ctu.planitstudy.feature.presentation.common.action_bar.ToolBarHelper
 import com.ctu.planitstudy.feature.presentation.home.HomeScreen
-import com.ctu.planitstudy.feature.presentation.home.fragment.my.termsofservicedetail.TermsOfServiceDetailFragment
 
 class RewardShopFragment : BaseFragment<FragmentRewardShopListBinding, RewardViewModel>() {
     override val bindingInflater: (LayoutInflater) -> FragmentRewardShopListBinding
         get() = FragmentRewardShopListBinding::inflate
     override val viewModel: RewardViewModel by activityViewModels<RewardViewModel>()
 
-    companion object{
+    companion object {
         val TITLE = "리워드 샵"
     }
 

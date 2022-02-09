@@ -10,7 +10,6 @@ import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
 import com.ctu.planitstudy.databinding.FragmentPlannerBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
-import com.ctu.planitstudy.feature.presentation.home.fragment.home.HomeViewModel
 import com.ctu.planitstudy.feature.presentation.home.fragment.planner.view_pager.PlannerViewPager
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
@@ -85,7 +84,6 @@ class PlannerFragment : BaseFragment<FragmentPlannerBinding, PlannerViewModel>()
             moveIntent(Screens.StudyScreenSh.activity)
         }
     }
-
 
     override fun onDestroy() {
         disposables.clear()
