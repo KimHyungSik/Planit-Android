@@ -25,7 +25,8 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewModel>(),
+class StudyScreen :
+    BaseBindingActivity<ActivityStudyScreenBinding, StudyViewModel>(),
     BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "StudyScreen - 로그"
@@ -259,7 +260,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     }
 
     private fun showCalendar(time: Long) {
-        if(!calendarDialog.isAdded){
+        if (!calendarDialog.isAdded) {
             val args = Bundle()
             args.putLong("date", time)
             calendarDialog.arguments = args

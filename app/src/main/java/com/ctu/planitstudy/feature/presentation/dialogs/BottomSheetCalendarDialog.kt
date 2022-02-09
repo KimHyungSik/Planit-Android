@@ -3,12 +3,10 @@ package com.ctu.planitstudy.feature.presentation.dialogs
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBottomSheetFragment
 import com.ctu.planitstudy.databinding.DialogBottomCalendarBinding
 
