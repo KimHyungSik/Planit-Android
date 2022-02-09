@@ -22,7 +22,7 @@ class ToolBarHelper {
             }
         }
 
-        fun showToolbarWithBackButton(activity: AppCompatActivity, title: String? = null, titleResId: Int? = null, buttonListener: (() -> Unit)? = null) {
+        fun showToolbarWithBackButton(activity: AppCompatActivity, title: String? = null, titleResId: Int? = null, buttonListener: (() -> Unit)? = null, toolBarLayout: Int? = null) {
             activity.supportActionBar?.let { actionBar ->
                 actionBar.show()
                 title?.let { actionBar.setTitle(title) }
@@ -30,7 +30,7 @@ class ToolBarHelper {
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back)
                 actionBar.setDisplayHomeAsUpEnabled(true)
                 buttonListener?.let { listener ->
-                    activity.findViewById<MaterialToolbar>(R.id.toolbar_layout)
+                    activity.findViewById<MaterialToolbar>(toolBarLayout ?: R.id.toolbar_layout)
                         .setNavigationOnClickListener {
                             listener()
                         }

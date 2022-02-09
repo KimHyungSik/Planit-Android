@@ -18,4 +18,7 @@
     <string name="personal_information_agreement_select">https://assets.planit-study.com/3.personal_information_agreement_select.pdf</string>
     <string name="alert_agreement_select">https://assets.planit-study.com/4.alert_agreement_select.pdf </string>
     <string name="withdrawal_dialog">정말로 탈퇴하시겠습니까?</string>
+    <string name="test_str">
+        :arrow_forward:상품설명\n- 아메리카노 : 진한 에스프레소의 맛과 향을 부드럽게 즐길 수 있는 아메리칸 스타일의 커피\r\n- 하니바게트볼 : 겉은 바삭 속은 쫄깃한 바게트 속에 꿀과 버터가 녹아있는 부드럽고 달콤한 허니브레드\r\n\r\n:arrow_forward:이용안내 및 유의사항\r\n- 결제 시 쿠폰을 제시해 주시면 됩니다.\r\n- 매장 상황에 따라 제품 판매여부가 상이할 수 있습니다.\r\n- 동일 금액의 타 상품으로 교환이 가능하며, 해당 금액보다 높을 경우 초과금액 결제 시 교환 가능합니다.\r\n- 제품 교환 시 할리스커피 멤버십 적립/혜택 불가합니다.\r\n- 컵 DC 및 기타 할인과 중복 사용 불가합니다.\r\n\r\n:arrow_forward:사용 불가 매장\r\n대전신성점, 동대구환승센터점, 동탄카림애비뉴점, 삼성금융캠퍼스점, \r\n삼성카드점, 에벤에셀빌딩점, 의왕현대연구소점,인천공항T1점, \r\n전주남천교점, 제주협재해변점, 코엑스점, 포항북부해수욕장점, \r\n포항장성점 및 일부 휴게소 매장 \r\n* 사용불가 매장은 수시로 변경될 수 있어 상기 내용과 다를 수 있습니다. \r\n
+    </string>
 </resources>
