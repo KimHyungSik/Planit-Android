@@ -6,7 +6,7 @@
     android:background="@color/navy_blue_back_ground"
     >
     <TextView
-        android:text="@string/test_str"
+        android:text="리워드 숍"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

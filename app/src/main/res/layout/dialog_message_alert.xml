@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="popup_data"
+            type="com.ctu.planitstudy.feature.presentation.common.popup.PopupData" />
+
+        <variable
+            name="mDialog"
+            type="android.app.AlertDialog" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/navy_blue_back_ground"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/subtitle_dialog_title"
+                    textSize="@{popup_data.titleTextSize, default=27f}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="44dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="9sp"
+                    android:text="@{popup_data.title}"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subtitle_dialog_sub_title"
+                    visibleOrGone="@{popup_data.message != null}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="8sp"
+                    android:text='@{popup_data.message ?? ""}'
+                    android:textColor="#6b6c85"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/dialog_single_title_double_btn_check_cancel"
+                        visibleOrGone="@{popup_data.subButtonTitle != null}"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:onClick="@{()->popup_data.subButtonFun.invoke(mDialog)}"
+                        app:cardBackgroundColor="@color/navy_blue_back_ground"
+                        app:cardCornerRadius="23dp"
+                        app:strokeColor="#888888"
+                        app:strokeWidth="1dp">
+
+                        <TextView
+                            android:id="@+id/single_title_double_btn_left_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.03"
+                            android:lineSpacingExtra="4sp"
+                            android:text='@{popup_data.subButtonTitle ?? ""}'
+                            android:textColor="#888888"
+                            android:textSize="14sp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/dialog_single_title_double_btn_check_confirmed"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:onClick="@{()->popup_data.buttonFun.invoke(mDialog)}"
+                        app:cardBackgroundColor="@color/text_color"
+                        app:cardCornerRadius="23dp">
+
+                        <TextView
+                            android:id="@+id/single_title_double_btn_right_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:letterSpacing="-0.03"
+                            android:lineSpacingExtra="4sp"
+                            android:text="@{popup_data.buttonTitle}"
+                            android:textColor="#050626"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>
