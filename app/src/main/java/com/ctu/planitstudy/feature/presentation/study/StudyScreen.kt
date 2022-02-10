@@ -371,9 +371,14 @@ class StudyScreen :
                     "$year-${month + 1}-$dayOfMonth"
                 ) < DateConvter.dtoDateTOLong(study!!.startAt)
             ) {
-                val arg = Bundle()
-                arg.putString("title", getString(R.string.study_failed_edit))
-                showDialogFragment(arg, SingleTitleCheckDialog())
+                PopupHelper.createPopUp(
+                    context = this,
+                    PopupData(
+                        title = getString(R.string.study_failed_edit),
+                        buttonTitle = getString(R.string.confirm),
+                        buttonFun = { it.dismiss() }
+                    )
+                ).show()
                 return
             }
 
@@ -382,9 +387,14 @@ class StudyScreen :
                 "$year-${month + 1}-$dayOfMonth"
             ) < DateConvter.textDateToLongDate(viewModel.studyState.value!!.startAt)
         ) {
-            val arg = Bundle()
-            arg.putString("title", getString(R.string.study_failed_endAt))
-            showDialogFragment(arg, SingleTitleCheckDialog())
+            PopupHelper.createPopUp(
+                context = this,
+                PopupData(
+                    title = getString(R.string.study_failed_endAt),
+                    buttonTitle = getString(R.string.confirm),
+                    buttonFun = { it.dismiss() }
+                )
+            ).show()
             return
         }
 
@@ -393,9 +403,14 @@ class StudyScreen :
                 "$year-${month + 1}-$dayOfMonth"
             ) > DateConvter.textDateToLongDate(viewModel.studyState.value!!.endAt)
         ) {
-            val arg = Bundle()
-            arg.putString("title", getString(R.string.study_failed_startAt))
-            showDialogFragment(arg, SingleTitleCheckDialog())
+            PopupHelper.createPopUp(
+                context = this,
+                PopupData(
+                    title = getString(R.string.study_failed_startAt),
+                    buttonTitle = getString(R.string.confirm),
+                    buttonFun = { it.dismiss() }
+                )
+            ).show()
             return
         }
 

@@ -6,11 +6,14 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.databinding.ActivityPlanitPassScreenBinding
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
@@ -75,9 +78,14 @@ class PlanitPassScreen :
         viewModel.newPoint.observe(
             this,
             {
-                val arg = Bundle()
-                arg.putString("title", "${it}별를 획득하였습니다")
-                showDialogFragment(arg, SingleTitleCheckDialog())
+                PopupHelper.createPopUp(
+                    context = this,
+                    PopupData(
+                        title = getString(R.string.get_start_dialog_message, it),
+                        buttonTitle = getString(R.string.confirm),
+                        buttonFun = { it.dismiss() }
+                    )
+                ).show()
             }
         )
 
@@ -133,9 +141,14 @@ class PlanitPassScreen :
     fun convertPassToPoint() {
 
         if (viewModel.rewardDto.planetPass == 0) {
-            val arg = Bundle()
-            arg.putString("title", "보유중인 플래닛 패스가 없습니다.")
-            showDialogFragment(arg, SingleTitleCheckDialog())
+            PopupHelper.createPopUp(
+                context = this,
+                PopupData(
+                    title = getString(R.string.empty_planet_pass_ticket),
+                    buttonTitle = getString(R.string.confirm),
+                    buttonFun = { it.dismiss() }
+                )
+            ).show()
         } else {
             if (googleAdmob.getInterstitialAd()) {
                 googleAdmob.InterstitialAdShow(
