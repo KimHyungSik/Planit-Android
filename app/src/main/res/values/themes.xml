@@ -15,6 +15,9 @@
         <!-- Customize your theme here. -->
         <item name="android:backgroundDimAmount">0.7</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
+
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
     </style>
 
     <style name="SettingContextSwitch" parent="Theme.AppCompat">

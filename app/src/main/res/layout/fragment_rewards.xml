@@ -40,7 +40,7 @@
             android:layout_marginTop="54dp"
             android:layout_marginEnd="24dp"
             android:clickable="true"
-            android:onClick="@{()->activity.showReadyDialog()}"
+            android:onClick="@{()->activity.navRewardShop()}"
             app:cardBackgroundColor="@color/module_color"
             app:cardCornerRadius="20dp"
             app:layout_constraintRight_toRightOf="parent"

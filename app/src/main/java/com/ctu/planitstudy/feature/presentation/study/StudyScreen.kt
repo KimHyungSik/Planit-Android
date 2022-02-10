@@ -25,7 +25,9 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewModel>(), BottomSheetCalendarDialog.BottomSheetCalendar {
+class StudyScreen :
+    BaseBindingActivity<ActivityStudyScreenBinding, StudyViewModel>(),
+    BottomSheetCalendarDialog.BottomSheetCalendar {
 
     val TAG = "StudyScreen - 로그"
 
@@ -37,6 +39,7 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     private val disposables = CompositeDisposable()
     private val calendarDialog = BottomSheetCalendarDialog()
     private val checkBoxList = ArrayList<CheckBox>()
+
     // 공부 수정이라면 not null
     private var study: StudyDto? = null
 
@@ -257,11 +260,13 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
     }
 
     private fun showCalendar(time: Long) {
-        val args = Bundle()
-        args.putLong("date", time)
-        calendarDialog.arguments = args
-        calendarDialog.setDialogListener(this@StudyScreen)
-        calendarDialog.show(supportFragmentManager, "calendarDialog")
+        if (!calendarDialog.isAdded) {
+            val args = Bundle()
+            args.putLong("date", time)
+            calendarDialog.arguments = args
+            calendarDialog.setDialogListener(this@StudyScreen)
+            calendarDialog.show(supportFragmentManager, "calendarDialog")
+        }
     }
 
     private fun setUpWithStudy(studyDto: StudyDto) {
@@ -283,7 +288,10 @@ class StudyScreen : BaseBindingActivity<ActivityStudyScreenBinding, StudyViewMod
                 week = studyWeek,
                 repeat = studyDto.repeatedDays != null,
                 title = studyDto.title,
-                activationWeek = DateCalculation().calDateBetweenWeek(studyDto.startAt, studyDto.endAt),
+                activationWeek = DateCalculation().calDateBetweenWeek(
+                    studyDto.startAt,
+                    studyDto.endAt
+                ),
                 studyGroupId = studyDto.studyGroupId.toString(),
                 studyScheduleId = studyDto.studyScheduleId.toString(),
                 originalTitle = studyDto.title

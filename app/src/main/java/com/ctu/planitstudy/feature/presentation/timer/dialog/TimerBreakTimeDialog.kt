@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.ctu.planitstudy.core.util.longToTimeShortString
+import com.ctu.planitstudy.core.util.longToTimeMidString
 import com.ctu.planitstudy.databinding.DialogFragmentTimerBrakeTimeBinding
 import com.ctu.planitstudy.feature.presentation.timer.TimerCycle
 import com.ctu.planitstudy.feature.presentation.timer.TimerViewModel
@@ -37,7 +37,7 @@ class TimerBreakTimeDialog : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DialogFragmentTimerBrakeTimeBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -54,15 +54,15 @@ class TimerBreakTimeDialog : DialogFragment() {
 
         timer = kotlin.concurrent.timer(period = 1000) {
             CoroutineScope(Dispatchers.Main).launch() {
-                binding.timerBreakTimeText.text = breakTime.longToTimeShortString()
+                binding.timerBreakTimeText.text = breakTime.longToTimeMidString()
                 breakTime--
-                if (breakTime <= 0) {
+                if (breakTime < 0) {
                     timer.cancel()
-                    viewModel.changeTimerCycle(TimerCycle.TimeFlow)
                     this@TimerBreakTimeDialog.dismiss()
                 }
             }
         }
+
         binding.timerBreakConfirm.setOnClickListener {
             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
             timer.cancel()
@@ -71,7 +71,7 @@ class TimerBreakTimeDialog : DialogFragment() {
     }
 
     override fun onDestroy() {
-
         super.onDestroy()
+        breakTime = 300L
     }
 }

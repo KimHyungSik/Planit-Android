@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseFragment
@@ -16,7 +17,6 @@ import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdType
 import com.ctu.planitstudy.feature.data.data_source.googleadomb.GoogleAdmob
 import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
-import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
@@ -169,9 +169,7 @@ class RewardsFragment : BaseFragment<FragmentRewardsBinding, RewardViewModel>() 
         )
     }
 
-    fun showReadyDialog() {
-        ReadyDialog().show(
-            parentFragmentManager, "ReadyDialog"
-        )
+    fun navRewardShop() {
+        findNavController().navigate(R.id.action_rewardsFragment_to_rewardShopFragment)
     }
 }

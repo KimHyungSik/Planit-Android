@@ -400,5 +400,6 @@
             android:layout_marginBottom="509dp"
             android:background="#94000000"
             android:visibility="invisible" />
+
     </RelativeLayout>
 </layout>

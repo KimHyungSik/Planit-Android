@@ -18,39 +18,25 @@
         tools:context=".feature.presentation.login.LoginScreen">
 
         <ImageView
-            android:src="@drawable/app_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:src="@drawable/login_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/app_main_logo"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="40dp"
+            app:layout_constraintRight_toRightOf="parent"
             />
 
-        <TextView
-            android:id="@+id/login_screen_sub_title"
+        <ImageView
+            android:id="@+id/app_main_logo"
+            android:src="@drawable/graphic_218_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="204dp"
-            android:text="돈버는 공부타이머"
-            android:textColor="@color/text_color"
-            android:textSize="24sp"
-            android:textStyle="normal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/login_screen_main_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:text="플래닛"
-            android:textColor="@color/text_color"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_screen_sub_title" />
+            app:layout_constraintRight_toRightOf="parent"
+            />
 
         <ImageButton
             android:id="@+id/kako_login_btn"

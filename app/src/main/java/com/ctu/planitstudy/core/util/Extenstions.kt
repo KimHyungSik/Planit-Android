@@ -35,6 +35,7 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
 fun Long.longToTimeString(): String = longToTimerString(this)
 fun Long.longToTimeShortString(): String = longToTimerShortString(this)
 fun Long.longToTimeKorString(): String = longToTimerKorString(this)
+fun Long.longToTimeMidString(): String = toTimerString(this)
 
 fun longToTimerString(time: Long): String {
     var currentTime = time
@@ -48,6 +49,30 @@ fun longToTimerString(time: Long): String {
             append(0)
         append(h)
         append(":")
+        if (m < 10)
+            append(0)
+        append(m)
+        append(":")
+        if (s < 10)
+            append(0)
+        append(s)
+    }
+}
+
+fun toTimerString(time: Long): String {
+    var currentTime = time
+    val h = time / 3600
+    currentTime = time % 3600
+    val m = currentTime / 60
+    currentTime %= 60
+    val s = currentTime
+    return buildString {
+        if (h != 0L) {
+            if (h < 10)
+                append(0)
+            append(h)
+            append(":")
+        }
         if (m < 10)
             append(0)
         append(m)

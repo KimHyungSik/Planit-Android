@@ -91,15 +91,11 @@ class SplashScreen :
     private fun showNetworkErrorDialog() {
         CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
-//            val arg = Bundle()
-//            arg.putString("title", getString(R.string.network_error_title))
-//            arg.putString("subTitle", getString(R.string.network_error_sub_title))
-//            arg.putString("buttonText", getString(R.string.retry))
-//            showDialogFragment(arg, subtitleDialog)
             PopupHelper.createPopUp(
                 context = this@SplashScreen,
                 PopupData(
-                    title = "테스",
+                    title = getString(R.string.network_error_title),
+                    titleTextSize = 18f,
                     message = getString(R.string.network_error_sub_title),
                     buttonTitle = getString(R.string.retry),
                     buttonFun = { it.dismiss() }

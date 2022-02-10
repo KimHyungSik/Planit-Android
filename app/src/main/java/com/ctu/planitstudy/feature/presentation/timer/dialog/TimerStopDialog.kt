@@ -38,6 +38,13 @@ class TimerStopDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.studyTimerStopDialogSubTitle.text = buildString {
+            append("보너스 티켓까지 앞으로\n")
+            viewModel.timerState.value?.let {
+                append((3660 - it.time) / 60)
+            }
+            append("분 남았어요!")
+        }
         binding.studyTimerStopCheckCancel.setOnClickListener {
             viewModel.changeTimerCycle(TimerCycle.TimeFlow)
             this.dismiss()
