@@ -13,6 +13,8 @@ import com.ctu.planitstudy.core.base.BaseBindingActivity
 import com.ctu.planitstudy.core.util.network.JWTRefreshTokenExpiration
 import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.SubTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -89,11 +91,20 @@ class SplashScreen :
     private fun showNetworkErrorDialog() {
         CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
-            val arg = Bundle()
-            arg.putString("title", getString(R.string.network_error_title))
-            arg.putString("subTitle", getString(R.string.network_error_sub_title))
-            arg.putString("buttonText", getString(R.string.retry))
-            showDialogFragment(arg, subtitleDialog)
+//            val arg = Bundle()
+//            arg.putString("title", getString(R.string.network_error_title))
+//            arg.putString("subTitle", getString(R.string.network_error_sub_title))
+//            arg.putString("buttonText", getString(R.string.retry))
+//            showDialogFragment(arg, subtitleDialog)
+            PopupHelper.createPopUp(
+                context = this@SplashScreen,
+                PopupData(
+                    title = "테스",
+                    message = getString(R.string.network_error_sub_title),
+                    buttonTitle = getString(R.string.retry),
+                    buttonFun = { it.dismiss() }
+                )
+            ).show()
         }
     }
 
@@ -116,6 +127,7 @@ class SplashScreen :
 
     override fun onDestroy() {
         networkCheckJob.cancel()
+        mainJob.cancel()
         cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         cm2.unregisterNetworkCallback(networkCallBack)
         super.onDestroy()
