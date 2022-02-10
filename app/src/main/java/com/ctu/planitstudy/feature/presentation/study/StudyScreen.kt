@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import androidx.activity.viewModels
+import androidx.compose.ui.window.Popup
 import androidx.core.content.ContextCompat
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
@@ -15,9 +16,10 @@ import com.ctu.planitstudy.core.util.enums.Weekday
 import com.ctu.planitstudy.core.util.enums.weekEngList
 import com.ctu.planitstudy.databinding.ActivityStudyScreenBinding
 import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
 import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
-import com.ctu.planitstudy.feature.presentation.study.dialog.DeleteCheckStudy
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -140,32 +142,59 @@ class StudyScreen :
         // 팝업 상태 관리
         viewModel.studyDialogState.observe(
             this,
-            {
-                val arg = Bundle()
-
-                if (it.emptyTitleDialog) {
-                    arg.putString("title", getString(R.string.empty_dialog_fragment))
-                    showDialogFragment(arg, SingleTitleCheckDialog())
+            { state ->
+                if (state.emptyTitleDialog) {
+                    PopupHelper.createPopUp(
+                        context = this,
+                        popupData = PopupData(
+                            title = getString(R.string.empty_dialog_fragment),
+                            buttonTitle = getString(R.string.confirm),
+                            buttonFun = { it.dismiss() }
+                        )
+                    ).show()
                 }
 
-                if (it.validatedTitle) {
-                    arg.putString(
-                        "title",
-                        getString(R.string.study_validated_title_dialog_fragment)
-                    )
-                    showDialogFragment(arg, SingleTitleCheckDialog())
+                if (state.validatedTitle) {
+                    PopupHelper.createPopUp(
+                        context = this,
+                        popupData = PopupData(
+                            title = getString(R.string.study_validated_title_dialog_fragment),
+                            buttonTitle = getString(R.string.confirm),
+                            buttonFun = { it.dismiss() }
+                        )
+                    ).show()
                 }
 
-                if (it.editError) {
-                    arg.putString("title", getString(R.string.study_edit_error))
-                    showDialogFragment(arg, SingleTitleCheckDialog())
+                if (state.editError) {
+                    PopupHelper.createPopUp(
+                        context = this,
+                        popupData = PopupData(
+                            title = getString(R.string.study_edit_error),
+                            buttonTitle = getString(R.string.confirm),
+                            buttonFun = { it.dismiss() }
+                        )
+                    ).show()
                 }
 
-                if (it.addStudy || it.exitStudy)
+                if (state.addStudy || state.exitStudy)
                     moveIntentAllClear(Screens.HomeScreenSh.activity)
 
-                if (it.deleteDialog) {
-                    showDialogFragment(arg, DeleteCheckStudy())
+                if (state.deleteDialog) {
+                    PopupHelper.createPopUp(
+                        context = this,
+                        popupData = PopupData(
+                            title = getString(R.string.study_delete_dialog_title),
+                            titleTextSize = 18f,
+                            message = getString(R.string.study_delete_dialog_message),
+                            buttonTitle = getString(R.string.delete),
+                            buttonFun = {
+                                viewModel.studyDelete()
+                                it.dismiss()
+                            },
+                            subButtonTitle = getString(R.string.cancel),
+                            subButtonFun = { it.dismiss() }
+                        )
+                    ).show()
                 }
             }
         )

@@ -9,6 +9,8 @@
     <string name="network_error_sub_title">네트워크 연결 상태를 확인해주세요</string>
     <string name="empty_planet_pass_ticket">보유하고 있는\n 플래닛 패스가 없습니다</string>
     <string name="study_validated_title_dialog_fragment">해당 공부는 이미 존재합니다 제목을 수정해주세요</string>
+    <string name="study_delete_dialog_title">공부를 삭제하시겠습니까?</string>
+    <string name="study_delete_dialog_message">해당 공부와 관련된 기록은\n모두 삭제됩니다</string>
     <string name="study_edit_error">오늘 이후의 날짜만 선택가능합니다</string>
     <string name="study_failed_endAt">종료일은 시작일보다\n이전일 수 없습니다</string>
     <string name="study_failed_startAt">시작일은 종료일보다\n이전일 수 없습니다</string>
@@ -18,6 +20,7 @@
     <string name="personal_information_agreement_select">https://assets.planit-study.com/3.personal_information_agreement_select.pdf</string>
     <string name="alert_agreement_select">https://assets.planit-study.com/4.alert_agreement_select.pdf </string>
     <string name="withdrawal_dialog">정말로 탈퇴하시겠습니까?</string>
+    <string name="delete">삭제</string>
     <string name="confirm">확인</string>
     <string name="cancel">취소</string>
 </resources>

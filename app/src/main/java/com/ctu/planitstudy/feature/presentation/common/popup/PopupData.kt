@@ -5,7 +5,7 @@ import android.app.AlertDialog
 
 data class PopupData(
     val title : String,
-    val titleTextSize : Float = 27f,
+    val titleTextSize : Float = 18f,
     val message : String? = null,
     val buttonTitle : String? = null,
     val buttonFun : ((dialog: AlertDialog) -> Unit)? = null,
