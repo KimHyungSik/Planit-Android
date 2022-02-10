@@ -1,7 +1,6 @@
 package com.ctu.planitstudy.feature.presentation.planitpass
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
@@ -15,7 +14,6 @@ import com.ctu.planitstudy.feature.data.remote.dto.reward.RewardDto
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.ReadyDialog
-import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.sign_up.view_pager.PlanitFragmentStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
@@ -83,12 +81,11 @@ class PlanitPassScreen :
                     PopupData(
                         title = getString(R.string.get_start_dialog_message, it),
                         buttonTitle = getString(R.string.confirm),
-                        buttonFun = { it.dismiss() }
+                        buttonFun = { dialog -> dialog.dismiss() }
                     )
                 ).show()
             }
         )
-
         googleLoad()
     }
 

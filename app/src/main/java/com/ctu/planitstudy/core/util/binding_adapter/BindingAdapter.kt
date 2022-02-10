@@ -14,7 +14,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter("textSize")
-    fun setTextSize(textView: TextView, size : Float){
+    fun setTextSize(textView: TextView, size: Float) {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
     }
 }

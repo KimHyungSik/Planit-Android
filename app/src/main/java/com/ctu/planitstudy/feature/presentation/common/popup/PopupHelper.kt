@@ -13,7 +13,7 @@ import com.ctu.planitstudy.databinding.DialogMessageAlertBinding
 class PopupHelper {
     companion object {
 
-        fun createPopUp(context: Context, popupData: PopupData) : AlertDialog {
+        fun createPopUp(context: Context, popupData: PopupData): AlertDialog {
             val dialog = AlertDialog.Builder(context)
                 .create()
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -22,7 +22,7 @@ class PopupHelper {
             return dialog
         }
 
-        private fun createPopUpView(context: Context, popupData: PopupData, dialog : AlertDialog) : View {
+        private fun createPopUpView(context: Context, popupData: PopupData, dialog: AlertDialog): View {
             val layoutInflater = LayoutInflater.from(context)
             val dialogView: DialogMessageAlertBinding =
                 DataBindingUtil.inflate(layoutInflater, R.layout.dialog_message_alert, null, false)
@@ -30,6 +30,5 @@ class PopupHelper {
             dialogView.mDialog = dialog
             return dialogView.root
         }
-
     }
 }

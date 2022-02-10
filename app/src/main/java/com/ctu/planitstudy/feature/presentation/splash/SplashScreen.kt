@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
-import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R

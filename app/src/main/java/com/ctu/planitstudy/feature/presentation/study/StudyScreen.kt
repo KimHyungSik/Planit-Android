@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import androidx.activity.viewModels
-import androidx.compose.ui.window.Popup
 import androidx.core.content.ContextCompat
 import com.ctu.planitstudy.R
 import com.ctu.planitstudy.core.base.BaseBindingActivity
@@ -19,7 +18,6 @@ import com.ctu.planitstudy.feature.data.remote.dto.study.StudyDto
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.BottomSheetCalendarDialog
-import com.ctu.planitstudy.feature.presentation.dialogs.SingleTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.hilt.android.AndroidEntryPoint
