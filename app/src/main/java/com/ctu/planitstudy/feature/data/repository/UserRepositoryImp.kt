@@ -21,9 +21,6 @@ class UserRepositoryImp @Inject constructor(
 
     val TAG = "UserRepositoryImp - 로그"
 
-    init {
-    }
-
     override suspend fun userLogin(loginUser: LoginUser): Response<LoginDto> = authApi.userLogin(loginUser)
     override suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto> = authApi.userSignUp(signUpUser)
     override suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto> = authApi.userSignUp(signUpUser)

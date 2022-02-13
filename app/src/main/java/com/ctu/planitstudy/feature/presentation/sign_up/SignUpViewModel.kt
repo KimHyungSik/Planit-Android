@@ -179,7 +179,7 @@ class SignUpViewModel @Inject constructor(
                                         else
                                             userAuthUseCase.userSignUp(signUpUser)
                                         )
-                                    with(signUp) {
+                                    with(signUp.body()!!) {
                                         _signUpUserResponse.value = SignUpUserResponse(
                                             200,
                                             accessToken = this.accessToken,

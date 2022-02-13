@@ -11,8 +11,8 @@ import javax.inject.Inject
 class DdayRepositoryImp @Inject constructor(
     private val ddayApi: DdayApi
 ) : DdayRepository {
-    override suspend fun getDdayList(): DdayListDto = ddayApi.getDdayList()
-    override suspend fun addDday(dday: Dday): DdayDto = ddayApi.addDday(dday)
-    override suspend fun modifiedDday(dday: Dday, dDayId: Int): DdayDto = ddayApi.modifiedDday(dday, dDayId)
+    override suspend fun getDdayList(): Response<DdayListDto> = ddayApi.getDdayList()
+    override suspend fun addDday(dday: Dday): Response<DdayDto> = ddayApi.addDday(dday)
+    override suspend fun modifiedDday(dday: Dday, dDayId: Int): Response<DdayDto> = ddayApi.modifiedDday(dday, dDayId)
     override suspend fun deleteDday(dDayId: Int): Response<Unit> = ddayApi.deleteDday(dDayId)
 }

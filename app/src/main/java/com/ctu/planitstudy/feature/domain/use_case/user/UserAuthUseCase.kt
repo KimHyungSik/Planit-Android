@@ -6,17 +6,18 @@ import com.ctu.planitstudy.feature.domain.model.user.LoginUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUser
 import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import com.ctu.planitstudy.feature.domain.repository.UserRepository
+import retrofit2.Response
 import javax.inject.Inject
 
 class UserAuthUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    suspend fun userLogin(loginUser: LoginUser): LoginDto =
+    suspend fun userLogin(loginUser: LoginUser): Response<LoginDto> =
         userRepository.userLogin(loginUser)
 
-    suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto =
+    suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto> =
         userRepository.userSignUp(signUpUser)
 
-    suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto =
+    suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto> =
         userRepository.userSignUp(signUpUser)
 }

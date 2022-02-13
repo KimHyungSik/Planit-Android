@@ -33,8 +33,7 @@ class JwtTokenRefreshUseCase @Inject constructor(
                 }
             }else{
                 if(json.code() == 412){
-                    Log.d(TAG, "invoke: $json")
-                    showUpdateDialog()
+                   emit(Resource.AppUpdate<String>())
                 }
             }
         } catch (e: Exception) {
@@ -42,7 +41,6 @@ class JwtTokenRefreshUseCase @Inject constructor(
                 if (e.code() == 401)
                     emit(Resource.Error<String>(data = null, message = "토큰 만료"))
                 if (e.code() == 412){
-//                    showUpdateDialog()
                     Log.d(TAG, "message = \"앱 버전 이상\"")
                     emit(Resource.Error<String>(data = null, message = "앱 버전 이상"))
                 }
@@ -53,6 +51,7 @@ class JwtTokenRefreshUseCase @Inject constructor(
 
     private fun showUpdateDialog() {
         val context = CashStudyApp.instance
+        Log.d(TAG, "showUpdateDialog: $context")
         PopupHelper.createPopUp(
             context,
             PopupData(
