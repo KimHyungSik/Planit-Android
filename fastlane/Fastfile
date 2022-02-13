@@ -38,10 +38,10 @@ platform :android do
 
   lane :dev_distribute do
     gradle(task: "clean")
-    gradle(task: "compileDebugKotlin")
+    gradle(task: "assembleDebug")
     firebase_app_distribution(
       app: "1:292104934457:android:f1d89464385ec5403529e8",
-      testers: "colrog968@gmail.com",
+      groups: "Planit-dev",
       release_notes: "배포"
     )
    end

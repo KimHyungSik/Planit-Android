@@ -15,6 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     private var _binding: ViewBinding? = null

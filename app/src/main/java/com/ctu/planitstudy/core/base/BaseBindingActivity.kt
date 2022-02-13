@@ -6,6 +6,7 @@ import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
 import kotlinx.coroutines.Job
 
+@Suppress("UNCHECKED_CAST")
 abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : BaseActivity() {
 
     open val mainJob = Job()

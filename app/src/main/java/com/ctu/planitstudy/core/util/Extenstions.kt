@@ -38,9 +38,8 @@ fun Long.longToTimeKorString(): String = longToTimerKorString(this)
 fun Long.longToTimeMidString(): String = toTimerString(this)
 
 fun longToTimerString(time: Long): String {
-    var currentTime = time
     val h = time / 3600
-    currentTime = time % 3600
+    var currentTime: Long = time % 3600
     val m = currentTime / 60
     currentTime %= 60
     val s = currentTime
@@ -60,9 +59,8 @@ fun longToTimerString(time: Long): String {
 }
 
 fun toTimerString(time: Long): String {
-    var currentTime = time
     val h = time / 3600
-    currentTime = time % 3600
+    var currentTime = time % 3600
     val m = currentTime / 60
     currentTime %= 60
     val s = currentTime
@@ -84,9 +82,8 @@ fun toTimerString(time: Long): String {
 }
 
 fun longToTimerShortString(time: Long): String {
-    var currentTime = time
     val h = time / 3600
-    currentTime = time % 3600
+    var currentTime = time % 3600
     val m = currentTime / 60
     currentTime %= 60
     val s = currentTime
@@ -113,9 +110,8 @@ fun longToTimerShortString(time: Long): String {
 }
 
 fun longToTimerKorString(time: Long): String {
-    var currentTime = time
     val h = time / 3600
-    currentTime = time % 3600
+    var currentTime = time % 3600
     val m = currentTime / 60
     currentTime %= 60
     val s = currentTime

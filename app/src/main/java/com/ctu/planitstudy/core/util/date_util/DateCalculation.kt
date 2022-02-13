@@ -17,7 +17,7 @@ class DateCalculation {
     fun calDateBetween(startDate: String, endDate: String): Int {
         val start = dateFormat.parse(startDate)
         val end = dateFormat.parse(endDate)
-        val calDate: Long = end.time - start.time
+        val calDate: Long = end!!.time - start!!.time
         val calDay: Long = calDate / (24 * 60 * 60 * 1000)
         return calDay.toInt()
     }
@@ -48,9 +48,9 @@ class DateCalculation {
         if (endDate < startDate) return activationWeek
 
         // 현재 계산 중인 날짜
-        var current = dateFormat.parse(startDate)
+        val current = dateFormat.parse(startDate)
 
-        cal.time = current
+        cal.time = current!!
         activationWeek.add(Weekday.values()[cal.get(Calendar.DAY_OF_WEEK)])
         val dateDifferene = calDateBetween(startDate, endDate)
 
