@@ -2,6 +2,9 @@
     <string name="app_name">플래닛</string>
     <string name="version">0.1.0.dev</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_packge_name">com.ctu.planitstudy</string>
+    <string name="app_update_title">새로운 버전이\n업데이트 되었습니다.</string>
+    <string name="app_update_message">지금 바로 최적화된 플래닛을 만나보세요.</string>
     <string name="retry">다시 시도</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_dialog_fragment">제목은 한 글자 이상 입력하세요</string>

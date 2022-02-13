@@ -2,9 +2,11 @@ package com.ctu.planitstudy.feature.presentation.splash
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
+import android.net.Uri
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
@@ -126,5 +128,23 @@ class SplashScreen :
         cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         cm2.unregisterNetworkCallback(networkCallBack)
         super.onDestroy()
+    }
+
+    private fun showUpdateDialog() {
+        PopupHelper.createPopUp(
+            this,
+            PopupData(
+                title = getString(R.string.app_update_title),
+                message = getString(R.string.app_update_message),
+                buttonTitle = getString(R.string.confirm),
+                buttonFun = {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.addCategory(Intent.CATEGORY_DEFAULT)
+                    intent.data = Uri.parse("market://details?id=" + getString(R.string.app_packge_name))
+                    startActivity(intent)
+                    it.dismiss()
+                }
+            )
+        ).show()
     }
 }

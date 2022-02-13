@@ -2,8 +2,10 @@ package com.ctu.planitstudy.feature.presentation.common.popup
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.DataBindingUtil
