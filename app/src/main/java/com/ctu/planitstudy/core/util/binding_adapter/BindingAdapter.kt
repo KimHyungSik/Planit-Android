@@ -1,9 +1,12 @@
 package com.ctu.planitstudy.core.util.binding_adapter
 
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
+import com.ctu.planitstudy.core.util.dp
 import com.tbuonomo.viewpagerdotsindicator.setPaddingHorizontal
 
 object BindingAdapter {
@@ -22,6 +25,6 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("setHorizontalPadding")
     fun setHorizontalPadding(view: View, padding: Int){
-        view.setPaddingHorizontal(padding)
+        view.setPaddingHorizontal(padding.dp)
     }
 }

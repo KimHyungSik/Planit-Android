@@ -59,6 +59,9 @@ class PlanitPassViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -78,6 +81,10 @@ class PlanitPassViewModel @Inject constructor(
                 is Resource.Loading -> {
                     loadingShow()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
+
             }
         }.launchIn(viewModelScope)
     }

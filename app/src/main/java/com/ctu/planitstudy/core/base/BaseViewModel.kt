@@ -11,7 +11,7 @@ abstract class BaseViewModel : ViewModel() {
     val loading: LiveData<LoadingState?> = _loading
 
     private val _appUpdate = MutableLiveData<Event<Unit>>()
-    val appUpdate : LiveData<Event<Unit>> = _appUpdate
+    val appUpdate: LiveData<Event<Unit>> = _appUpdate
 
     open fun loadingShow() {
         if (loading.value == null)
@@ -34,5 +34,8 @@ abstract class BaseViewModel : ViewModel() {
             _loading.value = LoadingState.ErrorDismiss
     }
 
+    open fun showAppUpdate() {
+        _appUpdate.value = Event(Unit)
+    }
 
 }

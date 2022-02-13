@@ -35,6 +35,9 @@ class SplashScreenViewModel @Inject constructor(
                 is Resource.Loading -> {
                     loadingShow()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }

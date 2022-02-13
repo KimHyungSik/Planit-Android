@@ -74,6 +74,9 @@ class DdayViewModel @Inject constructor(
                     _dDayNetworkState.value = DdayNetworkState(loading = true)
                     loadingShow()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -98,6 +101,9 @@ class DdayViewModel @Inject constructor(
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
                         loadingShow()
                     }
+                    is Resource.AppUpdate -> {
+                        showAppUpdate()
+                    }
                 }
             }.launchIn(viewModelScope)
         }
@@ -115,6 +121,9 @@ class DdayViewModel @Inject constructor(
                     is Resource.Loading -> {
                         _dDayNetworkState.value = DdayNetworkState(loading = true)
                         loadingShow()
+                    }
+                    is Resource.AppUpdate -> {
+                        showAppUpdate()
                     }
                 }
             }.launchIn(viewModelScope)

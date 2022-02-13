@@ -39,7 +39,7 @@
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="44dp"
                     android:gravity="center_horizontal"
-                    android:lineSpacingExtra="9sp"
+                    android:lineSpacingExtra="4sp"
                     android:text="@{popup_data.title}"
                     android:textColor="@color/text_color"
                     android:textStyle="bold" />
@@ -104,7 +104,9 @@
                         android:clickable="true"
                         android:onClick="@{()->popup_data.buttonFun.invoke(mDialog)}"
                         app:cardBackgroundColor="@color/text_color"
-                        app:cardCornerRadius="23dp">
+                        app:cardCornerRadius="23dp"
+
+                        >
 
                         <TextView
                             android:id="@+id/single_title_double_btn_right_text"

@@ -49,6 +49,9 @@ class EditUserViewModel @Inject constructor(
                 is Resource.Loading -> {
                     loadingShow()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -75,6 +78,9 @@ class EditUserViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                     loadingShow()
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
                 }
             }
         }.launchIn(viewModelScope)

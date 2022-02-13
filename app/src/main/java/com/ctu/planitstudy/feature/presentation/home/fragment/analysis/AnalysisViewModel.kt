@@ -40,6 +40,12 @@ class AnalysisViewModel @Inject constructor(
                 is Resource.Loading -> {
                     loadingShow()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -55,6 +61,9 @@ class AnalysisViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                     loadingShow()
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
                 }
             }
         }.launchIn(viewModelScope)

@@ -39,6 +39,9 @@ class WithdrawalViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -52,6 +55,9 @@ class WithdrawalViewModel @Inject constructor(
                 is Resource.Error -> {
                 }
                 is Resource.Loading -> {
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
                 }
             }
         }.launchIn(viewModelScope)

@@ -39,6 +39,9 @@ class RewardViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -57,6 +60,9 @@ class RewardViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                     loadingShow()
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
                 }
             }
         }.launchIn(viewModelScope)
