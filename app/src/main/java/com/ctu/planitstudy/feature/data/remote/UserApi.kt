@@ -12,10 +12,10 @@ import retrofit2.http.PUT
 interface UserApi {
 
     @GET("/v1/user")
-    suspend fun getUser(): UserInformationDto
+    suspend fun getUser(): Response<UserInformationDto>
 
     @PUT("/v1/user")
-    suspend fun editUser(@Body editUser: EditUser): MessageDto
+    suspend fun editUser(@Body editUser: EditUser): Response<MessageDto>
 
     @DELETE("/v1/user")
     suspend fun deleteUser(): Response<Unit>

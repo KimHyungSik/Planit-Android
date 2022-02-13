@@ -24,12 +24,12 @@ class UserRepositoryImp @Inject constructor(
     init {
     }
 
-    override suspend fun userLogin(loginUser: LoginUser): LoginDto = authApi.userLogin(loginUser)
-    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = authApi.userSignUp(signUpUser)
-    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = authApi.userSignUp(signUpUser)
-    override suspend fun userValidateNickName(nickname: String) = authApi.userValidateNickName(nickname)
-    override suspend fun userValidateNickName(nickname: String, previousNickname: String) = authApi.userValidateNickName(nickname, previousNickname)
-    override suspend fun getUser(): UserInformationDto = userApi.getUser()
-    override suspend fun editUser(editUser: EditUser): MessageDto = userApi.editUser(editUser)
+    override suspend fun userLogin(loginUser: LoginUser): Response<LoginDto> = authApi.userLogin(loginUser)
+    override suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto> = authApi.userSignUp(signUpUser)
+    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto> = authApi.userSignUp(signUpUser)
+    override suspend fun userValidateNickName(nickname: String) : Response<Unit> = authApi.userValidateNickName(nickname)
+    override suspend fun userValidateNickName(nickname: String, previousNickname: String) : Response<Unit> = authApi.userValidateNickName(nickname, previousNickname)
+    override suspend fun getUser(): Response<UserInformationDto> = userApi.getUser()
+    override suspend fun editUser(editUser: EditUser): Response<MessageDto> = userApi.editUser(editUser)
     override suspend fun deleteUser(): Response<Unit> = userApi.deleteUser()
 }

@@ -1,10 +1,7 @@
 package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.CoreData
-import com.ctu.planitstudy.core.util.network.AppVersionInterceptor
-import com.ctu.planitstudy.core.util.network.AuthInterceptor
-import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
-import com.ctu.planitstudy.core.util.network.TokenAuthenticator
+import com.ctu.planitstudy.core.util.network.*
 import com.ctu.planitstudy.di.AuthOkhttpClient
 import com.ctu.planitstudy.di.NonAuthOkhttpClient
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
@@ -36,6 +33,7 @@ object AppModule {
             // 로그 확인용 인터럽트
 //            .addInterceptor(LogginInterceptor.loggingInterceptor)
 //            .addNetworkInterceptor(LogginInterceptor.interceptor)
+            .addInterceptor { ResponseErrorHandel().intercept(it) }
             .authenticator(tokenAuthenticator)
             .build()
 
@@ -44,6 +42,7 @@ object AppModule {
     fun providerNonAuthOkhttpClient(): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(AppVersionInterceptor())
+            .addInterceptor { ResponseErrorHandel().intercept(it) }
             // 로그 확인용 인터럽트
 //            .addInterceptor(LogginInterceptor.loggingInterceptor)
 //            .addNetworkInterceptor(LogginInterceptor.interceptor)

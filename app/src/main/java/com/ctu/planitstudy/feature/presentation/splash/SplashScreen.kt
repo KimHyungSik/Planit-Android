@@ -92,16 +92,22 @@ class SplashScreen :
     private fun showNetworkErrorDialog() {
         CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
-            PopupHelper.createPopUp(
-                context = this@SplashScreen,
-                PopupData(
-                    title = getString(R.string.network_error_title),
-                    titleTextSize = 18f,
-                    message = getString(R.string.network_error_sub_title),
-                    buttonTitle = getString(R.string.retry),
-                    buttonFun = { it.dismiss() }
-                )
-            ).show()
+            CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
+                delay(1500)
+                PopupHelper.createPopUp(
+                    context = this@SplashScreen,
+                    PopupData(
+                        title = getString(R.string.network_error_title),
+                        titleTextSize = 18f,
+                        message = getString(R.string.network_error_sub_title),
+                        buttonTitle = getString(R.string.retry),
+                        buttonFun = {
+                            showNetworkErrorDialog()
+                            it.dismiss()
+                        }
+                    )
+                ).show()
+            }
         }
     }
 
@@ -130,21 +136,5 @@ class SplashScreen :
         super.onDestroy()
     }
 
-    private fun showUpdateDialog() {
-        PopupHelper.createPopUp(
-            this,
-            PopupData(
-                title = getString(R.string.app_update_title),
-                message = getString(R.string.app_update_message),
-                buttonTitle = getString(R.string.confirm),
-                buttonFun = {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.addCategory(Intent.CATEGORY_DEFAULT)
-                    intent.data = Uri.parse("market://details?id=" + getString(R.string.app_packge_name))
-                    startActivity(intent)
-                    it.dismiss()
-                }
-            )
-        ).show()
-    }
+
 }
