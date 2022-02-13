@@ -3,11 +3,15 @@ package com.ctu.planitstudy.core.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ctu.planitstudy.feature.presentation.common.livedata.Event
 
 abstract class BaseViewModel : ViewModel() {
 
     private val _loading = MutableLiveData<LoadingState?>(null)
     val loading: LiveData<LoadingState?> = _loading
+
+    private val _appUpdate = MutableLiveData<Event<Unit>>()
+    val appUpdate : LiveData<Event<Unit>> = _appUpdate
 
     open fun loadingShow() {
         if (loading.value == null)
@@ -29,4 +33,6 @@ abstract class BaseViewModel : ViewModel() {
         if (loading.value == LoadingState.Show)
             _loading.value = LoadingState.ErrorDismiss
     }
+
+
 }

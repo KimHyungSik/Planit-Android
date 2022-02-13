@@ -1,12 +1,19 @@
 package com.ctu.planitstudy.core.base
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.ctu.planitstudy.R
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.util.Screens
 
 open class BaseActivity :
@@ -61,4 +68,5 @@ open class BaseActivity :
 
     // 리턴 값을 가지고 반환된 액티비티 설정
     open fun resultActivity(activityResult: ActivityResult) {}
+
 }
