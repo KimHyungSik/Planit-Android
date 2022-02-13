@@ -19,7 +19,6 @@ class AppVersionInterceptor : Interceptor {
                 )
                 .build()
 
-
         return chain.proceed(req)
     }
 }

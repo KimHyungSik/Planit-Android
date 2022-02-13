@@ -7,9 +7,9 @@ import com.ctu.planitstudy.feature.domain.model.study.Study
 import retrofit2.Response
 
 interface StudyRepository {
-    suspend fun addStudy(study: Study) : Response<Unit>
-    suspend fun addStudy(repeatedStudy: RepeatedStudy) : Response<Unit>
-    suspend fun validateTitle(title: String) : Response<Unit>
+    suspend fun addStudy(study: Study): Response<Unit>
+    suspend fun addStudy(repeatedStudy: RepeatedStudy): Response<Unit>
+    suspend fun validateTitle(title: String): Response<Unit>
     suspend fun getStudyList(date: String): Response<StudyListDto>
     suspend fun getStudyTimeLine(date: String): Response<StudyTimeLineDto>
     suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study): Response<Unit>

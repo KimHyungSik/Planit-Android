@@ -14,8 +14,8 @@ interface UserRepository {
     suspend fun userLogin(loginUser: LoginUser): Response<LoginDto>
     suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto>
     suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto>
-    suspend fun userValidateNickName(nickname: String) : Response<Unit>
-    suspend fun userValidateNickName(nickname: String, previousNickname: String) : Response<Unit>
+    suspend fun userValidateNickName(nickname: String): Response<Unit>
+    suspend fun userValidateNickName(nickname: String, previousNickname: String): Response<Unit>
     suspend fun getUser(): Response<UserInformationDto>
     suspend fun editUser(editUser: EditUser): Response<MessageDto>
     suspend fun deleteUser(): Response<Unit>

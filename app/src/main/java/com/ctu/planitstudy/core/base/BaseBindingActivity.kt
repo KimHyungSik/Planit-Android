@@ -44,9 +44,12 @@ abstract class BaseBindingActivity<VB : ViewBinding, VM : BaseViewModel>() : Bas
                     }
             }
         )
-        viewModel.appUpdate.observe(this, EventObserver {
-            showUpdateDialog()
-        })
+        viewModel.appUpdate.observe(
+            this,
+            EventObserver {
+                showUpdateDialog()
+            }
+        )
         setup()
     }
 

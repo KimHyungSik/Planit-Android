@@ -78,7 +78,6 @@ class LoginViewModel @Inject constructor(
                                                                 )
                                                         }
                                                     }
-
                                                 }
                                             }
                                             is Resource.Error -> {

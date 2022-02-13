@@ -84,7 +84,6 @@ class PlanitPassViewModel @Inject constructor(
                 is Resource.AppUpdate -> {
                     showAppUpdate()
                 }
-
             }
         }.launchIn(viewModelScope)
     }

@@ -37,5 +37,4 @@ abstract class BaseViewModel : ViewModel() {
     open fun showAppUpdate() {
         _appUpdate.value = Event(Unit)
     }
-
 }

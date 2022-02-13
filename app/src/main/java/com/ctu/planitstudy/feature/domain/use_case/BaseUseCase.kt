@@ -2,7 +2,6 @@ package com.ctu.planitstudy.feature.domain.use_case
 
 import android.util.Log
 import com.ctu.core.util.Resource
-import com.ctu.planitstudy.feature.presentation.util.ActivityLifeCycleObserver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
@@ -16,13 +15,13 @@ abstract class BaseUseCase<T : Any?> {
             Log.d(TAGV, "useCase: ")
             emit(Resource.Loading<T>(null))
             val result = arg()
-            if(result.isSuccessful){
+            if (result.isSuccessful) {
                 val finalResult = result.body()?.let {
                     modified(it)
                 } ?: result.body()!!
                 emit(Resource.Success<T>(finalResult))
-            }else{
-                if(result.code() == 412){
+            } else {
+                if (result.code() == 412) {
                     Log.d(TAGV, "useCase: $result")
                 }
                 Log.d(TAGV, "useCase non 412: $result")
@@ -34,7 +33,7 @@ abstract class BaseUseCase<T : Any?> {
             if (e is HttpException) {
                 if (e.code() == 401)
                     emit(Resource.Error<T>(data = null, message = "토큰 만료"))
-                if (e.code() == 412){
+                if (e.code() == 412) {
                     Log.d(TAGV, "message = \"앱 버전 이상\"")
                     emit(Resource.Error<T>(data = null, message = "앱 버전 이상"))
                 }

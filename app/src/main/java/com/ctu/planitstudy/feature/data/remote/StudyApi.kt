@@ -18,15 +18,15 @@ interface StudyApi {
 
     // 공부 추가
     @POST("/v1/study")
-    suspend fun addStudy(@Body study: Study) : Response<Unit>
+    suspend fun addStudy(@Body study: Study): Response<Unit>
 
     // 공부 추가(반복)
     @POST("/v1/study")
-    suspend fun addStudy(@Body repeatedStudy: RepeatedStudy) : Response<Unit>
+    suspend fun addStudy(@Body repeatedStudy: RepeatedStudy): Response<Unit>
 
     // 닉네임 중복 체크
     @GET("/v1/study/validate-title")
-    suspend fun validateTitle(@Query("title") title: String) : Response<Unit>
+    suspend fun validateTitle(@Query("title") title: String): Response<Unit>
 
     // 공부 일자별 리스트 가져오기
     @GET("/v1/study/list/{date}")

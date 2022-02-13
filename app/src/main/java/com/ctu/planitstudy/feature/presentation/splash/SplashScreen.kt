@@ -2,11 +2,9 @@ package com.ctu.planitstudy.feature.presentation.splash
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
-import android.net.Uri
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.ctu.planitstudy.R
@@ -16,12 +14,16 @@ import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
-import com.ctu.planitstudy.feature.presentation.dialogs.SubTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -86,7 +88,7 @@ class SplashScreen :
     }
 
     private fun showNetworkErrorDialog() {
-        if(checkNetWork) return
+        if (checkNetWork) return
         CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
             CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
@@ -132,6 +134,4 @@ class SplashScreen :
         cm2.unregisterNetworkCallback(networkCallBack)
         super.onDestroy()
     }
-
-
 }

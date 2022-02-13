@@ -76,7 +76,7 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
         )
     }
 
-    fun appReView(){
+    fun appReView() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.data = Uri.parse("market://details?id=" + getString(R.string.app_packge_name))

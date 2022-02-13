@@ -29,8 +29,8 @@ interface UserAuthApi {
     ): Response<SignUpUserDto>
 
     @GET("/v1/user/validate-nickname")
-    suspend fun userValidateNickName(@Query("nickname") nickname: String) : Response<Unit>
+    suspend fun userValidateNickName(@Query("nickname") nickname: String): Response<Unit>
 
     @GET("/v1/user/validate-nickname")
-    suspend fun userValidateNickName(@Query("nickname") nickname: String, @Query("previousNickname") previousNickname: String) : Response<Unit>
+    suspend fun userValidateNickName(@Query("nickname") nickname: String, @Query("previousNickname") previousNickname: String): Response<Unit>
 }

@@ -26,21 +26,21 @@ class JwtTokenRefreshUseCase @Inject constructor(
         try {
             emit(Resource.Loading<String>(null))
             val json = authRepository.refreshAccessToken(RefreshToken(CashStudyApp.prefs.refreshToken!!))
-            if(json.isSuccessful){
-                json.body()?.let{
+            if (json.isSuccessful) {
+                json.body()?.let {
                     CashStudyApp.prefs.accessToken = it.asJsonObject["accessToken"].asString!!
                     emit(Resource.Success(it.asJsonObject["accessToken"].asString!!))
                 }
-            }else{
-                if(json.code() == 412){
-                   emit(Resource.AppUpdate<String>())
+            } else {
+                if (json.code() == 412) {
+                    emit(Resource.AppUpdate<String>())
                 }
             }
         } catch (e: Exception) {
             if (e is HttpException) {
                 if (e.code() == 401)
                     emit(Resource.Error<String>(data = null, message = "토큰 만료"))
-                if (e.code() == 412){
+                if (e.code() == 412) {
                     Log.d(TAG, "message = \"앱 버전 이상\"")
                     emit(Resource.Error<String>(data = null, message = "앱 버전 이상"))
                 }

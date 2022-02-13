@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.core.util.network
 
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -9,7 +8,7 @@ class ResponseErrorHandel : Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
 
-        if(response.code == 412){
+        if (response.code == 412) {
             return response
         }
         return response

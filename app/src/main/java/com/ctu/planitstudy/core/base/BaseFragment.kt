@@ -3,7 +3,6 @@ package com.ctu.planitstudy.core.base
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ctu.planitstudy.R
-import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.common.livedata.EventObserver
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
@@ -68,9 +66,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
                     }
             }
         )
-        viewModel.appUpdate.observe(viewLifecycleOwner, EventObserver {
-            showUpdateDialog()
-        })
+        viewModel.appUpdate.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                showUpdateDialog()
+            }
+        )
         setInit()
         setUpViews()
         observeData()
@@ -135,15 +136,15 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
     open fun moveIntentAllClear(activity: Class<*>) {
         val intent = Intent(getActivity(), activity)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                Intent.FLAG_ACTIVITY_NEW_TASK
+            Intent.FLAG_ACTIVITY_CLEAR_TASK or
+            Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
     open fun moveIntentAllClear(intent: Intent) {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                Intent.FLAG_ACTIVITY_NEW_TASK
+            Intent.FLAG_ACTIVITY_CLEAR_TASK or
+            Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
@@ -151,8 +152,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         activity?.let { act ->
             act.finishAffinity()
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
     }
@@ -162,8 +163,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         activity?.let { act ->
             act.finishAffinity()
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
     }
