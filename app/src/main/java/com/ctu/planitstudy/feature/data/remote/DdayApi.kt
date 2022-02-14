@@ -14,13 +14,13 @@ import retrofit2.http.Path
 interface DdayApi {
 
     @GET("/v1/dday")
-    suspend fun getDdayList(): DdayListDto
+    suspend fun getDdayList(): Response<DdayListDto>
 
     @POST("/v1/dday")
-    suspend fun addDday(@Body dday: Dday): DdayDto
+    suspend fun addDday(@Body dday: Dday): Response<DdayDto>
 
     @PUT("/v1/dday/{dDayId}")
-    suspend fun modifiedDday(@Body dday: Dday, @Path("dDayId") dDayId: Int): DdayDto
+    suspend fun modifiedDday(@Body dday: Dday, @Path("dDayId") dDayId: Int): Response<DdayDto>
 
     @DELETE("/v1/dday/{dDayId}")
     suspend fun deleteDday(@Path("dDayId") dDayId: Int): Response<Unit>

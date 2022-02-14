@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,18 +54,30 @@ class LoginViewModel @Inject constructor(
                                         when (it) {
                                             is Resource.Success -> {
                                                 viewModelScope.launch {
-                                                    val login: LoginDto =
+                                                    val login: Response<LoginDto> =
                                                         userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
-                                                    if (login.result)
-                                                        with(login) {
-                                                            CashStudyApp.prefs.accessToken =
-                                                                this.accessToken
-                                                            CashStudyApp.prefs.refreshToken =
-                                                                this.refreshToken
-                                                            loginState.postValue(LoginState.Login(this.result))
+                                                    if (login.isSuccessful) {
+                                                        login.body()?.let {
+                                                            if (it.result)
+                                                                with(it) {
+                                                                    CashStudyApp.prefs.accessToken =
+                                                                        this.accessToken
+                                                                    CashStudyApp.prefs.refreshToken =
+                                                                        this.refreshToken
+                                                                    loginState.postValue(
+                                                                        LoginState.Login(
+                                                                            this.result
+                                                                        )
+                                                                    )
+                                                                }
+                                                            else
+                                                                loginState.postValue(
+                                                                    LoginState.Login(
+                                                                        it.result
+                                                                    )
+                                                                )
                                                         }
-                                                    else
-                                                        loginState.postValue(LoginState.Login(login.result))
+                                                    }
                                                 }
                                             }
                                             is Resource.Error -> {

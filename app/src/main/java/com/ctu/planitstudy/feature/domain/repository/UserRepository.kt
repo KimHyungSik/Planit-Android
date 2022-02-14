@@ -11,12 +11,12 @@ import com.ctu.planitstudy.feature.domain.model.user.SignUpUserReceiver
 import retrofit2.Response
 
 interface UserRepository {
-    suspend fun userLogin(loginUser: LoginUser): LoginDto
-    suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto
-    suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto
-    suspend fun userValidateNickName(nickname: String)
-    suspend fun userValidateNickName(nickname: String, previousNickname: String)
-    suspend fun getUser(): UserInformationDto
-    suspend fun editUser(editUser: EditUser): MessageDto
+    suspend fun userLogin(loginUser: LoginUser): Response<LoginDto>
+    suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto>
+    suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto>
+    suspend fun userValidateNickName(nickname: String): Response<Unit>
+    suspend fun userValidateNickName(nickname: String, previousNickname: String): Response<Unit>
+    suspend fun getUser(): Response<UserInformationDto>
+    suspend fun editUser(editUser: EditUser): Response<MessageDto>
     suspend fun deleteUser(): Response<Unit>
 }

@@ -40,6 +40,9 @@ class HomeViewModel @Inject constructor(
                     is Resource.Error -> {
                         loadingErrorDismiss()
                     }
+                    is Resource.AppUpdate -> {
+                        showAppUpdate()
+                    }
                 }
             }.launchIn(this)
         }
@@ -60,6 +63,9 @@ class HomeViewModel @Inject constructor(
                 is Resource.Error -> {
                     loadingErrorDismiss()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -75,6 +81,9 @@ class HomeViewModel @Inject constructor(
                 }
                 is Resource.Loading -> {
                     loadingShow()
+                }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
                 }
             }
         }.launchIn(viewModelScope)

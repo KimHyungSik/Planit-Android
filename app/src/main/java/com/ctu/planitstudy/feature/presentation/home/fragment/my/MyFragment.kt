@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.home.fragment.my
 
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -73,6 +74,13 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
         ReadyDialog().show(
             parentFragmentManager, "ReadyDialog"
         )
+    }
+
+    fun appReView() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        intent.data = Uri.parse("market://details?id=" + getString(R.string.app_packge_name))
+        startActivity(intent)
     }
 
     fun termsOfService() {

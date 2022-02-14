@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.core.base
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.ctu.planitstudy.R
+import com.ctu.planitstudy.feature.presentation.common.livedata.EventObserver
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
+import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
 import com.ctu.planitstudy.feature.presentation.dialogs.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     private var _binding: ViewBinding? = null
@@ -58,6 +64,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
                         is LoadingState.Dismiss -> dismiss()
                         is LoadingState.ErrorDismiss -> dismiss()
                     }
+            }
+        )
+        viewModel.appUpdate.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                showUpdateDialog()
             }
         )
         setInit()
@@ -155,5 +167,24 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
                 Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+    }
+
+    private fun showUpdateDialog() {
+        PopupHelper.createPopUp(
+            requireContext(),
+            PopupData(
+                title = getString(R.string.app_update_title),
+                message = getString(R.string.app_update_message),
+                buttonTitle = getString(R.string.confirm),
+                buttonFun = {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.addCategory(Intent.CATEGORY_DEFAULT)
+                    intent.data =
+                        Uri.parse("market://details?id=" + getString(R.string.app_packge_name))
+                    startActivity(intent)
+                    it.dismiss()
+                }
+            )
+        ).show()
     }
 }

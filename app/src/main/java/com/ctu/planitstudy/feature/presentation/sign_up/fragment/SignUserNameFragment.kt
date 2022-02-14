@@ -88,6 +88,9 @@ class SignUserNameFragment : BaseFragment<FragmentSignUpUserNameBinding, SignUpV
                                 signUpNicknameErrorText.visibility = View.INVISIBLE
                                 signUpNicknameErrorIcon.visibility = View.INVISIBLE
                             }
+                            is Resource.AppUpdate -> {
+                                viewModel.showAppUpdate()
+                            }
                         }
                         val state = viewModel.liveData.value!!.copy(
                             nicknameCheck = false

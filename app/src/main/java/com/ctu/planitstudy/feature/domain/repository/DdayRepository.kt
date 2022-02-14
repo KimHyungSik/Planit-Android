@@ -6,8 +6,8 @@ import com.ctu.planitstudy.feature.domain.model.Dday
 import retrofit2.Response
 
 interface DdayRepository {
-    suspend fun getDdayList(): DdayListDto
-    suspend fun addDday(dday: Dday): DdayDto
-    suspend fun modifiedDday(dday: Dday, dDayId: Int): DdayDto
+    suspend fun getDdayList(): Response<DdayListDto>
+    suspend fun addDday(dday: Dday): Response<DdayDto>
+    suspend fun modifiedDday(dday: Dday, dDayId: Int): Response<DdayDto>
     suspend fun deleteDday(dDayId: Int): Response<Unit>
 }

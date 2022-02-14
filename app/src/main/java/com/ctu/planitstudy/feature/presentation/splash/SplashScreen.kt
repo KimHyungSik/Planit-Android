@@ -14,12 +14,12 @@ import com.ctu.planitstudy.databinding.ActivitySplashScreenBinding
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupData
 import com.ctu.planitstudy.feature.presentation.common.popup.PopupHelper
-import com.ctu.planitstudy.feature.presentation.dialogs.SubTitleCheckDialog
 import com.ctu.planitstudy.feature.presentation.util.Screens
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -43,15 +43,14 @@ class SplashScreen :
     private lateinit var cm2: ConnectivityManager
 
     private val networkCheckJob = Job()
+    private var checkNetWork = false
 
-    private val subtitleDialog = SubTitleCheckDialog()
-
+    @DelicateCoroutinesApi
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
+            checkNetWork = true
             // 네트워크가 연결될 때 호출됩니다.
-
             CoroutineScope(Dispatchers.Main + mainJob).launch {
-
                 if (CashStudyApp.prefs.refreshToken != null)
                     if (CashStudyApp.prefs.refreshToken!!.isNotBlank())
                         if (!JWTRefreshTokenExpiration().invoke()) {
@@ -66,6 +65,7 @@ class SplashScreen :
         }
     }
 
+    @DelicateCoroutinesApi
     override fun setup() {
         cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val builder = NetworkRequest.Builder()
@@ -88,18 +88,25 @@ class SplashScreen :
     }
 
     private fun showNetworkErrorDialog() {
+        if (checkNetWork) return
         CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
             delay(1500)
-            PopupHelper.createPopUp(
-                context = this@SplashScreen,
-                PopupData(
-                    title = getString(R.string.network_error_title),
-                    titleTextSize = 18f,
-                    message = getString(R.string.network_error_sub_title),
-                    buttonTitle = getString(R.string.retry),
-                    buttonFun = { it.dismiss() }
-                )
-            ).show()
+            CoroutineScope(Dispatchers.Main + networkCheckJob + mainJob).launch {
+                delay(1500)
+                PopupHelper.createPopUp(
+                    context = this@SplashScreen,
+                    PopupData(
+                        title = getString(R.string.network_error_title),
+                        titleTextSize = 18f,
+                        message = getString(R.string.network_error_sub_title),
+                        buttonTitle = getString(R.string.retry),
+                        buttonFun = {
+                            showNetworkErrorDialog()
+                            it.dismiss()
+                        }
+                    )
+                ).show()
+            }
         }
     }
 

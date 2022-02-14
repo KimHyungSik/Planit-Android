@@ -101,7 +101,7 @@ class StudyScreen :
                 )
             }
 
-            studyRepeatSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            studyRepeatSwitch.setOnCheckedChangeListener { _, isChecked ->
                 updateStudyState(
                     viewModel.studyState.value!!.copy(
                         repeat = isChecked

@@ -42,6 +42,9 @@ class MyViewModel @Inject constructor(
                 is Resource.Error -> {
                     loadingErrorDismiss()
                 }
+                is Resource.AppUpdate -> {
+                    showAppUpdate()
+                }
             }
         }.launchIn(viewModelScope)
     }
