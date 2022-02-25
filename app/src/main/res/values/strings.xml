@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">플래닛</string>
-    <string name="version">0.0.0.dev</string>
+    <string name="version">0.1.0.dev</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="app_packge_name">com.ctu.planitstudy</string>
     <string name="app_update_title">새로운 버전이\n업데이트 되었습니다.</string>
