@@ -1,6 +1,7 @@
 package com.ctu.planitstudy.feature.presentation.login
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ctu.core.util.Resource
@@ -9,6 +10,7 @@ import com.ctu.planitstudy.feature.data.data_source.user.OauthType
 import com.ctu.planitstudy.feature.data.data_source.user.UserManager
 import com.ctu.planitstudy.feature.data.remote.dto.LoginDto
 import com.ctu.planitstudy.feature.domain.model.user.LoginUser
+import com.ctu.planitstudy.feature.domain.model.user.User
 import com.ctu.planitstudy.feature.domain.use_case.user.UserAuthUseCase
 import com.ctu.planitstudy.feature.presentation.CashStudyApp
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,41 +53,9 @@ class LoginViewModel @Inject constructor(
                             userManager.getUserInfo()
                                 .subscribe(
                                     { it ->
-                                        when (it) {
-                                            is Resource.Success -> {
-                                                viewModelScope.launch {
-                                                    val login: Response<LoginDto> =
-                                                        userAuthUseCase.userLogin(LoginUser(it.data!!.userEmail))
-                                                    if (login.isSuccessful) {
-                                                        login.body()?.let {
-                                                            if (it.result)
-                                                                with(it) {
-                                                                    CashStudyApp.prefs.accessToken =
-                                                                        this.accessToken
-                                                                    CashStudyApp.prefs.refreshToken =
-                                                                        this.refreshToken
-                                                                    loginState.postValue(
-                                                                        LoginState.Login(
-                                                                            this.result
-                                                                        )
-                                                                    )
-                                                                }
-                                                            else
-                                                                loginState.postValue(
-                                                                    LoginState.Login(
-                                                                        it.result
-                                                                    )
-                                                                )
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            is Resource.Error -> {
-                                            }
-                                        }
+                                        loginWithServer(it)
                                     },
-                                    {
-                                    }
+                                    {}
                                 )
                         }
                         is Resource.Error -> {
@@ -96,6 +66,45 @@ class LoginViewModel @Inject constructor(
                 { error ->
                 }
             ).addTo(disposables)
+    }
+
+    private fun loginWithServer(resource: Resource<User>) {
+        when (resource) {
+            is Resource.Success -> {
+                viewModelScope.launch {
+                    val login: Response<LoginDto> =
+                        userAuthUseCase.userLogin(LoginUser(resource.data!!.userEmail))
+                    if (login.isSuccessful) {
+                        login.body()?.let {
+                            if (it.result)
+                                with(it) {
+                                    CashStudyApp.prefs.accessToken =
+                                        this.accessToken
+                                    CashStudyApp.prefs.refreshToken =
+                                        this.refreshToken
+                                    loginState.postValue(
+                                        LoginState.Login(
+                                            this.result
+                                        )
+                                    )
+                                }
+                            else
+                                loginState.postValue(
+                                    LoginState.Login(
+                                        it.result
+                                    )
+                                )
+                        }
+                    } else if (login.code() == 412) {
+                        showAppUpdate()
+                    }
+                }
+            }
+            is Resource.Error -> {
+            }
+            else -> {
+            }
+        }
     }
 
     override fun onCleared() {
