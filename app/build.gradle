@@ -12,6 +12,15 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    signingConfigs {
+        release {
+            storeFile file("../keystore/PlanitApp.keystore")
+            storePassword "a52725272"
+            keyAlias "planitappkey"
+            keyPassword "a52725272"
+        }
+    }
+
     defaultConfig {
         applicationId "com.ctu.planitstudy"
         minSdkVersion 26
