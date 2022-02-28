@@ -1,5 +1,6 @@
 package com.ctu.planitstudy.feature.domain.use_case.dday
 
+import android.util.Log
 import app.cash.turbine.test
 import com.ctu.planitstudy.core.util.date_util.DateCalculation
 import com.ctu.planitstudy.core.util.date_util.DateConvter
@@ -63,7 +64,7 @@ class DdayUseCaseTest {
     @Test
     fun `디데이 리스트 조회 및 정렬 테스트`() = runBlocking {
         ddayUseCase.getDdayListUseCase().test {
-            val loading = awaitItem()
+            awaitItem()
             val ddayListDto = awaitItem().data!!
             val result = ddayListDto.ddays
             for (n in 0..result.size - 2) {

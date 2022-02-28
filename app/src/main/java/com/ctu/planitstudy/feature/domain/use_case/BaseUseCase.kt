@@ -12,7 +12,6 @@ abstract class BaseUseCase<T : Any?> {
     val TAGV = "BaseUseCase - 로그"
     fun useCase(arg: suspend () -> Response<T>): Flow<Resource<T>> = flow {
         try {
-            Log.d(TAGV, "useCase: ")
             emit(Resource.Loading<T>(null))
             val result = arg()
             if (result.isSuccessful) {
@@ -31,7 +30,6 @@ abstract class BaseUseCase<T : Any?> {
                 if (e.code() == 401)
                     emit(Resource.Error<T>(data = null, message = "토큰 만료"))
                 if (e.code() == 412) {
-                    Log.d(TAGV, "message = \"앱 버전 이상\"")
                     emit(Resource.Error<T>(data = null, message = "앱 버전 이상"))
                 }
                 emit(
