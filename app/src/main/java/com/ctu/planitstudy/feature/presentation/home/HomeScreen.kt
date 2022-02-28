@@ -26,7 +26,8 @@ class HomeScreen :
     @SuppressLint("ResourceType")
     override fun setup() {
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.home_fragment_view) as NavHostFragment
         val navController = navHostFragment.navController
 
         NavigationUI.setupWithNavController(binding.homeBottomNav, navController)
