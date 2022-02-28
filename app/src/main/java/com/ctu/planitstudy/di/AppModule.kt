@@ -1,7 +1,10 @@
 package com.plcoding.cleanarchitecturenoteapp.di
 
 import com.ctu.planitstudy.core.util.CoreData
-import com.ctu.planitstudy.core.util.network.*
+import com.ctu.planitstudy.core.util.network.AppVersionInterceptor
+import com.ctu.planitstudy.core.util.network.AuthInterceptor
+import com.ctu.planitstudy.core.util.network.NullOnEmptyConverterFactory
+import com.ctu.planitstudy.core.util.network.TokenAuthenticator
 import com.ctu.planitstudy.di.AuthOkhttpClient
 import com.ctu.planitstudy.di.NonAuthOkhttpClient
 import com.ctu.planitstudy.feature.domain.use_case.auth.JwtTokenRefreshUseCase
@@ -35,9 +38,11 @@ object AppModule {
         OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(jwtTokenRefreshUseCase))
             // 로그 확인용 인터럽트
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
             .authenticator(tokenAuthenticator)
             .build()
 
@@ -45,9 +50,11 @@ object AppModule {
     @NonAuthOkhttpClient
     fun providerNonAuthOkhttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
             .addInterceptor(AppVersionInterceptor())
             .build()
 

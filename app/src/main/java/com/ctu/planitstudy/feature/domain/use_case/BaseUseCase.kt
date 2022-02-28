@@ -1,6 +1,5 @@
 package com.ctu.planitstudy.feature.domain.use_case
 
-import android.util.Log
 import com.ctu.core.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

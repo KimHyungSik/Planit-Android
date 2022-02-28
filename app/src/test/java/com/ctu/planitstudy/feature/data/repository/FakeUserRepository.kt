@@ -25,7 +25,7 @@ class FakeUserRepository : UserRepository {
         return Response.success(Unit)
     }
 
-    override suspend fun userValidateNickName(nickname: String, previousNickname: String):  Response<Unit> {
+    override suspend fun userValidateNickName(nickname: String, previousNickname: String): Response<Unit> {
         validateNickName = userInformationDto.nickname == nickname
         return Response.success(Unit)
     }
