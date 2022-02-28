@@ -16,24 +16,25 @@ class FakeUserRepository : UserRepository {
     private var userInformationDto = UserInformationDto("2000-00-00", "", "test@test.com", 1, "name", "nickname", "")
     var validateNickName: Boolean = false
 
-    override suspend fun userLogin(loginUser: LoginUser): LoginDto = LoginDto(true, "", "")
+    override suspend fun userLogin(loginUser: LoginUser): Response<LoginDto> = Response.success(LoginDto(true, "", ""))
+    override suspend fun userSignUp(signUpUser: SignUpUser): Response<SignUpUserDto> = Response.success(SignUpUserDto(0, "", "", "", "", "", "", "", ""))
+    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): Response<SignUpUserDto> = Response.success(SignUpUserDto(0, "", "", "", "", "", "", "", ""))
 
-    override suspend fun userSignUp(signUpUser: SignUpUser): SignUpUserDto = SignUpUserDto(0, "", "", "", "", "", "", "", "")
-    override suspend fun userSignUp(signUpUser: SignUpUserReceiver): SignUpUserDto = SignUpUserDto(0, "", "", "", "", "", "", "", "")
-
-    override suspend fun userValidateNickName(nickname: String) {
+    override suspend fun userValidateNickName(nickname: String): Response<Unit> {
         validateNickName = userInformationDto.nickname == nickname
+        return Response.success(Unit)
     }
 
-    override suspend fun userValidateNickName(nickname: String, previousNickname: String) {
+    override suspend fun userValidateNickName(nickname: String, previousNickname: String):  Response<Unit> {
         validateNickName = userInformationDto.nickname == nickname
+        return Response.success(Unit)
     }
 
-    override suspend fun getUser(): UserInformationDto = userInformationDto
+    override suspend fun getUser(): Response<UserInformationDto> = Response.success(userInformationDto)
 
-    override suspend fun editUser(editUser: EditUser): MessageDto {
+    override suspend fun editUser(editUser: EditUser): Response<MessageDto> {
         userInformationDto = userInformationDto.copy(category = editUser.category, name = editUser.name, nickname = editUser.nickname)
-        return MessageDto("success")
+        return Response.success(MessageDto("success"))
     }
 
     override suspend fun deleteUser(): Response<Unit> {

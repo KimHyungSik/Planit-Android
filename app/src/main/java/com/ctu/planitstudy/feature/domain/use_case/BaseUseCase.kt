@@ -19,12 +19,9 @@ abstract class BaseUseCase<T : Any?> {
                 val finalResult = result.body()?.let {
                     modified(it)
                 } ?: result.body()!!
-                emit(Resource.Success<T>(finalResult))
+                emit(Resource.Success<T>(finalResult, code = result.code()))
             } else {
-                if (result.code() == 412) {
-                    Log.d(TAGV, "useCase: $result")
-                }
-                Log.d(TAGV, "useCase non 412: $result")
+                emit(Resource.Error<T>(message = result.message(), code = result.code()))
             }
         } catch (e: NullPointerException) {
             emit(Resource.Error<T>(message = "NullPointerException " + e.message))

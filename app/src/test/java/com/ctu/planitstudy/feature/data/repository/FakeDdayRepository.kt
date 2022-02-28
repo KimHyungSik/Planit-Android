@@ -12,7 +12,7 @@ class FakeDdayRepository : DdayRepository {
     private val ddayListDto = mutableListOf<DdayDto>()
     private val fakeDdayDto = DdayDto(1, "", false, "", "", "", 1)
 
-    override suspend fun getDdayList(): DdayListDto {
+    override suspend fun getDdayList(): Response<DdayListDto> {
         val listDdayDto = mutableListOf<DdayDto>()
         ddays.forEachIndexed { index, dday ->
             listDdayDto.add(
@@ -27,17 +27,17 @@ class FakeDdayRepository : DdayRepository {
                 )
             )
         }
-        return DdayListDto(listDdayDto)
+        return Response.success(DdayListDto(listDdayDto))
     }
 
-    override suspend fun addDday(dday: Dday): DdayDto {
+    override suspend fun addDday(dday: Dday): Response<DdayDto> {
         ddays.add(dday)
-        return fakeDdayDto
+        return Response.success(fakeDdayDto)
     }
 
-    override suspend fun modifiedDday(dday: Dday, dDayId: Int): DdayDto {
+    override suspend fun modifiedDday(dday: Dday, dDayId: Int): Response<DdayDto> {
         ddays.set(0, dday)
-        return fakeDdayDto
+        return Response.success(fakeDdayDto)
     }
 
     override suspend fun deleteDday(dDayId: Int): Response<Unit> {

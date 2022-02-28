@@ -4,6 +4,7 @@ import com.ctu.planitstudy.feature.data.remote.dto.timer.TimerMeasurementDto
 import com.ctu.planitstudy.feature.data.remote.dto.util.MessageDto
 import com.ctu.planitstudy.feature.domain.model.timer.RecordMeasurementTimer
 import com.ctu.planitstudy.feature.domain.repository.TimerRepository
+import retrofit2.Response
 
 class FakeTimerRepository : TimerRepository {
 
@@ -12,12 +13,12 @@ class FakeTimerRepository : TimerRepository {
     override suspend fun recordMeasurementTime(
         studyId: String,
         recordMeasurementTimer: RecordMeasurementTimer
-    ): MessageDto {
+    ): Response<MessageDto> {
         with(recordMeasurementTimer) {
             timerMeasurementDto = timerMeasurementDto.copy(bonusTicket = this.bonusTicket, isDone = this.isDone, recordedTime = this.recordedTime, rest = this.rest, star = this.star)
         }
-        return MessageDto("success")
+        return Response.success(MessageDto("success"))
     }
 
-    override suspend fun getMeasurementTime(studyId: String): TimerMeasurementDto = timerMeasurementDto
+    override suspend fun getMeasurementTime(studyId: String): Response<TimerMeasurementDto> = Response.success(timerMeasurementDto)
 }

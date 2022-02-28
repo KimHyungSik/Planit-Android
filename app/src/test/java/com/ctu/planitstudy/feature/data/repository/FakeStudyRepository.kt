@@ -16,25 +16,28 @@ class FakeStudyRepository : StudyRepository {
     private var fakeStudyDtoList = mutableListOf<StudyDto>()
     val report = mutableListOf<Report>()
 
-    override suspend fun addStudy(study: Study) {
+    override suspend fun addStudy(study: Study): Response<Unit> {
         studies.add(study)
+        return Response.success(Unit)
     }
 
-    override suspend fun addStudy(repeatedStudy: RepeatedStudy) {
+    override suspend fun addStudy(repeatedStudy: RepeatedStudy): Response<Unit> {
         repeatedStudies.add(repeatedStudy)
+        return Response.success(Unit)
     }
 
-    override suspend fun validateTitle(title: String) {
+    override suspend fun validateTitle(title: String): Response<Unit> {
         for (study in studies) {
-            if (study.title == title) return
+            if (study.title == title) return Response.success(Unit)
         }
 
         for (study in repeatedStudies) {
-            if (study.title == title) return
+            if (study.title == title) return Response.success(Unit)
         }
+        return Response.success(Unit)
     }
 
-    override suspend fun getStudyList(date: String): StudyListDto {
+    override suspend fun getStudyList(date: String): Response<StudyListDto> {
         val studyDtoList = mutableListOf<StudyDto>()
         studies.forEachIndexed { index, study ->
             studyDtoList.add(
@@ -70,17 +73,23 @@ class FakeStudyRepository : StudyRepository {
         }
         fakeStudyDtoList = studyDtoList
 
-        return StudyListDto(
-            "Test",
-            fakeStudyDtoList
+        return Response.success(
+            StudyListDto(
+                "Test",
+                fakeStudyDtoList
+            )
         )
     }
 
-    override suspend fun getStudyTimeLine(date: String): StudyTimeLineDto {
+    override suspend fun getStudyTimeLine(date: String): Response<StudyTimeLineDto> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun editStudy(studyGroupId: String, studyScheduleId: String, study: Study): Response<Unit> {
+    override suspend fun editStudy(
+        studyGroupId: String,
+        studyScheduleId: String,
+        study: Study
+    ): Response<Unit> {
         fakeStudyDtoList[studyGroupId.toInt()] = StudyDto(
             endAt = study.startAt,
             isDone = false,
